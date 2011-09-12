@@ -1,4 +1,8 @@
 Board10::Application.routes.draw do
+  resources :memberships
+
+  resources :ownerships
+
   # if I type 'users' it will take me to their index
   #get 'users' => 'users#index'
   #post 'users' => 'users#index'

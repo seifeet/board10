@@ -1,11 +1,23 @@
 <tr>
   <td class="posting">
     <% unless posting.subject.empty? %>
-    <span class="subject"><%= posting.subject  %></span><br />
+    <span class="subject"><%= posting.subject  %></span>
     <% end %>
-    <span class="content"><%= posting.content %></span>
+        <% if ( posting.active_user ) %>
+    <span class="author"><%= link_to 'Author', user_path(posting.user_id) %></span>
+    <% end %>
+    
+    <% if ( posting.active_group ) %>
+    <span class="group"><%= link_to 'Group', group_path(posting.group_id) %></span>
+    <% end %>
+    <% if ( current_user?(posting.user_id) ) %>
+    <span class="edit"><%= link_to 'Edit', edit_posting_path(posting) %></span>
+    <span class="delete"><%= link_to 'Delete', posting, confirm: 'Are you sure?', method: :delete %></span>
+    <% end %>
+    <br />
+    <span class="content"><%= link_to strip_and_cut(posting.content, 120), posting_path(posting) %></span>
     <span class="timestamp">
-    <br />Posted <%= time_ago_in_words(posting.created_at) %> ago.
+    <i>Posted <%= time_ago_in_words(posting.created_at) %> ago.</i> 
     </span>
   </td>
 </tr>

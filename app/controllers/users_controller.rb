@@ -1,34 +1,32 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:index, :edit, :update, :destroy, :show]
+  include UsersHelper
+  before_filter :authenticate, :only => [:index, :edit, :update, :show]
   before_filter :correct_user, :only => [:edit, :update, :destroy]
-  before_filter :admin_user,   :only => :destroy
+  #before_filter :admin_user
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.where(:active => true).paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
+    @users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'Boardlers'
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
     end
-    
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.active_user.find(params[:id])
-    @postings = @user.postings.paginate(:page => params[:page], :per_page => 20 )
+    @user = User.find(params[:id])
+    
+    @postings = @user.postings.paginate(:page => params[:page], :per_page => 20 ).order('created_at DESC')
     @title = @user.full_name;
     
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
     end
-
-    rescue ActiveRecord::RecordNotFound
-      user_not_found
   end
 
   # GET /users/new
@@ -44,12 +42,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.active_user.find(params[:id])
-    
+    # @user was set in 'before_filter :correct_user'
+    #@user = User.find(params[:id])
     @title = 'Edit - ' + @user.full_name
-    
-    rescue ActiveRecord::RecordNotFound
-      user_not_found
   end
 
   # POST /users
@@ -73,7 +68,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.active_user.find(params[:id])
+    # @user was set in 'before_filter :correct_user'
+    #@user = User.find(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -84,45 +80,27 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-    rescue ActiveRecord::RecordNotFound
-      user_not_found
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.active_user.find(params[:id])
+    # @user was set in 'before_filter :correct_user'
+    #@user = User.find(params[:id])
     
     @user.toggle!(:active)
-
+    delete_postings @user
+    
+    #flash.now[:success] = "We hope to see you again."
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to signin_path, notice: 'We hope to see you again.' }
       format.json { head :ok }
     end
-    rescue ActiveRecord::RecordNotFound
-      user_not_found
   end
   
   private
   
-    def user_not_found
-      # etu hren' nado meniat'!
-      flash[:success] = "Profile Unavailable"
-      redirect_to '404'
-    end
-
-    def authenticate
-      deny_access unless signed_in?
-    end
-    
-    def correct_user
-      @user = User.active_user.find(params[:id])
-      redirect_to(@user) unless current_user?(@user) # || current_user.admin?
-      rescue ActiveRecord::RecordNotFound
-      user_not_found
-    end
-    
-    def admin_user
-      redirect_to(root_path) unless current_user.admin?
+    def delete_postings user
+      user.delete_postings
     end
 end

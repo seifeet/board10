@@ -1,0 +1,11 @@
+<h2><strong><%= @group.status %> Group</strong></h2>
+<p>
+    <% if ( @group.active? ) %>
+        <span class="edit"><%= link_to 'Edit Group', edit_group_path(@group) %></span>
+        | <span class="delete"><%= link_to 'Delete Group', @group, confirm: 'Are you sure?', method: :delete %></span>
+    <% end %>
+</p>
+<p><b>Title:</b> <%= @group.title %></p>
+<p><b>Access level:</b> <%= @group.access %></p>
+<p><b>Views:</b> <%= @group.view_count %></p>
+<p><b>Description:</b> <%= @group.description %></p>

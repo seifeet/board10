@@ -5,11 +5,13 @@
   <nav class="round">
       <!--li--><!-- %= link_to "Home", root_path % --><!--/li-->
       <% if current_user && signed_in? %>
-      <%= link_to "Home", user_path(current_user) %> 
-      <%= link_to "Profile", user_path(current_user) %>
-      <%= link_to "Edit Profile", edit_user_path(current_user) %> 
-      <%= link_to "Sign out", signout_path, :method => :delete %>
-      <strong>My Posts</strong> <%= current_user.postings.count %>
+      <%= link_to "My Profile", user_path(current_user) %>
+      | <%= link_to "Users", users_path %>
+      | <%= link_to "Groups", groups_path %>
+      | <%= link_to "Memberships", memberships_path %>
+      | <%= link_to "Ownerships", ownerships_path %>
+      | <%= link_to "Posts", postings_path %> <i>You have <%= pluralize(current_user.postings.count, 'post') %></i>
+      | <%= link_to "Sign out", signout_path, :method => :delete %> 
       <!--li--><!-- %= link_to "Sign in", signin_path % --><!--/li-->
       <% end %>
   </nav>

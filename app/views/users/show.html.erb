@@ -1,6 +1,13 @@
 <p id="notice">
     <%= notice %>
 </p>
+<h2><strong>User</strong></h2>
+    <% if current_user?(@user) %>
+    <td><%= link_to 'New Group', new_group_path %></td>
+    <td>| <%= link_to 'Edit Profile', edit_user_path(@user) %></td>
+    <td>| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+                      :title => "Delete #{@user.full_name}" %></td>
+    <% end %>
 <p>
     <%= avatar_for @user %>
     <br />
@@ -19,6 +26,7 @@
     <b>Views:</b>
     <%= @user.view_count %>
 </p>
+<% if ( !@postings.nil? ) %>
 <p>
 <div class="apple_pagination">
     <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
@@ -32,5 +40,4 @@
     <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
 </div>
 </p>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %> 
+<% end %>

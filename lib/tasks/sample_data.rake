@@ -39,5 +39,24 @@ namespace :db do
         end
       end
     end
+    
+    # make_relationships
+    users = User.all
+    groups = Group.all
+    user  = users.first
+    user2 = users.second
+    user3 = users.last
+    ownerships = groups[1..25]
+    memberships = groups[26..50]
+    ownerships2 = groups[1..15]
+    memberships2 = groups[16..50]
+    ownerships3 = groups[10..30]
+    memberships3 = groups[1..9]
+    ownerships.each { |group| user.owner!(group) }
+    memberships.each { |group| user.member!(group) }
+    ownerships2.each { |group| user2.owner!(group) }
+    memberships2.each { |group| user2.member!(group) }
+    ownerships3.each { |group| user3.owner!(group) }
+    memberships3.each { |group| user3.member!(group) }
   end
 end

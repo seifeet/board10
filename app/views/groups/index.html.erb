@@ -1,35 +1,13 @@
-<h1>Listing groups</h1>
+<h1>Groups</h1>
 <div class="apple_pagination">
     <%= will_paginate @groups, :container => false, :total_entries => @groups.count %>
 </div>
 <table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>View count</th>
-    <th>Active</th>
-    <th>Access level</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @groups.each do |group| %>
-  <tr>
-    <td><%= group.title %></td>
-    <td><%= group.description %></td>
-    <td><%= group.view_count %></td>
-    <td><%= group.active %></td>
-    <td><%= group.access_level %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<%= render group %>
 <% end %>
 </table>
 <div class="apple_pagination">
     <%= will_paginate @groups, :container => false, :total_entries => @groups.count %>
 </div>
 <br />
-
-<%= link_to 'New Group', new_group_path %>

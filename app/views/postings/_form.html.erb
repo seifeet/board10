@@ -2,7 +2,6 @@
   <% if @posting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@posting.errors.count, "error") %> prohibited this posting from being saved:</h2>
-
       <ul>
       <% @posting.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,36 +9,19 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :group_id %><br />
-    <%= f.number_field :group_id %>
-  </div>
-  <div class="field">
-    <%= f.label :active_group %><br />
-    <%= f.check_box :active_group %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :active_user %><br />
-    <%= f.check_box :active_user %>
-  </div>
-  <div class="field">
-    <%= f.label :visibility %><br />
-    <%= f.number_field :visibility %>
-  </div>
+    <%= hidden_field_tag 'group_id', params[:group_id] %>
   <div class="field">
     <%= f.label :subject %><br />
-    <%= f.text_field :subject %>
+    <%= f.text_field :subject, :size => 40 %>
   </div>
   <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%= f.label :content %>
+    <%= f.radio_button 'visibility', '2' %><%= f.label :visibility ,'Public' %>
+    <%= f.radio_button 'visibility', '1' %><%= f.label :visibility ,'Protected' %>
+    <%= f.radio_button 'visibility', '0' %><%= f.label :visibility ,'Private' %><br />
+    <%= f.text_area :content, :rows => 7, :cols => 40 %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Add Post' %>
   </div>
 <% end %>

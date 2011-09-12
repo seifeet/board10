@@ -1,40 +1,19 @@
 <p id="notice"><%= notice %></p>
-
+<h2><strong><%= @posting.access %> Post</strong></h2>
+<% if ( current_user?(@posting.user_id) ) %>
 <p>
-  <b>Group:</b>
-  <%= @posting.group_id %>
+<%= link_to 'Edit', edit_posting_path(@posting) %>
 </p>
-
-<p>
-  <b>Active group:</b>
-  <%= @posting.active_group %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @posting.user_id %>
-</p>
-
-<p>
-  <b>Active user:</b>
-  <%= @posting.active_user %>
-</p>
-
-<p>
-  <b>Visibility:</b>
-  <%= @posting.visibility %>
-</p>
-
-<p>
-  <b>Subject:</b>
-  <%= @posting.subject %>
-</p>
-
-<p>
-  <b>Content:</b>
-  <%= @posting.content %>
-</p>
+<% end %>
+<p><b>Group is <%= link_to @posting.group_status, group_path(@posting.group_id) %></b></p>
+<p><b>User is 
+    <% if ( @posting.active_user )%>
+    <%= link_to @posting.user_status, user_path(@posting.user_id) %>
+    <% else %>
+    <%= @posting.user_status %>
+    <% end %>
+</b><p>
+<p><b>Subject:</b> <%= @posting.subject %></p>
+<p><b>Content:</b> <%= @posting.content %></p>
 
 
-<%= link_to 'Edit', edit_posting_path(@posting) %> |
-<%= link_to 'Back', postings_path %>

@@ -1,0 +1,13 @@
+<h1>Memberships</h1>
+<table>
+    <% users = User.all %>
+    <% users.each do |u| %>
+    <% if u.memberships.count > 0 %>
+    <tr><td><h3><%= link_to u.full_name, user_path(u) %> is a member in the groups:</h3></td></tr>
+    <% u.memberships.each do |membership| %>
+       <%= render membership %>
+    <% end %>
+    <% end %>
+    <% end %>
+</table>
+<br />

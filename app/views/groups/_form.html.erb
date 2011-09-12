@@ -10,26 +10,19 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :access_level %> 
+    <%= f.radio_button 'access_level', '2' %><%= f.label :access_level ,'Public' %>
+    <%= f.radio_button 'access_level', '1' %><%= f.label :access_level ,'Protected' %>
+    <%= f.radio_button 'access_level', '0' %><%= f.label :access_level ,'Private' %><br />
+  </div>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :size => 60 %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :view_count %><br />
-    <%= f.number_field :view_count %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :access_level %><br />
-    <%= f.number_field :access_level %>
+    <%= f.text_area :description, :rows => 3, :cols => 40 %>
   </div>
   <div class="actions">
     <%= f.submit %>

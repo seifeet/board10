@@ -1,0 +1,13 @@
+<h1>Ownerships</h1>
+<table>
+    <% users = User.all %>
+    <% users.each do |u| %>
+    <% if u.ownerships.count > 0 %>
+    <tr><td><h3><%= link_to u.full_name, user_path(u) %> is an owner of the groups:</h3></td></tr>
+    <% u.ownerships.each do |ownership| %>
+       <%= render ownership %>
+    <% end %>
+    <% end %>
+    <% end %>
+</table>
+<br />

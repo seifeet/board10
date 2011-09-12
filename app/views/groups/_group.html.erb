@@ -1,0 +1,18 @@
+<tr>
+    <td class="group">
+        <span class="access"><%= group.access %> Group: </span>
+        <span class="title"><%= link_to group.title, group %></span>
+        <span class="status"><i><%= group.status unless ( group.active ) %></i></span>
+        <span class="views"><i>
+                (<%= pluralize(group.view_count, 'view') + ', ' + pluralize(group.postings.count, 'post') %>)
+                </i>
+        </span>
+        <% if ( current_user.admin? && group.active? ) %>
+        <span class="edit_group"><%= link_to 'Edit', edit_group_path(group) %></span>
+        <span class="delete_group"><%= link_to 'Delete', group, confirm: 'Are you sure?', method: :delete %></span>
+        <% end %>
+        <br />
+        <span class="description"><%= strip_and_cut( group.description ) %></span>
+    </td>
+</tr>
+
