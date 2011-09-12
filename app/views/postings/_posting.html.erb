@@ -1,0 +1,11 @@
+<tr>
+  <td class="posting">
+    <% unless posting.subject.empty? %>
+    <span class="subject"><%= posting.subject  %></span><br />
+    <% end %>
+    <span class="content"><%= posting.content %></span>
+    <span class="timestamp">
+    <br />Posted <%= time_ago_in_words(posting.created_at) %> ago.
+    </span>
+  </td>
+</tr>

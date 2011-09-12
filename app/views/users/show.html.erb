@@ -1,0 +1,36 @@
+<p id="notice">
+    <%= notice %>
+</p>
+<p>
+    <%= avatar_for @user %>
+    <br />
+    <b>Email:</b>
+    <%= @user.email %>
+</p>
+<p>
+    <b>Name:</b>
+    <%= @user.full_name %>
+</p>
+<p>
+    <b>Location:</b>
+    <%= @user.location %>
+</p>
+<p>
+    <b>Views:</b>
+    <%= @user.view_count %>
+</p>
+<p>
+<div class="apple_pagination">
+    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+</div>
+<% unless @postings.empty? %>
+<table class="postings" summary="User postings">
+    <%= render @postings %>
+</table>
+<% end %>
+<div class="apple_pagination">
+    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+</div>
+</p>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %> 

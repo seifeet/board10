@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Group:</b>
+  <%= @posting.group_id %>
+</p>
+
+<p>
+  <b>Active group:</b>
+  <%= @posting.active_group %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @posting.user_id %>
+</p>
+
+<p>
+  <b>Active user:</b>
+  <%= @posting.active_user %>
+</p>
+
+<p>
+  <b>Visibility:</b>
+  <%= @posting.visibility %>
+</p>
+
+<p>
+  <b>Subject:</b>
+  <%= @posting.subject %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @posting.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_posting_path(@posting) %> |
+<%= link_to 'Back', postings_path %>

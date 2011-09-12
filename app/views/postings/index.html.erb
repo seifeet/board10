@@ -1,0 +1,38 @@
+<h1>Listing postings</h1>
+<div class="apple_pagination">
+    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+</div>
+<table>
+  <tr>
+    <th>Group</th>
+    <th>Active group</th>
+    <th>User</th>
+    <th>Active user</th>
+    <th>Visibility</th>
+    <th>Subject</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @postings.each do |posting| %>
+  <tr>
+    <td><%= posting.group_id %></td>
+    <td><%= posting.active_group %></td>
+    <td><%= posting.user_id %></td>
+    <td><%= posting.active_user %></td>
+    <td><%= posting.visibility %></td>
+    <td><%= posting.subject %></td>
+    <td><%= posting.content %></td>
+    <td><%= link_to 'Show', posting %></td>
+    <td><%= link_to 'Edit', edit_posting_path(posting) %></td>
+    <td><%= link_to 'Destroy', posting, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<div class="apple_pagination">
+    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+</div>
+<br />
+
+<%= link_to 'New Posting', new_posting_path %>

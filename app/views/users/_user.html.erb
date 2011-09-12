@@ -1,0 +1,19 @@
+<tr>
+    <td><%= user.email %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.country %></td>
+    <td><%= user.state %></td>
+    <td><%= user.city %></td>
+    <td><%= user.admin %></td>
+    <td><%= user.view_count %></td>
+    <td><%= user.remember_token %></td>
+    <td><%= link_to 'Show', user %></td>
+    <% if current_user?(user) %>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <% end %>
+    <% if current_user.admin? %>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete,
+                      :title => "Delete #{user.full_name}" %></td>
+    <% end %>
+</tr>

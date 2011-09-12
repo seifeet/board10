@@ -1,0 +1,21 @@
+<header>
+  <%= link_to logo, root_path %>
+  <br />
+  <%= current_user.full_name unless current_user.nil? %>
+  <nav class="round">
+      <!--li--><!-- %= link_to "Home", root_path % --><!--/li-->
+      <% if current_user && signed_in? %>
+      <%= link_to "Home", user_path(current_user) %> 
+      <%= link_to "Profile", user_path(current_user) %>
+      <%= link_to "Edit Profile", edit_user_path(current_user) %> 
+      <%= link_to "Sign out", signout_path, :method => :delete %>
+      <strong>My Posts</strong> <%= current_user.postings.count %>
+      <!--li--><!-- %= link_to "Sign in", signin_path % --><!--/li-->
+      <% end %>
+  </nav>
+  
+<% flash.each do |key, value|%>
+<%= content_tag(:div, value, :class => "flash #{key}") %>
+<% end %>
+
+</header>

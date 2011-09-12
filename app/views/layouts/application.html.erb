@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boardler<%= ': ' + @title unless @title.blank? %></title>
+  <%= render 'layouts/stylesheets' %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container"> <!-- This container div is needed by Blueprint -->
+<%= render 'layouts/header' %>
+<%= yield %>
+<%= debug(params) if Rails.env.development? %>
+</div>
+</body>
+</html>
