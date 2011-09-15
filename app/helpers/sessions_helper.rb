@@ -1,5 +1,5 @@
 module SessionsHelper
-  def user_not_found
+  def page_not_found
       # etu hren' nado meniat'!
       #flash[:success] = "Profile Unavailable"
       redirect_to '/404.html'

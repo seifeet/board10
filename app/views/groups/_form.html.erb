@@ -12,9 +12,8 @@
   <% end %>
   <div class="field">
     <%= f.label :access_level %> 
-    <%= f.radio_button 'access_level', '2' %><%= f.label :access_level ,'Public' %>
-    <%= f.radio_button 'access_level', '1' %><%= f.label :access_level ,'Protected' %>
-    <%= f.radio_button 'access_level', '0' %><%= f.label :access_level ,'Private' %><br />
+    <%= f.radio_button 'access_level', '1' %><%= f.label :access_level , Group::PUBLIC %>
+    <%= f.radio_button 'access_level', '0' %><%= f.label :access_level , Group::PRIVATE %><br />
   </div>
   <div class="field">
     <%= f.label :title %><br />

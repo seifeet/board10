@@ -35,6 +35,8 @@ namespace :db do
           posting.group_id = group.id
           posting.subject = Faker::Lorem.sentence(5)
           posting.content = Faker::Lorem.sentence(5)
+          posting.visibility = Random.rand(1)
+          posting.access_level = Random.rand(1)
           posting.save!
         end
       end
@@ -52,11 +54,11 @@ namespace :db do
     memberships2 = groups[16..50]
     ownerships3 = groups[10..30]
     memberships3 = groups[1..9]
-    ownerships.each { |group| user.owner!(group) }
-    memberships.each { |group| user.member!(group) }
-    ownerships2.each { |group| user2.owner!(group) }
-    memberships2.each { |group| user2.member!(group) }
-    ownerships3.each { |group| user3.owner!(group) }
-    memberships3.each { |group| user3.member!(group) }
+    ownerships.each { |group| user.owner!(group.id) }
+    memberships.each { |group| user.member!(group.id) }
+    ownerships2.each { |group| user2.owner!(group.id) }
+    memberships2.each { |group| user2.member!(group.id) }
+    ownerships3.each { |group| user3.owner!(group.id) }
+    memberships3.each { |group| user3.member!(group.id) }
   end
 end

@@ -14,10 +14,8 @@ class User < ActiveRecord::Base
   # default_scope :order => 'created_at'
   
   has_many :postings, :dependent => :destroy
-  has_many :ownerships, :foreign_key => "user_id", :dependent => :destroy
-  has_many :memberships, :foreign_key => "user_id", :dependent => :destroy
-  has_many :groups, :through => :memberships, :source => :group
-  has_many :groups, :through => :ownerships, :source => :group
+  has_many :members, :foreign_key => "user_id", :dependent => :destroy
+  has_many :groups, :through => :members
   
   before_save :encrypt_password
   
@@ -43,41 +41,6 @@ class User < ActiveRecord::Base
     ( country.nil? ? '' : country ) + ' ' + ( state.nil? ? '' : state ) + ' ' + ( city.nil? ? '' : city )
   end
   
-  def member?(group)
-    memberships.find_by_group_id(group)
-  end
-
-  def member!(group)
-    memberships.create!(:group_id => group.id)
-  end
-  
-  def unmember!(group)
-    memberships.find_by_group_id(group).destroy
-  end
-
-  def owner?(group)
-    ownerships.find_by_group_id(group)
-  end
-
-  def owner!(group)
-    ownerships.create!(:group_id => group.id)
-  end
-  
-  def unowner!(group)
-    ownerships.find_by_group_id(group).destroy
-  end
-  
-  def belongs(group)
-    memberships.each do |member|
-      return true if group.id == member.group_id
-    end
-    
-    ownerships.each do |owner|
-      return true if group.id == owner.group_id
-    end
-    false
-  end
-  
   # Return true if the user's password matches the submitted password.
   def has_password?(submitted_password)
     # Compare encrypted_password with the encrypted version of
@@ -89,12 +52,16 @@ class User < ActiveRecord::Base
     user = find_by_email(email)
     return nil  if user.nil?
     return user if user.has_password?(submitted_password)
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
   
   # needed for 'remember me' functionality
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
   
   def delete_postings
@@ -102,6 +69,32 @@ class User < ActiveRecord::Base
       posting.active_user = false
       posting.save
     end
+  end
+  
+  def member?(group_id)
+    members.find_by_group_id(group_id)
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def member!(group)
+    members.create!(:group_id => group.id, :owner => true)
+  end
+  
+  def owner?(group_id)
+    members.find_by_group_id_and_owner(group_id,true)
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def owner!(group)
+    members.create!(:group_id => group.id)
+  end
+  
+  def unmember!(group_id)
+    members.find_by_group_id(group_id).destroy
+    rescue ActiveRecord::RecordNotFound
+    false
   end
   
   private

@@ -10,14 +10,15 @@
     <% if ( posting.active_group ) %>
     <span class="group"><%= link_to 'Group', group_path(posting.group_id) %></span>
     <% end %>
-    <% if ( current_user?(posting.user_id) ) %>
+    <span class="timestamp">
+    <i>Posted <%= time_ago_in_words(posting.created_at) %> ago.</i> 
+    </span>
+    <i>(<%= pluralize( posting.view_count, 'view') %>)</i>
+    <% if ( current_user.id == posting.user_id ) %>
     <span class="edit"><%= link_to 'Edit', edit_posting_path(posting) %></span>
     <span class="delete"><%= link_to 'Delete', posting, confirm: 'Are you sure?', method: :delete %></span>
     <% end %>
     <br />
     <span class="content"><%= link_to strip_and_cut(posting.content, 120), posting_path(posting) %></span>
-    <span class="timestamp">
-    <i>Posted <%= time_ago_in_words(posting.created_at) %> ago.</i> 
-    </span>
   </td>
 </tr>

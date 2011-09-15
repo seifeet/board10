@@ -21,7 +21,12 @@ class Group < ActiveRecord::Base
     end
   end
   
+  ACTIVE = 'Active'
+  INACTIVE = 'Inactive'
+  PRIVATE = 'Private'
+  PUBLIC = 'Public'
+  
   private
     STATUS = { true => "Active", false => "Inactive" }
-    ACCESS = { 0 => "Private", 1 => "Protected", 2 => "Public" }
+    ACCESS = { 0 => "Private", 1 => "Public" }
 end

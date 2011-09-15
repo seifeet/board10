@@ -2,20 +2,20 @@
     <%= notice %>
 </p>
 <%= render 'group_details' %>
-<!-- if current user is a owner or member of a group -->
-<% if ( current_user.belongs( @group ) ) %>
-<%= render 'postings/form' %>
+<% if current_user.member?( @group.id ) %>
+<%= render 'posting_form' %>
 <% end %>
-<% if ( !@postings.nil? ) %>
+<% if ( !@postings.nil? && !@postings.empty? ) %>
 <p>
+<% if ( !current_user.member?( @group.id ) && @postings.count > 0 && @group.access == Group::PRIVATE ) %> 
+<i>Note: It is a private group, so you can only see the public posts.</i>
+<% end %>
     <div class="apple_pagination">
         <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
     </div>
-    <% unless @postings.empty? %>
     <table class="postings" summary="group postings">
         <%= render @postings %>
     </table>
-    <% end %>
     <div class="apple_pagination">
         <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
     </div>

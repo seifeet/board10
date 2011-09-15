@@ -1,6 +1,6 @@
 <h2><strong><%= @group.status %> Group</strong></h2>
 <p>
-    <% if ( @group.active? ) %>
+    <% if @group.active? && current_user.owner?(@group.id) %>
         <span class="edit"><%= link_to 'Edit Group', edit_group_path(@group) %></span>
         | <span class="delete"><%= link_to 'Delete Group', @group, confirm: 'Are you sure?', method: :delete %></span>
     <% end %>

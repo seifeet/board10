@@ -1,10 +1,13 @@
 <p id="notice"><%= notice %></p>
 <h2><strong><%= @posting.access %> Post</strong></h2>
-<% if ( current_user?(@posting.user_id) ) %>
 <p>
+<% if ( current_user.id == @posting.user_id ) %>
 <%= link_to 'Edit', edit_posting_path(@posting) %>
-</p>
+| <span class="delete_group">
+    <%= link_to 'Delete', @posting, confirm: 'Are you sure?', method: :delete %></span>
 <% end %>
+<i><%= pluralize( @posting.view_count, 'view') %></i>
+</p>
 <p><b>Group is <%= link_to @posting.group_status, group_path(@posting.group_id) %></b></p>
 <p><b>User is 
     <% if ( @posting.active_user )%>

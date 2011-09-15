@@ -5,7 +5,8 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.paginate(:page => params[:page], :per_page => 40).order('updated_at DESC')
+    store_location # store the page location for back functionality
+    @groups = Group.paginate(:page => params[:page], :per_page => 40).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,18 +17,40 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @posting = Posting.new
+    store_location # store the page location for back functionality
+    @posting_form = Posting.new
     @group = Group.find(params[:id])
+    
+    search_str = ' ' + @group.id.to_s + ' '
+    if session[:group_counter].nil?
+      @group.update_attribute(:view_count, @group.view_count+1)
+      session[:group_counter] = search_str
+    elsif session[:group_counter].index(search_str).nil?
+      @group.update_attribute(:view_count, @group.view_count+1)
+      session[:group_counter] += @group.id.to_s + ' ';
+      # reset the :group_counter with too many groups
+      session[:group_counter] = search_str if session[:group_counter].split.count > 30
+    end
+    
     # sending group_id for posting form.
-    # if we put postings mox in the group panel permanatly
+    # if we put postings box in the group panel permanatly
     # then we can remove this parameter.
     params[:group_id] = @group.id
-    @postings = @group.postings.paginate(:page => params[:page], :per_page => 20 ).order('created_at DESC')
-    
+    # if user is a member of the group then get all postings
+    if ( current_user.member?( @group.id ) )
+      @postings = @group.postings.paginate(:page => params[:page],
+      :per_page => 20 ).order('created_at DESC')
+    else # get only public postings
+      @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
+      :per_page => 20 ).order('created_at DESC')
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @group }
     end
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
 
   # GET /groups/new
@@ -49,18 +72,26 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
+    group_saved = false
     if ( !params[:group].nil? )
-       @group = Group.new(params[:group])
+      @group = Group.new(params[:group])
+      @group.transaction do 
+        @group.save
+        @member = current_user.owner!(@group)
+        group_saved = true
+      end
     else
-       @posting = Posting.new(params[:posting])
-       # HERE CHECK THAT THE USER BELONGS TO THIS GROUP
-       @posting.group_id = @group.id
-       @posting.user_id = current_user.id
-       @posting = current_user.postings.build(@posting)
+      if ( !current_user.member?(@group.id) )
+        raise ActiveRecord::RecordNotFound
+      end
+      @posting = Posting.new(params[:posting])
+      @posting.group_id = @group.id
+      @posting.user_id = current_user.id
+      @posting = current_user.postings.create!(@posting)
     end
 
     respond_to do |format|
-      if ( !params[:posting].nil? && @posting.save ) || @group.save
+      if ( !params[:posting].nil? && @posting.save ) || group_saved
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
@@ -68,6 +99,8 @@ class GroupsController < ApplicationController
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
 
   # PUT /groups/1
@@ -84,6 +117,8 @@ class GroupsController < ApplicationController
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
 
   # DELETE /groups/1
@@ -91,7 +126,7 @@ class GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     #@group.destroy
-    
+
     @group.toggle!(:active)
     delete_postings @group
 
@@ -99,11 +134,13 @@ class GroupsController < ApplicationController
       format.html { redirect_to groups_url }
       format.json { head :ok }
     end
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
-  
+
   private
-  
-    def delete_postings group
-      group.delete_postings
-    end
+
+  def delete_postings group
+    group.delete_postings
+  end
 end

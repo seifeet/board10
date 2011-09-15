@@ -25,8 +25,14 @@ class Posting < ActiveRecord::Base
   def access
     VISIBILITY[visibility]
   end
+  
+  ACTIVE = 'Active'
+  INACTIVE = 'Inactive'
+  PRIVATE = 'Private'
+  PUBLIC = 'Public'
+
   private
     GROUP_STATUS = { true => "Active", false => "Inactive" }
     USER_STATUS = { true => "Active", false => "Inactive" }
-    VISIBILITY = { 0 => "Private", 1 => "Protected", 2 => "Public" }
+    VISIBILITY = { 0 => "Private", 1 => "Public" }
 end

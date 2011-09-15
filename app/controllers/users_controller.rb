@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    store_location
     @users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'Boardlers'
     respond_to do |format|
@@ -18,15 +19,30 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    store_location
     @user = User.find(params[:id])
     
+    search_str = ' ' + @user.id.to_s + ' '
+    if session[:user_counter].nil?
+      @user.update_attribute(:view_count, @user.view_count+1)
+      session[:user_counter] = search_str
+    elsif session[:user_counter].index(search_str).nil?
+      @user.update_attribute(:view_count, @user.view_count+1)
+      session[:user_counter] += @user.id.to_s + ' ';
+      # reset the :user_counter with too many groups
+      session[:user_counter] = search_str if session[:user_counter].split.count > 30
+    end
+    
     @postings = @user.postings.paginate(:page => params[:page], :per_page => 20 ).order('created_at DESC')
+    
     @title = @user.full_name;
     
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
     end
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
   end
 
   # GET /users/new

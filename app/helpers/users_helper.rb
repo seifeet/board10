@@ -3,7 +3,7 @@ module UsersHelper
     @user = User.find(params[:id])
     redirect_to(@user) unless current_user?(@user) || current_user.admin?
   rescue ActiveRecord::RecordNotFound
-    user_not_found
+    page_not_found
     end
 
   def admin_user
