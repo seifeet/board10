@@ -1,12 +1,12 @@
 class GroupsController < ApplicationController
-  include UsersHelper
+  include GroupsHelper
   before_filter :authenticate, :only => [:index, :edit, :update, :show]
-  before_filter :correct_user, :only => [:edit, :update, :destroy]
+  before_filter :correct_group, :only => [:edit, :update, :destroy]
   # GET /groups
   # GET /groups.json
   def index
     store_location # store the page location for back functionality
-    @groups = Group.paginate(:page => params[:page], :per_page => 40).order('created_at DESC')
+    @groups = Group.unscoped.paginate(:page => params[:page], :per_page => 40).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   def show
     store_location # store the page location for back functionality
     @posting_form = Posting.new
-    @group = Group.find(params[:id])
+    @group = Group.unscoped.find(params[:id])
     
     search_str = ' ' + @group.id.to_s + ' '
     if session[:group_counter].nil?
@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
     # sending group_id for posting form.
     # if we put postings box in the group panel permanatly
     # then we can remove this parameter.
-    params[:group_id] = @group.id
+    # params[:group_id] = @group.id
     # if user is a member of the group then get all postings
     if ( current_user.member?( @group.id ) )
       @postings = @group.postings.paginate(:page => params[:page],
@@ -44,6 +44,9 @@ class GroupsController < ApplicationController
       @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
       :per_page => 20 ).order('created_at DESC')
     end
+    
+    @members = @group.members.paginate(:page => params[:page],
+      :per_page => 20 ).order('created_at ASC')
 
     respond_to do |format|
       format.html # show.html.erb
@@ -131,7 +134,7 @@ class GroupsController < ApplicationController
     delete_postings @group
 
     respond_to do |format|
-      format.html { redirect_to groups_url }
+      format.html { redirect_back_or groups_url }
       format.json { head :ok }
     end
     rescue ActiveRecord::RecordNotFound

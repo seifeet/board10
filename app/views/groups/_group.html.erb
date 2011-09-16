@@ -11,6 +11,7 @@
         <span class="edit_group"><%= link_to 'Edit', edit_group_path(group) %></span>
         <span class="delete_group"><%= link_to 'Delete', group, confirm: 'Are you sure?', method: :delete %></span>
         <% end %>
+        <span class="status"><i><font color=red><%= group.status unless group.active? %></font></i></span>
         <br />
         <span class="description"><%= strip_and_cut( group.description ) %></span>
     </td>

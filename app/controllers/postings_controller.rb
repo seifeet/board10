@@ -1,24 +1,24 @@
 class PostingsController < ApplicationController
   # allow authenticated users to do only the following actions
-  before_filter :authenticate, :only => [:index, :show]
+  before_filter :authenticate, :only => [:index, :show, :edit, :update, :destroy]
   # only owner of this posting can delete it
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   # GET /postings
   # GET /postings.json
   def index
     store_location
-    #@user = current_user.groups.first
-    @groups = current_user.groups
-    @group_count = current_user.groups.count
-    @count = 0
-    @groups.each do |group|
-      @count += group.postings.count
-    end
+
+    # @groups = current_user.groups
+    # @group_count = current_user.groups.count
+    # @total_posts = Posting.all.count
+    # @count = 0
+    # @groups.each do |group|
+    #  @count += group.postings.count
+    # end
 
     #@postings = postings_from_members.paginate(:page => 1, :per_page => 4).order('created_at DESC')
     
-    @postings = Posting.paginate(:page => params[:page], :per_page => 10 ).order('created_at DESC')
-
+    @public_postings = Posting.where(:visibility => 1).paginate(:page => params[:page], :per_page => 10 ).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,7 +32,7 @@ class PostingsController < ApplicationController
   # GET /postings/1
   # GET /postings/1.json
   def show
-    store_location
+    @posting_form = Posting.new
     @posting = Posting.find(params[:id])
     
     search_str = ' ' + @posting.id.to_s + ' '

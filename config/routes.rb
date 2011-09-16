@@ -1,5 +1,6 @@
 Board10::Application.routes.draw do
-  resources :members
+
+  resources :messages
 
   # if I type 'users' it will take me to their index
   #get 'users' => 'users#index'
@@ -11,6 +12,7 @@ Board10::Application.routes.draw do
 # and so on, for session controller, so we define them:
   resources :users
   resources :groups
+  resources :members #, :only => [:create, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :postings #, :only => [:create, :destroy]
 

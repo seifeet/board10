@@ -4,7 +4,7 @@
     <% users = User.all %>
     <% users.each do |u| %>
     <% if u.members.count > 0 %>
-    <tr><td><h3><%= link_to u.full_name, user_path(u) %> is a member in the groups:</h3></td></tr>
+    <tr><td><hr><h3><%= link_to u.full_name, user_path(u) %> is a member in the groups:</h3></td></tr>
     <% u.members.each do |member| %>
        <%= render member %>
     <% end %>

@@ -12,7 +12,7 @@ class Posting < ActiveRecord::Base
   validates :user_id, :presence => true
   validates :group_id, :presence => true
 
-  #default_scope :order => 'postings.created_at DESC'
+  default_scope :order => 'postings.created_at DESC'
   
   def user_status
     USER_STATUS[active_user]

@@ -9,6 +9,7 @@
 <body>
 <div class="container"> <!-- This container div is needed by Blueprint -->
 <%= render 'layouts/header' %>
+<hr>
 <%= yield %>
 <%= debug(params) if Rails.env.development? %>
 </div>

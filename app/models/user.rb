@@ -11,7 +11,13 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :country, :state, :city
   
   default_scope :conditions => {:active => true}
+  scope :admin, where(:admin => true)
   # default_scope :order => 'created_at'
+  
+  # these are messages that were sent to a user
+  has_many :recieved, :foreign_key => "to_user", :class_name => "Message"
+  # these are messages that a user has sent
+  has_many :sent, :foreign_key => "from_user", :class_name => "Message", :dependent => :destroy
   
   has_many :postings, :dependent => :destroy
   has_many :members, :foreign_key => "user_id", :dependent => :destroy
@@ -33,8 +39,14 @@ class User < ActiveRecord::Base
   email_regex = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   validates :email, :format => { :with => email_regex, :message => 'Email must be valid' }
   
+  def self.find_user user_id
+    self.find(user_id)
+    rescue ActiveRecord::RecordNotFound
+     nil
+  end
+  
   def full_name
-    id.to_s + ': ' + first_name + ' ' + last_name
+    first_name + ' ' + last_name + ' (' + id.to_s + ')'
   end
   
   def location
@@ -78,7 +90,7 @@ class User < ActiveRecord::Base
   end
   
   def member!(group)
-    members.create!(:group_id => group.id, :owner => true)
+    members.create!(:group_id => group.id)
   end
   
   def owner?(group_id)
@@ -88,7 +100,7 @@ class User < ActiveRecord::Base
   end
   
   def owner!(group)
-    members.create!(:group_id => group.id)
+    members.create!(:group_id => group.id, :owner => true)
   end
   
   def unmember!(group_id)
@@ -96,6 +108,12 @@ class User < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
     false
   end
+  
+  #def all_groups_postings
+  #  groups.each do |group|
+  #    @postings = group.all_member_comments
+  #  end
+  #end
   
   private
 

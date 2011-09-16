@@ -1,5 +1,5 @@
 <h1>Groups</h1>
-
+<%= link_to 'New Group', new_group_path %>
 <div class="apple_pagination">
     <%= will_paginate @groups, :container => false, :total_entries => @groups.count %>
 </div>

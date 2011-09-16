@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
-  include UsersHelper
+  include MembersHelper
   before_filter :authenticate, :only => [:index]
-  before_filter :correct_user, :only => [:destroy]
+  before_filter :correct_member, :only => [:destroy]
   # GET /members
   # GET /members.json
   def index
@@ -44,11 +44,14 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     @member = Member.new(params[:member])
+    @member.user_id = current_user.id
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
-        format.json { render json: @member, status: :created, location: @member }
+        format.html { redirect_to group_path(@member.group_id), 
+          notice: 'Member was successfully created.' }
+        format.json { render json: group_path(@member.group_id),
+           status: :created, location: group_path(@member.group_id) }
       else
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
@@ -79,7 +82,7 @@ class MembersController < ApplicationController
     @member.destroy
 
     respond_to do |format|
-      format.html { redirect_to members_url }
+      format.html { redirect_back_or user_path(params[:id]) }
       format.json { head :ok }
     end
   end

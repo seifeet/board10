@@ -1,13 +1,15 @@
 <p id="notice">
     <%= notice %>
 </p>
+
+<table><tr><td>
 <%= render 'group_details' %>
-<% if current_user.member?( @group.id ) %>
-<%= render 'posting_form' %>
-<% end %>
+</td>
+
+<tr><td colspan="2">
 <% if ( !@postings.nil? && !@postings.empty? ) %>
 <p>
-<% if ( !current_user.member?( @group.id ) && @postings.count > 0 && @group.access == Group::PRIVATE ) %> 
+<% if ( !current_user.member?( @group.id ) && @group.access == Group::PRIVATE ) %> 
 <i>Note: It is a private group, so you can only see the public posts.</i>
 <% end %>
     <div class="apple_pagination">
@@ -20,4 +22,12 @@
         <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
     </div>
 </p>
+</td></tr>
+<tr><td colspan="2">
+<% if @group.active? && current_user.member?( @group.id ) %>
+<% @reply = false %>
+<%= render 'posting_form' %>
+<% end %>
+</td></tr>
+</table>
 <% end %>

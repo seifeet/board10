@@ -8,15 +8,23 @@
 <% end %>
 <i><%= pluralize( @posting.view_count, 'view') %></i>
 </p>
-<p><b>Group is <%= link_to @posting.group_status, group_path(@posting.group_id) %></b></p>
-<p><b>User is 
+<% @group = Group.find_group( @posting.group_id ) 
+   unless @group.nil? %>
+<p><b>Group: <%= link_to @group.title, group_path(@group) %></b></p>
+<% end %>
+<p><b>By: 
     <% if ( @posting.active_user )%>
-    <%= link_to @posting.user_status, user_path(@posting.user_id) %>
+    <%   @user = User.find_user( @posting.user_id ) 
+       unless @user.nil? %>
+    <%= link_to @user.full_name, user_path(@user) %>
+    <% end %>
     <% else %>
-    <%= @posting.user_status %>
+    <%= @posting.user_status %> user
     <% end %>
 </b><p>
 <p><b>Subject:</b> <%= @posting.subject %></p>
-<p><b>Content:</b> <%= @posting.content %></p>
-
-
+<p><b>Content:</b> <%= wrap(@posting.content) %></p>
+<% if current_user.id != @posting.user_id %>
+<% @reply = true %>
+<%= render 'groups/posting_form' %>
+<% end %>

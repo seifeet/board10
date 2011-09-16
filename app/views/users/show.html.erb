@@ -1,38 +1,37 @@
 <p id="notice">
     <%= notice %>
 </p>
-<h2><strong>User</strong></h2>
-    <% if current_user?(@user) %>
-    <td><%= link_to 'New Group', new_group_path %></td>
-    <td>| <%= link_to 'Edit Profile', edit_user_path(@user) %></td>
-    <td>| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
-                      :title => "Delete #{@user.full_name}" %></td>
-    <% end %>
-<p>
-    <%= avatar_for @user %>
-    <br />
-    <b>Email:</b>
-    <%= @user.email %>
+<h2 align="center"><strong><%= @user.full_name %></strong></h2> 
+<p align="center"><b><%= @user.email %>, <%= @user.location %>, 
+    <%= pluralize(@user.view_count, 'view') %></b></p>
+
+<hr>
+<p align="right">
+<% if current_user?(@user) %>
+<%= link_to 'New Group', new_group_path %>
+| <%= link_to 'Edit Profile', edit_user_path(@user) %>
+| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+                :title => "Delete #{@user.full_name}" %>
+<% end %>
 </p>
+<hr>
+<% unless @user.groups.empty? %>
+<h3><%= @user.first_name %>'s groups:</h3>
 <p>
-    <b>Name:</b>
-    <%= @user.full_name %>
+    <table>
+    <%= render @user.groups %>
+    </table>
 </p>
-<p>
-    <b>Location:</b>
-    <%= @user.location %>
-</p>
-<p><b>Views:</b><%= @user.view_count %></p>
-<% if ( !@postings.nil? ) %>
-<p>
+<% end %>
+<hr>
+<% unless @postings.nil? %>
+<h3><%= @user.first_name %>'s posts:</h3>
 <div class="apple_pagination">
     <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
 </div>
-<% unless @postings.empty? %>
-<table class="postings" summary="User postings">
+<table>
     <%= render @postings %>
 </table>
-<% end %>
 <div class="apple_pagination">
     <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
 </div>

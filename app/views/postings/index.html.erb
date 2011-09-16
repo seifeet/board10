@@ -1,17 +1,16 @@
-<h1>Posts</h1>
-|<%= @group_count %>|
-|<%= @count %>|
+<h1>Public posts</h1>
+<p>
 <div class="apple_pagination">
-    <%= will_paginate @postings, :container => false , :total_entries => @postings.count %>
+    <%= will_paginate @public_postings, :container => false , :total_entries => @public_postings.count %>
 </div>
 <table>
-<% @postings.each do |posting| %>
+<% @public_postings.each do |posting| %>
   <%= render posting %>
 <% end %>
 </table>
 <div class="apple_pagination">
-    <%= will_paginate @postings, :container => false , :total_entries => @postings.count %>
+    <%= will_paginate @public_postings, :container => false , :total_entries => @public_postings.count %>
 </div>
-<br />
+</p>
 
 

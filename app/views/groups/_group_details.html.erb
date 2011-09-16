@@ -1,4 +1,15 @@
 <h2><strong><%= @group.status %> Group</strong></h2>
+
+<p id="action_grp_btn">
+<% if current_user.owner?( @group.id ) %>
+<%= render 'grp_invite' %>
+<% elsif current_user.member?( @group.id ) %>
+<%= render 'grp_leave' %>
+<% else %>
+<%= render 'grp_join' %>
+<% end %>
+</p>
+
 <p>
     <% if @group.active? && current_user.owner?(@group.id) %>
         <span class="edit"><%= link_to 'Edit Group', edit_group_path(@group) %></span>
@@ -8,4 +19,13 @@
 <p><b>Title:</b> <%= @group.title %></p>
 <p><b>Access level:</b> <%= @group.access %></p>
 <p><b>Views:</b> <%= @group.view_count %></p>
+<p>
+<% unless @members.nil? %>
+<b>Members:</b>
+   <% @members.each do |member| %>
+   <% @member = member %>
+   <%= render 'group_member' %>
+   <% end %>
+<% end %>
+</p>
 <p><b>Description:</b> <%= @group.description %></p>

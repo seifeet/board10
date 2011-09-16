@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     store_location
-    @user = User.find(params[:id])
+    @user = User.find_user(params[:id])
+    raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
     search_str = ' ' + @user.id.to_s + ' '
     if session[:user_counter].nil?
@@ -33,7 +34,12 @@ class UsersController < ApplicationController
       session[:user_counter] = search_str if session[:user_counter].split.count > 30
     end
     
-    @postings = @user.postings.paginate(:page => params[:page], :per_page => 20 ).order('created_at DESC')
+    if ( current_user?( @user ) )
+       @postings = paginate_group_postings @user 
+    else
+       @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page],
+                 :per_page => 20 ).order('created_at DESC')
+    end
     
     @title = @user.full_name;
     
@@ -115,6 +121,20 @@ class UsersController < ApplicationController
   end
   
   private
+  
+    def paginate_group_postings user
+      require 'will_paginate/array'
+      @groups = user.groups
+      all_postings = []
+      @groups.each do |group| 
+         all_postings += group.all_member_comments(user.id)
+      end
+      
+      all_postings.uniq!.sort_by!{|posting|[posting.created_at]}.reverse!
+      
+      all_postings.paginate(:page => params[:page],
+        :per_page => 50, :total_etries => all_postings.size )
+    end 
   
     def delete_postings user
       user.delete_postings
