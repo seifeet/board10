@@ -1,33 +1,46 @@
-<tr>
-  <td class="posting">
-    <% group = Group.find( posting.group_id )%>
-    <span class="group">
-        <b>Group <%= link_to "#{strip_and_cut(group.title,50)}", group_path(posting.group_id) %></b>
+<li>
+  <p>
+    <% unless !posting.subject.nil? && posting.subject.empty? %>
+    <span class="subject">Subject: <%= posting.subject %></span>
+    <br />
+    <% end %>
+    <span class="content">
+        <%= link_to strip_and_cut(posting.content, 120), posting_path(posting) %>
     </span>
+    <i>
     <span class="author">
-        posted by   
+        posted by  
         <% if ( posting.active_user ) %>
-        <% user = User.find( posting.user_id )%>
-        <%= link_to "#{user.full_name}", user_path(posting.user_id) %>
+          <% if current_user.id == posting.user_id %>
+             you
+          <% elsif user = posting.user %>
+             <%= link_to "#{user.full_name}", user_path(posting.user_id) %>
+          <% else %>
+             Unknown user
+          <% end %>
         <% else %>
-        Unknown
+        Unknown user
         <% end %>
     </span>
     <span class="timestamp">
-        <i><%= time_ago_in_words(posting.created_at) %> ago.</i> 
+        <%= time_ago_in_words(posting.created_at) %> ago.
+    </span>
+    </i> 
+    <span class="access"><i><font color="red">
+        <%= posting.access if posting.access == Posting::PRIVATE %></font></i>
     </span>
     <br />
-    <% unless !posting.subject.nil? && posting.subject.empty? %>
-    <span class="subject">Subject: <%= posting.subject %></span>
-    <% end %>
+    <span class="group"><i>group
+      <% if group = Group.find(posting.group_id) %>
+         <%= link_to "#{strip_and_cut(group.title,50)}", group_path(posting.group_id) %>
+      <% else %>
+        Unknown
+      <% end %>
+    </i></span>
     <i>(<%= pluralize( posting.view_count, 'view') %>)</i>
     <% if ( current_user.id == posting.user_id ) %>
     <span class="edit"><%= link_to 'Edit', edit_posting_path(posting) %></span>
     <span class="delete"><%= link_to 'Delete', posting, confirm: 'Are you sure?', method: :delete %></span>
     <% end %>
-    <br />
-    <span class="content">
-        <%= link_to strip_and_cut(posting.content, 120), posting_path(posting) %>
-    </span>
-  </td>
-</tr>
+    </p>
+</li>

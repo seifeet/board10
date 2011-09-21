@@ -1,12 +1,14 @@
 class GroupsController < ApplicationController
   include GroupsHelper
-  before_filter :authenticate, :only => [:index, :edit, :update, :show]
-  before_filter :correct_group, :only => [:edit, :update, :destroy]
+  before_filter :authenticate, :only => [:index, :show] #, :edit, :update]
+  before_filter :correct_group, :only => [:edit, :update] #, :destroy]
+  before_filter :correct_owner, :only => [:destroy]
+  
   # GET /groups
   # GET /groups.json
   def index
     store_location # store the page location for back functionality
-    @groups = Group.unscoped.paginate(:page => params[:page], :per_page => 40).order('created_at DESC')
+    @groups = Group.unscoped.paginate(:page => params[:page], :per_page => 100).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +21,8 @@ class GroupsController < ApplicationController
   def show
     store_location # store the page location for back functionality
     @posting_form = Posting.new
-    @group = Group.unscoped.find(params[:id])
+    @group = Group.find_group(params[:id])
+    raise ActiveRecord::RecordNotFound if ( @group.nil? )
     
     search_str = ' ' + @group.id.to_s + ' '
     if session[:group_counter].nil?
@@ -37,16 +40,19 @@ class GroupsController < ApplicationController
     # then we can remove this parameter.
     # params[:group_id] = @group.id
     # if user is a member of the group then get all postings
-    if ( current_user.member?( @group.id ) )
-      @postings = @group.postings.paginate(:page => params[:page],
-      :per_page => 20 ).order('created_at DESC')
-    else # get only public postings
-      @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
-      :per_page => 20 ).order('created_at DESC')
-    end
+    
+    #if ( current_user.member?( @group.id ) )
+    #  @postings = @group.postings.paginate(:page => params[:page],
+    #  :per_page => 50 ).order('created_at ASC')
+    #else # get only public postings
+    #  @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
+    #  :per_page => 50 ).order('created_at ASC')
+    #end
+    
+    # @postings = @group.postings
     
     @members = @group.members.paginate(:page => params[:page],
-      :per_page => 20 ).order('created_at ASC')
+      :per_page => 50 ).order('created_at ASC')
 
     respond_to do |format|
       format.html # show.html.erb
@@ -83,16 +89,18 @@ class GroupsController < ApplicationController
         @member = current_user.owner!(@group)
         group_saved = true
       end
-    else
-      if ( !current_user.member?(@group.id) )
-        raise ActiveRecord::RecordNotFound
-      end
-      @posting = Posting.new(params[:posting])
-      @posting.group_id = @group.id
-      @posting.user_id = current_user.id
-      @posting = current_user.postings.create!(@posting)
     end
+    #else
+    #  if ( !current_user.member?(@group.id) )
+    #    raise ActiveRecord::RecordNotFound
+    #  end
 
+    #  @posting = Posting.new(params[:posting])
+    #  @posting.group_id = @group.id
+    #  @posting.user_id = current_user.id
+    #  @posting = current_user.postings.create!(@posting)
+    #end
+    
     respond_to do |format|
       if ( !params[:posting].nil? && @posting.save ) || group_saved
         format.html { redirect_to @group, notice: 'Group was successfully created.' }

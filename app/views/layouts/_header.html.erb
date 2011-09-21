@@ -8,6 +8,10 @@
       | <%= link_to "Users", users_path %>
       | <%= link_to "Groups", groups_path %>
       | <%= link_to "Members", members_path %>
+      | <%= link_to "Messages", messages_path %>
+        <% if current_user.recieved.unread.count > 0 %>
+        <font color="red"><b><%= current_user.recieved.unread.count %> new</b></font>
+        <% end %>
       | <%= link_to "Posts", postings_path %> <i>You have <%= pluralize(current_user.postings.count, 'post') %></i>
       | <%= link_to "Sign out", signout_path, :method => :delete %> 
       <!--li--><!-- %= link_to "Sign in", signin_path % --><!--/li-->

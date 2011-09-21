@@ -1,0 +1,9 @@
+<div class="apple_pagination">
+    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
+</div>
+<ul>
+<%= render @users %>
+</ul>
+<div class="apple_pagination">
+    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
+</div>

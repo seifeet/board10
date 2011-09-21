@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   
+  # methods are visible in views and controllrs
+  helper_method :admin?
+    
+  def admin?
+    current_user.admin?
+  end
+  
   private
   
   #def current_user

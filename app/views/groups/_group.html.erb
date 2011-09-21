@@ -1,11 +1,13 @@
 <tr>
     <td class="group">
-        <span class="access"><%= group.access %> Group: </span>
+        <span class="access"><%= group.status %> Group: </span>
         <span class="title"><%= link_to group.title, group %></span>
-        <span class="status"><i><%= group.status unless ( group.active ) %></i></span>
         <span class="views"><i>
                 (<%= pluralize(group.view_count, 'view') + ', ' + pluralize(group.postings.count, 'post') %>)
                 </i>
+        </span>
+        <span class="access"><i><font color="red">
+         <%= group.access if group.access == Group::PRIVATE %></font></i>
         </span>
         <% if ( current_user.admin? && group.active? ) %>
         <span class="edit_group"><%= link_to 'Edit', edit_group_path(group) %></span>

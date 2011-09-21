@@ -1,16 +1,13 @@
-<tr>
-    
-    <td><%= user.admin %></td>
-    <td><%= link_to user.full_name, user %> (<%= user.email %>) 
-        <%= pluralize( user.view_count, 'view' ) %>
-        <% if current_user?(user) %>
-        <%= link_to 'Edit', edit_user_path(user) %>
-        <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete,
+<li>
+<%= link_to user.full_name, user %>, <%= pluralize( user.view_count, 'view' ) %>,
+<%= user.location %> (<%= user.email %>)
+<% if current_user?(user) %>
+  | <%= link_to 'Edit', edit_user_path(user) %>
+  | <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete,
                       :title => "Delete #{user.full_name}" %>
-        <% elsif current_user.admin?  %>
-        <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete,
-                      :title => "Delete #{user.full_name}" %></td>
-    <% end %>
-    </td>
-    <td><%= user.location %></td>
-</tr>
+<% elsif admin?  %>
+   <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete,
+                      :title => "Delete #{user.full_name}" %>
+<% end %>
+</li>
+<br />

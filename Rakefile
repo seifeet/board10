@@ -5,3 +5,10 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 Board10::Application.load_tasks
+
+module ::Board10  
+  class Application
+    include Rake::DSL
+  end
+end
+

@@ -1,6 +1,6 @@
 Board10::Application.routes.draw do
 
-  resources :messages
+
 
   # if I type 'users' it will take me to their index
   #get 'users' => 'users#index'
@@ -15,6 +15,7 @@ Board10::Application.routes.draw do
   resources :members #, :only => [:create, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :postings #, :only => [:create, :destroy]
+  resources :messages
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

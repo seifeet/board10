@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    @title = "Sign in"
   end
 
   def create
@@ -9,13 +10,9 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_back_or user
     else
-      # commented part is for activating inactive user 
-      # user = User.unscoped.where(:active => false).authenticate(params[:session][:email], params[:session][:password])
-      if user.nil?
-        flash.now[:error] = "Invalid email/password combination."
-        @title = "Sign in"
-        render 'new'
-      end
+      @title = "Sign in"
+      flash.now[:error] = "Invalid email/password combination."
+      render 'new'
     end
   end
 

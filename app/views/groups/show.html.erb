@@ -5,23 +5,10 @@
 <table><tr><td>
 <%= render 'group_details' %>
 </td>
-
 <tr><td colspan="2">
-<% if ( !@postings.nil? && !@postings.empty? ) %>
-<p>
-<% if ( !current_user.member?( @group.id ) && @group.access == Group::PRIVATE ) %> 
-<i>Note: It is a private group, so you can only see the public posts.</i>
-<% end %>
-    <div class="apple_pagination">
-        <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
-    </div>
-    <table class="postings" summary="group postings">
-        <%= render @postings %>
-    </table>
-    <div class="apple_pagination">
-        <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
-    </div>
-</p>
+<div id="group_postings">
+<%= render 'postings' %>
+</div>
 </td></tr>
 <tr><td colspan="2">
 <% if @group.active? && current_user.member?( @group.id ) %>
@@ -30,4 +17,3 @@
 <% end %>
 </td></tr>
 </table>
-<% end %>

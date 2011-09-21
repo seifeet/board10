@@ -2,14 +2,15 @@ class MembersController < ApplicationController
   include MembersHelper
   before_filter :authenticate, :only => [:index]
   before_filter :correct_member, :only => [:destroy]
+  
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all
+    @users = User.paginate(:page => params[:page], :per_page => 50).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @members }
+      format.json { render json: @users }
     end
   end
 
@@ -43,12 +44,31 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
-    @member.user_id = current_user.id
+    user = User.find_user(params[:member][:user_id])
+    group = Group.find_group(params[:member][:group_id])
+    valid = true
+    if ( !user.nil? && !group.nil? && !user.member?(group))
+      @member = Member.new(params[:member])
+      @member.user_id = user.id
+      if params[:commit] == Message::Commit::CONFIRM
+        msg_id = params[:member][:message]
+        unless ( msg_id.nil? )
+          message = Message.find(msg_id)
+          unless ( message.nil? )
+            message.update_attribute(:msg_state, Message::State::CONFIRMED)
+          end
+        end
+      end
+    else
+      flash.now[:success] = "user is null" if user.nil?
+      flash.now[:success] = "group is null" if group.nil?
+      flash.now[:success] = "user is a member is null" if user.member?(group)
+      valid = false
+    end
 
     respond_to do |format|
-      if @member.save
-        format.html { redirect_to group_path(@member.group_id), 
+      if valid && @member.save
+        format.html { redirect_to session[:return_to], 
           notice: 'Member was successfully created.' }
         format.json { render json: group_path(@member.group_id),
            status: :created, location: group_path(@member.group_id) }

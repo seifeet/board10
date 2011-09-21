@@ -2,20 +2,15 @@
 <p>
     <%= link_to 'New User', new_user_path %>
 </p>
-<div class="apple_pagination">
-    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
-</div>
-<table>
-    <tr>
-        <th>Admin</th>
-        <th>Name</th>
-        <th>Location</th>
-    </tr>
-    <% @users.each do |user| %>
-    <%= render user %>
-    <% end %>
-</table>
-<div class="apple_pagination">
-    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
+<p>
+<%= form_tag users_path, :method => :get, :id => "users_search", :remote => true do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search", :name => nil %>
+</p>
+<% end %>
+
+<div id="users">
+<%= render 'users' %>
 </div>
 <br />
+

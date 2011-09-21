@@ -1,0 +1,11 @@
+<p>
+<div class="apple_pagination">
+    <%= will_paginate @public_postings, :container => false , :total_entries => @public_postings.count %>
+</div>
+<ul>
+<%= render @public_postings %>
+</ul>
+<div class="apple_pagination">
+    <%= will_paginate @public_postings, :container => false , :total_entries => @public_postings.count %>
+</div>
+</p>

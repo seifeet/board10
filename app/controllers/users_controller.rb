@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include UsersHelper
-  before_filter :authenticate, :only => [:index, :edit, :update, :show]
+  before_filter :authenticate, :only => [:index, :show] # :edit, :update,
   before_filter :correct_user, :only => [:edit, :update, :destroy]
   #before_filter :admin_user
 
@@ -8,11 +8,13 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     store_location
-    @users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
+    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 50)
+    #@users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'Boardlers'
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.js
+      #format.json { render :json => @users.to_json }
     end
   end
 
@@ -23,28 +25,34 @@ class UsersController < ApplicationController
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
-    search_str = ' ' + @user.id.to_s + ' '
-    if session[:user_counter].nil?
-      @user.update_attribute(:view_count, @user.view_count+1)
-      session[:user_counter] = search_str
-    elsif session[:user_counter].index(search_str).nil?
-      @user.update_attribute(:view_count, @user.view_count+1)
-      session[:user_counter] += @user.id.to_s + ' ';
-      # reset the :user_counter with too many groups
-      session[:user_counter] = search_str if session[:user_counter].split.count > 30
+    # we can remove this if as soon as Andrey finishs with home page.
+    if @user.id != current_user.id
+      search_str = ' ' + @user.id.to_s + ' '
+      if session[:user_counter].nil?
+        @user.view_count = @user.view_count + 1
+        @user.save_without_password
+        session[:user_counter] = search_str
+      elsif session[:user_counter].index(search_str).nil?
+        @user.view_count = @user.view_count + 1
+        @user.save_without_password
+        session[:user_counter] += @user.id.to_s + ' ';
+        # reset the :user_counter with too many users
+        session[:user_counter] = search_str if session[:user_counter].split.count > 30
+      end
     end
     
     if ( current_user?( @user ) )
        @postings = paginate_group_postings @user 
     else
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page],
-                 :per_page => 20 ).order('created_at DESC')
+                 :per_page => 100 ).order('created_at DESC')
     end
-    
+    # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
     
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @user }
     end
     rescue ActiveRecord::RecordNotFound
@@ -130,10 +138,13 @@ class UsersController < ApplicationController
          all_postings += group.all_member_comments(user.id)
       end
       
-      all_postings.uniq!.sort_by!{|posting|[posting.created_at]}.reverse!
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      end
       
-      all_postings.paginate(:page => params[:page],
-        :per_page => 50, :total_etries => all_postings.size )
+      all_postings.uniq!
+      
+      all_postings.paginate(:page => params[:page],:per_page => 100, :total_etries => all_postings.size )
     end 
   
     def delete_postings user

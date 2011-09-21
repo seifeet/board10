@@ -24,16 +24,9 @@
 </p>
 <% end %>
 <hr>
-<% unless @postings.nil? %>
 <h3><%= @user.first_name %>'s posts:</h3>
-<div class="apple_pagination">
-    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
-</div>
-<table>
-    <%= render @postings %>
-</table>
-<div class="apple_pagination">
-    <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+<div id="user_postings">
+  <%= render 'user_postings' %>
 </div>
 </p>
-<% end %>
+

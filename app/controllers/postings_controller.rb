@@ -1,8 +1,9 @@
 class PostingsController < ApplicationController
   # allow authenticated users to do only the following actions
-  before_filter :authenticate, :only => [:index, :show, :edit, :update, :destroy]
+  before_filter :authenticate, :only => [:index, :show] #, :edit, :update, :destroy]
   # only owner of this posting can delete it
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
+  
   # GET /postings
   # GET /postings.json
   def index
@@ -17,14 +18,14 @@ class PostingsController < ApplicationController
     # end
 
     #@postings = postings_from_members.paginate(:page => 1, :per_page => 4).order('created_at DESC')
-    
-    @public_postings = Posting.where(:visibility => 1).paginate(:page => params[:page], :per_page => 10 ).order('created_at DESC')
 
+    @public_postings = Posting.where(:visibility => 1).paginate(:page => params[:page], :per_page => 100 ).order('created_at DESC')
+      
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @postings }
     end
-    
     rescue ActiveRecord::RecordNotFound
       page_not_found
   end
@@ -48,6 +49,7 @@ class PostingsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @posting }
     end
     rescue ActiveRecord::RecordNotFound
@@ -85,7 +87,8 @@ class PostingsController < ApplicationController
     respond_to do |format|
       if @posting.save
         format.html { redirect_to group, notice: 'Posting was successfully created.' }
-        format.json { render json: group, status: :created, location: group }
+        format.js
+        format.json { render :json => @posting, status: :created, location: group }
       else
         format.html { redirect_to session[:return_to] , notice: 'Content is empty.' }
         format.json { render json: @posting.errors, status: :unprocessable_entity }

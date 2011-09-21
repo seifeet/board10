@@ -5,8 +5,8 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :to_user, :null => false
       t.string :subject
       t.text :content, :null => false
-      t.integer :type, :null => false
-      t.integer :state, :null => false
+      t.integer :msg_type, :null => false
+      t.integer :msg_state, :null => false
 
       t.timestamps
     end

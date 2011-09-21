@@ -1,8 +1,9 @@
 <h1>Group Members</h1>
-
+<div class="apple_pagination">
+    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
+</div>
 <table>
-    <% users = User.all %>
-    <% users.each do |u| %>
+    <% @users.each do |u| %>
     <% if u.members.count > 0 %>
     <tr><td><hr><h3><%= link_to u.full_name, user_path(u) %> is a member in the groups:</h3></td></tr>
     <% u.members.each do |member| %>
@@ -11,4 +12,7 @@
     <% end %>
     <% end %>
 </table>
+<div class="apple_pagination">
+    <%= will_paginate @users, :container => false, :total_entries => @users.count %>
+</div>
 <br />

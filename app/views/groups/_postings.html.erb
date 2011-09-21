@@ -1,0 +1,18 @@
+<% @group = Group.find(posting.group_id) if @group.nil? %>
+<% @postings = @group.postings.paginate(:page => params[:page], :per_page => @postings_per_page ).order('created_at ASC') %>
+<% if ( !@postings.nil? && !@postings.empty? ) %>
+<p>
+<% if ( !current_user.member?( @group.id ) && @group.access == Group::PRIVATE ) %> 
+<i>Note: It is a private group, so you can only see the public posts.</i>
+<% end %>
+    <div class="apple_pagination">
+        <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+    </div>
+    <table>
+        <%= render @postings %>
+    </table>
+    <div class="apple_pagination">
+        <%= will_paginate @postings, :container => false, :total_entries => @postings.count %>
+    </div>
+</p>
+<% end %>

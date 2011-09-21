@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
-  attr_accessible :title, :description, :access_level
+  attr_accessible :title, :description #, :access_level
   
-  default_scope :conditions => {:active => true}
+  #default_scope :conditions => {:active => true}
   
   has_many :members, :foreign_key => "group_id", :dependent => :destroy
   has_many :postings, :dependent => :destroy
@@ -26,6 +26,13 @@ class Group < ActiveRecord::Base
       posting.active_group = false
       posting.save
     end
+  end
+  
+  # to de implemented:
+  # owner of a group can select autojoin option for public groups
+  # in this case every user can join the group with one click
+  def autojoin
+    false
   end
   
   def self.find_group group_id

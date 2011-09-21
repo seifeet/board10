@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # for the password, we will introduce a virtual attribute 
   # (that is, an attribute not corresponding to a column 
   # in the database) using the attr_accessor method.
-  attr_accessor :password
+  attr_accessor :password, :updating_password
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :country, :state, :city
   
   default_scope :conditions => {:active => true}
@@ -23,12 +23,14 @@ class User < ActiveRecord::Base
   has_many :members, :foreign_key => "user_id", :dependent => :destroy
   has_many :groups, :through => :members
   
-  before_save :encrypt_password
+  before_save :encrypt_password, :if => :should_validate_password?
   
   # Automatically create the virtual attribute 'password_confirmation'.
   validates :password, :presence     => true,
                        :confirmation => true,
-                       :length       => { :within => 6..40 }
+                       :length       => { :within => 6..40 },
+            :if => :should_validate_password?
+
   validates :email, :presence => true, 
                     :uniqueness => { :case_sensitive => false }
   validates :first_name, :presence => true, :length   => { :maximum => 150 }
@@ -39,10 +41,29 @@ class User < ActiveRecord::Base
   email_regex = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   validates :email, :format => { :with => email_regex, :message => 'Email must be valid' }
   
+  def should_validate_password?
+    updating_password || new_record?
+  end
+  
+  def save_without_password
+    self.updating_password = false
+    self.save
+    self.updating_password = true
+  end
+  
   def self.find_user user_id
     self.find(user_id)
     rescue ActiveRecord::RecordNotFound
      nil
+  end
+  
+  def self.search(search)
+    if search
+      tmp = search.sub(' ', '%')
+      where('CONCAT( last_name, \' \', first_name, \' \', last_name ) LIKE ?', "%#{tmp}%")
+    else
+      scoped # the same as all, but does not perform the actual query
+    end
   end
   
   def full_name
@@ -51,29 +72,6 @@ class User < ActiveRecord::Base
   
   def location
     ( country.nil? ? '' : country ) + ' ' + ( state.nil? ? '' : state ) + ' ' + ( city.nil? ? '' : city )
-  end
-  
-  # Return true if the user's password matches the submitted password.
-  def has_password?(submitted_password)
-    # Compare encrypted_password with the encrypted version of
-    # submitted_password.
-    password_digest == encrypt(submitted_password)
-  end
-  
-  def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
-    return nil  if user.nil?
-    return user if user.has_password?(submitted_password)
-    rescue ActiveRecord::RecordNotFound
-      page_not_found
-  end
-  
-  # needed for 'remember me' functionality
-  def self.authenticate_with_salt(id, cookie_salt)
-    user = find_by_id(id)
-    (user && user.salt == cookie_salt) ? user : nil
-    rescue ActiveRecord::RecordNotFound
-      page_not_found
   end
   
   def delete_postings
@@ -109,11 +107,29 @@ class User < ActiveRecord::Base
     false
   end
   
-  #def all_groups_postings
-  #  groups.each do |group|
-  #    @postings = group.all_member_comments
-  #  end
-  #end
+  # needed for 'remember me' functionality
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
+  end
+  
+  def self.authenticate(email, submitted_password)
+    user = find_by_email(email)
+
+    return nil  if user.nil?
+    return user if user.has_password?(submitted_password)
+    rescue ActiveRecord::RecordNotFound
+      page_not_found
+  end
+  
+  def has_password?(submitted_password)
+    # Compare encrypted_password with the encrypted version of
+    # submitted_password.
+    #logger.debug "\n\n\npassword_digest: #{password_digest}\nencrypt(submitted_password): #{encrypt(submitted_password)}\nsubmitted_password: #{submitted_password}"
+    password_digest == encrypt(submitted_password)
+  end
   
   private
 
@@ -121,16 +137,17 @@ class User < ActiveRecord::Base
       # if we omitted self and wrote 'password_digest = encrypt(password)'
       # Ruby would create a local variable called encrypted_password, 
       # which isn’t what we want at all.
-      self.salt = make_salt if new_record? # new_record? evaluates to true only upon user creation. 
+      self.salt = make_salt unless has_password?(password) 
       self.password_digest = encrypt(password)
-    end
-
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
+      #logger.debug "\n\n\npassword: #{password}\nself.salt: #{self.salt}\nself.password_digest: #{self.password_digest}"
     end
     
     def make_salt
       secure_hash("#{Time.now.utc}--#{password}")
+    end
+    
+    def encrypt(string)
+      secure_hash("#{salt}--#{string}")
     end
 
     def secure_hash(string)
