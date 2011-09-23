@@ -1,0 +1,30 @@
+<% 
+unless page_container.nil? || page_container.empty? || page_container.count == 0 
+  first = page_container.first
+  if first.instance_of?(Posting)
+  	@type = "posting"
+  elsif first.instance_of?(Group)
+  	@type = "group"
+  elsif first.instance_of?(User)
+  	@type = "user"
+  elsif first.instance_of?(Member)
+  	@type = "member"
+  else
+  	return
+  end
+%>
+<div id="<%= "#{@type}_page_container" %>">
+	
+<p>
+<div class="apple_pagination">
+    <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
+</div>
+<% @container_type = "page" %>
+<%= render 'shared/container', :container => page_container %>
+<div class="apple_pagination">
+    <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
+</div>
+</p>
+
+</div>
+<% end %>

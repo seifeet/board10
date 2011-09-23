@@ -1,0 +1,13 @@
+<h1>Groups</h1>
+<%= link_to 'New Group', new_group_path %>
+
+<p>
+<%= form_tag groups_path, :method => :get, :id => "groups_search", :remote => true do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search groups", :name => nil %>
+<% end %>
+</p>
+
+<div id="groups">
+<%= render 'shared/page_container', :page_container => @groups %>
+</div>

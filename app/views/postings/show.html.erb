@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<h2><strong><%= @posting.access %> Post</strong></h2>
+<p>
+<% if ( current_user.id == @posting.user_id ) %>
+<%= link_to 'Edit', edit_posting_path(@posting) %>
+| <span class="delete_group">
+    <%= link_to 'Delete', @posting, confirm: 'Are you sure?', method: :delete %></span>
+<% end %>
+<i><%= pluralize( @posting.view_count, 'view') %></i>
+</p>
+<% @group = Group.find_group( @posting.group_id ) 
+   unless @group.nil? %>
+<p><b>Group: <%= link_to @group.title, group_path(@group) %></b></p>
+<% end %>
+<p><b>By: 
+    <% if ( @posting.active_user )%>
+    <%   @user = User.find_user( @posting.user_id ) 
+       unless @user.nil? %>
+    <%= link_to @user.full_name, user_path(@user) %>
+    <% end %>
+    <% else %>
+    <%= @posting.user_status %> user
+    <% end %>
+</b><p>
+<p><b>Subject:</b> <%= @posting.subject %></p>
+<p><b>Content:</b> <%= wrap(@posting.content) %></p>
+<% if current_user.id != @posting.user_id %>
+<% @reply = true %>
+<%= render 'groups/posting_form' %>
+<% end %>

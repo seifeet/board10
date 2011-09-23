@@ -1,0 +1,4 @@
+<%= form_for current_user.members.find_by_group_id(@group), 
+             :html => { :method => :delete } do |f| %>
+  <div class="actions"><%= f.submit "Leave This Group" %></div>
+<% end %>

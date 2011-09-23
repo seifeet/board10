@@ -1,0 +1,12 @@
+<tr>
+    <% @user = User.find_user( @message.from_user )%>
+    <% if @message.msg_state == Message::State::UNREAD %> 
+    <td><b><%= link_to @user.full_name, @user %></b></td>
+    <td><b><%= link_to strip_and_cut(@message.subject, 70), @message %></b></td>
+    <% else %> 
+    <td><%= link_to @user.full_name, @user %></td>
+    <td><%= link_to strip_and_cut(@message.subject, 70), @message %></td>
+    <% end %>
+    <td><%= render 'cofirm_reject' %></td>
+    <td><%= link_to 'Delete', @message, confirm: 'Are you sure?', method: :delete %></td>
+</tr>

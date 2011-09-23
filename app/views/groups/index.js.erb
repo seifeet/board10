@@ -1,0 +1,2 @@
+$("#groups").html("<%= escape_javascript(render 'shared/page_container', :page_container => @groups) %>" );
+document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} groups by #{(params[:sort] || 'name').titleize} - Page #{params[:page] || 1}") %>";

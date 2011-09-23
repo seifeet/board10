@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<% @user = User.find_user( @message.from_user )%>
+<p><%= render 'cofirm_reject' %></p>
+<p><b>From:</b> <%= @user.full_name %></p>
+<b>Subject:</b> <%= @message.subject %></p>
+<p><b>Content:</b><br /><%= wrap(@message.content) %></p>
+
+<br />
+<%= link_to 'Back', messages_path %>

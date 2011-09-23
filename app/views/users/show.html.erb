@@ -1,0 +1,28 @@
+<p id="notice">
+    <%= notice %>
+</p>
+<h2 align="center"><strong><%= @user.full_name %></strong></h2> 
+<p align="center"><b><%= @user.email %>, <%= @user.location %>, 
+    <%= pluralize(@user.view_count, 'view') %></b></p>
+
+<hr>
+<p align="right">
+<% if current_user?(@user) %>
+<%= link_to 'New Group', new_group_path %>
+| <%= link_to 'Edit Profile', edit_user_path(@user) %>
+| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+                :title => "Delete #{@user.full_name}" %>
+<% end %>
+</p>
+<hr>
+<% unless @user.groups.empty? %>
+<h3><%= @user.first_name %>'s groups:</h3>
+<%= render 'shared/container', :container => @user.groups %>
+<% end %>
+<hr>
+<h3><%= @user.first_name %>'s posts:</h3>
+<div id="user_postings">
+  <%= render 'shared/page_container', :page_container => @postings %>
+</div>
+</p>
+
