@@ -6,31 +6,57 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
+<<<<<<< HEAD
   adapter: mysql
+=======
+  adapter: mysql2
+>>>>>>> d53e4cfe8dbd18e90af032ff220168f8eca2e034
   encoding: utf8
   reconnect: false
   database: development
   pool: 5
+<<<<<<< HEAD
   username: root
   password: Brodiaga19
+=======
+  username: andrey
+  password: pinkfloyd
+>>>>>>> d53e4cfe8dbd18e90af032ff220168f8eca2e034
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
+<<<<<<< HEAD
   adapter: mysql
+=======
+  adapter: mysql2
+>>>>>>> d53e4cfe8dbd18e90af032ff220168f8eca2e034
   encoding: utf8
   reconnect: false
   database: test
   pool: 5
+<<<<<<< HEAD
   username: root
   password: Brodiaga19
 
 production:
   adapter: mysql
+=======
+  username: andrey
+  password: pinkfloyd
+
+production:
+  adapter: mysql2
+>>>>>>> d53e4cfe8dbd18e90af032ff220168f8eca2e034
   encoding: utf8
   reconnect: false
   database: production
   pool: 5
+<<<<<<< HEAD
   username: root
   password: Brodiaga19
+=======
+  username: andrey
+  password: pinkfloyd
+>>>>>>> d53e4cfe8dbd18e90af032ff220168f8eca2e034
