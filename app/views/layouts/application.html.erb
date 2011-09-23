@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Boardler<%= ': ' + @title unless @title.blank? %></title>
-  <%= render 'layouts/stylesheets' %>
-  <%= javascript_include_tag :application %>
+  <%= render 'layouts/stylesheets' %> 
+  <%= javascript_include_tag :application, :debug => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>

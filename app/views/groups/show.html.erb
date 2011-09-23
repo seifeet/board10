@@ -2,18 +2,20 @@
     <%= notice %>
 </p>
 
-<table><tr><td>
-<%= render 'group_details' %>
-</td>
-<tr><td colspan="2">
-<div id="group_postings">
-<%= render 'postings' %>
-</div>
-</td></tr>
-<tr><td colspan="2">
+<table>
+<tr><td width="50%">
 <% if @group.active? && current_user.member?( @group.id ) %>
 <% @reply = false %>
 <%= render 'posting_form' %>
 <% end %>
+</td>
+<td>
+<%= render 'group_details' %>
+</td></tr>
+
+<tr><td colspan="2">
+<div id="group_postings">
+<%= render 'postings' %>
+</div>
 </td></tr>
 </table>

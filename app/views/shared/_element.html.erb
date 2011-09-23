@@ -1,0 +1,72 @@
+<% return nil if element.nil? %>
+<% if type == "posting" %>
+<p>
+	<%= link_to strip_and_cut(element.content, 120), posting_path(element) %> 
+	<i>posted by
+	<% if element.active_user %>
+		<% if current_user.id == element.user_id %>
+		you
+		<% elsif user = element.user %>
+		<%= link_to "#{user.full_name}", user_path(element.user_id) %>
+		<% else %>
+		Unknown user
+		<% end %>
+	<% else %>
+	Unknown user
+	<% end %></i>
+	<i><%= (time_ago_in_words(element.created_at)+" ago") unless element.created_at.nil? %></i>
+	<i><font color="red"><%= element.access if element.access == Posting::PRIVATE %></font></i>
+	<br />
+	<%= ("Subject: " + element.subject) if !element.subject.nil? && !element.subject.empty? %> 
+	<i>group
+	<% if group = Group.find(element.group_id) %>
+	<%= link_to "#{strip_and_cut(group.title,50)}", group_path(element.group_id) %>
+	<% else %>
+	Unknown
+	<% end %> </i>
+	<i>(<%= pluralize( element.view_count, 'view') %>)</i>
+	<% if ( current_user.id == element.user_id ) %>
+	<%= link_to 'Edit', edit_posting_path(element) %></span>
+	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %></span>
+	<% end %>
+</p>
+
+<% elsif type == "user"  %>
+<p>
+	<%= link_to element.full_name, element %>, <%= pluralize( element.view_count, 'view' ) %>,
+	<%= element.location %> (<%= element.email %>)
+	<% if current_user?(element) %>
+	  | <%= link_to 'Edit', edit_user_path(element) %>
+	  | <%= link_to 'Destroy', element, confirm: 'Are you sure?', method: :delete,
+	                      :title => "Delete #{element.full_name}" %>
+	<% elsif admin?  %>
+	   <%= link_to 'Destroy', element, confirm: 'Are you sure?', method: :delete,
+	                      :title => "Delete #{element.full_name}" %>
+	<% end %>
+</p>
+
+<% elsif type == "group"  %>
+<p>    
+    <%= element.status %> Group: <%= link_to element.title, element %>
+    <i>(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)</i>
+    <i><font color="red"><%= element.access if element.access == Group::PRIVATE %></font></i>
+    <% if ( current_user.admin? && element.active? ) %>
+    <%= link_to 'Edit', edit_group_path(element) %>
+    <%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
+    <% end %>
+    <i><font color=red><%= element.status unless element.active? %></font></i>
+    <br />
+    <%= strip_and_cut( element.description ) %>
+</p>
+
+<% elsif type == "member"  %>
+<p>
+   <% group = Group.find_group(element.group_id) %>
+   <%= group.access %> Group: <%= link_to group.title, group %>
+   <i><font color="red"><%= group.status unless ( group.active ) %></font></i>
+   <i> (<%= pluralize(group.view_count, 'view') + ', ' + pluralize(group.postings.count, 'post') %>) </i>
+   <br /><%= strip_and_cut( group.description ) %>
+</p>
+
+<% end %>
+

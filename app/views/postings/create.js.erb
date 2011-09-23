@@ -1,2 +1,2 @@
-$('#group_postings').html("<%= escape_javascript(render 'groups/postings', :posting => @posting )%>");
+$('#group_postings').html("<%= escape_javascript(render 'groups/postings', :posting => @posting, :limit => 50 )%>");
 

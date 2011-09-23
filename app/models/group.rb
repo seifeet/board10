@@ -8,6 +8,15 @@ class Group < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  def self.search(search)
+    if search && !search.blank?
+      tmp = search.sub(' ', '%')
+      where('title LIKE ?', "%#{tmp}%")
+    else
+      unscoped # the same as all, but does not perform the actual query
+    end
+  end
+  
   def all_member_comments user_id
     Posting.joins('inner join `members` on `postings`.`group_id` = `members`.`group_id`').
     where("`members`.`user_id` = ? ", user_id )

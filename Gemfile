@@ -1,13 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
-gem 'jquery-rails', '~> 0.2.2'
+gem 'jquery-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'mysql2'
+#gem "mysql2","0.2.7"
+gem "mysql"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '~> 3.0.0'
 

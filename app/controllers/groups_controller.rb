@@ -8,11 +8,13 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     store_location # store the page location for back functionality
-    @groups = Group.unscoped.paginate(:page => params[:page], :per_page => 100).order('created_at DESC')
-
+    @groups = Group.search(params[:search]).paginate(:page => params[:page],
+                   :per_page => 50).order('created_at DESC')
+    @title = 'Groups'
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @groups }
+      format.js
+      #format.json { render json: @groups }
     end
   end
 
@@ -22,7 +24,7 @@ class GroupsController < ApplicationController
     store_location # store the page location for back functionality
     @posting_form = Posting.new
     @group = Group.find_group(params[:id])
-    raise ActiveRecord::RecordNotFound if ( @group.nil? )
+    raise ActiveRecord::RecordNotFound if @group.nil?
     
     search_str = ' ' + @group.id.to_s + ' '
     if session[:group_counter].nil?
@@ -35,12 +37,6 @@ class GroupsController < ApplicationController
       session[:group_counter] = search_str if session[:group_counter].split.count > 30
     end
     
-    # sending group_id for posting form.
-    # if we put postings box in the group panel permanatly
-    # then we can remove this parameter.
-    # params[:group_id] = @group.id
-    # if user is a member of the group then get all postings
-    
     #if ( current_user.member?( @group.id ) )
     #  @postings = @group.postings.paginate(:page => params[:page],
     #  :per_page => 50 ).order('created_at ASC')
@@ -51,11 +47,14 @@ class GroupsController < ApplicationController
     
     # @postings = @group.postings
     
-    @members = @group.members.paginate(:page => params[:page],
-      :per_page => 50 ).order('created_at ASC')
+    @members = @group.members.order('created_at ASC')
+    
+    # max number of posts
+    @limit = 50
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @group }
     end
     rescue ActiveRecord::RecordNotFound

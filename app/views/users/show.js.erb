@@ -1,1 +1,1 @@
-$("#user_postings").html("<%= escape_javascript(render 'user_postings') %>" );
+$("#user_postings").html("<%= escape_javascript(render 'shared/page_container', :page_container => @postings) %>" );

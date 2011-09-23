@@ -9,16 +9,6 @@ class PostingsController < ApplicationController
   def index
     store_location
 
-    # @groups = current_user.groups
-    # @group_count = current_user.groups.count
-    # @total_posts = Posting.all.count
-    # @count = 0
-    # @groups.each do |group|
-    #  @count += group.postings.count
-    # end
-
-    #@postings = postings_from_members.paginate(:page => 1, :per_page => 4).order('created_at DESC')
-
     @public_postings = Posting.where(:visibility => 1).paginate(:page => params[:page], :per_page => 100 ).order('created_at DESC')
       
     respond_to do |format|
@@ -91,6 +81,7 @@ class PostingsController < ApplicationController
         format.json { render :json => @posting, status: :created, location: group }
       else
         format.html { redirect_to session[:return_to] , notice: 'Content is empty.' }
+        #format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
     end

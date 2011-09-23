@@ -1,6 +1,20 @@
-<h2><strong><%= @group.status %> Group</strong></h2>
+<p align="right">
+<% if @group.active? && current_user.owner?(@group.id) %>
+        <span class="edit"><%= link_to 'Edit Group', edit_group_path(@group) %></span>
+        | <span class="delete"><%= link_to 'Delete Group', @group, confirm: 'Are you sure?', method: :delete %></span>
+<% end %>
+<p>
+<h2 align="center"><strong><%= @group.title %></strong></h2>
+ <p align="center"><b><%= @group.status %> <%= @group.access %> Group, <%= pluralize(@group.view_count, 'view') %></b>
+ <br /><%= @group.description %><br />
+<% if !@members.nil? %>
+   <% @members.each do |member| %>
+   <% @member = member %>
+   <%= render 'group_member' %>
+   <% end %>
+<% end %>
+</p>
 
-<p id="action_grp_btn">
 <% if current_user.owner?( @group.id ) %>
 <%= render 'grp_invite' %>
 <% elsif current_user.member?( @group.id ) %>
@@ -8,24 +22,4 @@
 <% else %>
 <%= render 'grp_join' %>
 <% end %>
-</p>
 
-<p>
-    <% if @group.active? && current_user.owner?(@group.id) %>
-        <span class="edit"><%= link_to 'Edit Group', edit_group_path(@group) %></span>
-        | <span class="delete"><%= link_to 'Delete Group', @group, confirm: 'Are you sure?', method: :delete %></span>
-    <% end %>
-</p>
-<p><b>Title:</b> <%= @group.title %></p>
-<p><b>Access level:</b> <%= @group.access %></p>
-<p><b>Views:</b> <%= @group.view_count %></p>
-<p>
-<% unless @members.nil? %>
-<b>Members:</b>
-   <% @members.each do |member| %>
-   <% @member = member %>
-   <%= render 'group_member' %>
-   <% end %>
-<% end %>
-</p>
-<p><b>Description:</b> <%= @group.description %></p>

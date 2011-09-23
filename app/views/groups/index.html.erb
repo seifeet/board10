@@ -1,14 +1,13 @@
 <h1>Groups</h1>
 <%= link_to 'New Group', new_group_path %>
-<div class="apple_pagination">
-    <%= will_paginate @groups, :container => false, :total_entries => @groups.count %>
-</div>
-<table>
-<% @groups.each do |group| %>
-<%= render group %>
+
+<p>
+<%= form_tag groups_path, :method => :get, :id => "groups_search", :remote => true do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search groups", :name => nil %>
 <% end %>
-</table>
-<div class="apple_pagination">
-    <%= will_paginate @groups, :container => false, :total_entries => @groups.count %>
+</p>
+
+<div id="groups">
+<%= render 'shared/page_container', :page_container => @groups %>
 </div>
-<br />

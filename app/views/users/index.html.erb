@@ -1,16 +1,15 @@
 <h1>Users</h1>
-<p>
-    <%= link_to 'New User', new_user_path %>
-</p>
+<%= link_to 'New User', new_user_path %>
+
 <p>
 <%= form_tag users_path, :method => :get, :id => "users_search", :remote => true do %>
 <%= text_field_tag :search, params[:search] %>
-<%= submit_tag "Search", :name => nil %>
-</p>
+<%= submit_tag "Search users", :name => nil %>
 <% end %>
+</p>
 
 <div id="users">
-<%= render 'users' %>
+<%= render 'shared/page_container', :page_container => @users %>
 </div>
 <br />
 

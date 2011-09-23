@@ -45,7 +45,7 @@ class UsersController < ApplicationController
        @postings = paginate_group_postings @user 
     else
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page],
-                 :per_page => 100 ).order('created_at DESC')
+                 :per_page => 50 ).order('created_at ASC')
     end
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
       
       all_postings.uniq!
       
-      all_postings.paginate(:page => params[:page],:per_page => 100, :total_etries => all_postings.size )
+      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
     end 
   
     def delete_postings user

@@ -1,0 +1,35 @@
+<% 
+unless container.nil? || container.empty? || container.count == 0
+  if ( @type.nil? )
+	  first = container.first
+	  if first.instance_of?(Posting)
+	  	@type = "posting"
+	  elsif first.instance_of?(Group)
+	  	@type = "group"
+	  elsif first.instance_of?(User)
+	  	@type = "user"
+	  elsif first.instance_of?(Member)
+	  	@type = "member"
+	  else
+	  	return
+	  end
+  end
+%>
+<%
+   # this variable is defined in wrapper containers, for example page_container.
+   # if it is nil then this controller is used directly.
+   @container_type 
+%>
+<% if @container_type.nil? %>
+<div id="<%= "#{@type}_container" %>">
+<% end %>
+
+<% container.each do |element| %>
+<%= render 'shared/element', :element => element, :type => @type %>
+<% end %>
+
+<% if @container_type.nil? %>
+</div>
+<% end %>
+
+<% end %>

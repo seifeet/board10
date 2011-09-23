@@ -17,16 +17,12 @@
 <hr>
 <% unless @user.groups.empty? %>
 <h3><%= @user.first_name %>'s groups:</h3>
-<p>
-    <table>
-    <%= render @user.groups %>
-    </table>
-</p>
+<%= render 'shared/container', :container => @user.groups %>
 <% end %>
 <hr>
 <h3><%= @user.first_name %>'s posts:</h3>
 <div id="user_postings">
-  <%= render 'user_postings' %>
+  <%= render 'shared/page_container', :page_container => @postings %>
 </div>
 </p>
 
