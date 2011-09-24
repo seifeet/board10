@@ -1,11 +1,14 @@
 <% @group = Group.find(posting.group_id) if @group.nil? %>
-<% @limit = limit if @limit.nil? %>
+<% # @limit = limit if @limit.nil?
+%>
 
 <% 
    if ( current_user.member?( @group.id ) )
-     @postings = @group.postings.order('created_at DESC').limit(@limit)
+     @postings = @group.postings.paginate(:page => params[:page],
+            :per_page => 50 ).order('created_at DESC') #.limit(@limit)
    else
-     @postings = @group.postings.where(:visibility => 1).order('created_at DESC')
+     @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
+            :per_page => 50 ).order('created_at DESC')
    end 
 %>
 
@@ -14,7 +17,6 @@
 <% if ( !current_user.member?( @group.id ) && @group.access == Group::PRIVATE ) %> 
 <i>Note: It is a private group, so you can only see the public posts.</i>
 <% end %>
-<%= render 'shared/container', :container => @postings %>
-<%= link_to "see all posts", @group %>
+<%= render 'shared/page_container', :page_container => @postings %>
 </p>
 <% end %>

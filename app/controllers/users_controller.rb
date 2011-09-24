@@ -53,7 +53,8 @@ class UsersController < ApplicationController
     # then show all the 
     
     if ( !@group.nil? && current_user.member?(@group) )
-       @postings = @group.postings.order('created_at DESC')
+       @postings = @group.postings.paginate(:page => params[:page],
+                     :per_page => 50 ).order('created_at DESC')
     elsif ( current_user?( @user ) )
        @group_title = "From all my groups:"
        @postings = paginate_group_postings @user 

@@ -45,12 +45,12 @@ class GroupsController < ApplicationController
     #  :per_page => 50 ).order('created_at ASC')
     #end
     
-    # @postings = @group.postings
+    #@postings = @group.postings
     
     @members = @group.members.order('created_at ASC')
     
     # max number of posts
-    @limit = 50
+    #@limit = 50
 
     respond_to do |format|
       format.html # show.html.erb
