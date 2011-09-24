@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  attr_accessible :title, :description #, :access_level
+  attr_accessible :title, :description, :access_level
   
   #default_scope :conditions => {:active => true}
   
@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
   def self.search(search)
     if search && !search.blank?
       tmp = search.sub(' ', '%')
-      where('title LIKE ?', "%#{tmp}%")
+      where('CONCAT( title, \' \', description ) LIKE ?', "%#{tmp}%")
     else
       unscoped # the same as all, but does not perform the actual query
     end

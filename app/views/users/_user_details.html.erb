@@ -1,0 +1,25 @@
+<h2 align="center"><strong><%= @user.full_name %></strong></h2> 
+<p align="center"><b><%= @user.email %>, <%= @user.location %>, 
+    <%= pluralize(@user.view_count, 'view') %></b></p>
+<% if current_user?(@user) %>
+<%= link_to 'New Group', new_group_path %>
+| <%= link_to 'Edit Profile', edit_user_path(@user) %>
+| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+                :title => "Delete #{@user.full_name}" %>
+<% end %>
+<hr>
+<div id="user_groups">
+<b>Groups:</b><br />
+<% unless @user.groups.empty? %>
+  <%= link_to "All", user_path(@user) %>
+  <br />
+  <% @user.groups.each do |group| %>
+     <div id="load_group">
+     	<b><%= link_to "#{group.title}", :group => group.id %></b>
+     </div>
+     <%= link_to "Go to #{group.title}", group_path(group) %>
+     <br />
+  <% end %>
+<!-- %= render 'shared/container', :container => @user.groups % -->
+</div>
+<% end %>

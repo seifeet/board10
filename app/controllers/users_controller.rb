@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 50)
     #@users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'Boardlers'
+    
     respond_to do |format|
       format.html # index.html.erb
       format.js
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     store_location
+
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
@@ -41,12 +43,26 @@ class UsersController < ApplicationController
       end
     end
     
-    if ( current_user?( @user ) )
+    @posting_form = Posting.new
+    # in case there is a group argument in the url
+    if ( !params[:group].nil? )
+      @group = Group.find_group(params[:group])
+    end
+
+    # if above group was found and current user is a member of this group 
+    # then show all the 
+    
+    if ( !@group.nil? && current_user.member?(@group) )
+       @postings = @group.postings.order('created_at DESC')
+    elsif ( current_user?( @user ) )
+       @group_title = "From all my groups:"
        @postings = paginate_group_postings @user 
     else
+       @group_title = @user.first_name + "'s Public Posts:"
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page],
-                 :per_page => 50 ).order('created_at ASC')
+                 :per_page => 50 ).order('created_at DESC')
     end
+    
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
     

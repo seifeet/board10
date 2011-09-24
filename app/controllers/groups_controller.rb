@@ -102,7 +102,7 @@ class GroupsController < ApplicationController
     
     respond_to do |format|
       if ( !params[:posting].nil? && @posting.save ) || group_saved
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to session[:return_to], notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
         format.html { render action: "new" }

@@ -76,11 +76,11 @@ class PostingsController < ApplicationController
       
     respond_to do |format|
       if @posting.save
-        format.html { redirect_to group, notice: 'Posting was successfully created.' }
+        format.html { redirect_to session[:return_to], notice: 'Posting was successfully created.' }
         format.js
         format.json { render :json => @posting, status: :created, location: group }
       else
-        format.html { redirect_to session[:return_to] , notice: 'Content is empty.' }
+        format.html { redirect_to session[:return_to], notice: 'Content is empty.' }
         #format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
