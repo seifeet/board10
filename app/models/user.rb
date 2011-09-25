@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   attr_accessor :password, :updating_password
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :country, :state, :city
   
+  before_create { generate_token(:remember_token) }
+  
   default_scope :conditions => {:active => true}
   scope :admin, where(:admin => true)
   # default_scope :order => 'created_at'
@@ -129,6 +131,19 @@ class User < ActiveRecord::Base
     # submitted_password.
     #logger.debug "\n\n\npassword_digest: #{password_digest}\nencrypt(submitted_password): #{encrypt(submitted_password)}\nsubmitted_password: #{submitted_password}"
     password_digest == encrypt(submitted_password)
+  end
+  
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+  
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
   end
   
   private

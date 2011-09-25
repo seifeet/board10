@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110917091724) do
+ActiveRecord::Schema.define(:version => 20110925231643) do
 
   create_table "groups", :force => true do |t|
     t.string   "title",                          :null => false
@@ -67,20 +67,22 @@ ActiveRecord::Schema.define(:version => 20110917091724) do
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                             :null => false
-    t.string   "first_name",      :limit => 150,                    :null => false
-    t.string   "last_name",       :limit => 150,                    :null => false
-    t.string   "country",         :limit => 150
-    t.string   "state",           :limit => 2
-    t.string   "city",            :limit => 150
-    t.boolean  "admin",                          :default => false
-    t.boolean  "active",                         :default => true
-    t.integer  "view_count",                     :default => 0
+    t.string   "email",                                                    :null => false
+    t.string   "first_name",             :limit => 150,                    :null => false
+    t.string   "last_name",              :limit => 150,                    :null => false
+    t.string   "country",                :limit => 150
+    t.string   "state",                  :limit => 2
+    t.string   "city",                   :limit => 150
+    t.boolean  "admin",                                 :default => false
+    t.boolean  "active",                                :default => true
+    t.integer  "view_count",                            :default => 0
     t.string   "remember_token"
     t.string   "password_digest"
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

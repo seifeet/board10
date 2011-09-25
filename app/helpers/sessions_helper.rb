@@ -23,7 +23,11 @@ module SessionsHelper
   end
 
   def sign_in(user)
-    cookies.permanent.signed[:remember_token] = [user.id, user.salt]
+    if params[:remeber_me]
+      cookies.permanent[:remember_token] = user.remember_token
+    else
+      cookies[:remember_token] = user.remember_token
+    end
     self.current_user = user
   end
 
@@ -37,12 +41,8 @@ module SessionsHelper
   end
 
   def current_user
-    # ||= sets the @current_user instance variable to the user corresponding
-    # to the remember token, but only if @current_user is undefined.
-    # In other words, calls the user_from_remember_token method the first time current_user is called,
-    # but on subsequent invocations returns @current_user without calling user_from_remember_token.
-    # This optimization technique to avoid repeated function calls is known as memoization.
-    @current_user ||= user_from_remember_token
+    @current_user ||= User.find_by_remember_token(cookies[:remember_token]) unless cookies[:remember_token].nil?
+    # user_from_remember_token
   end
 
   def redirect_back_or(default)
@@ -52,9 +52,9 @@ module SessionsHelper
 
   private
 
-  def user_from_remember_token
-    User.authenticate_with_salt(*remember_token)
-  end
+  #def user_from_remember_token
+  #  User.authenticate_with_salt(*remember_token)
+  #end
 
   def remember_token
     cookies.signed[:remember_token] || [nil, nil]
