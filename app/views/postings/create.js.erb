@@ -1,6 +1,6 @@
 <% if session[:return_to] =~ /\/users\// %>
 $('#user_postings').html("<%= escape_javascript(render 'users/postings', :posting => @posting)%>");
 <% elsif session[:return_to] =~ /\/groups\// %>
-$('#group_postings').html("<%= escape_javascript(render 'groups/postings', :posting => @posting, :limit => 50 )%>");
+$('#group_postings').html("<%= escape_javascript(render 'groups/postings', :posting => @posting)%>");
 <% end %>
 

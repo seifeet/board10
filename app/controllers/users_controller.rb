@@ -8,14 +8,14 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     store_location
-    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 50)
+    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
     #@users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'Boardlers'
     
     respond_to do |format|
       format.html # index.html.erb
       format.js
-      #format.json { render :json => @users.to_json }
+      format.json { render :json => @users.to_json }
     end
   end
 
@@ -53,15 +53,13 @@ class UsersController < ApplicationController
     # then show all the 
     
     if ( !@group.nil? && current_user.member?(@group) )
-       @postings = @group.postings.paginate(:page => params[:page],
-                     :per_page => 50 ).order('created_at DESC')
+       @postings = @group.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     elsif ( current_user?( @user ) )
        @group_title = "From all my groups:"
        @postings = paginate_group_postings @user 
     else
        @group_title = @user.first_name + "'s Public Posts:"
-       @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page],
-                 :per_page => 50 ).order('created_at DESC')
+       @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
     
     # logger.debug "\n\n After postings \n\n\n"

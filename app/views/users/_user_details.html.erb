@@ -14,11 +14,13 @@
   <%= link_to "All", user_path(@user) %>
   <br />
   <% @user.groups.each do |group| %>
+     <% if group.active? %>
      <div id="load_group">
      	<b><%= link_to "#{group.title}", :group => group.id %></b>
      </div>
      <%= link_to "Go to #{group.title}", group_path(group) %>
      <br />
+     <% end %>
   <% end %>
 <!-- %= render 'shared/container', :container => @user.groups % -->
 </div>

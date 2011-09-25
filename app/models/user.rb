@@ -41,16 +41,6 @@ class User < ActiveRecord::Base
   email_regex = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   validates :email, :format => { :with => email_regex, :message => 'Email must be valid' }
   
-  def should_validate_password?
-    updating_password || new_record?
-  end
-  
-  def save_without_password
-    self.updating_password = false
-    self.save
-    self.updating_password = true
-  end
-  
   def self.find_user user_id
     self.find(user_id)
     rescue ActiveRecord::RecordNotFound
@@ -105,6 +95,16 @@ class User < ActiveRecord::Base
     members.find_by_group_id(group_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
+  end
+
+  def should_validate_password?
+    updating_password || new_record?
+  end
+  
+  def save_without_password
+    self.updating_password = false
+    self.save
+    self.updating_password = true
   end
   
   # needed for 'remember me' functionality

@@ -47,7 +47,7 @@
 
 <% elsif type == "group"  %>
 <p>    
-    <%= element.status %> Group: <%= link_to element.title, element %>
+    Group: <%= link_to element.title, element %>
     <i>(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)</i>
     <i><font color="red"><%= element.access if element.access == Group::PRIVATE %></font></i>
     <% if ( current_user.admin? && element.active? ) %>

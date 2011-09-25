@@ -1,5 +1,6 @@
 <% if !params[:group].nil? %>
   <% @group = Group.find_group(params[:group]) if @group.nil? %>
+  <% if @group.active? %>
   <div id="group_title">
   <h3>Group: <%= link_to @group.title, @group %></h3>
   </div>
@@ -8,6 +9,7 @@
   <% if current_user.id == user.id %>
   <% @reply = false %>
   <%= render 'groups/posting_form' %>
+  <% end %>
   <% end %>
   <% end %>
 <% else %>

@@ -8,8 +8,7 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     store_location # store the page location for back functionality
-    @groups = Group.search(params[:search]).paginate(:page => params[:page],
-                   :per_page => 50).order('created_at DESC')
+    @groups = Group.search(params[:search]).paginate(:page => params[:page], :per_page => 50).order('created_at DESC')
     @title = 'Groups'
     respond_to do |format|
       format.html # index.html.erb

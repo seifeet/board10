@@ -7,8 +7,7 @@
      @postings = @group.postings.paginate(:page => params[:page],
             :per_page => 50 ).order('created_at DESC') #.limit(@limit)
    else
-     @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page],
-            :per_page => 50 ).order('created_at DESC')
+     @postings = @group.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
    end 
 %>
 
