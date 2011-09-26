@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :subject, :message
+  attr_accessible :subject, :message, :to_user, :board_id, :content
 
   belongs_to :user
   
@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
   validates :msg_state, :presence => true
   
   class Commit
-    JOIN = "Join"
+    JOIN = 'Join'
     CONFIRM = 'Confirm'
     REJECT = 'Reject'
     INVITE = 'Invite'

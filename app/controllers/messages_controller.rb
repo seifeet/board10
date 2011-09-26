@@ -61,7 +61,8 @@ class MessagesController < ApplicationController
         @message.from_user = current_user.id
         @message.subject = commit + " request for board \"#{board.title}\""
         @message.content = content
-        @message.msg_type = commit
+        @message.msg_type = Message::Type::JOIN if ( commit == Message::Commit::JOIN )
+        @message.msg_type = Message::Type::INVITE if ( commit == Message::Commit::INVITE )
         @message.msg_state = Message::State::UNREAD
         valid = true
       end
