@@ -2,18 +2,28 @@
 unless page_container.nil? || page_container.empty? || page_container.count == 0 
   first = page_container.first
   if first.instance_of?(Posting)
-  	@type = "posting"
+  	type = "posting"
   elsif first.instance_of?(Board)
-  	@type = "board"
+  	type = "board"
   elsif first.instance_of?(User)
-  	@type = "user"
+  	type = "user"
   elsif first.instance_of?(Member)
-  	@type = "member"
+  	type = "member"
   else
   	return
   end
+  if ( @type.nil? || @type != type )
+    @type = type
+  end
 %>
+<%
+   # this variable is defined in wrapper containers, for example page_container.
+   # if it is nil then this controller is used directly.
+   @container_type 
+%>
+<% if @container_type.nil? %>
 <div id="<%= "#{@type}_page_container" %>">
+<% end %>
 	
 <p>
 <div class="apple_pagination">
@@ -25,6 +35,8 @@ unless page_container.nil? || page_container.empty? || page_container.count == 0
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
 </p>
-
+<% if @container_type.nil? %>
 </div>
 <% end %>
+
+<% end %> 

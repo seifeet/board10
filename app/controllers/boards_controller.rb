@@ -25,6 +25,7 @@ class BoardsController < ApplicationController
     @board = Board.find_board(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
     
+    # increment view_counter
     search_str = ' ' + @board.id.to_s + ' '
     if session[:board_counter].nil?
       @board.update_attribute(:view_count, @board.view_count+1)
@@ -36,21 +37,8 @@ class BoardsController < ApplicationController
       session[:board_counter] = search_str if session[:board_counter].split.count > 30
     end
     
-    #if ( current_user.member?( @board.id ) )
-    #  @postings = @board.postings.paginate(:page => params[:page],
-    #  :per_page => 50 ).order('created_at ASC')
-    #else # get only public postings
-    #  @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page],
-    #  :per_page => 50 ).order('created_at ASC')
-    #end
-    
-    #@postings = @board.postings
-    
     @members = @board.members.order('created_at ASC')
     
-    # max number of posts
-    #@limit = 50
-
     respond_to do |format|
       format.html # show.html.erb
       format.js

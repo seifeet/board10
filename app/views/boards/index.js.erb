@@ -1,2 +1,2 @@
-$("#boards").html("<%= escape_javascript(render 'shared/page_container', :page_container => @boards) %>" );
+$("#board_search_container").html("<%= escape_javascript(render 'shared/search_container', :object_type => 'board') %>" );
 document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} boards by #{(params[:sort] || 'name').titleize} - Page #{params[:page] || 1}") %>";

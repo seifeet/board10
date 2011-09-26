@@ -1,0 +1,23 @@
+<% @type = object_type %>
+<% @container_type = "search" %>
+
+<div id="<%= "#{@type}_#{@container_type}_container" %>">
+<% 
+if object_type == 'user'
+  if @users.nil?
+	search_results = User.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
+  else
+	search_results = @users
+  end
+elsif 
+  object_type == 'board'
+  if @boards.nil?
+	search_results = Board.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
+  else
+	search_results = @boards
+  end
+end 
+%>
+
+<%= render 'shared/page_container', :page_container => search_results, :type => @type %>
+</div>

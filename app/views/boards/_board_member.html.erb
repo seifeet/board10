@@ -2,10 +2,12 @@
 <% unless @user.nil? %> 
 <span class="user"> 
     <%= link_to "#{@user.full_name}", user_path(@user) %>
-    <% if @member.owner? %><i>(Owner)</i><% end %>
+    <% if @member.owner? %>
+    <i>(Owner)</i><br />
+    <% else %> |
+    <% end %>
     <% if current_user.owner?(@member.board_id) && !current_user?(@user) %>
     <!-- %= render 'grp_ban' % -->
     <% end %>
-     |
 </span>
 <% end %>

@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     store_location
     @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
     #@users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
-    @title = 'Boardlers'
+    @title = 'People'
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.js
       format.json { render :json => @users.to_json }
     end

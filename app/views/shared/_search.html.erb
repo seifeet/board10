@@ -1,0 +1,6 @@
+<%= form_tag search_path, :method => :get, :id => "#{object_type}s_search", :remote => true do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search #{object_type}s", :name => nil %>
+<% end %>
+
+<%= render 'shared/search_container', :object_type => object_type %>
