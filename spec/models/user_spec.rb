@@ -172,9 +172,9 @@ describe User do
 
     before(:each) do
       @user = User.create(@attr)
-      @group = Group.first()
-      @mp1 = Factory(:posting, :user => @user, :group => group, :created_at => 1.day.ago)
-      @mp2 = Factory(:posting, :user => @user, :group => group, :created_at => 1.hour.ago)
+      @board = Board.first()
+      @mp1 = Factory(:posting, :user => @user, :board => board, :created_at => 1.day.ago)
+      @mp2 = Factory(:posting, :user => @user, :board => board, :created_at => 1.hour.ago)
     end
 
     it "should have a microposts attribute" do

@@ -1,12 +1,12 @@
 class Member < ActiveRecord::Base
-  attr_accessible :group_id, :owner
+  attr_accessible :board_id, :owner
   
   belongs_to :user, :class_name => "User"
-  belongs_to :group, :class_name => "Group"
+  belongs_to :board, :class_name => "Board"
     
   validates :user_id, :presence => true
-  validates :group_id, :presence => true
+  validates :board_id, :presence => true
   #validates :owner, :presence => true
-  validates_uniqueness_of :user_id, :scope => :group_id 
+  validates_uniqueness_of :user_id, :scope => :board_id 
   
 end

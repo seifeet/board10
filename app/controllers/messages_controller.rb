@@ -51,15 +51,15 @@ class MessagesController < ApplicationController
     valid = false
     
     if commit == Message::Commit::JOIN
-      group = Group.find_group(params[:message][:group_id])
+      board = Board.find_board(params[:message][:board_id])
       user = User.find_user(params[:message][:to_user])
-      if ( !group.nil? && !user.nil? )
+      if ( !board.nil? && !user.nil? )
         content = params[:message][:content]
   
         @message.to_user = user.id
-        @message.group_id = group.id
+        @message.board_id = board.id
         @message.from_user = current_user.id
-        @message.subject = "Request to join your group \"#{group.title}\""
+        @message.subject = "Request to join your board \"#{board.title}\""
         @message.content = content
         @message.msg_type = Message::Type::JOIN
         @message.msg_state = Message::State::UNREAD
@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
     # it does not flash messages for some reason.... :(
     respond_to do |format|
       if valid && @message.save
-        msg = 'Your request to join the group was sent!'
+        msg = 'Your request to join the board was sent!'
       else
         msg = 'Unable to send your request.'
       end

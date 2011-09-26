@@ -2,26 +2,26 @@
 <p align="center"><b><%= @user.email %>, <%= @user.location %>, 
     <%= pluralize(@user.view_count, 'view') %></b></p>
 <% if current_user?(@user) %>
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Board', new_board_path %>
 | <%= link_to 'Edit Profile', edit_user_path(@user) %>
 | <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
                 :title => "Delete #{@user.full_name}" %>
 <% end %>
 <hr>
-<div id="user_groups">
-<b>Groups:</b><br />
-<% unless @user.groups.empty? %>
+<div id="user_boards">
+<b>Boards:</b><br />
+<% unless @user.boards.empty? %>
   <%= link_to "All", user_path(@user) %>
   <br />
-  <% @user.groups.each do |group| %>
-     <% if group.active? %>
-     <div id="load_group">
-     	<b><%= link_to "#{group.title}", :group => group.id %></b>
+  <% @user.boards.each do |board| %>
+     <% if board.active? %>
+     <div id="load_board">
+     	<b><%= link_to "#{board.title}", :board => board.id %></b>
      </div>
-     <%= link_to "Go to #{group.title}", group_path(group) %>
+     <%= link_to "Go to #{board.title}", board_path(board) %>
      <br />
      <% end %>
   <% end %>
-<!-- %= render 'shared/container', :container => @user.groups % -->
+<!-- %= render 'shared/container', :container => @user.boards % -->
 </div>
 <% end %>

@@ -45,9 +45,9 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     user = User.find_user(params[:member][:user_id])
-    group = Group.find_group(params[:member][:group_id])
+    board = Board.find_board(params[:member][:board_id])
     valid = true
-    if ( !user.nil? && !group.nil? && !user.member?(group))
+    if ( !user.nil? && !board.nil? && !user.member?(board))
       @member = Member.new(params[:member])
       @member.user_id = user.id
       if params[:commit] == Message::Commit::CONFIRM
@@ -61,8 +61,8 @@ class MembersController < ApplicationController
       end
     else
       flash.now[:success] = "user is null" if user.nil?
-      flash.now[:success] = "group is null" if group.nil?
-      flash.now[:success] = "user is a member is null" if user.member?(group)
+      flash.now[:success] = "board is null" if board.nil?
+      flash.now[:success] = "user is a member is null" if user.member?(board)
       valid = false
     end
 
@@ -70,8 +70,8 @@ class MembersController < ApplicationController
       if valid && @member.save
         format.html { redirect_to session[:return_to], 
           notice: 'Member was successfully created.' }
-        format.json { render json: group_path(@member.group_id),
-           status: :created, location: group_path(@member.group_id) }
+        format.json { render json: board_path(@member.board_id),
+           status: :created, location: board_path(@member.board_id) }
       else
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }

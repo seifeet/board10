@@ -1,10 +1,10 @@
-<% if @message.msg_type == Message::Type::JOIN && @message.msg_state != Message::State::REJECTED && @message.msg_state != Message::State::CONFIRMED && !@user.member?(@message.group_id) %> 
-  <%= form_for current_user.members.build(:group_id => @message.group_id) do |f| %>
+<% if @message.msg_type == Message::Type::JOIN && @message.msg_state != Message::State::REJECTED && @message.msg_state != Message::State::CONFIRMED && !@user.member?(@message.board_id) %> 
+  <%= form_for current_user.members.build(:board_id => @message.board_id) do |f| %>
 <div>
     <%= f.hidden_field :user_id, :value => @message.from_user %>
 </div>
 <div>
-    <%= f.hidden_field :group_id, :value => @message.group_id %>
+    <%= f.hidden_field :board_id, :value => @message.board_id %>
 </div>
 <div>
     <%= f.hidden_field :message, :value => @message.id %>

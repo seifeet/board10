@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   
   has_many :postings, :dependent => :destroy
   has_many :members, :foreign_key => "user_id", :dependent => :destroy
-  has_many :groups, :through => :members
+  has_many :boards, :through => :members
   
   before_save :encrypt_password, :if => :should_validate_password?
   
@@ -73,28 +73,28 @@ class User < ActiveRecord::Base
     end
   end
   
-  def member?(group_id)
-    members.find_by_group_id(group_id)
+  def member?(board_id)
+    members.find_by_board_id(board_id)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
-  def member!(group)
-    members.create!(:group_id => group.id)
+  def member!(board)
+    members.create!(:board_id => board.id)
   end
   
-  def owner?(group_id)
-    members.find_by_group_id_and_owner(group_id,true)
+  def owner?(board_id)
+    members.find_by_board_id_and_owner(board_id,true)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
-  def owner!(group)
-    members.create!(:group_id => group.id, :owner => true)
+  def owner!(board)
+    members.create!(:board_id => board.id, :owner => true)
   end
   
-  def unmember!(group_id)
-    members.find_by_group_id(group_id).destroy
+  def unmember!(board_id)
+    members.find_by_board_id(board_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
   end

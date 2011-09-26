@@ -1,0 +1,6 @@
+<% if @board.active? %>
+<%= form_for @board.members.build(:user_id => 50) do |f| %>
+  <div><%= f.hidden_field :user_id %></div>
+  <div class="actions"><%= f.submit "Invite To This Board" %></div>
+<% end %>
+<% end %>

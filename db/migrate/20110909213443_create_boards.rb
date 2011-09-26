@@ -1,6 +1,6 @@
-class CreateGroups < ActiveRecord::Migration
+class CreateBoards < ActiveRecord::Migration
   def change
-    create_table :groups do |t|
+    create_table :boards do |t|
       t.string :title, :null => false
       t.text :description
       t.integer :view_count, :default => 0
@@ -12,6 +12,6 @@ class CreateGroups < ActiveRecord::Migration
   end
   
   def down
-    drop_table :groups
+    drop_table :boards
   end
 end

@@ -4,7 +4,7 @@ describe "ownerships/show.html.erb" do
   before(:each) do
     @ownership = assign(:ownership, stub_model(Ownership,
       :user_id => 1,
-      :group_id => 1
+      :board_id => 1
     ))
   end
 

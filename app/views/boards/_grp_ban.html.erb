@@ -1,0 +1,5 @@
+<% if @board.active? %>
+<%= form_for @board.members.find_by_user_id(@user.id), :html => { :method => :delete } do |f| %>
+  <div class="actions"><%= f.submit "Ban #{@user.full_name}" %></div>
+<% end %>
+<% end %>

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "groups/edit.html.erb" do
+describe "boards/edit.html.erb" do
   before(:each) do
-    @group = assign(:group, stub_model(Group,
+    @board = assign(:board, stub_model(Board,
       :title => "MyString",
       :description => "MyText",
       :view_count => 1,
@@ -11,16 +11,16 @@ describe "groups/edit.html.erb" do
     ))
   end
 
-  it "renders the edit group form" do
+  it "renders the edit board form" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => groups_path(@group), :method => "post" do
-      assert_select "input#group_title", :name => "group[title]"
-      assert_select "textarea#group_description", :name => "group[description]"
-      assert_select "input#group_view_count", :name => "group[view_count]"
-      assert_select "input#group_active", :name => "group[active]"
-      assert_select "input#group_access_level", :name => "group[access_level]"
+    assert_select "form", :action => boards_path(@board), :method => "post" do
+      assert_select "input#board_title", :name => "board[title]"
+      assert_select "textarea#board_description", :name => "board[description]"
+      assert_select "input#board_view_count", :name => "board[view_count]"
+      assert_select "input#board_active", :name => "board[active]"
+      assert_select "input#board_access_level", :name => "board[access_level]"
     end
   end
 end

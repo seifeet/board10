@@ -1,0 +1,25 @@
+<p align="right">
+<% if @board.active? && current_user.owner?(@board.id) %>
+        <span class="edit"><%= link_to 'Edit Board', edit_board_path(@board) %></span>
+        | <span class="delete"><%= link_to 'Delete Board', @board, confirm: 'Are you sure?', method: :delete %></span>
+<% end %>
+<p>
+<h2 align="center"><strong><%= @board.title %></strong></h2>
+ <p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, 'view') %></b>
+ <br /><%= @board.description %><br />
+<% if !@members.nil? %>
+   <% @members.each do |member| %>
+   <% @member = member %>
+   <%= render 'board_member' %>
+   <% end %>
+<% end %>
+</p>
+
+<% if current_user.owner?( @board.id ) %>
+<%= render 'grp_invite' %>
+<% elsif current_user.member?( @board.id ) %>
+<%= render 'grp_leave' %>
+<% else %>
+<%= render 'grp_join' %>
+<% end %>
+

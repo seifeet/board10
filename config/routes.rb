@@ -9,7 +9,7 @@ Board10::Application.routes.draw do
 # requests, which are to respond to POST requests,
 # and so on, for session controller, so we define them:
   resources :users
-  resources :groups
+  resources :boards
   resources :members #, :only => [:create, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :postings #, :only => [:create, :destroy]

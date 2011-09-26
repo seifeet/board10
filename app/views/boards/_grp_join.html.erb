@@ -1,0 +1,15 @@
+<% if @board.active? && @board.autojoin %>
+<%= form_for current_user.members.build(:board_id => @board.id) do |f| %>
+  <div><%= f.hidden_field :board_id %></div>
+  <div><%= f.hidden_field :user_id, :value => current_user.id %></div>
+  <div class="join"><%= f.submit "Join this board" %></div>
+  <% end %>
+<% else %>
+<%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
+  <% owner = @board.members.find_by_owner(true) %>
+  <div><%= f.hidden_field :to_user, :value => owner.user_id %></div>
+  <div><%= f.hidden_field :board_id, :value => @board.id %></div>
+  <div><%= f.text_area :content , :rows => 3, :cols => 40, :value => "Hi!\nI would like to join your board.\nThank you!" %></div>
+  <div class="join"><%= f.submit "#{Message::Commit::JOIN}" %></div>
+<% end %>
+<% end %>

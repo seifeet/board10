@@ -1,0 +1,13 @@
+<h1>Boards</h1>
+<%= link_to 'New Board', new_board_path %>
+
+<p>
+<%= form_tag boards_path, :method => :get, :id => "boards_search", :remote => true do %>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search boards", :name => nil %>
+<% end %>
+</p>
+
+<div id="boards">
+<%= render 'shared/page_container', :page_container => @boards %>
+</div>

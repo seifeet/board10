@@ -5,12 +5,12 @@ describe "members/index.html.erb" do
     assign(:members, [
       stub_model(Member,
         :user_id => 1,
-        :group_id => 1,
+        :board_id => 1,
         :owner => false
       ),
       stub_model(Member,
         :user_id => 1,
-        :group_id => 1,
+        :board_id => 1,
         :owner => false
       )
     ])

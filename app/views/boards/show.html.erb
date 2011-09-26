@@ -1,0 +1,21 @@
+<p id="notice">
+    <%= notice %>
+</p>
+
+<table>
+<tr><td width="50%">
+<% if @board.active? && current_user.member?( @board.id ) %>
+<% @reply = false %>
+<%= render 'posting_form' %>
+<% end %>
+</td>
+<td>
+<%= render 'board_details' %>
+</td></tr>
+
+<tr><td colspan="2">
+<div id="board_postings">
+<%= render 'postings' %>
+</div>
+</td></tr>
+</table>

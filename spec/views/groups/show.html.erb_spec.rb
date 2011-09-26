@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "groups/show.html.erb" do
+describe "boards/show.html.erb" do
   before(:each) do
-    @group = assign(:group, stub_model(Group,
+    @board = assign(:board, stub_model(Board,
       :title => "Title",
       :description => "MyText",
       :view_count => 1,

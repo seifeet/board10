@@ -1,0 +1,21 @@
+<% @board = Board.find(posting.board_id) if @board.nil? %>
+<% # @limit = limit if @limit.nil?
+%>
+
+<% 
+   if ( current_user.member?( @board.id ) )
+     @postings = @board.postings.paginate(:page => params[:page],
+            :per_page => 50 ).order('created_at DESC') #.limit(@limit)
+   else
+     @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+   end 
+%>
+
+<% if ( !@postings.nil? && !@postings.empty? ) %>
+<p>
+<% if ( !current_user.member?( @board.id ) && @board.access == Board::PRIVATE ) %> 
+<i>Note: It is a private board, so you can only see the public posts.</i>
+<% end %>
+<%= render 'shared/page_container', :page_container => @postings %>
+</p>
+<% end %>

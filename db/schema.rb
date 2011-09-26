@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20110925231643) do
 
-  create_table "groups", :force => true do |t|
+  create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
     t.text     "description"
     t.integer  "view_count",   :default => 0
@@ -25,15 +25,15 @@ ActiveRecord::Schema.define(:version => 20110925231643) do
 
   create_table "members", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "group_id"
+    t.integer  "board_id"
     t.boolean  "owner",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "members", ["group_id"], :name => "index_members_on_group_id"
+  add_index "members", ["board_id"], :name => "index_members_on_board_id"
   add_index "members", ["owner"], :name => "index_members_on_owner"
-  add_index "members", ["user_id", "group_id"], :name => "index_members_on_user_id_and_group_id", :unique => true
+  add_index "members", ["user_id", "board_id"], :name => "index_members_on_user_id_and_board_id", :unique => true
   add_index "members", ["user_id"], :name => "index_members_on_user_id"
 
   create_table "messages", :force => true do |t|
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(:version => 20110925231643) do
     t.integer  "msg_state",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_id"
+    t.integer  "board_id"
   end
 
   create_table "postings", :force => true do |t|
-    t.integer  "group_id",                       :null => false
-    t.boolean  "active_group", :default => true
+    t.integer  "board_id",                       :null => false
+    t.boolean  "active_board", :default => true
     t.integer  "user_id",                        :null => false
     t.boolean  "active_user",  :default => true
     t.integer  "visibility",   :default => 0
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(:version => 20110925231643) do
     t.integer  "view_count",   :default => 0
   end
 
+  add_index "postings", ["board_id"], :name => "index_postings_on_board_id"
   add_index "postings", ["created_at"], :name => "index_postings_on_created_at"
-  add_index "postings", ["group_id"], :name => "index_postings_on_group_id"
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
 
   create_table "users", :force => true do |t|

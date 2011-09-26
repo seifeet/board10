@@ -4,8 +4,8 @@ describe "postings/index.html.erb" do
   before(:each) do
     assign(:postings, [
       stub_model(Posting,
-        :group_id => 1,
-        :active_group => false,
+        :board_id => 1,
+        :active_board => false,
         :user_id => 1,
         :active_user => false,
         :visibility => 1,
@@ -13,8 +13,8 @@ describe "postings/index.html.erb" do
         :content => "MyText"
       ),
       stub_model(Posting,
-        :group_id => 1,
-        :active_group => false,
+        :board_id => 1,
+        :active_board => false,
         :user_id => 1,
         :active_user => false,
         :visibility => 1,

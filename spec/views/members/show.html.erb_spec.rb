@@ -4,7 +4,7 @@ describe "members/show.html.erb" do
   before(:each) do
     @member = assign(:member, stub_model(Member,
       :user_id => 1,
-      :group_id => 1,
+      :board_id => 1,
       :owner => false
     ))
   end

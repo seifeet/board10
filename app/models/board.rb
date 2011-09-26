@@ -1,9 +1,9 @@
-class Group < ActiveRecord::Base
+class Board < ActiveRecord::Base
   attr_accessible :title, :description, :access_level
   
   #default_scope :conditions => {:active => true}
   
-  has_many :members, :foreign_key => "group_id", :dependent => :destroy
+  has_many :members, :foreign_key => "board_id", :dependent => :destroy
   has_many :postings, :dependent => :destroy
   
   validates :title, :presence => true
@@ -18,7 +18,7 @@ class Group < ActiveRecord::Base
   end
   
   def all_member_comments user_id
-    Posting.joins('inner join `members` on `postings`.`group_id` = `members`.`group_id`').
+    Posting.joins('inner join `members` on `postings`.`board_id` = `members`.`board_id`').
     where("`members`.`user_id` = ? ", user_id )
   end
   
@@ -32,20 +32,20 @@ class Group < ActiveRecord::Base
   
   def delete_postings
     postings.each do |posting|
-      posting.active_group = false
+      posting.active_board = false
       posting.save
     end
   end
   
   # to de implemented:
-  # owner of a group can select autojoin option for public groups
-  # in this case every user can join the group with one click
+  # owner of a board can select autojoin option for public boards
+  # in this case every user can join the board with one click
   def autojoin
     false
   end
   
-  def self.find_group group_id
-    self.find(group_id)
+  def self.find_board board_id
+    self.find(board_id)
     rescue ActiveRecord::RecordNotFound
      nil
   end

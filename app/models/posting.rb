@@ -2,11 +2,11 @@ class Posting < ActiveRecord::Base
   attr_accessible :subject, :content, :access_level, :visibility
 
   belongs_to :user
-  belongs_to :groups
+  belongs_to :boards
 
   validates :content, :presence => true
   validates :user_id, :presence => true
-  validates :group_id, :presence => true
+  validates :board_id, :presence => true
 
   #default_scope :order => 'postings.created_at DESC'
   
@@ -14,8 +14,8 @@ class Posting < ActiveRecord::Base
     USER_STATUS[active_user]
   end
   
-  def group_status
-    GROUP_STATUS[active_group]
+  def board_status
+    GROUP_STATUS[active_board]
   end
   
   def access

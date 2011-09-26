@@ -1,34 +1,34 @@
 require "spec_helper"
 
-describe GroupsController do
+describe BoardsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/groups").should route_to("groups#index")
+      get("/boards").should route_to("boards#index")
     end
 
     it "routes to #new" do
-      get("/groups/new").should route_to("groups#new")
+      get("/boards/new").should route_to("boards#new")
     end
 
     it "routes to #show" do
-      get("/groups/1").should route_to("groups#show", :id => "1")
+      get("/boards/1").should route_to("boards#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/groups/1/edit").should route_to("groups#edit", :id => "1")
+      get("/boards/1/edit").should route_to("boards#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/groups").should route_to("groups#create")
+      post("/boards").should route_to("boards#create")
     end
 
     it "routes to #update" do
-      put("/groups/1").should route_to("groups#update", :id => "1")
+      put("/boards/1").should route_to("boards#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/groups/1").should route_to("groups#destroy", :id => "1")
+      delete("/boards/1").should route_to("boards#destroy", :id => "1")
     end
 
   end

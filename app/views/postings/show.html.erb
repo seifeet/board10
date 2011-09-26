@@ -3,14 +3,14 @@
 <p>
 <% if ( current_user.id == @posting.user_id ) %>
 <%= link_to 'Edit', edit_posting_path(@posting) %>
-| <span class="delete_group">
+| <span class="delete_board">
     <%= link_to 'Delete', @posting, confirm: 'Are you sure?', method: :delete %></span>
 <% end %>
 <i><%= pluralize( @posting.view_count, 'view') %></i>
 </p>
-<% @group = Group.find_group( @posting.group_id ) 
-   unless @group.nil? %>
-<p><b>Group: <%= link_to @group.title, group_path(@group) %></b></p>
+<% @board = Board.find_board( @posting.board_id ) 
+   unless @board.nil? %>
+<p><b>Board: <%= link_to @board.title, board_path(@board) %></b></p>
 <% end %>
 <p><b>By: 
     <% if ( @posting.active_user )%>
@@ -26,5 +26,5 @@
 <p><b>Content:</b> <%= wrap(@posting.content) %></p>
 <% if current_user.id != @posting.user_id %>
 <% @reply = true %>
-<%= render 'groups/posting_form' %>
+<%= render 'boards/posting_form' %>
 <% end %>

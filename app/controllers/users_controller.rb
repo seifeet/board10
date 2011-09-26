@@ -44,21 +44,21 @@ class UsersController < ApplicationController
     end
     
     @posting_form = Posting.new
-    # in case there is a group argument in the url
-    if ( !params[:group].nil? )
-      @group = Group.find_group(params[:group])
+    # in case there is a board argument in the url
+    if ( !params[:board].nil? )
+      @board = Board.find_board(params[:board])
     end
 
-    # if above group was found and current user is a member of this group 
+    # if above board was found and current user is a member of this board 
     # then show all the 
     
-    if ( !@group.nil? && current_user.member?(@group) )
-       @postings = @group.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+    if ( !@board.nil? && current_user.member?(@board) )
+       @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     elsif ( current_user?( @user ) )
-       @group_title = "From all my groups:"
-       @postings = paginate_group_postings @user 
+       @board_title = "From all my boards:"
+       @postings = paginate_board_postings @user 
     else
-       @group_title = @user.first_name + "'s Public Posts:"
+       @board_title = @user.first_name + "'s Public Posts:"
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
     
@@ -145,12 +145,12 @@ class UsersController < ApplicationController
   
   private
   
-    def paginate_group_postings user
+    def paginate_board_postings user
       require 'will_paginate/array'
-      @groups = user.groups
+      @boards = user.boards
       all_postings = []
-      @groups.each do |group| 
-         all_postings += group.all_member_comments(user.id)
+      @boards.each do |board| 
+         all_postings += board.all_member_comments(user.id)
       end
       
       if !all_postings.nil? && !all_postings.empty?

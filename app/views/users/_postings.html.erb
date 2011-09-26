@@ -1,8 +1,8 @@
 <% if @postings.nil? %>
-  <% @group = Group.find(posting.group_id) if @group.nil? %>
+  <% @board = Board.find(posting.board_id) if @board.nil? %>
   <% 
-   if ( current_user.member?( @group.id ) )
-     @postings = @group.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC') #.limit(80)
+   if ( current_user.member?( @board.id ) )
+     @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC') #.limit(80)
    end 
    end 
  %>

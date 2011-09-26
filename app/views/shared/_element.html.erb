@@ -18,9 +18,9 @@
 	<i><font color="red"><%= element.access if element.access == Posting::PRIVATE %></font></i>
 	<br />
 	<%= ("Subject: " + element.subject) if !element.subject.nil? && !element.subject.empty? %> 
-	<i>group
-	<% if group = Group.find(element.group_id) %>
-	<%= link_to "#{strip_and_cut(group.title,50)}", group_path(element.group_id) %>
+	<i>board
+	<% if board = Board.find(element.board_id) %>
+	<%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
 	<% else %>
 	Unknown
 	<% end %> </i>
@@ -45,13 +45,13 @@
 	<% end %>
 </p>
 
-<% elsif type == "group"  %>
+<% elsif type == "board"  %>
 <p>    
-    Group: <%= link_to element.title, element %>
+    Board: <%= link_to element.title, element %>
     <i>(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)</i>
-    <i><font color="red"><%= element.access if element.access == Group::PRIVATE %></font></i>
+    <i><font color="red"><%= element.access if element.access == Board::PRIVATE %></font></i>
     <% if ( current_user.admin? && element.active? ) %>
-    <%= link_to 'Edit', edit_group_path(element) %>
+    <%= link_to 'Edit', edit_board_path(element) %>
     <%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
     <% end %>
     <i><font color=red><%= element.status unless element.active? %></font></i>
@@ -61,11 +61,11 @@
 
 <% elsif type == "member"  %>
 <p>
-   <% group = Group.find_group(element.group_id) %>
-   <%= group.access %> Group: <%= link_to group.title, group %>
-   <i><font color="red"><%= group.status unless ( group.active ) %></font></i>
-   <i> (<%= pluralize(group.view_count, 'view') + ', ' + pluralize(group.postings.count, 'post') %>) </i>
-   <br /><%= strip_and_cut( group.description ) %>
+   <% board = Board.find_board(element.board_id) %>
+   <%= board.access %> Board: <%= link_to board.title, board %>
+   <i><font color="red"><%= board.status unless ( board.active ) %></font></i>
+   <i> (<%= pluralize(board.view_count, 'view') + ', ' + pluralize(board.postings.count, 'post') %>) </i>
+   <br /><%= strip_and_cut( board.description ) %>
 </p>
 
 <% end %>

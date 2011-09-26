@@ -5,11 +5,11 @@ describe "ownerships/index.html.erb" do
     assign(:ownerships, [
       stub_model(Ownership,
         :user_id => 1,
-        :group_id => 1
+        :board_id => 1
       ),
       stub_model(Ownership,
         :user_id => 1,
-        :group_id => 1
+        :board_id => 1
       )
     ])
   end

@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "postings/show.html.erb" do
   before(:each) do
     @posting = assign(:posting, stub_model(Posting,
-      :group_id => 1,
-      :active_group => false,
+      :board_id => 1,
+      :active_board => false,
       :user_id => 1,
       :active_user => false,
       :visibility => 1,

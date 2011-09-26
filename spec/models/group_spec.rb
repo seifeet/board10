@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: groups
+# Table name: boards
 #
 #  id           :integer(4)      not null, primary key
 #  title        :string(255)     not null
@@ -14,6 +14,6 @@
 
 require 'spec_helper'
 
-describe Group do
+describe Board do
   pending "add some examples to (or delete) #{__FILE__}"
 end

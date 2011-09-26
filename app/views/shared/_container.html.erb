@@ -3,8 +3,8 @@ unless container.nil? || container.empty? || container.count == 0
   first = container.first
   if first.instance_of?(Posting)
     type = "posting"
-  elsif first.instance_of?(Group)
-    type = "group"
+  elsif first.instance_of?(Board)
+    type = "board"
   elsif first.instance_of?(User)
     type = "user"
   elsif first.instance_of?(Member)

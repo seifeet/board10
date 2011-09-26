@@ -18,78 +18,78 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe GroupsController do
+describe BoardsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Group. As you add validations to Group, be sure to
+  # Board. As you add validations to Board, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {}
   end
 
   describe "GET index" do
-    it "assigns all groups as @groups" do
-      group = Group.create! valid_attributes
+    it "assigns all boards as @boards" do
+      board = Board.create! valid_attributes
       get :index
-      assigns(:groups).should eq([group])
+      assigns(:boards).should eq([board])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested group as @group" do
-      group = Group.create! valid_attributes
-      get :show, :id => group.id.to_s
-      assigns(:group).should eq(group)
+    it "assigns the requested board as @board" do
+      board = Board.create! valid_attributes
+      get :show, :id => board.id.to_s
+      assigns(:board).should eq(board)
     end
   end
 
   describe "GET new" do
-    it "assigns a new group as @group" do
+    it "assigns a new board as @board" do
       get :new
-      assigns(:group).should be_a_new(Group)
+      assigns(:board).should be_a_new(Board)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested group as @group" do
-      group = Group.create! valid_attributes
-      get :edit, :id => group.id.to_s
-      assigns(:group).should eq(group)
+    it "assigns the requested board as @board" do
+      board = Board.create! valid_attributes
+      get :edit, :id => board.id.to_s
+      assigns(:board).should eq(board)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Group" do
+      it "creates a new Board" do
         expect {
-          post :create, :group => valid_attributes
-        }.to change(Group, :count).by(1)
+          post :create, :board => valid_attributes
+        }.to change(Board, :count).by(1)
       end
 
-      it "assigns a newly created group as @group" do
-        post :create, :group => valid_attributes
-        assigns(:group).should be_a(Group)
-        assigns(:group).should be_persisted
+      it "assigns a newly created board as @board" do
+        post :create, :board => valid_attributes
+        assigns(:board).should be_a(Board)
+        assigns(:board).should be_persisted
       end
 
-      it "redirects to the created group" do
-        post :create, :group => valid_attributes
-        response.should redirect_to(Group.last)
+      it "redirects to the created board" do
+        post :create, :board => valid_attributes
+        response.should redirect_to(Board.last)
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved group as @group" do
+      it "assigns a newly created but unsaved board as @board" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}
-        assigns(:group).should be_a_new(Group)
+        Board.any_instance.stub(:save).and_return(false)
+        post :create, :board => {}
+        assigns(:board).should be_a_new(Board)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        post :create, :group => {}
+        Board.any_instance.stub(:save).and_return(false)
+        post :create, :board => {}
         response.should render_template("new")
       end
     end
@@ -97,60 +97,60 @@ describe GroupsController do
 
   describe "PUT update" do
     describe "with valid params" do
-      it "updates the requested group" do
-        group = Group.create! valid_attributes
-        # Assuming there are no other groups in the database, this
-        # specifies that the Group created on the previous line
+      it "updates the requested board" do
+        board = Board.create! valid_attributes
+        # Assuming there are no other boards in the database, this
+        # specifies that the Board created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Group.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => group.id, :group => {'these' => 'params'}
+        Board.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => board.id, :board => {'these' => 'params'}
       end
 
-      it "assigns the requested group as @group" do
-        group = Group.create! valid_attributes
-        put :update, :id => group.id, :group => valid_attributes
-        assigns(:group).should eq(group)
+      it "assigns the requested board as @board" do
+        board = Board.create! valid_attributes
+        put :update, :id => board.id, :board => valid_attributes
+        assigns(:board).should eq(board)
       end
 
-      it "redirects to the group" do
-        group = Group.create! valid_attributes
-        put :update, :id => group.id, :group => valid_attributes
-        response.should redirect_to(group)
+      it "redirects to the board" do
+        board = Board.create! valid_attributes
+        put :update, :id => board.id, :board => valid_attributes
+        response.should redirect_to(board)
       end
     end
 
     describe "with invalid params" do
-      it "assigns the group as @group" do
-        group = Group.create! valid_attributes
+      it "assigns the board as @board" do
+        board = Board.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        put :update, :id => group.id.to_s, :group => {}
-        assigns(:group).should eq(group)
+        Board.any_instance.stub(:save).and_return(false)
+        put :update, :id => board.id.to_s, :board => {}
+        assigns(:board).should eq(board)
       end
 
       it "re-renders the 'edit' template" do
-        group = Group.create! valid_attributes
+        board = Board.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        put :update, :id => group.id.to_s, :group => {}
+        Board.any_instance.stub(:save).and_return(false)
+        put :update, :id => board.id.to_s, :board => {}
         response.should render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested group" do
-      group = Group.create! valid_attributes
+    it "destroys the requested board" do
+      board = Board.create! valid_attributes
       expect {
-        delete :destroy, :id => group.id.to_s
-      }.to change(Group, :count).by(-1)
+        delete :destroy, :id => board.id.to_s
+      }.to change(Board, :count).by(-1)
     end
 
-    it "redirects to the groups list" do
-      group = Group.create! valid_attributes
-      delete :destroy, :id => group.id.to_s
-      response.should redirect_to(groups_url)
+    it "redirects to the boards list" do
+      board = Board.create! valid_attributes
+      delete :destroy, :id => board.id.to_s
+      response.should redirect_to(boards_url)
     end
   end
 

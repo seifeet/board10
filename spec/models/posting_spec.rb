@@ -3,8 +3,8 @@
 # Table name: postings
 #
 #  id           :integer(4)      not null, primary key
-#  group_id     :integer(4)      not null
-#  active_group :boolean(1)      default(TRUE)
+#  board_id     :integer(4)      not null
+#  active_board :boolean(1)      default(TRUE)
 #  user_id      :integer(4)      not null
 #  active_user  :boolean(1)      default(TRUE)
 #  visibility   :integer(4)      default(0)

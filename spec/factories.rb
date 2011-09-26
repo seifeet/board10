@@ -11,13 +11,13 @@ Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
 
-Factory.define :group do |group|
-  group.description            "AboutMyGroup"
-  group.title             "MyGroup"
+Factory.define :board do |board|
+  board.description            "AboutMyBoard"
+  board.title             "MyBoard"
 end
 
 Factory.define :posting do |posting|
   posting.content "Foo bar"
   posting.association :user
-  posting.association :group
+  posting.association :board
 end

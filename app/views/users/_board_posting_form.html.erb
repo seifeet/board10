@@ -1,0 +1,17 @@
+<% if !params[:board].nil? %>
+  <% @board = Board.find_board(params[:board]) if @board.nil? %>
+  <% if @board.active? %>
+  <div id="board_title">
+  <h3>Board: <%= link_to @board.title, @board %></h3>
+  </div>
+  <% if @board.active? && current_user.member?( @board.id ) %>
+  <% user = User.find_user(params[:id]) %>
+  <% if current_user.id == user.id %>
+  <% @reply = false %>
+  <%= render 'boards/posting_form' %>
+  <% end %>
+  <% end %>
+  <% end %>
+<% else %>
+<div id="board_title"><h3><%= @board_title %></h3></div>
+<% end %>

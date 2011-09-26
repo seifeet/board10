@@ -13,16 +13,16 @@ if(history && history.pushState ) {
 
 	$(function() {
 
-		$("#users .apple_pagination a, #groups .apple_pagination a, #public_postings .apple_pagination a, #user_postings .apple_pagination a").live("click", function() {
+		$("#users .apple_pagination a, #boards .apple_pagination a, #public_postings .apple_pagination a, #user_postings .apple_pagination a").live("click", function() {
 			$(".apple_pagination").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);
 			return false;
 		});
 		
-	    $("#user_groups #load_group a").live("click", function() {
-			$("#group_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			//$("#group_title").html("Loading...");
+	    $("#user_boards #load_board a").live("click", function() {
+			$("#board_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
+			//$("#board_title").html("Loading...");
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);
 			return false;
@@ -38,9 +38,9 @@ if(history && history.pushState ) {
 			return false;
 		});
 		
-	    $("#groups_search").submit(function() {
+	    $("#boards_search").submit(function() {
 			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#groups_search").attr("action") + "?" + $("#groups_search").serialize());
+			history.pushState(null, document.title, $("#boards_search").attr("action") + "?" + $("#boards_search").serialize());
 			return false;
 		});
 
