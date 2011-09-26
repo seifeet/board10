@@ -1,3 +1,4 @@
+<div id="board_postings">
 <% @board = Board.find(posting.board_id) if @board.nil? %>
 <% # @limit = limit if @limit.nil?
 %>
@@ -19,3 +20,4 @@
 <%= render 'shared/page_container', :page_container => @postings %>
 </p>
 <% end %>
+</div>

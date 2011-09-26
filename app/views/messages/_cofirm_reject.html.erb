@@ -1,7 +1,15 @@
-<% if @message.msg_type == Message::Type::JOIN && @message.msg_state != Message::State::REJECTED && @message.msg_state != Message::State::CONFIRMED && !@user.member?(@message.board_id) %> 
-  <%= form_for current_user.members.build(:board_id => @message.board_id) do |f| %>
+<% 
+if @message.msg_type == Message::Type::JOIN
+	taking_action_user = @user
+elsif @message.msg_type == Message::Type::INVITE
+	taking_action_user = current_user
+end
+%>
+<% if (@message.msg_type == Message::Type::JOIN || @message.msg_type == Message::Type::INVITE) && @message.msg_state != Message::State::REJECTED && @message.msg_state != Message::State::CONFIRMED && !taking_action_user.member?(@message.board_id) %> 
+  <% board = Board.find_board(@message.board_id) %>
+  <%= form_for board.members.build(:user_id => taking_action_user.id) do |f| %>
 <div>
-    <%= f.hidden_field :user_id, :value => @message.from_user %>
+    <%= f.hidden_field :user_id, :value => taking_action_user.id %>
 </div>
 <div>
     <%= f.hidden_field :board_id, :value => @message.board_id %>

@@ -1,7 +1,12 @@
 <% if @board.active? %>
 
-<%= form_for @board.members.build(:user_id => 50) do |f| %>
-  <div><%= f.text_field :user_id %></div>
-  <div class="actions"><%= f.submit "Invite To This Board" %></div>
+<p>
+<%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
+  <div><%= f.hidden_field :board_id, :value => @board.id %></div>
+  <div><b>User ID: </b><%= f.text_field :to_user %></div>
+  <div><%= f.text_area :content , :rows => 3, :cols => 40, :value => "Hi!\nI would like to invite you to our board.\nThank you!" %></div>
+  <div class="join"><%= f.submit "#{Message::Commit::INVITE}" %></div>
 <% end %>
+</p>
+
 <% end %>

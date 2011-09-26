@@ -13,6 +13,7 @@ class Message < ActiveRecord::Base
     JOIN = "Join"
     CONFIRM = 'Confirm'
     REJECT = 'Reject'
+    INVITE = 'Invite'
   end
   # Types:
   class Type

@@ -50,7 +50,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     valid = false
     
-    if commit == Message::Commit::JOIN
+    if commit == Message::Commit::JOIN || commit == Message::Commit::INVITE
       board = Board.find_board(params[:message][:board_id])
       user = User.find_user(params[:message][:to_user])
       if ( !board.nil? && !user.nil? )
@@ -59,9 +59,9 @@ class MessagesController < ApplicationController
         @message.to_user = user.id
         @message.board_id = board.id
         @message.from_user = current_user.id
-        @message.subject = "Request to join your board \"#{board.title}\""
+        @message.subject = commit + " request for board \"#{board.title}\""
         @message.content = content
-        @message.msg_type = Message::Type::JOIN
+        @message.msg_type = commit
         @message.msg_state = Message::State::UNREAD
         valid = true
       end
