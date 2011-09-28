@@ -1,3 +1,23 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user_board a{
+  float: left;
+  margin: 2px;
+  border:3px solid $backgrnd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($light));
+  padding: 1em;
+  display:block;
+  text-align:center;
+  color:$darker;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:.3em;
+  @include rounded-corners;
+}
+.user_board a:hover {
+    background:$darker; /* nav hover color */
+    color:lighten($darker, 70%);
+    font-weight: bold;
+}

@@ -1,32 +1,34 @@
-<h2 align="center"><strong><%= @user.full_name %></strong></h2>
-<p align="center"><b><%= @user.email %>, <%= @user.location %>, 
-    <%= pluralize(@user.view_count, 'view') %></b></p>
+<fieldset id="user_details">
+<div id="user"><%= @user.full_name %>
+<div id="email"><%= @user.email %></div>
+<div id="location"><%= @user.location %></div>
+<div id="view_count"><%= pluralize(@user.view_count, 'view') %></div>
 <nav>
 	<ul>
-<% if current_user?(@user) %>
-<li><%= link_to 'New Board', new_board_path %></li>
-<li><%= link_to 'Edit Profile', edit_user_path(@user) %></li>
-<li><%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
-                :title => "Delete #{@user.full_name}" %></li>
-<% end %>
+	<% if current_user?(@user) %>
+	<li><%= link_to 'New Board', new_board_path %></li>
+	<li><%= link_to 'Edit Profile', edit_user_path(@user) %></li>
+	<li><%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+	                :title => "Delete #{@user.full_name}" %></li>
+	<% end %>
    </ul>
 </nav>
 <br />
 <hr>
 <div id="user_boards">
-<b>Boards:</b><br />
 <% unless @user.boards.empty? %>
+  <div class="user_board">
   <%= link_to "All", user_path(@user) %>
-  <br />
+  </div>
+  <br class="clearBoth" />
   <% @user.boards.each do |board| %>
      <% if board.active? %>
-     <div id="load_board">
-     	<b><%= link_to "#{board.title}", :board => board.id %></b>
+     <div class="user_board">
+     <%= link_to "#{board.title}", :board => board.id %>
      </div>
-     <%= link_to "Go to #{board.title}", board_path(board) %>
-     <br />
+     <br class="clearBoth" />
      <% end %>
   <% end %>
-<!-- %= render 'shared/container', :container => @user.boards % -->
-</div>
 <% end %>
+</div>
+</fieldset>
