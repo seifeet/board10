@@ -1,8 +1,8 @@
-<fieldset id="user_details">
-<div id="user"><%= @user.full_name %>
-<div id="email"><%= @user.email %></div>
-<div id="location"><%= @user.location %></div>
-<div id="view_count"><%= pluralize(@user.view_count, 'view') %></div>
+<div class="name"><h2><%= @user.full_name %></h2></div>
+<div class="email"><%= @user.email %>,</div>
+<div class="location"><%= @user.location %></div>
+<div class="view_count"><%= pluralize(@user.view_count, 'view') %></div>
+<br class="clearBoth" />
 <nav>
 	<ul>
 	<% if current_user?(@user) %>
@@ -20,15 +20,12 @@
   <div class="user_board">
   <%= link_to "All", user_path(@user) %>
   </div>
-  <br class="clearBoth" />
   <% @user.boards.each do |board| %>
      <% if board.active? %>
      <div class="user_board">
      <%= link_to "#{board.title}", :board => board.id %>
      </div>
-     <br class="clearBoth" />
      <% end %>
   <% end %>
 <% end %>
 </div>
-</fieldset>

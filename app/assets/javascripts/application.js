@@ -20,18 +20,20 @@ if(history && history.pushState ) {
 			return false;
 		});
 		
-	    $("#user_boards #load_board a").live("click", function() {
-			$("#board_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
+	    $(".user_board a").live("click", function() {
+			$(".board_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			//$("#board_title").html("Loading...");
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);
 			return false;
 		});
-/*
+		
+        /* do not remove this function anymore
+         * (withot it a new page will not reload after history events (e.g. Back)) */
 		$(window).bind("popstate", function() {
 			$.getScript(location.href);
 		});
-*/
+
 		$("#users_search").submit(function() {
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#users_search").attr("action") + "?" + $("#users_search").serialize());

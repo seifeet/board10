@@ -11,7 +11,7 @@ unless page_container.nil? || page_container.empty? || page_container.count == 0
   	type = "member"
   else
   	return
-  end
+  end # end of if first.instance_of?(Posting)
   if ( @type.nil? || @type != type )
     @type = type
   end

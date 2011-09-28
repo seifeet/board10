@@ -20,9 +20,9 @@
       <% end %>
     </ul>
   </nav>
-  <br />
 <% flash.each do |key, value|%>
 <%= content_tag(:div, value, :class => "flash #{key}") %>
 <% end %>
 
 </header>
+<br class="clearBoth" />

@@ -1,26 +1,22 @@
-<p id="notice">
-    <%= notice %>
-</p>
+<p id="notice"><%= notice %></p>
 
-<table>
-<tr>
-<td width="50%">
-<p>
+<div id="user_show">
+
 <div id="board_posting_form">
 <%= render 'board_posting_form' %>
 </div>
-</p>
-</td>
 
-<td>
+<div id="user_details">
 <%= render 'user_details' %>
-</td>
-</tr>
-<tr><td colspan="2">
+</div>
+
+<br class="clearBoth" />
+<br />
+
 <div id="user_postings">
   <%= render 'postings' %>
 </div>
-</td>
-</tr>
-</table>
+
+</div>
+<br class="clearBoth" />
 
