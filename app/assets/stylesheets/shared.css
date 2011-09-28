@@ -1,0 +1,79 @@
+#header ul li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.generic_container{
+	width: 100%;
+    margin: 2px auto;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding:1px;
+	color: #333;
+}
+.posting_element,
+.user_element,
+.board_element,
+.member_element{
+	width: auto;
+	margin: 2px auto;
+	background-color: #fff;
+	border:2px solid #666666;
+	padding:1px;
+	border-radius: 5px;
+}
+
+.content{
+	float:left;
+	margin: 5px;
+	padding: .3em;
+}
+.view_count{
+	float: left;
+	margin: 2px;
+	padding: .2em;
+	font-style: italic;
+}
+.access{
+	float: left;
+	margin: 2px;
+	font-style: italic;
+	color: red;
+}
+
+.edit_button{
+	float: right;
+	margin: 1px;
+	border:3px solid #006600;
+	border-radius: 15px;
+	padding: .5em;
+}
+.delete_button{
+	float: right;
+	margin: 1px;
+	border:3px solid #D12F19;
+	border-radius: 15px;
+	padding: .5em;
+}
+
+.clearBoth { clear:both; }
+
+.subject,
+.description{
+	float: left;
+	margin: 2px;
+	margin-left: 10px;
+}
+.user{
+	float: left;
+	margin: 2px;
+	margin-left: 10px;
+}
+.created_at,
+.title,
+.location,
+.email{
+	float: left;
+	margin: 2px;
+}

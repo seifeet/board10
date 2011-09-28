@@ -20,12 +20,14 @@ unless page_container.nil? || page_container.empty? || page_container.count == 0
    # this variable is defined in wrapper containers, for example page_container.
    # if it is nil then this controller is used directly.
    @container_type 
+   container_type_is_nil = false
+   container_type_is_nil = true if @container_type.nil?
 %>
-<% if @container_type.nil? %>
+
+<% if container_type_is_nil %>
 <div id="<%= "#{@type}_page_container" %>">
 <% end %>
 	
-<p>
 <div class="apple_pagination">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
@@ -34,8 +36,8 @@ unless page_container.nil? || page_container.empty? || page_container.count == 0
 <div class="apple_pagination">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
-</p>
-<% if @container_type.nil? %>
+
+<% if container_type_is_nil %>
 </div>
 <% end %>
 
