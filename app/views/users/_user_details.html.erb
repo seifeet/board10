@@ -1,12 +1,17 @@
-<h2 align="center"><strong><%= @user.full_name %></strong></h2> 
+<h2 align="center"><strong><%= @user.full_name %></strong></h2>
 <p align="center"><b><%= @user.email %>, <%= @user.location %>, 
     <%= pluralize(@user.view_count, 'view') %></b></p>
+<nav>
+	<ul>
 <% if current_user?(@user) %>
-<%= link_to 'New Board', new_board_path %>
-| <%= link_to 'Edit Profile', edit_user_path(@user) %>
-| <%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
-                :title => "Delete #{@user.full_name}" %>
+<li><%= link_to 'New Board', new_board_path %></li>
+<li><%= link_to 'Edit Profile', edit_user_path(@user) %></li>
+<li><%= link_to 'Delete Profile', @user, confirm: 'Are you sure?', method: :delete,
+                :title => "Delete #{@user.full_name}" %></li>
 <% end %>
+   </ul>
+</nav>
+<br />
 <hr>
 <div id="user_boards">
 <b>Boards:</b><br />

@@ -20,16 +20,20 @@ unless container.nil? || container.empty? || container.count == 0
    # this variable is defined in wrapper containers, for example page_container.
    # if it is nil then this controller is used directly.
    @container_type 
+   container_type_is_nil = false
+   container_type_is_nil = true if @container_type.nil?
 %>
-<% if @container_type.nil? %>
+<% if container_type_is_nil %>
 <div id="<%= "#{@type}_container" %>">
 <% end %>
 
+<div class="generic_container">
 <% container.each do |element| %>
 <%= render 'shared/element', :element => element, :type => @type %>
 <% end %>
+</div>
 
-<% if @container_type.nil? %>
+<% if container_type_is_nil %>
 </div>
 <% end %>
 

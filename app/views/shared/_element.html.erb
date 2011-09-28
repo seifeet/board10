@@ -1,8 +1,28 @@
 <% return nil if element.nil? %>
 <% if type == "posting" %>
-<p>
-	<%= link_to strip_and_cut(element.content, 120), posting_path(element) %> 
-	<i>posted by
+<div class="posting_element">
+
+	<div class="content"><%= link_to strip_and_cut(element.content, 120), posting_path(element) %></div>
+	<div class="view_count">
+	<% unless element.view_count == 0 %>
+	(<%= pluralize( element.view_count, 'view')  %>)
+	<% end %>
+	</div>
+	<div class="access">
+	    <%= element.access if element.access == Posting::PRIVATE %>
+    </div>
+    <% if ( current_user.id == element.user_id ) %>
+	<div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
+	<div class="delete_button"><%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %></div>
+	<% end %>
+	
+	<br class="clearBoth" />
+	
+	<div class="subject">
+	<%= ( 'Subject: ' + element.subject ) if !element.subject.nil? && !element.subject.empty? %> 
+	</div>
+	<div class="user">
+	posted by
 	<% if element.active_user %>
 		<% if current_user.id == element.user_id %>
 		you
@@ -13,60 +33,65 @@
 		<% end %>
 	<% else %>
 	Unknown user
-	<% end %></i>
-	<i><%= (time_ago_in_words(element.created_at)+" ago") unless element.created_at.nil? %></i>
-	<i><font color="red"><%= element.access if element.access == Posting::PRIVATE %></font></i>
-	<br />
-	<%= ("Subject: " + element.subject) if !element.subject.nil? && !element.subject.empty? %> 
-	<i>board
+	<% end %>
+	</div>	
+	<div class="created_at">
+		<%= (time_ago_in_words(element.created_at)+" ago") unless element.created_at.nil? %>
+	</div>    
+	<div class="title">
 	<% if board = Board.find(element.board_id) %>
-	<%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
+	on Board <%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
 	<% else %>
 	Unknown
-	<% end %> </i>
-	<i>(<%= pluralize( element.view_count, 'view') %>)</i>
-	<% if ( current_user.id == element.user_id ) %>
-	<%= link_to 'Edit', edit_posting_path(element) %></span>
-	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %></span>
 	<% end %>
-</p>
-
+	</div>
+	
+	<br class="clearBoth" />
+</div>
 <% elsif type == "user"  %>
-<p>
-	<%= link_to element.full_name, element %>, <%= pluralize( element.view_count, 'view' ) %>,
-	<%= element.location %> (<%= element.email %>)
+<div class="user_element">
+	<div class="user"><%= link_to element.full_name, element %></div>
+	<div class="view_count"><%= pluralize( element.view_count, 'view' ) %></div>
+	<div class="location"><%= element.location %></div> 
+	<div class="email">(<%= element.email %>)</div>
 	<% if current_user?(element) %>
-	  | <%= link_to 'Edit', edit_user_path(element) %>
-	  | <%= link_to 'Destroy', element, confirm: 'Are you sure?', method: :delete,
-	                      :title => "Delete #{element.full_name}" %>
+	<div class="edit_button"><%= link_to 'Edit', edit_user_path(element) %></div>
+	<div class="delete_button"><%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	                      :title => "Delete #{element.full_name}" %></div>
 	<% elsif admin?  %>
-	   <%= link_to 'Destroy', element, confirm: 'Are you sure?', method: :delete,
-	                      :title => "Delete #{element.full_name}" %>
+	   <div class="delete_button"><%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	                      :title => "Delete #{element.full_name}" %></div>
 	<% end %>
-</p>
-
+	
+	<br class="clearBoth" />
+</div>
 <% elsif type == "board"  %>
-<p>    
-    Board: <%= link_to element.title, element %>
-    <i>(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)</i>
-    <i><font color="red"><%= element.access if element.access == Board::PRIVATE %></font></i>
+<div class="board_element"> 
+    <div class="title">Board: <%= link_to element.title, element %></div>
+    <div class="view_count">(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)</div>
+    <div class="access"><%= element.access if element.access == Board::PRIVATE %></div>
     <% if ( current_user.admin? && element.active? ) %>
-    <%= link_to 'Edit', edit_board_path(element) %>
-    <%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
+    <div class="edit_button"><%= link_to 'Edit', edit_board_path(element) %></div>
+    <div class="delete_button"><%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %></div>
     <% end %>
-    <i><font color=red><%= element.status unless element.active? %></font></i>
-    <br />
-    <%= strip_and_cut( element.description ) %>
-</p>
+    <div class="status"><%= element.status unless element.active? %></div>
+    
+    <br class="clearBoth" />
+    
+    <div class="description"><%= strip_and_cut( element.description ) %></div>
+    <br class="clearBoth" />
+</div>
 
 <% elsif type == "member"  %>
-<p>
+<div class="member_element"> 
    <% board = Board.find_board(element.board_id) %>
-   <%= board.access %> Board: <%= link_to board.title, board %>
-   <i><font color="red"><%= board.status unless ( board.active ) %></font></i>
-   <i> (<%= pluralize(board.view_count, 'view') + ', ' + pluralize(board.postings.count, 'post') %>) </i>
-   <br /><%= strip_and_cut( board.description ) %>
-</p>
+   <div class="access"><%= board.access %></div>
+   <div class="title">Board: <%= link_to board.title, board %></div>
+   <div class="status"><%= board.status unless ( board.active ) %></div>
+   <div class="view_count">(<%= pluralize(board.view_count, 'view') + ', ' + pluralize(board.postings.count, 'post') %>)</div>
+   <br class="clearBoth" />
+   <div class="description"><%= strip_and_cut( board.description ) %></div>
+   <br class="clearBoth" />
+</div>
 
 <% end %>
-

@@ -1,0 +1,200 @@
+$backgrnd: #BAC3D3;
+$darkest:        darken($backgrnd,70%);
+$darker:         darken($backgrnd,40%);
+$light:          lighten($backgrnd, 40%);
+$lightest:       lighten($backgrnd, 70%);
+
+$btn-confirm: #227448;
+$btn-reject: #9D5134;
+
+@mixin rounded-corners($radius: 1em){
+	border-radius: $radius;
+	-moz-border-radius: $radius;
+    -webkit-border-radius: $radius;	
+}
+
+body{
+	background: $darker;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
+    color:$darkest;
+}
+
+/*********************** header ***********************************/
+#header ul li {
+    display:inline;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+#header ul li a {
+    display:block;
+    float:left;
+    margin:0 0 0 0px;
+    padding:3px 10px;
+    text-align:center;
+    background:$backgrnd; /* nav button color */
+    color:$darkest;
+    text-decoration:none;
+    font-weight: bold;
+    position:relative;
+    left:0px;
+    line-height:1.3em;
+    @include rounded-corners;
+    &:hover{
+    	background:$darker; /* nav hover color */
+        color:$backgrnd;
+        font-weight: bold;
+    }
+    &:active,
+    &:active:hover {
+	    color:$darker;
+	    background:$backgrnd;
+	    font-weight:bold;
+	}
+}
+
+#header ul li a span {
+    display:block;
+}
+
+/*********************** content ***********************************/
+#content ul li {
+    display:inline;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+#content ul li a {
+    display:block;
+    float:left;
+    margin:0 0 0 0px;
+    padding:3px 10px;
+    text-align:center;
+    background:$backgrnd; /* nav button color */
+    color:$darkest;
+    text-decoration:none;
+    font-weight: bold;
+    position:relative;
+    left:0px;
+    line-height:1.3em;
+    @include rounded-corners;
+    &:hover{
+    	background:$darker; /* nav hover color */
+        color:$backgrnd;
+        font-weight: bold;
+    }
+    &:active,
+    &:active:hover {
+	    color:$darker;
+	    background:$backgrnd;
+	    font-weight:bold;
+	}
+}
+
+#content ul li a span {
+    display:block;
+}
+
+/*********************** containers ***********************************/
+.generic_container{
+	width: 100%;
+    margin: 2px auto;
+    border: 3px solid $backgrnd;
+    border-radius: 5px;
+    padding:1px;
+	color: $darkest;
+}
+.generic_container div.posting_element:hover,
+.generic_container div.user_element:hover,
+.generic_container div.board_element:hover,
+.generic_container div.member_element:hover{
+    background:$backgrnd; /* nav hover color */
+    /*color:lighten($backgrnd, 70%);*/
+}
+.posting_element,
+.user_element,
+.board_element,
+.member_element{
+	width: auto;
+	margin: 2px auto;
+	background-color: $backgrnd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($light));
+	border:3px solid $backgrnd;
+	padding:1px;
+	border-radius: 5px;
+}
+.content{
+	float:left;
+	margin: 5px;
+	padding: .3em;
+}
+.view_count{
+	float: left;
+	margin: 2px;
+	padding: .2em;
+	font-style: italic;
+}
+.access{
+	float: left;
+	margin: 2px;
+	font-style: italic;
+	color: red;
+}
+
+.edit_button a{
+	float: right;
+	margin: 5px;
+	border:3px solid $btn-confirm;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($btn-confirm), to(lighten($btn-reject, 70%)));
+	padding: 1em;
+	display:block;
+    text-align:center;
+     /* background:#eee; nav button color */
+    color:$btn-confirm;
+    text-decoration:none;
+    font-weight: bold;
+    line-height:.3em;
+    @include rounded-corners;
+}
+.edit_button a:hover {
+    background:$btn-confirm; /* nav hover color */
+    color:lighten($btn-confirm, 70%);
+    font-weight: bold;
+}
+.delete_button a{
+	float: right;
+	margin: 5px;
+	border:3px solid $btn-reject;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($btn-reject), to(lighten($btn-reject, 70%)));
+	padding: 1em;
+	display:block;
+    text-align:center;
+    color:$btn-reject;
+    text-decoration:none;
+    font-weight: bold;
+    line-height:.3em;
+    @include rounded-corners;
+}
+.delete_button a:hover {
+    background:$btn-reject; /* nav hover color */
+    color:lighten($btn-reject, 70%);
+    font-weight: bold;
+}
+
+.clearBoth { clear:both; }
+
+.user,
+.subject,
+.description{
+	float: left;
+	margin: 2px;
+	margin-left: 10px;
+}
+
+.created_at,
+.title,
+.location,
+.email{
+	float: left;
+	margin: 2px;
+}
