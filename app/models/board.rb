@@ -1,5 +1,5 @@
 class Board < ActiveRecord::Base
-  attr_accessible :title, :description, :access_level
+  attr_accessible :title, :description, :access_level, :school_id
   
   #default_scope :conditions => {:active => true}
   

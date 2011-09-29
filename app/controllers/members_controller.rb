@@ -60,9 +60,6 @@ class MembersController < ApplicationController
         end
       end
     else
-      flash.now[:success] = "user is null" if user.nil?
-      flash.now[:success] = "board is null" if board.nil?
-      flash.now[:success] = "user is a member is null" if user.member?(board)
       valid = false
     end
 

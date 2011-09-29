@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110925231643) do
+ActiveRecord::Schema.define(:version => 20110929111234) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20110925231643) do
     t.integer  "access_level", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "school_id"
   end
 
   create_table "members", :force => true do |t|
@@ -65,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20110925231643) do
   add_index "postings", ["board_id"], :name => "index_postings_on_board_id"
   add_index "postings", ["created_at"], :name => "index_postings_on_created_at"
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
+
+  create_table "user_schools", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "school_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_schools", ["school_id"], :name => "index_user_schools_on_school_id"
+  add_index "user_schools", ["user_id", "school_id"], :name => "index_user_schools_on_user_id_and_school_id", :unique => true
+  add_index "user_schools", ["user_id"], :name => "index_user_schools_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                    :null => false

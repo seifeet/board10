@@ -6,7 +6,7 @@ class Member < ActiveRecord::Base
     
   validates :user_id, :presence => true
   validates :board_id, :presence => true
-  #validates :owner, :presence => true
+
   validates_uniqueness_of :user_id, :scope => :board_id 
   
 end
