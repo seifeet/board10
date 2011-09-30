@@ -2,7 +2,7 @@
   <h3>Schools:</h3>
   <% @user.schools.each do |school| %>
      <div class="user_school">
-     <%= link_to "#{school.name}", :school => school.id %>
+     <%= link_to "#{strip_and_cut(school.name, 20)}", :school => school.id %>
      </div>
   <% end %>
 <% end %>

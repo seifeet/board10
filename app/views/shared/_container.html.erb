@@ -16,8 +16,6 @@ unless container.nil? || container.empty? || container.count == 0
 <div id="<%= "#{@type}_container" %>">
 <% end %>
 
-Date: <div id="datepicker"></div>
-
 <div class="generic_container">
 <% container.each do |element| %>
 <%= render 'shared/element', :element => element, :type => @type %>
