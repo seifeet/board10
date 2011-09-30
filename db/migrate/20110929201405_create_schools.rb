@@ -11,6 +11,6 @@ class CreateSchools < ActiveRecord::Migration
     add_index :schools, :state
     add_index :schools, :city
     add_index :schools, :name
-    add_index :schools, [:state, :city, :name], :unique => true
+    add_index :schools, [:state, :city, :name, :url], :unique => true
   end
 end

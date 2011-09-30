@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20110929201405) do
 
   add_index "schools", ["city"], :name => "index_schools_on_city"
   add_index "schools", ["name"], :name => "index_schools_on_name"
-  add_index "schools", ["state", "city", "name"], :name => "index_schools_on_state_and_city_and_name", :unique => true
+  add_index "schools", ["state", "city", "name", "url"], :name => "index_schools_on_state_and_city_and_name_and_url", :unique => true
   add_index "schools", ["state"], :name => "index_schools_on_state"
 
   create_table "user_schools", :force => true do |t|
