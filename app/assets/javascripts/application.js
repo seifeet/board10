@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require_tree .
 //
 
@@ -56,5 +57,7 @@ if(history && history.pushState ) {
 		$("#new_posting").live("ajax:complete", function(event, xhr, status) {
 			$('#posting_content').val('');
 		});
+		
+		$("#datepicker").datepicker();
 	});
 }

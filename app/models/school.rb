@@ -15,7 +15,7 @@ class School < ActiveRecord::Base
   def self.search(search)
     if search
       tmp = search.sub(' ', '%')
-      where('CONCAT( state, \' \', city, \' \', name ) LIKE ?', "%#{tmp}%")
+      where('CONCAT( city, \' \', state, \' \', city, \' \', name, \' \', state, \' \', city ) LIKE ?', "%#{tmp}%")
     else
       scoped # the same as all, but does not perform the actual query
     end
