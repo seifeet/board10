@@ -45,19 +45,23 @@ class UsersController < ApplicationController
     
     @posting_form = Posting.new
     # in case there is a board argument in the url
-    if ( !params[:board].nil? )
+    if !params[:board].nil?
       @board = Board.find_board(params[:board])
+    elsif !params[:school].nil? 
+      @school = School.find_school(params[:school])
     end
 
     # if above board was found and current user is a member of this board 
-    # then show all the 
-    
+    # then show all the postings
     if ( !@board.nil? && current_user.member?(@board) )
        @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
-    elsif ( current_user?( @user ) )
+    elsif ( !@board.nil? && current_user?( @user ) )
        @board_title = "From all my boards:"
        @postings = paginate_board_postings @user 
-    else
+    elsif ( !@school.nil? && current_user?( @user ) )
+       @board_title = "School: " + @school.school_name
+       @postings = paginate_school_postings @school
+    else # for all other non-members show only public posts:
        @board_title = @user.first_name + "'s Public Posts:"
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
@@ -145,12 +149,33 @@ class UsersController < ApplicationController
   
   private
   
-    def paginate_board_postings user
+    def paginate_board_postings boards
       require 'will_paginate/array'
       @boards = user.boards
       all_postings = []
-      @boards.each do |board| 
+      boards.each do |board| 
          all_postings += board.all_member_comments(user.id)
+      end
+      
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      end
+      
+      all_postings.uniq!
+      
+      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+    end
+    
+    def paginate_school_postings school
+      require 'will_paginate/array'
+      @boards = school.boards
+      all_postings = []
+      @boards.each do |board|
+        if current_user.member?(board)
+          all_postings += board.postings
+        else
+          all_postings += board.postings.where(:visibility => 1)
+        end
       end
       
       if !all_postings.nil? && !all_postings.empty?

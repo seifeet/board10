@@ -1,0 +1,7 @@
+<% unless current_user.has_school?(school.id) %>
+<%= form_for current_user.user_schools.build(:school_id => school.id) do |f| %>
+  <%= f.hidden_field :school_id, :value => school.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.submit "Add this school" %>
+<% end %>
+<% end %>

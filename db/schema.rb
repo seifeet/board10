@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929111234) do
+ActiveRecord::Schema.define(:version => 20110929201405) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -66,6 +66,20 @@ ActiveRecord::Schema.define(:version => 20110929111234) do
   add_index "postings", ["board_id"], :name => "index_postings_on_board_id"
   add_index "postings", ["created_at"], :name => "index_postings_on_created_at"
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
+
+  create_table "schools", :force => true do |t|
+    t.string   "state",      :limit => 2,   :null => false
+    t.string   "city",       :limit => 150, :null => false
+    t.string   "name",                      :null => false
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "schools", ["city"], :name => "index_schools_on_city"
+  add_index "schools", ["name"], :name => "index_schools_on_name"
+  add_index "schools", ["state", "city", "name"], :name => "index_schools_on_state_and_city_and_name", :unique => true
+  add_index "schools", ["state"], :name => "index_schools_on_state"
 
   create_table "user_schools", :force => true do |t|
     t.integer  "user_id"

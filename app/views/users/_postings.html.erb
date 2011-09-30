@@ -1,9 +1,9 @@
-<% if @postings.nil? %>
-  <% @board = Board.find(posting.board_id) if @board.nil? %>
-  <% 
-   if ( current_user.member?( @board.id ) )
-     @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC') #.limit(80)
-   end 
+<% if @postings.nil?
+	   @board = Board.find(posting.board_id) if @board.nil?
+	 
+	   if ( current_user.member?( @board.id ) )
+	     @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC') #.limit(80)
+	   end 
    end 
  %>
 <%= render 'shared/page_container', :page_container => @postings %>

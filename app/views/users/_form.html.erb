@@ -29,12 +29,13 @@
 <div class="field">
     <%= f.label :country %>
     <br />
-    <%= f.text_field :country %>
+    <%= f.select(:country, Country.all) %>
 </div>
+
 <div class="field">
     <%= f.label :state %>
     <br />
-    <%= f.text_field :state %>
+    <%= f.select(:state, State.all, { :include_blank => true }) %>
 </div>
 <div class="field">
     <%= f.label :city %>

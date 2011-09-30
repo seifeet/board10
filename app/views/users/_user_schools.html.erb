@@ -1,0 +1,10 @@
+<% if current_user.id == @user.id && !@user.schools.empty? %>
+  <h3>Schools:</h3>
+  <% @user.schools.each do |school| %>
+     <div class="user_school">
+     <%= link_to "#{school.name}", :school => school.id %>
+     </div>
+  <% end %>
+<% end %>
+<br class="clearBoth" />
+<br />

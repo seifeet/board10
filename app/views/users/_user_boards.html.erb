@@ -1,0 +1,13 @@
+<h3>Boards:</h3>
+<% unless @user.boards.empty? %>
+  <div class="user_board">
+  <%= link_to "All", user_path(@user) %>
+  </div>
+  <% @user.boards.each do |board| %>
+     <% if board.active? %>
+     <div class="user_board">
+     <%= link_to "#{board.title}", :board => board.id %>
+     </div>
+     <% end %>
+  <% end %>
+<% end %>

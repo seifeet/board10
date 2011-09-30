@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many :postings, :dependent => :destroy
   has_many :members, :foreign_key => "user_id", :dependent => :destroy
   has_many :boards, :through => :members
+  has_many :user_schools, :foreign_key => "user_id"
+  has_many :schools, :through => :user_schools
   
   before_save :encrypt_password, :if => :should_validate_password?
   
@@ -95,6 +97,12 @@ class User < ActiveRecord::Base
   
   def unmember!(board_id)
     members.find_by_board_id(board_id).destroy
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def has_school?(school_id)
+    user_schools.find_by_school_id(school_id)
     rescue ActiveRecord::RecordNotFound
     false
   end

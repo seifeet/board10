@@ -40,11 +40,19 @@ class UserSchoolsController < ApplicationController
   # POST /user_schools
   # POST /user_schools.json
   def create
-    @user_school = UserSchool.new(params[:user_school])
+    user = User.find_user(params[:user_school][:user_id])
+    school = School.find_school(params[:user_school][:school_id])
+    valid = true
+    if ( !user.nil? && !school.nil? && !user.has_school?(school))
+      @user_school = UserSchool.new(params[:user_school])
+      @user_school.user_id = user.id
+    else
+      valid = false
+    end
 
     respond_to do |format|
-      if @user_school.save
-        format.html { redirect_to @user_school, notice: 'User school was successfully created.' }
+      if valid && @user_school.save
+        format.html { redirect_to session[:return_to], notice: 'User school was successfully created.' }
         format.json { render json: @user_school, status: :created, location: @user_school }
       else
         format.html { render action: "new" }

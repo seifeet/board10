@@ -9,12 +9,17 @@ if object_type == 'user'
   else
 	search_results = @users
   end
-elsif 
-  object_type == 'board'
+elsif object_type == 'board'
   if @boards.nil?
 	search_results = Board.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
   else
 	search_results = @boards
+  end
+elsif object_type == 'school'
+  if @schools.nil?
+	search_results = School.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
+  else
+	search_results = @schools
   end
 end 
 %>

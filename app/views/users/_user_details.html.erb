@@ -1,8 +1,5 @@
-<div class="name"><h2><%= @user.full_name %></h2></div>
-<div class="email"><%= @user.email %>,</div>
-<div class="location"><%= @user.location %></div>
 <div class="view_count"><%= pluralize(@user.view_count, 'view') %></div>
-<br class="clearBoth" />
+<div class="name"><h2><%= @user.full_name %></h2></div>
 <nav>
 	<ul>
 	<% if current_user?(@user) %>
@@ -13,19 +10,12 @@
 	<% end %>
    </ul>
 </nav>
-<br />
+<div class="email"><%= @user.email %>,</div>
+<div class="location"><%= @user.location %></div>
 <hr>
+<div id="user_schools">
+<%= render 'user_schools' %>
+</div>
 <div id="user_boards">
-<% unless @user.boards.empty? %>
-  <div class="user_board">
-  <%= link_to "All", user_path(@user) %>
-  </div>
-  <% @user.boards.each do |board| %>
-     <% if board.active? %>
-     <div class="user_board">
-     <%= link_to "#{board.title}", :board => board.id %>
-     </div>
-     <% end %>
-  <% end %>
-<% end %>
+<%= render 'user_boards' %>
 </div>

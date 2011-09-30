@@ -1,7 +1,5 @@
 Board10::Application.routes.draw do
 
-  resources :user_schools
-
   # if I type 'users' it will take me to their index
   #get 'users' => 'users#index'
   #post 'users' => 'users#index'
@@ -17,6 +15,8 @@ Board10::Application.routes.draw do
   resources :postings #, :only => [:create, :destroy]
   resources :messages
   resources :password_resets
+  resources :schools
+  resources :user_schools
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
