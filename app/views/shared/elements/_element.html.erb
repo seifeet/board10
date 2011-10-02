@@ -1,0 +1,6 @@
+<% return nil if element.nil? %>
+<div class="<%= element.class_type %>_element">
+<%= render "shared/elements/#{element.class_type}", :element => element %>
+<br class="clearBoth" />
+</div>
+

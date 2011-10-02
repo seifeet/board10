@@ -25,22 +25,4 @@ module ApplicationHelper
       (text.length < max_width) ? text : 
           text.scan(regex).join(zero_width_space)
   end
-  
-  def determine_type container
-    first = container.first
-    if first.instance_of?(Posting)
-      type = "posting"
-    elsif first.instance_of?(Board)
-      type = "board"
-    elsif first.instance_of?(User)
-      type = "user"
-    elsif first.instance_of?(Member)
-      type = "member"
-    elsif first.instance_of?(School)
-      type = "school"
-    else
-      return
-    end
-      type
-  end
 end

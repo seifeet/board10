@@ -8,5 +8,8 @@ class Member < ActiveRecord::Base
   validates :board_id, :presence => true
 
   validates_uniqueness_of :user_id, :scope => :board_id 
-  
+    
+  def class_type
+    'member'
+  end
 end

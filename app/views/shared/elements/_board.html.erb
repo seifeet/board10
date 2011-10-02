@@ -1,0 +1,24 @@
+<div class="title">
+	Board: <%= link_to element.title, element %>
+</div>
+<div class="view_count">
+	(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)
+</div>
+<div class="access">
+	<%= element.access if element.access == Board::PRIVATE %>
+</div>
+<% if ( current_user.admin? && element.active? ) %>
+<div class="edit_button">
+	<%= link_to 'Edit', edit_board_path(element) %>
+</div>
+<div class="delete_button">
+	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
+</div>
+<% end %>
+<div class="status">
+	<%= element.status unless element.active? %>
+</div>
+<br class="clearBoth" />
+<div class="description">
+	<%= strip_and_cut( element.description ) %>
+</div>

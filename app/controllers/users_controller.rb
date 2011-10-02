@@ -44,27 +44,36 @@ class UsersController < ApplicationController
     end
     
     @posting_form = Posting.new
-    # in case there is a board argument in the url
-    if !params[:board].nil?
-      @board = Board.find_board(params[:board])
-    elsif !params[:school].nil? 
+
+    if !params[:school].nil?
       @school = School.find_school(params[:school])
+    elsif !params[:board].nil? && params[:board] != "all"
+      @board = Board.find_board(params[:board])
     end
 
-    # if above board was found and current user is a member of this board 
-    # then show all the postings
-    if ( !@board.nil? && current_user.member?(@board) )
-       @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
-    elsif ( !@board.nil? && current_user?( @user ) )
-       @board_title = "From all my boards:"
-       @postings = paginate_board_postings @user 
-    elsif ( !@school.nil? && current_user?( @user ) )
-       @board_title = "School: " + @school.school_name
+    # show all postings for the school.
+    # postings will be filtered according to membership of the current_user
+    if !@school.nil?
        @postings = paginate_school_postings @school
+    # show all postings of the board if current_user is a member
+    elsif !@board.nil? && current_user.member?( @board )
+       @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+    # show only public postings if current_user is not a member
+    elsif !@board.nil? && !current_user.member?( @board )
+       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+    # show all postings for the board.
+    # postings will be filtered according to membership of the current_user
+    elsif !params[:board].nil? && params[:board] == "all"
+       @postings_title = "From all my boards:"
+       @postings = paginate_board_postings @user
     else # for all other non-members show only public posts:
-       @board_title = @user.first_name + "'s Public Posts:"
+       @postings_title = @user.first_name + "'s Public Posts:"
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
+    
+    @postings_title = "no posts" if @postings.nil? || @postings.empty?
+    
+    @show_posting_form = false
     
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
@@ -149,12 +158,16 @@ class UsersController < ApplicationController
   
   private
   
-    def paginate_board_postings boards
+    def paginate_board_postings user
       require 'will_paginate/array'
       @boards = user.boards
       all_postings = []
-      boards.each do |board| 
-         all_postings += board.all_member_comments(user.id)
+      @boards.each do |board|
+        if current_user.member?(board)
+          all_postings += board.all_member_comments(user.id)
+        else
+          all_postings += board.postings.where(:visibility => 1)
+        end
       end
       
       if !all_postings.nil? && !all_postings.empty?
