@@ -84,7 +84,7 @@ class UserSchoolsController < ApplicationController
     @user_school.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_schools_url }
+      format.html { redirect_to session[:return_to] }
       format.json { head :ok }
     end
   end

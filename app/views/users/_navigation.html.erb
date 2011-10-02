@@ -1,0 +1,26 @@
+<div id="user_title_nav">
+	<% if current_user.id == @user.id %>
+	<div class="nav_link">
+		<%= link_to 'Add New Board', new_board_path %>
+	</div>
+	<% end %>
+	
+	<br class="clearBoth" />
+	
+	<div id="user_schools">
+		<%= render 'user_schools' %>
+	</div>
+	
+	<br class="clearBoth" />
+	
+	<div class="nav_link">
+		<%= link_to "All My Boards", user_url(@user) + "?board=all" %>
+	</div>
+	
+	<br class="clearBoth" />
+	
+	<div id="user_boards">
+		<%= render 'user_boards' %>
+	</div>
+	<br class="clearBoth" />
+</div>

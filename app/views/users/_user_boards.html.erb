@@ -1,15 +1,10 @@
 <% unless @user.boards.empty? %>
-  <b>Boards:</b>
-  <div class="user_board">
-  <%= link_to "From All My Boards", user_path(@user) %>
-  </div>
-  <br />
   <% @user.boards.each do |board| %>
      <% if board.active? %>
-     <div class="user_board">
+     <div class="nav_link">
      <%= link_to "#{board.title}", :board => board.id %>
      </div>
      <% end %>
   <% end %>
 <% end %>
-<br class="clearBoth" />
+

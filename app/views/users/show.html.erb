@@ -1,19 +1,6 @@
 <%= render 'shared/titles/title', :element => @user, :edit_link => edit_user_path(@user) %>
 
-<div id="user_title_nav">
-	<div id="user_schools">
-		<%= render 'user_schools' %>
-	</div>
-	<div class="nav_link">
-	<%= link_to "My Boards", user_url(@user) + "?board=all" %>
-	</div>
-	<br />
-	<% if current_user.id == @user.id %>
-	<div class="nav_link">
-	<%= link_to 'Add New Board', new_board_path %>
-	</div>
-	<% end %>
-</div>
+<%= render 'navigation' %>
 
 <div id='main_part'>
 
@@ -27,13 +14,4 @@
 
 </div> <!-- close main_part -->
 <br class="clearBoth" />
-
-<!-- div id="user_boards" --><!-- %= render 'user_boards' % --><!-- /div -->
-
-
-
-
-
-
-
 

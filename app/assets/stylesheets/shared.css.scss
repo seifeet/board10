@@ -9,6 +9,8 @@ $fonts-color: $darkest;
 $btn-confirm: #227448;
 $btn-reject: #9D5134;
 
+$footer-heigth: 25px;
+
 @mixin rounded-corners($radius: 1em){
 	border-radius: $radius;
 	-moz-border-radius: $radius;
@@ -34,12 +36,41 @@ $btn-reject: #9D5134;
     font-weight: bold;
 }
 
-/*********************** body ***********************************/
+/************************* footer ******************************/
 body{
-	background: $darker;
+  margin:0;
+  padding:0 0 $footer-heigth 0;
+  background: $backgrnd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
+  color:$fonts-color;
+ }
+ div#footer{
+  position:absolute;
+  bottom:0;
+  left:200px;
+  width:950px;
+  height:$footer-heigth;
+  background:$backgrnd;
+ }
+ @media screen{
+  body>div#footer{
+   position: fixed;
+  }
+ }
+ * html body{
+  overflow:hidden;
+ } 
+ * html div#content{
+  height:100%;
+  overflow:auto;
+ }
+
+/*********************** body ***********************************/
+/*body{
+	background: $backgrnd;
 	background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
   color:$fonts-color;
-}
+}*/
 
 a{
   color:$darkest;
@@ -165,6 +196,7 @@ h3 ._sub_title{
 
 .delete_button a{
 	float: right;
+	width: auto;
   @include main-button( $btn-reject );
 }
 .delete_button a:hover {
