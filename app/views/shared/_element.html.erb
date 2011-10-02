@@ -12,10 +12,13 @@
 	    <%= element.access if element.access == Posting::PRIVATE %>
     </div>
     <% if ( current_user.id == element.user_id ) %>
-	<div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 	<div class="delete_button"><%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %></div>
+	<div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 	<% end %>
-	
+	<% if @loader %>
+    <div class="action_button"><%= link_to 'Load Board', user_path(element.user_id) + "?board=" + element.board_id.to_s %></div>
+    <% end %>
+    
 	<br class="clearBoth" />
 	
 	<div class="subject">

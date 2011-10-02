@@ -2,33 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-h1, h2, h3, h4{
-  color: $fonts-color;
+#user_title_nav{
+  float:right;
 }
 
-#user_show{
-  width: 100%;
-  margin: 2px;
-  border-radius: 5px;
-  padding:1px;
-  color: $darkest;
+#main_part{
+  float:left;
 }
+
 #board_posting_form{
   float: left;
-  width: 40%;
-}
-#user_details{
-  float: left;
-  width: 57%;
-  text-align: center;
+  width: 680px;
 }
 #user_postings{
   float: left;
-  width: 100%;
+  width: 680px;
 }
-.user_school a,
-.user_board a{
-  float: left;
+
+.nav_link a{
   width: 150px;
   margin: 2px;
   background: $light;

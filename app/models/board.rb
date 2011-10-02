@@ -8,6 +8,10 @@ class Board < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  def class_type
+    'board'
+  end
+  
   def self.search(search)
     if search && !search.blank?
       tmp = search.sub(' ', '%')
@@ -19,7 +23,7 @@ class Board < ActiveRecord::Base
   
   def all_member_comments user_id
     Posting.joins('inner join `members` on `postings`.`board_id` = `members`.`board_id`').
-    where("`members`.`user_id` = ? ", user_id )
+    where("`members`.`user_id` = ?", user_id )
   end
   
   def status

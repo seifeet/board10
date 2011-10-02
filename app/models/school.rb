@@ -21,6 +21,14 @@ class School < ActiveRecord::Base
     end
   end
   
+  def class_type
+    'school'
+  end
+  
+  def title
+    school_name
+  end
+  
   def school_name
     name
   end

@@ -45,6 +45,18 @@ class User < ActiveRecord::Base
   email_regex = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   validates :email, :format => { :with => email_regex, :message => 'Email must be valid' }
   
+  def class_type
+    'user'
+  end
+  
+  def title
+    full_name
+  end
+  
+  def description
+    location
+  end
+  
   def self.find_user user_id
     self.find(user_id)
     rescue ActiveRecord::RecordNotFound

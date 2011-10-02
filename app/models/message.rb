@@ -9,6 +9,10 @@ class Message < ActiveRecord::Base
   validates :msg_type, :presence => true
   validates :msg_state, :presence => true
   
+  def class_type
+    'message'
+  end
+  
   class Commit
     JOIN = 'Join'
     CONFIRM = 'Confirm'

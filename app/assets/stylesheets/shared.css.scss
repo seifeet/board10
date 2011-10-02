@@ -15,6 +15,26 @@ $btn-reject: #9D5134;
     -webkit-border-radius: $radius;	
 }
 
+@mixin main-button( $clr ){
+  margin: 5px;
+  border:3px solid $clr;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($clr), to(lighten($clr, 70%)));
+  padding: 1em;
+  display:block;
+  text-align:center;
+  color:$clr;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:.3em;
+  @include rounded-corners;
+}
+@mixin main-hover($bkgrnd){
+    background:$bkgrnd; /* nav hover color */
+    color:lighten($bkgrnd, 70%);
+    font-weight: bold;
+}
+
+/*********************** body ***********************************/
 body{
 	background: $darker;
 	background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
@@ -64,50 +84,55 @@ a{
 }
 
 /*********************** content ***********************************/
-#content ul li {
-    display:inline;
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-#content ul li a {
-    display:block;
-    float:left;
-    margin:0 0 0 0px;
-    padding:3px 10px;
-    text-align:center;
-    background:$backgrnd; /* nav button color */
-    color:$darkest;
-    text-decoration:none;
-    font-weight: bold;
-    position:relative;
-    left:0px;
-    line-height:1.3em;
-    @include rounded-corners;
-    &:hover{
-    	background:$darker; /* nav hover color */
-        color:$backgrnd;
-        font-weight: bold;
-    }
-    &:active,
-    &:active:hover {
-	    color:$darker;
-	    background:$backgrnd;
-	    font-weight:bold;
-	}
-}
 
-#content ul li a span {
-    display:block;
-}
 
 /*********************** containers ***********************************/
+h3 #_title{
+  clear:both;
+  font-weight: bold;
+}
+#_desc{
+  float:left;
+}
+#_title_nav{
+  float:right;
+}
+
+._sub_title{
+  float:left;
+  font-weight:bold;
+}
+h3 ._sub_title{
+  float:left;
+  padding: 5px;
+}
+._sub_title_action a{
+  float: left;
+  border:2px solid $darker;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($darker), to(lighten($darker, 70%)));
+  padding: 1em;
+  display:block;
+  text-align:center;
+  /* background:#eee; nav button color */
+  color:$darker;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:.3em;
+  @include rounded-corners;
+}
+._sub_title_nav a:hover {
+    background:$darker; /* nav hover color */
+    color:lighten($darker, 70%);
+    font-weight: bold;
+ }
+
 .generic_container{
+  float:left;
 	width: 100%;
-    margin: 2px auto;
-    border: 3px solid $backgrnd;
-    border-radius: 5px;
-    padding:1px;
+  margin: 2px auto;
+  border: 3px solid $backgrnd;
+  border-radius: 5px;
+  padding:1px;
 	color: $darkest;
 }
 .generic_container div.posting_element:hover,
@@ -149,42 +174,26 @@ a{
 
 .edit_button a{
 	float: right;
-	margin: 5px;
-	border:3px solid $btn-confirm;
-	background-image: -webkit-gradient(linear, left top, left bottom, from($btn-confirm), to(lighten($btn-reject, 70%)));
-	padding: 1em;
-	display:block;
-    text-align:center;
-     /* background:#eee; nav button color */
-    color:$btn-confirm;
-    text-decoration:none;
-    font-weight: bold;
-    line-height:.3em;
-    @include rounded-corners;
+  @include main-button( $btn-confirm );
 }
 .edit_button a:hover {
-    background:$btn-confirm; /* nav hover color */
-    color:lighten($btn-confirm, 70%);
-    font-weight: bold;
+  @include main-hover( $btn-confirm );
 }
+
 .delete_button a{
 	float: right;
-	margin: 5px;
-	border:3px solid $btn-reject;
-    background-image: -webkit-gradient(linear, left top, left bottom, from($btn-reject), to(lighten($btn-reject, 70%)));
-	padding: 1em;
-	display:block;
-    text-align:center;
-    color:$btn-reject;
-    text-decoration:none;
-    font-weight: bold;
-    line-height:.3em;
-    @include rounded-corners;
+  @include main-button( $btn-reject );
 }
 .delete_button a:hover {
-    background:$btn-reject; /* nav hover color */
-    color:lighten($btn-reject, 70%);
-    font-weight: bold;
+  @include main-hover( $btn-reject );
+}
+
+.action_button a{
+  float: right;
+  @include main-button( $darker );
+}
+.action_button a:hover {
+  @include main-hover( $darker );
 }
 
 .clearBoth { clear:both; }
