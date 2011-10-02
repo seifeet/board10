@@ -1,0 +1,52 @@
+<div class="inline">
+	<%= link_to strip_and_cut(element.content, 120), posting_path(element) %>
+</div>
+<div class="inline">
+	<% unless element.view_count == 0 %>
+	(<%= pluralize( element.view_count, 'view')  %>)
+	<% end %>
+</div>
+<div class="inline">
+	<%= element.access if element.access == Posting::PRIVATE %>
+</div>
+<% if ( current_user.id == element.user_id ) %>
+<div class="delete_button">
+	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
+</div>
+<div class="edit_button">
+	<%= link_to 'Edit', edit_posting_path(element) %>
+</div>
+<% end %>
+<% if @loader && current_user.member?(element.board_id) %>
+<div class="action_button">
+	<%= link_to 'Load Board', user_path(element.user_id) + "?board=" + element.board_id.to_s %>
+</div>
+<% end %>
+<br class="clearBoth" />
+<div class="inline">
+	<%= ( 'Subject: ' + element.subject ) if !element.subject.nil? && !element.subject.empty? %>
+</div>
+<div class="inline">
+	posted by
+	<% if element.active_user %>
+	<% if current_user.id == element.user_id %>
+	you
+	<% elsif user = element.user %>
+	<%= link_to "#{user.full_name}", user_path(element.user_id) %>
+	<% else %>
+	Unknown user
+	<% end %>
+	<% else %>
+	Unknown user
+	<% end %>
+</div>
+<div class="inline">
+	<%= (time_ago_in_words(element.created_at)+" ago") unless element.created_at.nil? %>
+</div>
+<div class="inline">
+	<% if board = Board.find(element.board_id) %>
+	on Board <%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
+	<% else %>
+	Unknown
+	<% end %>
+</div>

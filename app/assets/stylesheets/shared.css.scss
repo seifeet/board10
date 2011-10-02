@@ -12,14 +12,14 @@ $btn-reject: #9D5134;
 @mixin rounded-corners($radius: 1em){
 	border-radius: $radius;
 	-moz-border-radius: $radius;
-    -webkit-border-radius: $radius;	
+  -webkit-border-radius: $radius;	
 }
 
 @mixin main-button( $clr ){
-  margin: 5px;
-  border:3px solid $clr;
+  margin: 2px;
+  border:1px solid $clr;
   background-image: -webkit-gradient(linear, left top, left bottom, from($clr), to(lighten($clr, 70%)));
-  padding: 1em;
+  padding: .5em;
   display:block;
   text-align:center;
   color:$clr;
@@ -38,7 +38,7 @@ $btn-reject: #9D5134;
 body{
 	background: $darker;
 	background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
-    color:$fonts-color;
+  color:$fonts-color;
 }
 
 a{
@@ -154,23 +154,6 @@ h3 ._sub_title{
 	padding:1px;
 	border-radius: 5px;
 }
-.content{
-	float:left;
-	margin: 5px;
-	padding: .3em;
-}
-.view_count{
-	float: left;
-	margin: 2px;
-	padding: .2em;
-	font-style: italic;
-}
-.access{
-	float: left;
-	margin: 2px;
-	font-style: italic;
-	color: red;
-}
 
 .edit_button a{
 	float: right;
@@ -197,19 +180,4 @@ h3 ._sub_title{
 }
 
 .clearBoth { clear:both; }
-
-.user,
-.subject,
-.description{
-	float: left;
-	margin: 2px;
-	margin-left: 10px;
-}
-
-.created_at,
-.title,
-.location,
-.email{
-	float: left;
-	margin: 2px;
-}
+.inline{ float: left; margin: 2px; }

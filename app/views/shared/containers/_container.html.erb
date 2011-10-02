@@ -1,0 +1,8 @@
+<% return nil if container.nil? || container.empty? || container.count == 0 %>
+
+<div class="generic_container">
+<% container.each do |element| %>
+<%= render 'shared/elements/element', :element => element, :type => @type %>
+<% end %>
+</div>
+<br class="clearBoth" />

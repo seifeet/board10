@@ -1,0 +1,9 @@
+<div class="title">
+	<b><%= link_to element.school_name, element.url %></b>
+</div>
+<div class="location">
+	<%= element.location %>
+</div>
+<div class="add_button">
+	<%= render 'schools/add', :school => element %>
+</div>

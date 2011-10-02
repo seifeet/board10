@@ -1,0 +1,26 @@
+<div class="user">
+	<%= link_to element.full_name, element %>
+</div>
+<div class="view_count">
+	<%= pluralize( element.view_count, 'view' ) %>
+</div>
+<div class="location">
+	<%= element.location %>
+</div>
+<div class="email">
+	(<%= element.email %>)
+</div>
+<% if current_user?(element) %>
+<div class="edit_button">
+	<%= link_to 'Edit', edit_user_path(element) %>
+</div>
+<div class="delete_button">
+	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	:title => "Delete #{element.full_name}" %>
+</div>
+<% elsif admin?  %>
+<div class="delete_button">
+	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	:title => "Delete #{element.full_name}" %>
+</div>
+<% end %>
