@@ -2,6 +2,11 @@ class State
   def self.all
     @states
   end
+  
+  def self.long_name state
+    @states.key(state)
+  end
+  
   private
   @states = {
     "Alabama"=>"AL",

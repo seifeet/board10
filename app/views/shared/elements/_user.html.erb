@@ -1,13 +1,13 @@
-<div class="user">
+<div class="inline">
 	<%= link_to element.full_name, element %>
 </div>
-<div class="view_count">
+<div class="inline">
 	<%= pluralize( element.view_count, 'view' ) %>
 </div>
-<div class="location">
+<div class="inline">
 	<%= element.location %>
 </div>
-<div class="email">
+<div class="inline">
 	(<%= element.email %>)
 </div>
 <% if current_user?(element) %>

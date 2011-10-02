@@ -1,0 +1,18 @@
+<%= form_tag search_path, :method => :get, :id => "schools_search", :remote => true do %>
+
+<% states = State.all %>
+<%= select_tag 'state', options_from_collection_for_select(states, :last, :first, current_user.state ), { :include_blank => true } %>
+
+<% cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
+<% if cities.count > 0 %>
+<%= text_field_tag :city, params[:city] ||= current_user.city %>
+<% else %>
+<%= text_field_tag :city, params[:city] %>
+<% end %>
+
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search schools", :name => nil %>
+<% end %>
+
+<%= render 'shared/containers/search_container', :object_type => 'school' %>
+

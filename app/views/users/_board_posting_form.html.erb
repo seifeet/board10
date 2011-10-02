@@ -1,10 +1,6 @@
-<% if !params[:board].nil? && params[:board] != 'all' %>
-  <% @board = Board.find_board(params[:board]) if @board.nil? %>
-  <% if @board.active? && current_user.member?( @board.id ) %>
-  <% user = User.find_user(params[:id]) %>
-    <% if current_user.id == user.id %>
-	<% @reply = false %>
-	<%= render 'boards/posting_form' %>
-	<% end %>
-  <% end %>
-<% end %>
+<% @board = Board.find_board(params[:board]) if @board.nil? %>
+<% if @board.active? && current_user.member?( @board.id ) %>
+<% user = User.find_user(params[:id]) %>
+<% @reply = false %>
+<%= render 'boards/posting_form' %>
+<% end %> 

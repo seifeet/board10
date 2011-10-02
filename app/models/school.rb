@@ -12,10 +12,12 @@ class School < ActiveRecord::Base
      nil
   end
   
-  def self.search(search)
-    if search
-      tmp = search.sub(' ', '%')
-      where('CONCAT( city, \' \', state, \' \', city, \' \', name, \' \', state, \' \', city ) LIKE ?', "%#{tmp}%")
+  def self.search(search, state = nil, city = nil)
+    
+    if search || state || city
+      tmp = nil
+      tmp = search.sub(' ', '%') unless search.nil? 
+      where('state like ? and city like ? and CONCAT( city, \' \', name, \' \', city ) LIKE ?', "%#{state}%", "%#{city}%", "%#{tmp}%")
     else
       scoped # the same as all, but does not perform the actual query
     end
@@ -34,6 +36,7 @@ class School < ActiveRecord::Base
   end
   
   def location
-    state + ', ' + city 
+    State.long_name(state) + ', ' + city 
   end
+  
 end

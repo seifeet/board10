@@ -1,14 +1,19 @@
 <div class="inline">
 	<%= link_to strip_and_cut(element.content, 120), posting_path(element) %>
 </div>
+
+<% unless element.view_count == 0 %>
 <div class="inline">
-	<% unless element.view_count == 0 %>
 	(<%= pluralize( element.view_count, 'view')  %>)
-	<% end %>
 </div>
+<% end %>
+
+<% if element.access == Posting::PRIVATE %>
 <div class="inline">
-	<%= element.access if element.access == Posting::PRIVATE %>
+	<i><font color="red"><%= element.access %></font></i>
 </div>
+<% end %>
+
 <% if ( current_user.id == element.user_id ) %>
 <div class="delete_button">
 	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
@@ -17,15 +22,21 @@
 	<%= link_to 'Edit', edit_posting_path(element) %>
 </div>
 <% end %>
+
 <% if @loader && current_user.member?(element.board_id) %>
 <div class="action_button">
 	<%= link_to 'Load Board', user_path(element.user_id) + "?board=" + element.board_id.to_s %>
 </div>
 <% end %>
+
 <br class="clearBoth" />
+
+<% if !element.subject.nil? && !element.subject.empty? %>
 <div class="inline">
-	<%= ( 'Subject: ' + element.subject ) if !element.subject.nil? && !element.subject.empty? %>
+	<%= ( 'Subject: ' + element.subject ) %>
 </div>
+<% end %>
+
 <div class="inline">
 	posted by
 	<% if element.active_user %>
@@ -40,9 +51,13 @@
 	Unknown user
 	<% end %>
 </div>
+
+<% unless element.created_at.nil? %>
 <div class="inline">
-	<%= (time_ago_in_words(element.created_at)+" ago") unless element.created_at.nil? %>
+	<%= (time_ago_in_words(element.created_at)+" ago") %>
 </div>
+<% end %>
+
 <div class="inline">
 	<% if board = Board.find(element.board_id) %>
 	on Board <%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>

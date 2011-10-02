@@ -2,10 +2,14 @@ class SchoolsController < ApplicationController
   # GET /schools
   # GET /schools.json
   def index
-    store_location # store the page location for back functionality
-    @schools = School.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
     @title = 'Schools'
-    
+    store_location # store the page location for back functionality
+    if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
+      @schools = School.search(params[:search], current_user.state, current_user.city ).paginate(:page => params[:page], :per_page => 100)
+    else
+      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => 100) 
+    end
+        
     respond_to do |format|
       format.html # index.html.erb
       format.js
