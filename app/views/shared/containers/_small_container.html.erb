@@ -1,0 +1,7 @@
+<% return nil if container.nil? || container.empty? || container.count == 0 %>
+
+<div class="small_container">
+<% container.each do |element| %>
+<%= render 'shared/elements/small_element', :element => element, :read_only => !current_user?(@user) %>
+<% end %>
+</div> <!-- cls-cntnr -->

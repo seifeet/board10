@@ -1,3 +1,8 @@
+<% if !@search_results.nil? %>
+$(".search_tab").html("<%= escape_javascript(render 'shared/containers/small_container', :container => @search_results) %>");
+document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} schools by #{(params[:state] || 'name').titleize} - Page #{params[:page] || 1}") %>";
+<% else %>
 <% @loader = true %>
 $(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title', :element => @board, :element_path => board_path(@board), :custom_action => nil ) %>");
 $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>" );
+<% end %>

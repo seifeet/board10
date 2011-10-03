@@ -33,7 +33,7 @@
   color:$darker;
   text-decoration:none;
   font-weight: bold;
-  line-height:.3em;
+  line-height:.05em;
   @include rounded-corners;
   
   &:hover {
@@ -43,3 +43,11 @@
   }
 }
 
+.search_tab{
+  overflow: auto;
+  overflow-x: hidden;
+  height: 90px;
+  width: auto;
+  border: 2px solid $backgrnd;
+  @include rounded-corners(3px);
+}

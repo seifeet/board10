@@ -53,6 +53,18 @@ if(history && history.pushState ) {
 			history.pushState(null, document.title, $("#schools_search").attr("action") + "?" + $("#schools_search").serialize());
 			return false;
 		});
+		
+		$("#tab_schools_search").submit(function() {
+			$.get(this.action, $(this).serialize(), null, "script");
+			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+			return false;
+		});
+		
+		/*$("#tab_schools_search input").keyup(function() {
+			$.get($("#tab_schools_search").attr("action"), $("#tab_schools_search").serialize(), null, "script");
+			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+			return false;
+		});*/
 
 		$("#new_posting").live("ajax:complete", function(event, xhr, status) {
 			$('#posting_content').val('');

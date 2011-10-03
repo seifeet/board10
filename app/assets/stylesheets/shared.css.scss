@@ -124,8 +124,8 @@ a{
     @include rounded-corners;
     &:hover{
     	background:$darker; /* nav hover color */
-        color:$backgrnd;
-        font-weight: bold;
+      color:$backgrnd;
+      font-weight: bold;
     }
     &:active,
     &:active:hover {
@@ -181,14 +181,14 @@ h3 ._sub_title{
   color:$darker;
   text-decoration:none;
   font-weight: bold;
-  line-height:.3em;
+  line-height:.05em;
   @include rounded-corners;
 }
 ._sub_title_nav a:hover {
     background:$darker; /* nav hover color */
     color:lighten($darker, 70%);
     font-weight: bold;
- }
+}
 
 .generic_container{
   float:left;
@@ -203,9 +203,32 @@ h3 ._sub_title{
 .generic_container div.user_element:hover,
 .generic_container div.board_element:hover,
 .generic_container div.member_element:hover{
-    background:$backgrnd; /* nav hover color */
+    background:$light; /* nav hover color */
     /*color:lighten($backgrnd, 70%);*/
 }
+.small_container{
+  float:left;
+  width: auto;
+  margin: 1px auto;
+  border: 1px solid $backgrnd;
+  @include rounded-corners(3px);
+  padding:1px;
+  color: $darkest;
+}
+.small_container div.small_element:hover{
+  background:$light;
+} 
+.small_element{
+  width: auto;
+  margin: 1px auto;
+  background-color: $backgrnd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($light));
+  border:1px solid $backgrnd;
+  padding:1px;
+  border-radius: 1px;
+  @include rounded-corners(3px);
+}
+.school_element,
 .posting_element,
 .user_element,
 .board_element,

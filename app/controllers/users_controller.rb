@@ -27,6 +27,10 @@ class UsersController < ApplicationController
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
+   if !params[:search].nil? || !params[:state].nil? || !params[:city].nil?
+      @search_results = School.search(params[:search], params[:state], params[:city] )
+    end
+    
     # we can remove this if as soon as Andrey finishs with home page.
     if @user.id != current_user.id
       search_str = ' ' + @user.id.to_s + ' '

@@ -1,5 +1,9 @@
 <%= notice %>
 
+<%= render 'title' %>
+
+<br class="clearBoth" />
+
 <% unless current_user?(@user) %>
 <%= render 'navigation', :user => @user  %>
 <% end %>

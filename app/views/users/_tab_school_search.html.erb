@@ -1,0 +1,23 @@
+<%= form_tag search_path, :method => :get, :id => "tab_schools_search" do %>
+
+<% states = State.all %>
+<%= select_tag 'state', options_from_collection_for_select(states, :last, :first, current_user.state ) %>
+
+<% cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
+
+<% if cities.count > 0 %>
+<%= text_field_tag :city, params[:city] ||= current_user.city %>
+<% else %>
+<%= text_field_tag :city, params[:city] %>
+<% end %>
+
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search schools", :name => nil %>
+<% end %>
+
+<div class="search_tab">
+<% if @search_results.nil? %>
+<% @search_results = School.search(params[:search], params[:state], params[:city]) %>
+<% end %>
+<%= render 'shared/containers/small_container', :container => @search_results %>
+</div>
