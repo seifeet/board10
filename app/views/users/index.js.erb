@@ -1,2 +1,2 @@
-$("#user_search_container").html("<%= escape_javascript(render 'shared/containers/search_container', :object_type => 'user') %>" );
+$("#search_container").html("<%= escape_javascript(render 'shared/containers/search_container', :object_type => 'user') %>" );
 document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} users by #{(params[:sort] || 'name').titleize} - Page #{params[:page] || 1}") %>";

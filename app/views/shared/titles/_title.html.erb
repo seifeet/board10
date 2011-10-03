@@ -1,11 +1,10 @@
-<%= notice %>
-<h3 id="_title"><%= element.title %></h3>
-<div id="_desc"><%= element.description %></div>
 <div id="_title_nav">
+<div id="_title"><%= element.title %></div>
+<div id="_desc"><%= element.description %></div>
 <% if current_user?(@user) %>
-<%= link_to 'Edit', edit_link %>
-<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
-	                :title => "Delete #{element.title}" %>
+<div class="delete_button"><%= link_to 'Del', element, confirm: 'Are you sure?', 
+                   method: :delete, :title => "Delete #{element.title}" %></div>
+<div class="edit_button"><%= link_to 'Edit', edit_link %></div>
 <% end %>
 </div>
 <hr />

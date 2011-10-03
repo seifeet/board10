@@ -1,7 +1,7 @@
 <% @type = object_type %>
 <% @container_type = "search" %>
 
-<div id="<%= "#{@type}_#{@container_type}_container" %>">
+<div id="<%= "#{@container_type}_container" %>">
 <% 
 if object_type == 'user'
   if @users.nil?

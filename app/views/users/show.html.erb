@@ -1,7 +1,8 @@
-<%= render 'shared/titles/title', :element => @user, :edit_link => edit_user_path(@user) %>
+<%= notice %>
 
-<%= render 'navigation' %>
-
+<% unless current_user?(@user) %>
+<%= render 'navigation', :user => @user  %>
+<% end %>
 <div id='main_part'>
 
 <div class="user_sub_title">

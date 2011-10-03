@@ -15,7 +15,7 @@ if(history && history.pushState ) {
 	$(function() {
 
 		//$("#users .apple_pagination a, #boards .apple_pagination a, #public_postings .apple_pagination a, #user_postings .apple_pagination a").live("click", function() {
-		$("#public_postings .apple_pagination a, #user_postings .apple_pagination a").live("click", function() {
+		$("#search_container .apple_pagination a, .generic_container .apple_pagination a, #public_postings .apple_pagination a").live("click", function() {
 			$(".apple_pagination").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);

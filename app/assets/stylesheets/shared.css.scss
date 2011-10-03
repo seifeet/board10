@@ -10,6 +10,21 @@ $btn-confirm: #227448;
 $btn-reject: #9D5134;
 
 $footer-heigth: 25px;
+$right-side-bar: 150px;
+
+@mixin action-button($btn-colort){
+  color: $btn-colort;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid $btn-colort;
+  @include rounded-corners;
+  
+  &:hover {
+    color: $lightest;
+    background: $btn-colort; //transparent;
+    cursor: pointer;
+  }
+}
 
 @mixin rounded-corners($radius: 1em){
 	border-radius: $radius;
@@ -39,20 +54,30 @@ $footer-heigth: 25px;
 /************************* footer ******************************/
 body{
   margin:0;
-  padding:0 0 $footer-heigth 0;
-  background: $backgrnd;
+  padding:0 $right-side-bar $footer-heigth 0;
+  background: $backgrnd; 
   background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($lightest));
   color:$fonts-color;
+ }
+ div#right-sidebar{
+  position:absolute;
+  top:0; /* shift from the top */
+  right:40px; /* shift from the right to the left */
+  width:$right-side-bar; /*width:right-sidebar*/
+  height:100%;
  }
  div#footer{
   position:absolute;
   bottom:0;
-  left:200px;
-  width:950px;
+  left:128px; /* margin from the left side */
+  width:953px; /* width of the bar */
   height:$footer-heigth;
   background:$backgrnd;
  }
  @media screen{
+  body>div#right-sidebar{
+   position:fixed;
+  }
   body>div#footer{
    position: fixed;
   }
@@ -116,9 +141,17 @@ a{
 
 /*********************** content ***********************************/
 
-
+.button_confirm{
+  @include action-button($btn-confirm);
+}
+.button_reject{
+  @include action-button($btn-reject);
+}
+.button_neutral{
+  @include action-button($darker);
+}
 /*********************** containers ***********************************/
-h3 #_title{
+#_title{
   clear:both;
   font-weight: bold;
 }
@@ -126,7 +159,7 @@ h3 #_title{
   float:left;
 }
 #_title_nav{
-  float:right;
+  float:both;
 }
 
 ._sub_title{

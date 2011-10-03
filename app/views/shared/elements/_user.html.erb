@@ -10,7 +10,7 @@
 <div class="inline">
 	(<%= element.email %>)
 </div>
-<% if current_user?(element) %>
+<% if !read_only || current_user?(element) %>
 <div class="edit_button">
 	<%= link_to 'Edit', edit_user_path(element) %>
 </div>

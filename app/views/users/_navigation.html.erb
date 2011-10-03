@@ -1,6 +1,12 @@
+<% return nil if current_user.nil? && user_url(current_user) == request.fullpath %>
+
+<% user = ( @user.nil? ? current_user : @user )  %>
 <div id="user_title_nav">
-	<% if current_user.id == @user.id %>
-	<div class="nav_link">
+	
+	<%= render 'shared/titles/title', :element => user, :edit_link => edit_user_path(user) %>
+	
+	<% if current_user.id == user.id %>
+	<div class="_nav_link">
 		<%= link_to 'Add New Board', new_board_path %>
 	</div>
 	<% end %>
@@ -8,19 +14,19 @@
 	<br class="clearBoth" />
 	
 	<div id="user_schools">
-		<%= render 'user_schools' %>
+		<%= render 'users/user_schools', :user => user %>
 	</div>
 	
 	<br class="clearBoth" />
 	
 	<div class="nav_link">
-		<%= link_to "All My Boards", user_url(@user) + "?board=all" %>
+		<%= link_to "All My Boards", user_url(user) + "?board=all" %>
 	</div>
 	
 	<br class="clearBoth" />
 	
 	<div id="user_boards">
-		<%= render 'user_boards' %>
+		<%= render 'users/user_boards', :user => user %>
 	</div>
 	<br class="clearBoth" />
 </div>

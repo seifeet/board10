@@ -11,11 +11,6 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :access_level %> 
-    <%= f.radio_button 'access_level', '1' %><%= f.label :access_level , Board::PUBLIC %>
-    <%= f.radio_button 'access_level', '0' %><%= f.label :access_level , Board::PRIVATE %><br />
-  </div>
-  <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title, :size => 40 %>
   </div>
@@ -27,7 +22,13 @@
     <%= f.label :school_id %><br />
     <%= f.select(:school_id, current_user.schools.collect{|s| [s.name, s.id]}, { :include_blank => true } )  %>
   </div>
+  <div class="field">
+    <%= f.label :access_level %> 
+    <%= f.radio_button 'access_level', '1' %><%= f.label :access_level , Board::PUBLIC %>
+    <%= f.radio_button 'access_level', '0' %><%= f.label :access_level , Board::PRIVATE %><br />
+  </div>
+  <br />
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => "button_confirm" %>
   </div>
 <% end %>

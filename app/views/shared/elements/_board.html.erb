@@ -17,7 +17,7 @@
 	<%= strip_and_cut( element.description ) %>
 </div>
 
-<% if ( current_user.admin? && element.active? ) %>
+<% if ( !read_only || current_user.admin? ) && element.active? %>
 <div class="edit_button">
 	<%= link_to 'Edit', edit_board_path(element) %>
 </div>

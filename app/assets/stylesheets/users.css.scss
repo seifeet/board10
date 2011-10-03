@@ -8,20 +8,23 @@
 
 #main_part{
   float:left;
+  width: 100%;
 }
 
 #board_posting_form{
   float: left;
-  width: 680px;
+  width: 100%; //680px;
 }
 #user_postings{
   float: left;
-  width: 680px;
+  width: 100%; //680px;
 }
 
+._nav_link a,
 .nav_link a{
   width: 150px;
   margin: 2px;
+  border:1px solid $darker;
   background: $light;
   background-image: -webkit-gradient(linear, left top, left bottom, from($backgrnd), to($light));
   padding: 1em;

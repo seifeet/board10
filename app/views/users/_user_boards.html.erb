@@ -1,5 +1,7 @@
-<% unless @user.boards.empty? %>
-  <% @user.boards.each do |board| %>
+<% return nil if current_user.nil? %>
+<% user = current_user if user.nil? %>
+<% unless user.boards.empty? %>
+  <% user.boards.each do |board| %>
      <% if board.active? %>
      <div class="nav_link">
      <%= link_to "#{board.title}", :board => board.id %>

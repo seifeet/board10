@@ -7,6 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="right-sidebar">
+	 <% if !current_user.nil? && current_user?(@user) %>
+	 <%= render 'users/navigation', :user => current_user %>
+	 <% end %>
+</div>
 <div id="footer">
 	<%= render 'layouts/header' %>
 </div>

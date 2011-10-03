@@ -7,7 +7,7 @@
 		<div><%= f.hidden_field :board_id, :value => @message.board_id %></div>
 		<div><%= f.hidden_field :message, :value => @message.id %></div>
 		<div class="confirm">
-		    <%= f.submit "#{Message::Commit::CONFIRM}" %>
+		    <%= f.submit "#{Message::Commit::CONFIRM}", :class => "button_confirm" %>
 		</div> 
 		<% end %>
     <% elsif @message.msg_type == Message::Type::INVITE && !current_user.member?(@message.board_id) %>
@@ -16,13 +16,13 @@
 		<div><%= f.hidden_field :board_id, :value => @message.board_id %></div>
 		<div><%= f.hidden_field :message, :value => @message.id %></div>
 		<div class="confirm">
-		    <%= f.submit "#{Message::Commit::CONFIRM}" %>
+		    <%= f.submit "#{Message::Commit::CONFIRM}", :class => "button_confirm" %>
 		</div>
 		<% end %>
     <% end %>
     <%= form_for @message do |f| %>
 	<div class="reject">
-	<%= f.submit "#{Message::Commit::REJECT}" %>
+	<%= f.submit "#{Message::Commit::REJECT}", :class => "button_reject" %>
 	</div> 
 	<% end %> 
 <% end %> 

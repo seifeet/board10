@@ -5,7 +5,7 @@
   <div><%= f.hidden_field :board_id, :value => @board.id %></div>
   <div><b>User ID: </b><%= f.text_field :to_user %></div>
   <div><%= f.text_area :content , :rows => 3, :cols => 40, :value => "Hi!\nI would like to invite you to our board.\nThank you!" %></div>
-  <div class="join"><%= f.submit "#{Message::Commit::INVITE}" %></div>
+  <div class="join"><%= f.submit "#{Message::Commit::INVITE}", :class => "button_confirm" %></div>
 <% end %>
 </p>
 

@@ -11,7 +11,7 @@
 </div>
 <% end %>
 
-<% if params[:element_action] == 'on' %>
+<% if params[:element_action] == 'on' && current_user?(@user) %>
 <br class="clearBoth" />
 <div id="board_posting_form">
 <%= render 'board_posting_form' %>
