@@ -1,22 +1,24 @@
 <%= notice %>
 
+<%= render 'navigation' %>
+
+<div id='main_part'>
+
+<div id="title">
 <%= render 'title' %>
+</div>
 
 <br class="clearBoth" />
-
-<% unless current_user?(@user) %>
-<%= render 'navigation', :user => @user  %>
-<% end %>
-<div id='main_part'>
 
 <div class="user_sub_title">
 <%= render 'user_sub_title' %>
 </div> <!-- close user_sub_title -->
-
+		
 <div id="user_postings">
-  <%= render 'postings' %>
+<%= render 'postings' %>
 </div> <!-- close user_postings -->
 
 </div> <!-- close main_part -->
+
 <br class="clearBoth" />
 

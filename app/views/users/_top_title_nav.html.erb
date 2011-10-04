@@ -1,0 +1,8 @@
+<% if current_user?(@user) %>
+<div class="menu_button">
+<%= link_to 'Add School', user_path(current_user)+'?school_search=on' %>
+</div>
+<div class="menu_button">
+<%= link_to 'Join Board', user_path(current_user)+'?board_search=on' %>
+</div>
+<% end %>

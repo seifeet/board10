@@ -1,0 +1,25 @@
+<div class="inline">
+	<%= link_to element.title, element %>
+</div>
+<div class="inline">
+	<%= element.description %>
+</div>
+<% owner = element.members.find_by_owner(true) %>
+<div class="inline">
+	(<%= owner.user_id %>)
+</div>
+<% if !current_user.member?(element) %>
+<div class="inline_right">
+<%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
+  
+  <%= f.hidden_field :to_user, :value => owner.user_id %>
+  <%= f.hidden_field :board_id, :value => element.id %>
+  <%= f.text_field :content, :size => 40, :value => "Hi! I would like to join your board. Thank you!" %>
+  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm" %>
+<% end %>
+</div>
+<% end %>
+<!--div class="inline_right"-->
+<!--%= render 'schools/add', :school => element %-->
+<!--/div-->
+<br class="clearBoth" />

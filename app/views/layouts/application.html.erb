@@ -7,16 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if turn_on = false %>
 <div id="right-sidebar">
 	 <% if !current_user.nil? && current_user?(@user) %>
 	 <%= render 'users/navigation', :user => current_user %>
 	 <% end %>
 </div>
+<% end %>
+
 <div id="footer">
 	<%= render 'layouts/header' %>
 </div>
+
 <div class="container"> <!-- This container div is needed by Blueprint -->
-<br />
 <div id="content">
 <%= yield %>
 </div> <!-- closing content -->

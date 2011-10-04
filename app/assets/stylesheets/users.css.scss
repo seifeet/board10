@@ -4,20 +4,21 @@
 
 #user_title_nav{
   float:right;
+  width: auto;
 }
 
 #main_part{
   float:left;
-  width: 100%;
+  width: 75%; //100%;
 }
 
 #board_posting_form{
   float: left;
-  width: 100%; //680px;
+  width: auto; //100%; //680px;
 }
 #user_postings{
   float: left;
-  width: 100%; //680px;
+  width: 100%; // //680px;
 }
 
 ._nav_link a,
@@ -43,11 +44,22 @@
   }
 }
 
+#top_title_action{
+  float: left;
+  width: 100%;
+}
+
+.menu_button a{
+  float: left;
+  padding: 5px;
+}
+
 .search_tab{
   overflow: auto;
   overflow-x: hidden;
   height: 90px;
-  width: auto;
+  width: 100%;
   border: 2px solid $backgrnd;
   @include rounded-corners(3px);
 }
+

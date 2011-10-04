@@ -22,7 +22,7 @@ if(history && history.pushState ) {
 			return false;
 		});
 		
-	    $("._sub_title_action a, .nav_link a, .posting_element .action_button a").live("click", function() {
+	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a").live("click", function() {
 			//$("._sub_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$("#_sub_title").html("Loading...");
 			$.getScript(this.href);

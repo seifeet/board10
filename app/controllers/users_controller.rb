@@ -27,8 +27,15 @@ class UsersController < ApplicationController
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
-   if !params[:search].nil? || !params[:state].nil? || !params[:city].nil?
-      @search_results = School.search(params[:search], params[:state], params[:city] )
+    if !params[:school_search].nil?
+      if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
+        @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(50)
+      elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
+        @search_results = School.search(params[:search], params[:state], params[:city] ).limit(50)
+      end
+      
+    elsif !params[:board_search].nil?
+      @search_results = Board.search(params[:search]).limit(50)
     end
     
     # we can remove this if as soon as Andrey finishs with home page.
