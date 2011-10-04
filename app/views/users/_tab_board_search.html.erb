@@ -1,6 +1,6 @@
 <%= form_tag user_path(current_user), :method => :get, :id => "tab_boards_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :size => 70 %>
-<%= text_field_tag :board_search, "on", :hidden => true %>
+<%= hidden_field_tag 'board_search', 'on' %>
 <%= submit_tag "Search boards", :name => nil, :class => 'button_neutral' %>
 <% end %>
 

@@ -1,14 +1,15 @@
 <% if !params[:school_search].nil? || !params[:board_search].nil? %>
-<% if !params[:school_search].nil? %>
-$(".search_tab").html("<%= escape_javascript(render 'shared/containers/small_container', :container => @search_results) %>");
-document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
-$("#top_title_action").html("<%= escape_javascript(render 'tab_school_search') %>");
-
-<% elsif !params[:board_search].nil? %>
-$(".search_tab").html("<%= escape_javascript(render 'shared/containers/small_container', :container => @search_results) %>");
-document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
-$("#top_title_action").html("<%= escape_javascript(render 'tab_board_search') %>");
-<% end %>
+    <% if params[:search].nil? && !params[:school_search].nil? %>
+      $("#top_title_action").html("<%= escape_javascript(render 'tab_school_search') %>");
+    <% elsif params[:search].nil? && !params[:board_search].nil? %>
+      $("#top_title_action").html("<%= escape_javascript(render 'tab_board_search') %>");
+	<% elsif !params[:school_search].nil? %>
+	  $(".search_tab").html("<%= escape_javascript(render 'shared/containers/small_container', :container => @search_results) %>");
+	  document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
+	<% elsif !params[:board_search].nil? %>
+	  $(".search_tab").html("<%= escape_javascript(render 'shared/containers/small_container', :container => @search_results) %>");
+	  document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
+	<% end %>
 
 <% else %>
 $("#title").html("<%= escape_javascript( render 'title' ) %>");

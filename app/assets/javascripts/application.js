@@ -60,6 +60,12 @@ if(history && history.pushState ) {
 			return false;
 		});
 		
+		/*$(".inline_right .new_message").submit(function() {
+			$.get(this.action, $(this).serialize(), null, "script");
+			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+			return false;
+		});*/
+		
 		/*$("#tab_schools_search input").keyup(function() {
 			$.get($("#tab_schools_search").attr("action"), $("#tab_schools_search").serialize(), null, "script");
 			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
