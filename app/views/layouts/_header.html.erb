@@ -14,8 +14,6 @@
         <% end %>
       </li>
       <li><%= link_to "Posts", postings_path %> <i>You have <%= pluralize(current_user.postings.count, 'post') %></i></li>
-      <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
-      <!--li--><!-- %= link_to "Sign in", signin_path % --><!--/li-->
       <% end %>
     </ul>
   </nav>

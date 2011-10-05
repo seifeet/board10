@@ -1,3 +1,7 @@
+<% if current_user.id == @user.id %>
+	<div class="_nav_link"><%= link_to 'Create New Board', new_board_path %></div>
+<% end %>
+
 <%= form_tag user_path(current_user), :method => :get, :id => "tab_boards_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :size => 70 %>
 <%= hidden_field_tag 'board_search', 'on' %>

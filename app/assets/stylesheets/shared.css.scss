@@ -193,7 +193,7 @@ a{
 }
 /*********************** containers ***********************************/
 #_title{
-  float:center;
+  float:left;
   font-weight: bold;
   background: transparent;
   padding: 2px;
@@ -309,6 +309,9 @@ h3 ._sub_title{
 
 .action_button a:hover {
   @include main-hover( $darker );
+}
+.menu_buttons{
+  position:relative;
 }
 .school_menu_button{
   position:relative;
