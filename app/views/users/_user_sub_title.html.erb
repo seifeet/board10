@@ -1,3 +1,5 @@
+<br class="clearBoth" />
+
 <% if !@board.nil? || ( !params[:board].nil? && params[:board] != 'all' ) %>
 <%= render 'shared/titles/sub_title', :element => @board, 
            :element_path => board_path(@board), :custom_action => "Write to board" %>
@@ -11,12 +13,5 @@
 </div>
 <% end %>
 
-<% if params[:element_action] == 'on' && current_user?(@user) %>
-<br class="clearBoth" />
-<div id="board_posting_form">
-<%= render 'board_posting_form' %>
-</div>
-<% end %>
 
-<br class="clearBoth" />
 

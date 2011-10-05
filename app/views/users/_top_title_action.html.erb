@@ -1,0 +1,7 @@
+<% if !params[:school_search].nil? %>
+<%= render 'tab_school_search' %>
+<% elsif !params[:board_search].nil? %>
+<%= render 'tab_board_search' %>
+<% elsif !params[:element_action].nil? && !params[:board].nil? %>
+<%= render 'tab_write_message' %>
+<% end %>

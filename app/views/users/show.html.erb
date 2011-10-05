@@ -1,11 +1,16 @@
 <%= notice %>
-
-<%= render 'navigation' %>
-
-<div id='main_part'>
+<div id="logo">
+<%= render 'users/logo' %>
+</div>
 
 <div id="title">
 <%= render 'title' %>
+</div>
+
+<div id='main_part'>
+
+<div id="top_title_action">
+<%= render 'top_title_action' %>
 </div>
 
 <br class="clearBoth" />
@@ -17,8 +22,7 @@
 <div id="user_postings">
 <%= render 'postings' %>
 </div> <!-- close user_postings -->
-
+<br class="clearBoth" />
 </div> <!-- close main_part -->
-
 <br class="clearBoth" />
 

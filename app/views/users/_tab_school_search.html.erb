@@ -16,17 +16,7 @@
 <%= submit_tag "Search schools", :name => nil, :class => 'button_neutral' %>
 <% end %>
 
-<div class="search_tab">
-<% 
-  if current_user?(@user)
-	  if @search_results.nil? && !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-	    @search_results = School.search(params[:search], params[:state], params[:city]).limit(50)
-	  end
-  end
-  
-  if !@search_results.nil? && @search_results.count > 0 
-%>
-<%= render 'shared/containers/small_container', :container => @search_results %>
-<% end %>
+<div class="action_tab">
+<%= render 'tab_school_results' %>
 </div>
 <i><font color="red" size="smaller">Max 50 results</font></i>

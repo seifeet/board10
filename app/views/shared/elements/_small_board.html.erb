@@ -1,14 +1,8 @@
-<div class="inline">
-	<%= link_to element.title, element %>
-</div>
-<div class="inline">
-	<%= element.description %>
-</div>
+<div class="inline"><%= link_to element.title, element %></div>
+<div class="inline"><%= element.description %></div>
 <% owner = element.members.find_by_owner(true) %>
 <% user = User.find_user(owner.user_id) %>
-<div class="inline">
-	(<%= user.full_name %>)
-</div>
+<div class="inline">(<%= user.full_name %>)</div>
 <% if !current_user.member?(element) %>
 <div class="inline_right">
 <%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
@@ -20,5 +14,4 @@
 <% end %>
 </div>
 <% end %>
-
 <br class="clearBoth" />

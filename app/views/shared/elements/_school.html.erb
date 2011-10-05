@@ -1,7 +1,3 @@
-<div class="inline">
-	<b><%= link_to element.school_name, element.url %></b>
-</div>
-<div class="inline">
-	<%= element.location %>
-</div>
+<div class="inline"><b><%= link_to element.school_name, element.url %></b></div>
+<div class="inline"><%= element.location %></div>
 <%= render 'schools/add', :school => element %>

@@ -3,24 +3,18 @@
 </div>
 
 <% unless element.view_count == 0 %>
-<div class="inline">
-	(<%= pluralize( element.view_count, 'view')  %>)
-</div>
+<div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
 <% end %>
 
 <% if element.access == Posting::PRIVATE %>
-<div class="inline">
-	<i><font color="red"><%= element.access %></font></i>
-</div>
+<div class="inline"><i><font color="red"><%= element.access %></font></i></div>
 <% end %>
 
 <% if !read_only && current_user.id == element.user_id %>
 <div class="delete_button">
 	<%= link_to 'Del', element, confirm: 'Are you sure?', method: :delete %>
 </div>
-<div class="edit_button">
-	<%= link_to 'Edit', edit_posting_path(element) %>
-</div>
+<div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 <% end %>
 
 <% if !read_only && @loader && current_user.member?(element.board_id) %>
@@ -32,9 +26,7 @@
 <br class="clearBoth" />
 
 <% if !element.subject.nil? && !element.subject.empty? %>
-<div class="inline">
-	<%= ( 'Subject: ' + element.subject ) %>
-</div>
+<div class="inline"><%= ( 'Subject: ' + element.subject ) %></div>
 <% end %>
 
 <div class="inline">
@@ -53,9 +45,7 @@
 </div>
 
 <% unless element.created_at.nil? %>
-<div class="inline">
-	<%= (time_ago_in_words(element.created_at)+" ago") %>
-</div>
+<div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
 <% end %>
 
 <div class="inline">

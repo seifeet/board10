@@ -1,19 +1,9 @@
-<div class="inline">
-	<%= link_to element.full_name, element %>
-</div>
-<div class="inline">
-	<%= pluralize( element.view_count, 'view' ) %>
-</div>
-<div class="inline">
-	<%= element.location %>
-</div>
-<div class="inline">
-	(<%= element.email %>)
-</div>
+<div class="inline"><%= link_to element.full_name, element %></div>
+<div class="inline"><%= pluralize( element.view_count, 'view' ) %></div>
+<div class="inline"><%= element.location %></div>
+<div class="inline">(<%= element.email %>)</div>
 <% if !read_only || current_user?(element) %>
-<div class="edit_button">
-	<%= link_to 'Edit', edit_user_path(element) %>
-</div>
+<div class="edit_button"><%= link_to 'Edit', edit_user_path(element) %></div>
 <div class="delete_button">
 	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
 	:title => "Delete #{element.full_name}" %>

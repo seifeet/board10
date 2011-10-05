@@ -1,17 +1,9 @@
 <% board = Board.find_board(element.board_id) %>
-<div class="inline">
-	<%= board.access %>
-</div>
-<div class="inline">
-	Board: <%= link_to board.title, board %>
-</div>
-<div class="inline">
-	<%= board.status unless ( board.active ) %>
-</div>
+<div class="inline"><%= board.access %></div>
+<div class="inline">Board: <%= link_to board.title, board %></div>
+<div class="inline"><%= board.status unless ( board.active ) %></div>
 <div class="inline">
 	(<%= pluralize(board.view_count, 'view') + ', ' + pluralize(board.postings.count, 'post') %>)
 </div>
 <br class="clearBoth" />
-<div class="inline">
-	<%= strip_and_cut( board.description ) %>
-</div>
+<div class="inline"><%= strip_and_cut( board.description ) %></div>

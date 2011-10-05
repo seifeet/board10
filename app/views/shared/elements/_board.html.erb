@@ -1,26 +1,15 @@
-<div class="inline">
-	Board: <%= link_to element.title, element %>
-</div>
+<div class="inline">Board: <%= link_to element.title, element %></div>
 <div class="inline">
 	(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)
 </div>
 
 <% if element.access == Board::PRIVATE %>
-<div class="inline">
-	<i><font color="red"><%= element.access %></font></i>
-</div>
+<div class="inline"><i><font color="red"><%= element.access %></font></i></div>
 <% end %>
-
 <br class="clearBoth" />
-
-<div class="inline">
-	<%= strip_and_cut( element.description ) %>
-</div>
-
+<div class="inline"><%= strip_and_cut( element.description ) %></div>
 <% if ( !read_only || current_user.admin? ) && element.active? %>
-<div class="edit_button">
-	<%= link_to 'Edit', edit_board_path(element) %>
-</div>
+<div class="edit_button"><%= link_to 'Edit', edit_board_path(element) %></div>
 <div class="delete_button">
 	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete %>
 </div>

@@ -3,7 +3,7 @@
 	<h3 class="_sub_title"><%= link_to strip_and_cut(element.title, 100), element_path %></h3>
 	<% if current_user.id == @user.id && !custom_action.nil? && params[:element_action].nil? %>
 	<div class="_sub_title_action">
-	<%= link_to custom_action, user_path(@user) + "?#{element.class_type}=" + element.id.to_s + "&element_action=on"%>
+	<!-- %= link_to custom_action, user_path(@user) + "?#{element.class_type}=" + element.id.to_s + "&element_action=on"% -->
 	</div>
 	<% end %>
 </div>

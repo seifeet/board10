@@ -21,7 +21,7 @@ if(history && history.pushState ) {
 			history.pushState(null, document.title, this.href);
 			return false;
 		});
-		
+		// #msg board school #                    #groups boards
 	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a").live("click", function() {
 			//$("._sub_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$("#_sub_title").html("Loading...");
