@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$relative-pos: 50px;
+$relative-pos: 150px;
 
 #user_title_nav{
   float:right;
@@ -10,9 +10,7 @@ $relative-pos: 50px;
 }
 
 #main_part{
-  position:relative;
-  left:$relative-pos;
-  float:left;
+  float:right;
   width: 74%; //100%;
 }
 
@@ -20,7 +18,6 @@ $relative-pos: 50px;
   float: left;
 }
 #user_postings{
-  position:relative;
   top:20px;
   float: left;
   width: 100%; // //680px;
