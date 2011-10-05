@@ -27,6 +27,9 @@ class UsersController < ApplicationController
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
     
+    @new_board = Board.new if !params[:new_board].nil?
+    
+    # SEARCHES
     if !params[:school_search].nil?
       if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
         @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(50)
@@ -38,6 +41,7 @@ class UsersController < ApplicationController
       @search_results = Board.search(params[:search]).limit(50)
     end
     
+    # VIEW COUNTER
     # we can remove this if as soon as Andrey finishs with home page.
     if @user.id != current_user.id
       search_str = ' ' + @user.id.to_s + ' '
@@ -54,6 +58,7 @@ class UsersController < ApplicationController
       end
     end
     
+    # FORM FOR POSITNGS
     @posting_form = Posting.new
 
     if !params[:school].nil?
@@ -84,7 +89,7 @@ class UsersController < ApplicationController
     
     @postings_title = "no posts" if @postings.nil? || @postings.empty?
     
-    @show_posting_form = false
+    #@show_posting_form = false not used
     
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;

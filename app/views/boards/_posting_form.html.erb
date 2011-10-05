@@ -16,7 +16,7 @@
     <%= f.text_field :subject, :value => "", :size => 40 %> 
     <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
     <b>Reply:</b>
-    <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}" %>
+    <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 40 %>
     <% end %>
   </div>
   <div class="field">
@@ -29,7 +29,7 @@
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
     <br />
-    <%= f.text_area :content, :rows => 7, :cols => 40 %>
+    <%= f.text_area :content, :rows => 3, :cols => 40 %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Post', :class => "button_neutral" %>

@@ -60,6 +60,12 @@ if(history && history.pushState ) {
 			return false;
 		});
 		
+		$("#new_user_board").submit(function() {
+			$.get(this.action, $(this).serialize(), null, "script");
+			history.pushState(null, document.title, this.href);
+			return false;
+		});
+		
 		/*$(".inline_right .new_message").submit(function() {
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
