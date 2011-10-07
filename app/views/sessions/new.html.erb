@@ -1,4 +1,4 @@
-<div class="signin_container">
+<div class="signin_container clearfix">
 
 <h1>&nbsp;</h1>
 <%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"} ) do |f| %>
@@ -12,14 +12,15 @@
   </div>
   <div class="linkfield">
     <%= check_box_tag :remeber_me, 1, params[:remeber_me] %>
-    <%= label_tag :remeber_me %>
+    <%= label_tag :remeber_me %>&nbsp;&nbsp;&nbsp;&nbsp;
+	<%= link_to "forgotten password?", new_password_reset_path %>
   </div>
-  <%= f.submit "Sign in", :class => "with_img green" %>
+  <div class="buttonfield">
+	<%= f.submit "Sign in", :class => "with_img green fill" %>
+  </div>
 <% end %>
 
-<div class="linkfield">
-	<%= link_to "forgotten password?", new_password_reset_path %><br />
-	New user? <%= link_to "Sign up now!", signup_path %>
+<div class="buttonfield">
+	<%= link_to "New user? Sign up now!", signup_path, :class => "button_with_img button_grey"  %>
 </div>
-
 </div>
