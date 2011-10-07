@@ -6,6 +6,9 @@
      <div class="nav_link">
      <%= link_to "#{board.title}", :board => board.id %>
      </div>
+     <div class="delete_button">
+     <%= link_to 'Del', current_user.boards.find_board(board.id), confirm: "Do you want to remove Board \"#{board.title}\"?", method: :delete %>
+     </div>
      <% end %>
   <% end %>
 <% end %>

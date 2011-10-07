@@ -90,6 +90,7 @@ class BoardsController < ApplicationController
     respond_to do |format|
       if ( !params[:posting].nil? && @posting.save ) || board_saved
         format.html { redirect_to session[:return_to], notice: 'Board was successfully created.' }
+        format.js
         format.json { render json: @board, status: :created, location: @board }
       else
         format.html { render action: "new" }

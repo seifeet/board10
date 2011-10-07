@@ -1,3 +1,4 @@
+
 <% if !params[:school_search].nil? || !params[:board_search].nil? %>
     <% if params[:search].nil? && !params[:school_search].nil? %>
       $("#top_title_action").html("<%= escape_javascript(render 'tab_school_search') %>");
@@ -13,6 +14,9 @@
 <% elsif !params[:element_action].nil? %>
       $("#top_title_action").html("<%= escape_javascript(render 'tab_write_message') %>");
 	  document.title = "<%= escape_javascript("Write to Board") %>";
+<% elsif !params[:new_board].nil? %>
+      $("#user_title_nav").html("<%= escape_javascript(render 'navigation') %>");
+      $("#top_title_action").html("<%= escape_javascript(render 'top_title_action') %>");
 <% else %>
 $("#title").html("<%= escape_javascript( render 'title' ) %>");
 $("#top_title_action").html("<%= escape_javascript( render 'top_title_action' ) %>");

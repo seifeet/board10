@@ -4,7 +4,7 @@
 <%= render 'tab_board_search' %>
 <% elsif !params[:element_action].nil? && !params[:board].nil? %>
 <%= render 'tab_write_message' %>
-<% elsif !params[:new_board].nil? && !@new_board.nil? %>
+<% elsif !params[:new_board].nil? %>
 <div class="action_tab">
 <%= render 'new_board_form' %>
 </div>
