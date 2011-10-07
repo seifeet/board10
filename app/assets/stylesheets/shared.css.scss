@@ -106,7 +106,7 @@ div#contentwrapper{
 }
 
 div#contentcolumn{
-	margin: 0 200px 0 230px;
+	margin: 0 200px 0 200px;
 	min-height: 800px;
 }
 
@@ -401,20 +401,28 @@ h3 ._sub_title{
 .clearfix { zoom: 1; }
 
 /*********************** fields ***********************************/
+
+.signin_container
+{
+  width: 300px ;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
 #maincontainer form .field {
 	position: relative;
-	display: inline-block;
-	vertical-align:middle;
-	margin: 0 10px 0 0;
-	text-align:left;
-	width: 90%;
+	margin: 0;
+	border-width: 1px;
+	padding: 6px;
+	background: transparent;
+	font: inherit;
 }
 
 #maincontainer form .field label {
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	color: #999999;
+	padding: 5px;
+	margin-left: 3px;
+	color: #999;
 }
 
 /*********************** buttons ***********************************/

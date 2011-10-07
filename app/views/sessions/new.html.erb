@@ -1,3 +1,5 @@
+<div class="signin_container">
+
 <h1>Sign in</h1>
 <%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"} ) do |f| %>
   <div class="field">
@@ -18,5 +20,7 @@
 <div class="field">
 	<%= link_to "forgotten password?", new_password_reset_path %><br />
 </div>
-  
+
 <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+
+</div>
