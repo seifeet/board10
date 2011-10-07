@@ -5,7 +5,7 @@ $darker:         darken($backgrnd,40%);
 $light:          lighten($backgrnd, 40%);
 $lightest:       lighten($backgrnd, 70%);
 
-$fonts-color: $darkest;
+$font-color: $darkest;
 
 $btn-confirm: #FFA400;
 $btn-reject: #0F4DA8;
@@ -14,10 +14,19 @@ $btn-font-size: 16px;
 $footer-height: 200px;
 //$right-side-bar: 150px;
 
-@mixin rounded-corners($radius: 1em){
+@mixin rounded-corners($radius: 1em, $shadow: #666){
 	border-radius: $radius;
 	-moz-border-radius: $radius;
-  -webkit-border-radius: $radius;	
+	-webkit-border-radius: $radius;
+	box-shadow: 2px 2px 3px $shadow;
+	-moz-box-shadow: 2px 2px 3px $shadow;
+	-webkit-box-shadow: 2px 2px 3px $shadow;
+	outline: 0;
+	-webkit-appearance: none;
+	
+	&:focus {
+		border-color: #2c8e57;
+	}
 }
 
 @mixin bkground-image($from: $backgrnd, $to: #FFB673 ){
@@ -84,7 +93,7 @@ body{
   margin:0;
   padding: 0 0 $footer-height 0;    //0 $right-side-bar $footer-height 0; 
   @include bkground-image;
-  color:$fonts-color;
+  color:$font-color;
   font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
   font-size: 12px;
  }
@@ -404,12 +413,20 @@ h3 ._sub_title{
 
 .signin_container
 {
-  width: 300px ;
-  margin-left: auto ;
-  margin-right: auto ;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#maincontainer .linkfield {
+	position: relative;
+	margin: 0;
+	border-width: 1px;
+	padding: 5px 0 5px 5px;
+	background: transparent;
+	font: inherit;
 }
 
-#maincontainer form .field {
+#maincontainer .textfield {
 	position: relative;
 	margin: 0;
 	border-width: 1px;
@@ -418,11 +435,24 @@ h3 ._sub_title{
 	font: inherit;
 }
 
-#maincontainer form .field label {
+#maincontainer .textfield label {
 	position: absolute;
-	padding: 5px;
+	padding: 10px;
 	margin-left: 3px;
 	color: #999;
+}
+
+input[type="text"].rounded {
+	padding: 5px 5px;
+	font-size: $btn-font-size;
+	@include rounded-corners(10px, $backgrnd);
+	background-color: #ffffff;
+}
+input[type="password"].rounded {
+	padding: 5px 5px;
+	font-size: $btn-font-size;
+	@include rounded-corners(10px, $backgrnd);
+	background-color: #fff;
 }
 
 /*********************** buttons ***********************************/
