@@ -8,6 +8,24 @@
 </head>
 <body>
 
+<div id="maincontainer">
+
+<div id="topsection">
+<!-- not used for now -->
+</div>
+
+<div id="contentwrapper">
+<div id="contentcolumn">
+<%= yield %>
+</div>
+</div>
+
+<div id="leftcolumn">
+<!-- not used for now -->
+</div>
+
+<div id="rightcolumn">
+<!-- not used for now -->
 <% if turn_on = false %>
 <div id="right-sidebar">
 	 <% if !current_user.nil? && current_user?(@user) %>
@@ -15,17 +33,14 @@
 	 <% end %>
 </div>
 <% end %>
-
-<div id="footer">
-	<%= render 'layouts/header' %>
 </div>
 
-<div class="container"> <!-- This container div is needed by Blueprint -->
-<div id="content">
-<%= yield %>
-</div> <!-- closing content -->
+<div id="footer">
 <%= render 'layouts/footer' %>
-</div> <!-- closing container -->
+<%= render 'layouts/header' %>
+</div>
+
+</div> <!-- closing maincontainer -->
 
 </body>
 </html>
