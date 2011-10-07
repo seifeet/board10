@@ -1,5 +1,7 @@
 <div id="logo_boardten">Board<font color="yellow">ten</font></div>
+<% if !current_user.nil? %>
 <div id="user_title_nav">
-<%= render 'navigation' %>
+<%= render 'users/navigation' %>
 </div>
 <br class="clearBoth" />
+<% end %>
