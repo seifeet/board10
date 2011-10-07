@@ -1,0 +1,5 @@
+<% if session[:return_to] =~ /\/users\// %>
+$("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
+$("#top_title_action").html("");
+<% end %>
+

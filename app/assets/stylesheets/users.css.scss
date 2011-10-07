@@ -6,11 +6,12 @@ $relative-pos: 150px;
 
 #user_title_nav{
   float:right;
-  width: 25%;
+  width: 20%;
 }
 
 #main_part{
-  float:right;
+  float:left;
+  margin-left:15px;
   width: 74%; //100%;
 }
 
@@ -29,7 +30,7 @@ $relative-pos: 150px;
   width: 150px;
   margin: 2px;
   border:1px solid $darker;
-  @include bkground-image;
+  //@include bkground-image;
   padding: 1em;
   display:block;
   text-align:center;
@@ -51,6 +52,9 @@ $relative-pos: 150px;
   height: 180px;
   background: $header-backgrnd;
   @include bkground-image($header-backgrnd,$backgrnd);
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5600', endColorstr='#FF9E73', GradientType=1);
+  zoom:1;
 }
 
 #top_title_action{
@@ -68,7 +72,7 @@ $relative-pos: 150px;
 .action_tab{
   overflow: auto;
   overflow-x: hidden;
-  height: 150px;
+  height: 225px;
   width: 100%;
   border: 2px solid $backgrnd;
   @include rounded-corners(3px);

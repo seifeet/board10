@@ -36,7 +36,7 @@ $footer-heigth: 25px;
 }
 
 @mixin bkground-image($from: $backgrnd, $to: #FFB673 ){
-  background: $to;
+  //background: $to;
   background-image: -moz-linear-gradient(
     left, $from, $to
   );
@@ -49,14 +49,14 @@ $footer-heigth: 25px;
   background-image: linear-gradient(
     left, $from, $to
   );
-  @include main-shadow;
+  //@include main-shadow;
 }
 
 @mixin main-button($from: $darker , $to: lighten($darker, 70%)){
   margin: 2px;
   border:1px solid $from;
-  background: $from;
-  @include bkground-image($from, $to);
+  background: transparent; //$from;
+  //@include bkground-image($from, $to); // Doesn't look good in IE
   padding: .5em;
   display:block;
   text-align:center;
@@ -83,6 +83,9 @@ body{
   margin:0;
   padding: 0 0 $footer-heigth 0;    //0 $right-side-bar $footer-heigth 0; 
   @include bkground-image;
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
   color:$fonts-color;
   font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
   font-size: 12px;
@@ -104,6 +107,9 @@ body{
   width:90%; /* width of the bar */
   height:$footer-heigth;
   background: bkground-image;
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
   @include rounded-corners;
  }
  @media screen{
@@ -128,9 +134,21 @@ body{
 a{
   color:$darkest;
 }
+.background_write{
+  font-family: "MyriadPro-It", Arial, Helvetica, Tahoma, sans-serif;
+  font-size: 30px;
+  font-style: italic;
+  color: white;
+  height:25px;
+  opacity:0.2;
+  //background: transparent;
+}
 /*********************** logo ***********************************/
 #logo{
   @include bkground-image($header-backgrnd);
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5600', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
   height: 45px;
 }
 #logo_boardten{
@@ -156,6 +174,9 @@ a{
     padding:0px 10px;
     text-align:center;
     @include bkground-image(lighten($backgrnd, 70%), $backgrnd); /* nav button color */
+    /* M$ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF3D00', endColorstr='#FFB673', GradientType=1);
+    zoom:1;
     color:$darkest;
     text-decoration:none;
     font-weight: bold;
@@ -218,6 +239,9 @@ h3 ._sub_title{
   float: left;
   border:2px solid $darker;
   @include bkground-image;
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
   padding: 1em;
   display:block;
   text-align:center;
@@ -242,6 +266,7 @@ h3 ._sub_title{
   border-radius: 5px;
   padding:1px;
 	color: $darkest;
+	@include main-shadow;
 }
 .generic_container div.posting_element:hover,
 .generic_container div.user_element:hover,
@@ -266,8 +291,12 @@ h3 ._sub_title{
   width: 100%;
   margin: 1px auto;
   @include bkground-image;
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
   border:1px solid $backgrnd;
   padding:2px;
+  @include main-shadow;
   //@include rounded-corners(3px);
 }
 .school_element,
@@ -278,9 +307,13 @@ h3 ._sub_title{
 	width: auto;
 	margin: 2px auto;
 	@include bkground-image;
+	/* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
 	border:3px solid $backgrnd;
 	padding:1px;
 	border-radius: 5px;
+	@include main-shadow;
 }
 
 .edit_button a{
