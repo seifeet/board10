@@ -265,7 +265,7 @@ h3 ._sub_title{
 
 .generic_container{
   float:left;
-	width: 100%;
+	width: 99%;
   margin: 2px auto;
   border: 3px solid $backgrnd;
   border-radius: 5px;
@@ -281,7 +281,7 @@ h3 ._sub_title{
 }
 .small_container{
   float:left;
-  width: 100%;
+  width: 99%;
   margin: 1px auto;
   border: 1px solid $backgrnd;
   @include rounded-corners(3px);
@@ -292,7 +292,7 @@ h3 ._sub_title{
   background:$light;
 } 
 .small_element{
-  width: 100%;
+  width: 99%;
   margin: 1px auto;
   @include bkground-image;
   border:1px solid $backgrnd;
@@ -334,51 +334,6 @@ h3 ._sub_title{
 }
 
 .action_button a:hover {
-  @include main-hover( $darker );
-}
-.menu_buttons{
-  position:relative;
-  top:0.1em;
-  left:5em;
-}
-.school_menu_button{
-  position:relative;
-  top:0;
-  left:3em;
-}
-.board_menu_button{
-  position:relative;
-  top:4em;
-  left:1em;
-}
-.msg_menu_button{
-  position:relative;
-  top:4em;
-  left:1em;
-}
-.school_menu_button a,
-.board_menu_button a,
-.msg_menu_button a,
-.menu_button a{
-  width: 70px;
-  float: left;
-  margin: 10px;
-  border: 3px solid white;
- //@include bkground-image;
-  padding: 1em;
-  display:block;
-  text-align:center;
-  color:black;
-  text-decoration:none;
-  font-weight: bold;
-  line-height:6em;
-  @include rounded-corners(200px);
-  @include main-shadow;
-}
-.school_menu_button a:hover,
-.board_menu_button a:hover,
-.msg_menu_button a:hover,
-.menu_button a:hover {
   @include main-hover( $darker );
 }
 

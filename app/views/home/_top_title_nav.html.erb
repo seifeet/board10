@@ -1,14 +1,14 @@
 <div class="menu_buttons">
-<% if current_user.id == @user.id %>
+<% unless current_user.nil? %>
 <div class="school_menu_button">
-<%= link_to 'SCHOOL', user_path(current_user)+'?school_search=on' %>
+<%= link_to 'SCHOOL', home_path+'?school_search=on' %>
 </div>
 <div class="board_menu_button">
-<%= link_to 'BOARD', user_path(current_user)+'?board_search=on' %>
+<%= link_to 'BOARD', home_path+'?board_search=on' %>
 </div>
 <div class="msg_menu_button">
 <% if ( !params[:board].nil? && params[:board] != 'all' ) %>
-<%= link_to 'MESSAGE', user_path(current_user)+"?board=#{params[:board]}&element_action=on" %>
+<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on" %>
 <% end %>
 </div>
 <% end %>
