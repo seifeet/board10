@@ -16,16 +16,17 @@
 </div>
 <% end %>
 
-<div id="footer">
-	<%= render 'layouts/header' %>
-</div>
+<div id="footer"><%= render 'layouts/header' %></div>
 
-<div class="container"> <!-- This container div is needed by Blueprint -->
+<%= render 'layouts/logo' %>
+
 <div id="content">
 <%= yield %>
 </div> <!-- closing content -->
+
+<br class="clearBoth" />
+
 <%= render 'layouts/footer' %>
-</div> <!-- closing container -->
 
 </body>
 </html>

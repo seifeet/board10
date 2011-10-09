@@ -1,0 +1,12 @@
+<% return nil if current_user.nil? %>
+<% user = current_user if user.nil? %>
+<% if current_user.id == user.id && !user.schools.empty? %>
+  <% user.schools.each do |school| %>
+     <div class="nav_link">
+     <%= link_to "#{strip_and_cut(school.name, 20)}", :school => school.id %>
+     </div>
+     <div class="delete_button">
+     <%= link_to 'Del', current_user.user_schools.find_by_school_id(school.id), confirm: 'Do you want to remove that school?', method: :delete %>
+     </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,14 @@
+<% return nil if current_user.nil? %>
+
+<div id="user_title_nav">
+	<%= render 'shared/titles/title', :element => current_user, :edit_link => edit_user_path(current_user) %>
+	<br class="clearBoth" />
+	<div id="user_schools"><%= render 'user_schools', :user => current_user %></div>
+	<br class="clearBoth" />
+	<br />
+	<div class="nav_link"><%= link_to "All My Boards", home_path + "?board=all" %></div>
+	<br class="clearBoth" />
+	<br />
+	<div id="user_boards"><%= render 'user_boards', :user => current_user %></div>
+	<br class="clearBoth" />
+</div>
