@@ -1,8 +1,8 @@
 <div class="signin_container clearfix">
 
 <h1>&nbsp;</h1>
-
-<%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"}, :builder => AppFormBuilder ) do |f| %>
+<!--%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"}, :builder => AppFormBuilder ) do |f| %-->
+<%= form_for :session, :url => sessions_path do |f| %>
   <div class="textfield">
     <%= f.label :email %>
 	<%= f.text_field :email, :class => "rounded" %>

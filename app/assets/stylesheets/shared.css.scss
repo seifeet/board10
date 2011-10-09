@@ -11,7 +11,7 @@ $btn-confirm: #FFA400;
 $btn-reject: #0F4DA8;
 $btn-font-size: 16px;
 
-$footer-height: 200px;
+$footer-height: 25px;
 //$right-side-bar: 150px;
 
 @mixin rounded-corners($radius: 1em, $shadow: #666){
@@ -30,7 +30,6 @@ $footer-height: 200px;
 }
 
 @mixin bkground-image($from: $backgrnd, $to: #FFB673 ){
-  background: $to;
   background-image: -moz-linear-gradient(
     left, $from, $to
   );
@@ -38,12 +37,12 @@ $footer-height: 200px;
     linear,left top, right top,
     color-stop(0, $from),
     color-stop(1, $to)
-   //-webkit-linear-gradient(top right, $from, $to)
+    //-webkit-linear-gradient(top right, $from, $to)
   );
   background-image: linear-gradient(
     left, $from, $to
   );
-  @include main-shadow;
+  //@include main-shadow;
 }
 
 @mixin action-button($bk_color){
@@ -92,86 +91,49 @@ $footer-height: 200px;
 body{
   margin:0;
   padding: 0 0 $footer-height 0;    //0 $right-side-bar $footer-height 0; 
-  @include bkground-image;
   color:$font-color;
   font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
-  font-size: 12px;
+  font-size: 12px; //small;
+  @include bkground-image;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
+}
+ /*
+ div#right-sidebar{
+  position:absolute;
+  top:0; // shift from the top
+  right: 2%; // 40px; // shift from the right to the left
+  width: 10%; //$right-side-bar; // width:right-sidebar
+  height: 100%;
+  background: $backgrnd;
  }
- 
- /************************* Fixed-Fluid-Fixed Layout ******************************/
-div#topsection{
-	background: #EAEAEA;
-	height: 90px;
-}
-
-div#topsection h1{
-	margin: 0;
-	padding-top: 15px;
-}
-
-div#contentwrapper{
-	float: left;
-	width: 100%;
-}
-
-div#contentcolumn{
-	margin: 0 10px 0 10px;
-	min-height: 800px;
-}
-
-div#leftcolumn{
-	float: left;
-	width: 230px; /*Width of left column*/
-	margin-left: -100%;
-	background: #C8FC98;
-}
-
-div#rightcolumn{
-	float: left;
-	width: 200px; /*Width of right column*/
-	margin-left: -200px; /*Set left marginto -(RightColumnWidth)*/
-	background: #FDE95E;
-}
-
-div#footer{
-	clear: left;
-	width: 100%;
-	background: black;
-	color: #FFF;
-	text-align: center;
-	padding: 4px 0;
-}
-
-/*
-div#right-sidebar{
-position:absolute;
-top:0; // shift from the top
-right: 2%; // 40px; // shift from the right to the left
-width: 10%; //$right-side-bar; // width:right-sidebar
-height: 100%;
-background: $backgrnd;
-}
-*/
-
-@media screen{
-	/*
-	body>div#right-sidebar{
-	position:fixed;
-	}
-	*/
-	body>div#footer{
-	position: fixed;
-	}
-}
-
-* html body{
-	overflow:hidden;
-} 
-
-* html div#content{
-	height:100%;
-	overflow:auto;
-}
+ */
+ div#footer{
+  position:absolute;
+  bottom:2px;
+  left:5%; /* margin from the left side */
+  width:90%; /* width of the bar */
+  height:$footer-height;
+  background: bkground-image;
+  @include rounded-corners;
+ }
+ @media screen{
+ /*
+  body>div#right-sidebar{
+   position:fixed;
+  }
+ */
+  body>div#footer{
+   position: fixed;
+  }
+ }
+ * html body{
+  overflow:hidden;
+ } 
+ * html div#content{
+  height:100%;
+  overflow:auto;
+ }
 
 /*********************** body ***********************************/
 a{
@@ -180,17 +142,36 @@ a{
 /*********************** logo ***********************************/
 #logo{
   @include bkground-image($header-backgrnd);
-  height: 45px;
-}
-#logo_boardten{
-  float: left;
+  /* M$ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4F00', endColorstr='#FFB673', GradientType=1);
+  zoom:1;
+  float:left;   
+  width: 100%;
   color:white;
-  font-size: 35px;
+  font-size: xx-large;
   font-weight: bold;
-  padding: 5px;
-  margin: 5px;
+}  
+#wide_line{
+  float: left;   
+  width: 100%;    
+  height: 7em; // controls height where context starts 
 }
-
+#wider_line{ 
+  position:static; 
+  z-index:2;
+  @include bkground-image($header-backgrnd,$backgrnd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4F00', endColorstr='#FF9E73', GradientType=1);
+  zoom:1;
+  float:left;
+  overflow:hidden;
+  width:100%;
+  height: 15em;
+}
+#content{
+  position:relative;
+  z-index:20;
+  display:block;
+}
 /*********************** header ***********************************/
 #header ul li {
     display:inline;
@@ -237,12 +218,11 @@ a{
 .button_neutral{
   @include action-button($darker);
 }
-/*********************** containers ***********************************/
+/*********************** shared folder ***********************************/
 #_title{
   float:left;
   font-weight: bold;
   background: transparent;
-  padding: 2px;
   @include rounded-corners;
 }
 #_desc{
@@ -358,21 +338,23 @@ h3 ._sub_title{
 }
 .menu_buttons{
   position:relative;
+  top:0.1em;
+  left:5em;
 }
 .school_menu_button{
   position:relative;
-  top:40px;
-  left:0px;
+  top:0;
+  left:3em;
 }
 .board_menu_button{
   position:relative;
-  top:100px;
-  left:0px;
+  top:4em;
+  left:1em;
 }
 .msg_menu_button{
   position:relative;
-  top:100px;
-  left:0px;
+  top:4em;
+  left:1em;
 }
 .school_menu_button a,
 .board_menu_button a,

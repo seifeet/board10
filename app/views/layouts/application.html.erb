@@ -8,32 +8,6 @@
 </head>
 <body>
 
-<div id="maincontainer">
-
-<div id="topsection">
-	
-<div id="logo">
-<%= render 'users/logo' %>
-</div>
-
-<div id="title">
-<%= render 'users/title' %>
-</div>
-
-</div>
-
-<div id="contentwrapper">
-<div id="contentcolumn">
-<%= yield %>
-</div>
-</div>
-
-<div id="leftcolumn">
-<!-- not used for now -->
-</div>
-
-<div id="rightcolumn">
-<!-- not used for now -->
 <% if turn_on = false %>
 <div id="right-sidebar">
 	 <% if !current_user.nil? && current_user?(@user) %>
@@ -41,14 +15,18 @@
 	 <% end %>
 </div>
 <% end %>
-</div>
 
-<div id="footer">
+<div id="footer"><%= render 'layouts/header' %></div>
+
+<%= render 'layouts/logo' %>
+
+<div id="content">
+<%= yield %>
+</div> <!-- closing content -->
+
+<br class="clearBoth" />
+
 <%= render 'layouts/footer' %>
-<%= render 'layouts/header' %>
-</div>
-
-</div> <!-- closing maincontainer -->
 
 </body>
 </html>
