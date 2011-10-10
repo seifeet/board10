@@ -1,5 +1,5 @@
 <% return nil if current_user.nil? %>
-<% user = current_user if user.nil? %>
+<% user = current_user %>
 <% if current_user.id == user.id && !user.schools.empty? %>
   <div class="background_write">Schools</div>
   <% user.schools.each do |school| %>

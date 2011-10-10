@@ -17,6 +17,6 @@
 $("#title").html("<%= escape_javascript( render 'title' ) %>");
 $("#top_title_action").html("<%= escape_javascript( render 'top_title_action' ) %>");
 <% @loader = true %>
-$(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title', :element => @board, :element_path => board_path(@board), :custom_action => nil ) %>");
+$(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title' ) %>");
 $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>" );
 <% end %>

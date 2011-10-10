@@ -68,8 +68,10 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 }
 
 .user_sub_title{
-  //position:relative;
-  //top:35px;
+  position:relative;
+  float:left;
+  left:0.5em;
+  top:3em;
 }
 
 .action_tab{
@@ -88,17 +90,17 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 }
 .school_menu_button{
   position:relative;
-  top:0;
+  top:1em;
   left:3em;
 }
 .board_menu_button{
   position:relative;
-  top:4em;
+  top:5em;
   left:1em;
 }
 .msg_menu_button{
   position:relative;
-  top:4em;
+  top:5em;
   left:0.1em;
 }
 .school_menu_button a,
@@ -125,4 +127,13 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 .msg_menu_button a:hover,
 .menu_button a:hover {
   @include main-hover( $darker );
+}
+
+.background_write{
+  color:white;
+  opacity:0.3;
+  font-size:xx-large;
+  font-style:italic;
+  width:1%;
+  float: left;
 }

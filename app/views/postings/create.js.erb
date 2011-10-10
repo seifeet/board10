@@ -1,4 +1,6 @@
-<% if session[:return_to] =~ /\/users\// %>
+<% if session[:return_to] =~ /\/home?/ %>
+$('#user_postings').html("<%= escape_javascript(render 'home/postings', :posting => @posting)%>");
+<% elsif session[:return_to] =~ /\/users\// %>
 $('#user_postings').html("<%= escape_javascript(render 'users/postings', :posting => @posting)%>");
 <% elsif session[:return_to] =~ /\/boards\// %>
 $('#board_postings').html("<%= escape_javascript(render 'boards/postings', :posting => @posting)%>");
