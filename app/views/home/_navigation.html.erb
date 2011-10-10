@@ -1,10 +1,15 @@
 <% return nil if current_user.nil? %>
 
 <div id="user_title_nav">
+	<div class="background_write">Schools</div>
+	<div class="http_link"><%= link_to "All Schools", boards_path %></div>
+	<br class="clearBoth" />
+	<br />
 	<div id="user_schools"><%= render 'user_schools', :user => current_user %></div>
 	<br class="clearBoth" />
 	<br />
 	<div class="background_write">Boards</div>
+	<div class="http_link"><%= link_to "All Boards", boards_path %></div>
 	<div class="nav_link"><%= link_to "All My Boards", home_path + "?board=all" %></div>
 	<br class="clearBoth" />
 	<br />

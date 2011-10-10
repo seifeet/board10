@@ -3,7 +3,7 @@
   	<ul>
       <!--li--><!-- %= link_to "Home", root_path % --><!--/li-->
       <% if current_user && signed_in? %>
-      <li><%= link_to "#{current_user.full_name}", user_path(current_user) %></li>
+      <li><%= link_to "#{current_user.full_name}", home_path %></li>
       <li><%= link_to "Schools", schools_path %></li>
       <li><%= link_to "Users", users_path %></li>
       <li><%= link_to "Boards", boards_path %></li>

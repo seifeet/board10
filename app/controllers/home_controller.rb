@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  include UsersHelper
-  before_filter :authenticate
+  before_filter :current_user
+  
   def index
     store_location
 
@@ -43,7 +43,7 @@ class HomeController < ApplicationController
        @postings_title = "From all my boards:"
        @postings = paginate_board_postings @user
     else # for all other non-members show only public posts:
-       @postings_title = @user.first_name + "'s Public Posts:"
+       @postings_title = "My Public Posts:"
        @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
     

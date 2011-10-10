@@ -29,7 +29,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   float: left;
   width: 99%; // //680px;
 }
-
+.http_link a,
 ._nav_link a,
 .nav_link a{
   float: right;
@@ -71,13 +71,13 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   position:relative;
   float:left;
   left:0.5em;
-  top:3em;
+  top:3.5em;
 }
 
 .action_tab{
   overflow: auto;
   overflow-x: hidden;
-  height: 22.5em;
+  height: 23.5em;
   width: 99%;
   border: 2px solid $backgrnd;
   @include rounded-corners(3px);

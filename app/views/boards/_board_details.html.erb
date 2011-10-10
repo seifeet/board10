@@ -1,3 +1,4 @@
+<%= link_to 'Back', home_path %>
 <p align="right">
 <% if @board.active? && current_user.owner?(@board.id) %>
         <span class="edit"><%= link_to 'Edit Board', edit_board_path(@board) %></span>

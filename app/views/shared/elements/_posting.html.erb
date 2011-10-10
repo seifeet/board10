@@ -26,7 +26,7 @@
 <br class="clearBoth" />
 
 <% if !element.subject.nil? && !element.subject.empty? %>
-<div class="inline"><%= ( 'Subject: ' + strip_and_cut(element.subject,120) ) %></div>
+<div class="inline"><%= ( "Subject: \"" + strip_and_cut(element.subject,120) ) + "\"" %></div>
 <% end %>
 
 <div class="inline">
