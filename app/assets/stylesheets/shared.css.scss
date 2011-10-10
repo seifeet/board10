@@ -11,7 +11,7 @@ $btn-confirm: #FFA400;
 $btn-reject: #0F4DA8;
 $btn-font-size: 16px;
 
-$footer-height: 25px;
+$footer-height: 0;
 //$right-side-bar: 150px;
 
 @mixin rounded-corners($radius: 1em, $shadow: #666){
@@ -155,6 +155,12 @@ a{
   float: left;   
   width: 100%;    
   height: 6em; // controls height where context starts 
+}
+.loading{
+  position:relative;
+  z-index:20;
+  top:0.5em;
+  left:1.5em;
 }
 #wider_line{ 
   position:static; 

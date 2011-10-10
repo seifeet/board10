@@ -23,8 +23,8 @@ if(history && history.pushState ) {
 		});
 		// #msg board school #                    #groups boards
 	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a").live("click", function() {
-			//$("._sub_title").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$("#_sub_title").html("Loading...");
+			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+			//$('.action_tab').slideUp('fast', 0);
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);
 			return false;
@@ -37,30 +37,35 @@ if(history && history.pushState ) {
 		});
 
 		$("#users_search").submit(function() {
+			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#users_search").attr("action") + "?" + $("#users_search").serialize());
 			return false;
 		});
 		
 	    $("#boards_search").submit(function() {
+	    	$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#boards_search").attr("action") + "?" + $("#boards_search").serialize());
 			return false;
 		});
 		
 	    $("#schools_search").submit(function() {
+	    	$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#schools_search").attr("action") + "?" + $("#schools_search").serialize());
 			return false;
 		});
 		
 		$("#tab_schools_search").submit(function() {
+			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
 			return false;
 		});
 		
 		$("#new_user_board").submit(function() {
+			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			history.pushState(null, document.title, this.href);
 			return false;

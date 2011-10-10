@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
-  before_filter :current_user
+  include HomeHelper
+  before_filter :only_current_user
   
   def index
+    return nil if current_user.nil?
+    
     store_location
 
     @user = current_user
@@ -106,5 +109,5 @@ class HomeController < ApplicationController
       
       all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
     end 
-    
+
 end
