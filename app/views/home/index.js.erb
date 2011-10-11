@@ -17,8 +17,9 @@
 $("#title").html("<%= escape_javascript( render 'title' ) %>");
 $("#top_title_action").html("<%= escape_javascript( render 'top_title_action' ) %>");
 <% @loader = true %>
-$(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title' ) %>");
+$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>" );
 <% end %>
 
+$("#top_title_nav").html("<%= escape_javascript(render 'top_title_nav' ) %>");
 $(".loading").html("");

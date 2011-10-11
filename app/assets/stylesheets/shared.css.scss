@@ -11,7 +11,7 @@ $btn-confirm: #FFA400;
 $btn-reject: #0F4DA8;
 $btn-font-size: 16px;
 
-$footer-height: 0;
+//$footer-height: 0;
 //$right-side-bar: 150px;
 
 @mixin rounded-corners($radius: 1em, $shadow: #666){
@@ -96,52 +96,11 @@ body, #logo, #wider_line{
 
 body{
   margin:0;
-  padding: 0 0 $footer-height 0;    //0 $right-side-bar $footer-height 0; 
+  padding: 0 0 0 0;    //0 $right-side-bar $footer-height 0; 
   color:$font-color;
   font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
   font-size: 12px; //small;
   @include bkground-image;
-}
- /*
- div#right-sidebar{
-  position:absolute;
-  top:0; // shift from the top
-  right: 2%; // 40px; // shift from the right to the left
-  width: 10%; //$right-side-bar; // width:right-sidebar
-  height: 100%;
-  background: $backgrnd;
- }
- */
- div#footer{
-  position:absolute;
-  bottom:2px;
-  left:5%; /* margin from the left side */
-  width:90%; /* width of the bar */
-  height:$footer-height;
-  background: bkground-image;
-  @include rounded-corners;
- }
- @media screen{
- /*
-  body>div#right-sidebar{
-   position:fixed;
-  }
- */
-  body>div#footer{
-   position: fixed;
-  }
- }
- * html body{
-  overflow:hidden;
- } 
- * html div#content{
-  height:100%;
-  overflow:auto;
- }
-
-/*********************** body ***********************************/
-a{
-  color:$darkest;
 }
 /*********************** logo ***********************************/
 #logo{
@@ -155,64 +114,17 @@ a{
 #wide_line{
   float: left;   
   width: 100%;    
-  height: 6em; // controls height where context starts 
+  height: 6em; // controls height where context starts
 }
 .loading{
-  position:relative;
-  z-index:20;
-  top:0.5em;
-  left:1.5em;
+  padding:3em;
 }
 #wider_line{ 
-  position:static; 
-  z-index:2;
   @include bkground-image($header-backgrnd,$backgrnd);
   float:left;
-  overflow:hidden;
   width:100%;
   height: 16em;
 }
-#content{
-  position:relative;
-  z-index:20;
-  display:block;
-}
-/*********************** header ***********************************/
-#header ul li {
-    display:inline;
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-#header ul li a {
-    display:block;
-    float:left;
-    margin:0 10px 10px 0;
-    padding:0px 10px;
-    text-align:center;
-    @include bkground-image(lighten($backgrnd, 70%), $backgrnd); /* nav button color */
-    color:$darkest;
-    text-decoration:none;
-    font-weight: bold;
-    line-height:1.3em;
-    @include rounded-corners;
-    &:hover{
-    	background:$darker; /* nav hover color */
-      color:$backgrnd;
-      font-weight: bold;
-    }
-    &:active,
-    &:active:hover {
-	    color:$darker;
-	    background:$backgrnd;
-	    font-weight:bold;
-	}
-}
-
-#header ul li a span {
-    display:block;
-}
-
 /*********************** content ***********************************/
 .button_confirm{
   @include action-button($btn-confirm);
@@ -228,8 +140,6 @@ a{
   float:right;
   width:20%;
   background:transparent;
-  position:relative;
-  z-index:20;
   font-weight:normal;
   font-size:small;
   color:$darkest;

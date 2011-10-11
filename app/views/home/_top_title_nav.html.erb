@@ -1,15 +1,87 @@
 <div class="menu_buttons">
+	
 <% unless current_user.nil? %>
+
+<!-- FIRST LEVEL BUTTONS -->
 <div class="school_menu_button">
-<%= link_to 'SCHOOL', home_path+'?school_search=on' %>
+<%= link_to 'SCHOOL', home_path+'?schools=on', :title => "Open School Menu" %>
 </div>
+
 <div class="board_menu_button">
-<%= link_to 'BOARD', home_path+'?board_search=on' %>
+<%= link_to 'BOARD', home_path+'?boards=on', :title => "Open Board Menu" %>
 </div>
+
 <div class="msg_menu_button">
 <% if ( !params[:board].nil? && params[:board] != 'all' ) %>
-<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on" %>
+<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on", :title => "Post on the current board" %>
 <% end %>
 </div>
+
+<!-- SECOND LEVEL SERVICE BUTTONS -->
+<% if !params[:schools].nil? || !params[:school].nil? %>
+<div class="search_school_menu_button">
+<%= link_to 'FIND', home_path+"?school_search=on", :title => "Search for Schools" %>
+</div>
+<% elsif !params[:boards].nil? %>
+<div class="search_board_menu_button">
+<%= link_to 'FIND', home_path+"?board_search=on", :title => "Search for Boards" %>
+</div>
+<div class="new_board_menu_button">
+<%= link_to 'NEW', home_path+"?new_board=on", :title => "Create a new Board" %>
+</div>
 <% end %>
+
+<!-- OPTIONAL BUTTONS -->
+<% # Option school buttons
+  if !params[:schools].nil? || !params[:school].nil? %>
+<% 
+   max_num_schools = 3
+   if !current_user.schools.empty?
+     schools = 
+       ( current_user.schools.count > max_num_schools ? 
+           current_user.schools[0..max_num_schools] :
+            current_user.schools )
+%>
+<div id="schools_area">
+<%
+     schools.each do |school|
+     	@current_school = school if school.id.to_s == params[:school]
+%>
+     <div class="secondary_menu_button">
+     <%= link_to "#{strip_and_cut(school.name, 8)}", {:school => school.id },{:title => "School: #{school.name}"} %>
+     </div>
+<%   end %>
+<%   if current_user.schools.count > max_num_schools %>
+	<div class="secondary_menu_button">
+     <%= link_to "MORE", home_path+"?schools=on",{:confirm => "Your other schools are listed on the right bar."} %>
+    </div>
+<%   
+     end # end of do loop
+%>
+</div> <!-- end of school_area -->
+<% 
+     if !@current_school.nil?
+%>
+<div id="boards_area">
+<%
+       @current_school.boards.where(:active => true).each do |board|
+%>
+   <div class="secondary_menu_button">
+   	<%= link_to "#{strip_and_cut(board.title, 8)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+   </div>
+<%
+       end # end of @current_school do-loop
+%>
+</div>
+<% 
+     end # end of if !@school.nil?
+   end  # end of if !params[:schools].nil? ...
+ end # End of Option school buttons 
+%>
+
+<!-- -->
+
+<% 
+end # end of the first unless
+%>
 </div>

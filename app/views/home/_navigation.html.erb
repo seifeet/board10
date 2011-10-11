@@ -14,14 +14,14 @@
     </div>
     <br class="clearBoth" />
 	<div class="background_write">Schools</div>
-	<br />
+	<br class="clearBoth" />
 	<div id="user_schools"><%= render 'user_schools', :user => current_user %></div>
 	<br class="clearBoth" />
 	<br />
 	<div class="background_write">Boards</div>
-	<div class="nav_link"><%= link_to "All My Boards", home_path + "?board=all" %></div>
+	<!-- <div class="nav_link" --><!-- %= link_to "All My Boards", home_path + "?boards=on" % --><!-- /div -->
 	<br class="clearBoth" />
-	<br />
+	<!-- <br / -->
 	<div id="user_boards"><%= render 'user_boards', :user => current_user %></div>
 	<br class="clearBoth" />
 	<br />
