@@ -2,17 +2,18 @@
 <html>
 <head>
   <title>Boardten<%= ': ' + @title unless @title.blank? %></title>
-  <%= render 'layouts/stylesheets' %> 
-  <%= javascript_include_tag :application, :debug => true %>
+  <%= render 'layouts/stylesheets' %>
+  <%= yield :head_css %>
+  <%= javascript_include_tag :application, :debug => true %>  
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <% if turn_on = false %>
 <div id="right-sidebar">
-	 <% if !current_user.nil? && current_user?(@user) %>
-	 <%= render 'users/navigation', :user => current_user %>
-	 <% end %>
+  <% if !current_user.nil? && current_user?(@user) %>
+  <%= render 'users/navigation', :user => current_user %>
+  <% end %>
 </div>
 <% end %>
 

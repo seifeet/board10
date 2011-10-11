@@ -1,3 +1,62 @@
-// Place all the styles related to the sessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*********************** image background ***********************************/
+body, #logo, #wider_line{
+  background: transparent;
+  overflow:hidden;
+  padding:0;margin:0;
+  height:100%;width:100%;
+  /* MS */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+}
+
+#bg { position: fixed; top: 0; left: 0; }
+.bgwidth { width: 100%; }
+.bgheight { height: 100%; }
+
+
+/*********************** filters ***********************************/
+.alpha60 {
+  /* Fallback for web browsers that doesn't support RGBa */
+  background: rgb(0, 0, 0) transparent;
+  /* RGBa with 0.6 opacity */
+  background: rgba(0, 0, 0, 0.6);
+  /* For IE 5.5 - 7*/
+  filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#99000000', endColorstr='#99000000', GradientType=0);
+  /* For IE 8*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+  
+/*********************** containers & fields ***********************************/
+
+.signin_container
+{
+  position: relative;
+  top: 160px;
+  width: 300px;
+  margin: auto;
+  padding: 15px 15px 15px 15px;
+}
+
+.signin_container .single_field {
+  display: block;
+  border-width: 1px;
+  padding: 5px 5px 5px 5px;
+  background: transparent;
+  margin: auto;
+}
+
+.signin_container .single_field  .nested_label {
+  position:absolute;
+  padding: 10px 5px 5px 5px;
+  color: #999;
+  float: left;
+}
+
+.signin_container .single_field.white  label {
+  color:white;
+  float: left;
+}
+
+.signin_container .single_field.white a {
+  color:white;
+  float: right;
+}
