@@ -1,15 +1,33 @@
 <div class="menu_buttons">
+	
 <% unless current_user.nil? %>
+
 <div class="school_menu_button">
-<%= link_to 'SCHOOL', home_path+'?school_search=on' %>
+<%= link_to 'SCHOOL', home_path+'?schools=on', :title => "Open School Menu" %>
 </div>
+
 <div class="board_menu_button">
-<%= link_to 'BOARD', home_path+'?board_search=on' %>
+<%= link_to 'BOARD', home_path+'?boards=on', :title => "Open Board Menu" %>
 </div>
+
+<% if !params[:schools].nil? %>
+<div class="search_school_menu_button">
+<%= link_to 'FIND', home_path+"?school_search=on", :title => "Search for Schools" %>
+</div>
+<% elsif !params[:boards].nil? %>
+<div class="search_board_menu_button">
+<%= link_to 'FIND', home_path+"?board_search=on", :title => "Search for Boards" %>
+</div>
+<div class="new_board_menu_button">
+<%= link_to 'NEW', home_path+"?new_board=on", :title => "Create a new Board" %>
+</div>
+<% end %>
+
 <div class="msg_menu_button">
 <% if ( !params[:board].nil? && params[:board] != 'all' ) %>
-<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on" %>
+<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on", :title => "Post on the current board" %>
 <% end %>
 </div>
+
 <% end %>
 </div>

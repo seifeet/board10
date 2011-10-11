@@ -1,3 +1,141 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$rignt-nav-bar: 23%;  // the width of the right bar navigation
+$main-part: 72%;  // the width of the #main-part
+$left-side-shift: 3%; // #main_part has a shift left by this amount
+
+@mixin menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em){
+  width: $wide;
+  float: left;
+  margin: $marge;
+  border: 3px solid white;
+ //@include bkground-image;
+  padding: 1em;
+  display:block;
+  text-align:center;
+  color:black;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:$line;
+  @include rounded-corners($round);
+  @include main-shadow;
+  &:hover {
+    @include main-hover( $darker );
+  }
+}
+
+#user_title_nav{ // right side navigation with schools, boards etc.
+  float:right;
+  width:$rignt-nav-bar;
+}
+
+#main_part{
+  position:relative;
+  width: $main-part;
+  left: $left-side-shift;
+  height:100%;
+  overflow-x:hidden;
+}
+
+#board_posting_form{
+  float: left;
+}
+#user_postings{
+  float: left;
+  width: 99%;
+}
+.http_link a,
+._nav_link a,
+.nav_link a{ // links from right side navigation
+  float: right;
+  width: 70%;
+  margin: 2px;
+  border:1px solid $darker;
+  //@include bkground-image;
+  padding: 1em;
+  display:block;
+  text-align:center;
+  color:$darker;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:.05em;
+  @include rounded-corners;
+  
+  &:hover {
+    background:$darker; /* nav hover color */
+    color:lighten($darker, 70%);
+    font-weight: bold;
+  }
+}
+
+#title{ // area for buttons (SCHOOL, BOARD, MESSAGE etc)
+  width:$main-part;
+  height:16em; 
+}
+
+.home_sub_title{
+  float:left;
+}
+
+.action_tab{
+  overflow: auto;
+  overflow-x: hidden;
+  height: 23.5em;
+  width: 99%;
+  border: 2px solid $backgrnd;
+  @include rounded-corners(3px);
+}
+/*********************** buttons ***********************************/
+.menu_buttons{
+  position:relative;
+  top:0.1em;
+  left:5em;
+}
+.school_menu_button{
+  position:relative;
+  top:1em;
+  left:3em;
+}
+.board_menu_button{
+  position:relative;
+  top:5em;
+  left:1em;
+}
+.msg_menu_button{
+  position:relative;
+  top:5em;
+  left:0.1em;
+}
+.school_menu_button a,
+.board_menu_button a,
+.msg_menu_button a,
+.menu_button a{
+  // menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em)
+  @include menu-btn(70px, 10px, 100px, 6em)
+}
+
+.search_board_menu_button,
+.new_board_menu_button,
+.search_school_menu_button{
+  position:relative;
+  top:0em;
+  left:0.1em;
+}
+.search_school_menu_button a,
+.new_board_menu_button a,
+.search_board_menu_button a{
+  // menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em)
+  @include menu-btn(45px, 2px, 100px, 4em)
+}
+
+.background_write{
+  color:white;
+  opacity:0.3;
+  font-size:xx-large;
+  font-style:italic;
+  width:1%;
+  float: left;
+  white-space: nowrap;
+}
