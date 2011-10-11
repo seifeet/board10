@@ -42,12 +42,12 @@ class HomeController < ApplicationController
        @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     # show all postings for the board.
     # postings will be filtered according to membership of the current_user
-    elsif !params[:board].nil? && params[:board] == "all"
+    else # !params[:board].nil? && params[:board] == "all"
        @postings_title = "From all my boards:"
        @postings = paginate_board_postings @user
-    else # for all other non-members show only public posts:
-       @postings_title = "My Public Posts:"
-       @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+    # else # for all other non-members show only public posts:
+    #   @postings_title = "My Public Posts:"
+    #   @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
     
     @postings_title = "no posts" if @postings.nil? || @postings.empty?

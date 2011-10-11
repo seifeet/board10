@@ -32,9 +32,10 @@
 <% end %>
 
 <!-- OPTIONAL BUTTONS -->
-<% if !params[:schools].nil? || !params[:school].nil? %>
+<% # Option school buttons
+  if !params[:schools].nil? || !params[:school].nil? %>
 <% 
-   max_num_schools = 2
+   max_num_schools = 3
    if !current_user.schools.empty?
      schools = 
        ( current_user.schools.count > max_num_schools ? 
@@ -45,15 +46,21 @@
      <div class="secondary_menu_button">
      <%= link_to "#{strip_and_cut(school.name, 8)}", {:school => school.id },{:title => "School: #{school.name}"} %>
      </div>
-  <% end %>
+<% end %>
 <% if current_user.schools.count > max_num_schools %>
 	<div class="secondary_menu_button">
      <%= link_to "MORE", home_path+"?schools=on",{:confirm => "Your other schools are listed on the right bar."} %>
     </div>
 <% end %>
 
-<% end %>
-<% end %>
+<% 
+   end  # end of if !params[:schools].nil? ...
+ end # End of Option school buttons 
+%>
 
-<% end %>
+<!-- -->
+
+<% 
+end # end of the first unless
+%>
 </div>

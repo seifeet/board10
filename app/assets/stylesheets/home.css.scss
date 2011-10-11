@@ -31,7 +31,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   width:$rignt-nav-bar;
 }
 
-#main_part{
+#main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons
   position:relative;
   width: $main-part;
   left: $left-side-shift;
@@ -39,16 +39,16 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   overflow-x:hidden;
 }
 
-#board_posting_form{
+#board_posting_form{ // form for writing posts
   float: left;
 }
-#user_postings{
+#user_postings{ // all the postings in the main section
   float: left;
   width: 99%;
 }
 .http_link a,
 ._nav_link a,
-.nav_link a{ // links from right side navigation
+.nav_link a{ // links on right side navigation bar
   float: right;
   width: 70%;
   margin: 2px;
@@ -75,11 +75,11 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   height:16em; 
 }
 
-.home_sub_title{
+.home_sub_title{ // name of the board, school, or provided posts
   float:left;
 }
 
-.action_tab{
+.action_tab{ // results of the boards/schools search etc.
   overflow: auto;
   overflow-x: hidden;
   height: 23.5em;
@@ -88,27 +88,27 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   @include rounded-corners(3px);
 }
 /*********************** buttons ***********************************/
-.menu_buttons{
+.menu_buttons{  // groups SCHOOL, BOARD, MESSAGE etc area
   position:relative;
   top:0.1em;
   left:5em;
 }
-.school_menu_button{
+.school_menu_button{ // main SCHOOL button
   position:relative;
   top:1em;
   left:3em;
 }
-.board_menu_button{
+.board_menu_button{ // main BOARD button
   position:relative;
   top:5em;
   left:1em;
 }
-.msg_menu_button{
+.msg_menu_button{ // main MESSAGE button
   position:relative;
   top:5em;
   left:0.1em;
 }
-.school_menu_button a,
+.school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
 .msg_menu_button a,
 .menu_button a{
