@@ -108,6 +108,19 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   top:5em;
   left:0.1em;
 }
+#schools_area{
+  position:relative;
+  left:0.1em;
+}
+#boards_area{
+  position:relative;
+  top:6.5em;
+  left:-9.5em;
+}
+.secondary_menu_button{
+  
+}
+
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
 .msg_menu_button a,
@@ -115,7 +128,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   // menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em)
   @include menu-btn(70px, 10px, 100px, 6em)
 }
-.secondary_menu_button,
+
 .search_board_menu_button,
 .new_board_menu_button,
 .search_school_menu_button{

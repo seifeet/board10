@@ -41,19 +41,40 @@
        ( current_user.schools.count > max_num_schools ? 
            current_user.schools[0..max_num_schools] :
             current_user.schools )
+%>
+<div id="schools_area">
+<%
      schools.each do |school|
+     	@current_school = school if school.id.to_s == params[:school]
 %>
      <div class="secondary_menu_button">
      <%= link_to "#{strip_and_cut(school.name, 8)}", {:school => school.id },{:title => "School: #{school.name}"} %>
      </div>
-<% end %>
-<% if current_user.schools.count > max_num_schools %>
+<%   end %>
+<%   if current_user.schools.count > max_num_schools %>
 	<div class="secondary_menu_button">
      <%= link_to "MORE", home_path+"?schools=on",{:confirm => "Your other schools are listed on the right bar."} %>
     </div>
-<% end %>
-
+<%   
+     end # end of do loop
+%>
+</div> <!-- end of school_area -->
 <% 
+     if !@current_school.nil?
+%>
+<div id="boards_area">
+<%
+       @current_school.boards.where(:active => true).each do |board|
+%>
+   <div class="secondary_menu_button">
+   	<%= link_to "#{strip_and_cut(board.title, 8)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+   </div>
+<%
+       end # end of @current_school do-loop
+%>
+</div>
+<% 
+     end # end of if !@school.nil?
    end  # end of if !params[:schools].nil? ...
  end # End of Option school buttons 
 %>
