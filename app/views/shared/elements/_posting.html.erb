@@ -17,9 +17,9 @@
 <div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 <% end %>
 
-<% if !params[:board].nil? && params[:board] == 'all' && !read_only && @loader && current_user.member?(element.board_id) %>
+<% if ((!params[:board].nil? && params[:board] == 'all' ) || !params[:school].nil? ) && !read_only && @loader && current_user.member?(element.board_id) %>
 <div class="action_button">
-	<%= link_to 'Group', user_path(element.user_id) + "?board=" + element.board_id.to_s %>
+	<%= link_to 'Group', home_path + "?board=" + element.board_id.to_s %>
 </div>
 <% end %>
 

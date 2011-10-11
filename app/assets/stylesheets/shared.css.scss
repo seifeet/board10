@@ -116,8 +116,7 @@ body{
   height: 6em; // controls height where context starts
 }
 .loading{
-  top:0.5em;
-  left:1.5em;
+  padding:3em;
 }
 #wider_line{ 
   @include bkground-image($header-backgrnd,$backgrnd);
