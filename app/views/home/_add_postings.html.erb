@@ -1,0 +1,13 @@
+<%
+  @board = Board.find(posting.board_id) if @board.nil?
+  if ( current_user.member?( @board.id ) )
+  	new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, posting.created_at).order('created_at DESC')
+    new_postings.each do |new_posting|
+%>
+
+<%= render 'shared/elements/element', :element => new_posting, :read_only => false %>
+
+<%
+    end
+  end 
+%>

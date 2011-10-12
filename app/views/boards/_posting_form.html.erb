@@ -9,6 +9,7 @@
       </ul>
     </div>
   <% end %>
+    <%= hidden_field_tag 'last_posting', @last_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
   <div class="field">
     <% if !@reply %>
@@ -29,7 +30,7 @@
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
     <br />
-    <%= f.text_area :content, :rows => 3, :cols => 40 %>
+    <%= f.text_area :content, :value => "", :rows => 3, :cols => 40 %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Post', :class => "button_neutral" %>

@@ -2,7 +2,7 @@
 <%
 all_boards = current_user.boards.where(:active => true)
 if !all_boards.empty?
-	max_num_boards = 8
+	max_num_boards = 4
 	boards = ( all_boards.count > max_num_boards ?
 	all_boards[0..max_num_boards] : all_boards )
 	boards.each do |board|

@@ -1,9 +1,8 @@
-<% return nil if page_container.nil? || page_container.empty? || page_container.count == 0 %>
-
+<% if !page_container.nil? && !page_container.empty? %>
 <div class="apple_pagination">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
-
+<% end %>
 <%= render 'shared/containers/container', :container => page_container %>
 
 
