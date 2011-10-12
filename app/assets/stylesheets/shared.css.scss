@@ -88,12 +88,6 @@ $btn-font-size: 16px;
 }
 
 /************************* body ******************************/
-body, #logo, #wider_line{
-  /* MS */
-  zoom:1;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
-}
-
 body{
   margin:0;
   padding: 0 0 0 0;    //0 $right-side-bar $footer-height 0; 
@@ -101,6 +95,9 @@ body{
   font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
   font-size: 12px; //small;
   @include bkground-image;
+  /* MS */
+  zoom:1;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
 }
 /*********************** logo ***********************************/
 #logo{
@@ -110,6 +107,9 @@ body{
   color:white;
   font-size: xx-large;
   font-weight: bold;
+  /* MS */
+  zoom:1;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FFB673', GradientType=1);
 }  
 #wide_line{
   float: left;   
@@ -119,11 +119,14 @@ body{
 .loading{
   padding:3em;
 }
-#wider_line{ 
+#wider_line{
   @include bkground-image($header-backgrnd,$backgrnd);
   float:left;
   width:100%;
   height: 16em;
+  /* MS */
+  zoom:1;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FF9E73', GradientType=1);
 }
 /*********************** content ***********************************/
 .button_confirm{

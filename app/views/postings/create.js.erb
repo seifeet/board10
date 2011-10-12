@@ -1,5 +1,6 @@
 <% if session[:return_to] =~ /\/home?/ %>
-$('#user_postings').html("<%= escape_javascript(render 'home/postings', :posting => @posting)%>");
+//$('#user_postings').html("<%= escape_javascript(render 'home/postings', :posting => @posting)%>");
+page.html_insert :top, 'generic_container', :patial => 'shared/elements/posting', :element => @posting
 <% elsif session[:return_to] =~ /\/users\// %>
 $('#user_postings').html("<%= escape_javascript(render 'users/postings', :posting => @posting)%>");
 <% elsif session[:return_to] =~ /\/boards\// %>
