@@ -1,7 +1,7 @@
 class Board < ActiveRecord::Base
   attr_accessible :title, :description, :access_level, :school_id
   
-  #default_scope :conditions => {:active => true}
+  default_scope :conditions => {:active => true}
   
   has_many :members, :foreign_key => "board_id", :dependent => :destroy
   has_many :postings, :dependent => :destroy
@@ -15,7 +15,7 @@ class Board < ActiveRecord::Base
   def self.search(search)
     if search && !search.blank?
       tmp = search.sub(' ', '%')
-      where('CONCAT( title, \' \', description ) LIKE ?', "%#{tmp}%")
+      unscoped.where('CONCAT( title, \' \', description ) LIKE ?', "%#{tmp}%")
     else
       unscoped # the same as all, but does not perform the actual query
     end

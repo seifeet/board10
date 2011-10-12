@@ -1,0 +1,56 @@
+<% 
+   max_num_schools = 8
+   if !current_user.schools.empty?
+     schools = 
+       ( current_user.schools.count > max_num_schools ? 
+           current_user.schools[0..max_num_schools] :
+            current_user.schools )
+%>
+<div id="schools_area">
+<%
+     schools.each do |school|
+     	@current_school = school if school.id.to_s == params[:school]
+%>
+     <div class="secondary_menu_button">
+     <%= link_to "#{strip_and_cut(school.name, 8)}", {:school => school.id },{:title => "School: #{school.name}"} %>
+     </div>
+<%   
+     end # end of do loop
+%>
+<%   if current_user.schools.count > max_num_schools %>
+	<div class="secondary_menu_button">
+     <%= link_to "MORE", home_path+"?schools=on",{:confirm => "Your other schools are listed on the right bar."} %>
+    </div>
+<%   end %>
+</div> <!-- end of school_area -->
+<% 
+     if !@current_school.nil?
+%>
+<div id="boards_area">
+<%
+     all_boards = @current_school.boards.where(:active => true)
+     if !all_boards.empty?
+       max_num_boards = 8
+       boards = ( all_boards.count > max_num_boards ? 
+                     all_boards[0..max_num_boards] : all_boards )
+       boards.each do |board|
+%>
+   <div class="secondary_menu_button">
+   	<%= link_to "#{strip_and_cut(board.title, 8)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+   </div>
+<%
+       end # end of @current_school do-loop
+       if all_boards.count > max_num_boards
+%>
+    <div class="secondary_menu_button">
+     <%= link_to "MORE", home_path+"?boards=on",{:confirm => "Your other boards are listed on the right bar."} %>
+    </div>
+<%
+       end # of if all_boards.count > max_num_boards
+     end # end of !all_boards.empty?
+%>
+</div>
+<%
+     end # end of if !@school.nil?
+   end  # end of if !current_user.schools.empty?
+%>

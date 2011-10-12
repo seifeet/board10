@@ -6,12 +6,11 @@ $rignt-nav-bar: 23%;  // the width of the right bar navigation
 $main-part: 72%;  // the width of the #main-part
 $left-side-shift: 3%; // #main_part has a shift left by this amount
 
-@mixin menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em){
+@mixin menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em){
   width: $wide;
   float: left;
   margin: $marge;
   border: 3px solid white;
- //@include bkground-image;
   padding: 1em;
   display:block;
   text-align:center;
@@ -22,7 +21,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   @include rounded-corners($round);
   @include main-shadow;
   &:hover {
-    @include main-hover( $darker );
+    @include main-hover($darker);
   }
 }
 
@@ -125,8 +124,8 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 .board_menu_button a,
 .msg_menu_button a,
 .menu_button a{
-  // menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em)
-  @include menu-btn(70px, 10px, 100px, 6em)
+  // menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em)
+  @include menu-btn;
 }
 
 .search_board_menu_button,
@@ -141,7 +140,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 .new_board_menu_button a,
 .search_board_menu_button a{
   // menu-btn($wide:70px, $marge: 10px, $round: 200px, $line: 6em)
-  @include menu-btn(45px, 2px, 100px, 4em)
+  @include menu-btn(45px, 2px, 100px, 4em);
 }
 
 .background_write{
