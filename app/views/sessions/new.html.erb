@@ -4,15 +4,29 @@
 
 <div class="signin_container alpha60 clearfix">
 
+<% if flash.count > 0 %>
+
+<div id="error_explanation">
+    <ul>
+		<% flash.each do |key, value| %>
+        <li>
+            <%= value %>
+        </li>
+		<% end %>
+    </ul>
+</div>
+
+<% end %>
+
 <!--%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"}, :builder => AppFormBuilder ) do |f| %-->
 <%= form_for :session, :url => sessions_path do |f| %>
   <div class="single_field">
     <%= f.label :email, :class => "nested_label" %>
-	<%= f.text_field :email, :class => "text_rounded" %>
+	<%= f.text_field :email, :class => "text_big" %>
   </div>
   <div class="single_field">
     <%= f.label :password, :class => "nested_label" %>
-    <%= f.password_field :password, :class => "pwd_rounded" %>
+    <%= f.password_field :password, :class => "text_big" %>
   </div>
   <div class="single_field white">
     <%= check_box_tag :remeber_me, 1, params[:remeber_me] %>

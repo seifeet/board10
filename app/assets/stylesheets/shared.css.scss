@@ -263,19 +263,10 @@ body{
 .clearfix { zoom: 1; }
 
 /*********************** buttons ***********************************/
-.signin_container .text_rounded {
+.signin_container .text_big{
     margin: auto;
 	padding: 5px 5px 5px 5px;
 	font-size: $btn-font-size;
-	@include rounded-corners(10px, #595454);
-	background-color: #fff;
-	width: 95%;
-}
-
-.signin_container .pwd_rounded {
-	padding: 5px 5px 5px 5px;
-	font-size: $btn-font-size;
-	@include rounded-corners(10px, #595454);
 	background-color: #fff;
 	width: 95%;
 }
@@ -297,7 +288,7 @@ body{
 	border-color: #2c8e57;
 	background-color: #2c8e57;
 	background-position: 0 -150px;
-	@include rounded-corners(20px, #595454);
+	@include rounded-corners(20px, #2c8e57);
 	&:hover {
 		background-position: 0 -200px;
 		border-color: #306302;
@@ -310,15 +301,15 @@ body{
 }
 
 .signin_container .button_grey, a.button_grey {
-	border-color: #888888;
-	background-color: #888888;
+	border-color: #303030;
+	background-color: #303030;
 	background-position: 0 0px;
-	@include rounded-corners(20px, #595454);
+	@include rounded-corners(20px, #303030);
 	
 	&:hover {
 		background-position: 0 -50px;
 		border-color: #306302;
-		@include rounded-corners(20px, #888888);
+		@include rounded-corners(20px, #303030);
 	}
 	
 	&:active {

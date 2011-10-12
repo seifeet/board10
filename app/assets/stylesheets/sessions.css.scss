@@ -9,15 +9,10 @@ background-size: cover;
 
 body, #logo, #wider_line{
   background: transparent;
-  overflow:hidden;
   padding:0;margin:0;
   height:100%;width:100%;
   /* MS */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
-}
-
-#error_explanation {
-  width: 95%;
 }
 
 /*********************** filters ***********************************/
@@ -38,7 +33,7 @@ body, #logo, #wider_line{
 {
   position: relative;
   top: 10px;
-  width: 300px;
+  width: 25em;
   margin: auto;
   padding: 15px 15px 15px 15px;
 }
@@ -61,9 +56,18 @@ body, #logo, #wider_line{
 .signin_container .single_field.white  label {
   color:white;
   float: left;
+  font-size: 14px;
 }
 
 .signin_container .single_field.white a {
   color:white;
   float: right;
+  font-size: 14px;
+}
+
+/*********************** errors ***********************************/
+
+#error_explanation {
+  width: 95%;
+  margin: auto, auto, 20px, auto;
 }
