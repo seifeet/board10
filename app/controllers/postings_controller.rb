@@ -75,15 +75,17 @@ class PostingsController < ApplicationController
     @posting.user_id = current_user.id
     
     @last_posting = params[:last_posting]
+    
+    @err = true if @posting.content.nil? || @posting.content.empty?
       
     respond_to do |format|
-      if @posting.save
-        format.html { redirect_to session[:return_to], notice: 'Posting was successfully created.' }
+      if !@err && @posting.save
+        format.html { redirect_to session[:return_to], notice: '' }
         format.js
-        format.json { render :json => @posting, status: :created, location: board }
+        format.json { render :json => @posting, status: :created, location: @posting }
       else
+        flash.now[:error] = "Content is empty."
         format.html { redirect_to session[:return_to], notice: 'Content is empty.' }
-        #format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
     end

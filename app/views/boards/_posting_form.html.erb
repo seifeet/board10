@@ -14,7 +14,7 @@
   <div class="field">
     <% if !@reply %>
     <%= f.label :subject %><br />
-    <%= f.text_field :subject, :value => "", :size => 40 %> 
+    <%= f.text_field :subject, :size => 40 %> 
     <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
     <b>Reply:</b>
     <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 40 %>

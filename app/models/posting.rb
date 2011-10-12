@@ -2,7 +2,7 @@ class Posting < ActiveRecord::Base
   attr_accessible :subject, :content, :access_level, :visibility
 
   belongs_to :user
-  belongs_to :boards
+  belongs_to :board
 
   validates :content, :presence => true
   validates :user_id, :presence => true
