@@ -46,11 +46,15 @@ module Board10
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-# Do not compress assets
-config.assets.compress = false
+   # Do not compress assets
+   config.assets.compress = false
  
-# Expands the lines which load the assets
-config.assets.debug = true
+   # Expands the lines which load the assets
+   config.assets.debug = true
 
+   # Override ActionView::Base.field_error_proc
+   # @@field_error_proc = Proc.new{ |html_tag, instance| "<div class=\"field_with_errors\">#{html_tag}</div>".html_safe }
+   config.action_view.field_error_proc = Proc.new { |html_tag, instance| "#{html_tag}".html_safe }
+   
   end
 end
