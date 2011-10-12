@@ -26,7 +26,7 @@ class HomeController < ApplicationController
 
     if !params[:school].nil?
       @school = School.find_school(params[:school])
-    elsif !params[:board].nil? && params[:board] != "all"
+    elsif !params[:board].nil?
       @board = Board.find_board(params[:board])
     end
 
@@ -36,21 +36,23 @@ class HomeController < ApplicationController
        @postings = paginate_school_postings @school
     # show all postings of the board if current_user is a member
     elsif !@board.nil? && current_user.member?( @board )
-       @postings = @board.postings.paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+       @postings = @board.postings.paginate(:page => params[:page], :per_page => 25 ).order('created_at DESC')
     # show only public postings if current_user is not a member
     elsif !@board.nil? && !current_user.member?( @board )
-       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
+       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 25 ).order('created_at DESC')
     # show all postings for the board.
     # postings will be filtered according to membership of the current_user
     else # !params[:board].nil? && params[:board] == "all"
        @postings_title = "From all my boards:"
        @postings = paginate_board_postings @user
-    # else # for all other non-members show only public posts:
-    #   @postings_title = "My Public Posts:"
-    #   @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 50 ).order('created_at DESC')
     end
     
-    @postings_title = "no posts" if @postings.nil? || @postings.empty?
+    if @postings.nil? || @postings.empty?
+      @postings_title = "no posts"
+      @last_posting = Time.now
+    else
+      @last_posting = @postings.first.created_at
+    end
     
     #@show_posting_form = false not used
     
@@ -86,7 +88,7 @@ class HomeController < ApplicationController
       
       all_postings.uniq!
       
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      all_postings.paginate(:page => params[:page], :per_page => 25, :total_etries => all_postings.size )
     end
     
     def paginate_school_postings school
@@ -107,7 +109,7 @@ class HomeController < ApplicationController
       
       all_postings.uniq!
       
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      all_postings.paginate(:page => params[:page], :per_page => 25, :total_etries => all_postings.size )
     end 
 
 end

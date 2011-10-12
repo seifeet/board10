@@ -73,6 +73,8 @@ class PostingsController < ApplicationController
     @posting = Posting.new(params[:posting])
     @posting.board_id = board.id
     @posting.user_id = current_user.id
+    
+    @last_posting = params[:last_posting]
       
     respond_to do |format|
       if @posting.save

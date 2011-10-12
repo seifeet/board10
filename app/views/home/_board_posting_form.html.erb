@@ -1,7 +1,15 @@
-<% return nil if params[:board].nil? || @board.nil? %>
-<% @board = Board.find_board(params[:board]) if @board.nil? %>
-<% if @board.active? && current_user.member?( @board.id ) %>
-<% user = User.find_user(params[:id]) %>
-<% @reply = false %>
+<% 
+ return nil if params[:board].nil? || @board.nil?
+ @board = Board.find_board(params[:board]) if @board.nil?
+ if @board.active? && current_user.member?( @board.id )
+ user = User.find_user(params[:id])
+ @reply = false
+ 
+ if @board.postings.nil? || @board.postings.empty?
+   @last_posting = Time.now
+ else
+   @last_posting = @board.postings.first.created_at
+ end
+%>
 <%= render 'boards/posting_form' %>
-<% end %> 
+<% end %>
