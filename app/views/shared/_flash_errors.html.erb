@@ -1,0 +1,9 @@
+<% if element.errors.any? %>
+<div class="flash_error">
+<!-- b>Please correct the following <%= pluralize(element.errors.count, "error") %>:</b -->
+<% element.errors.full_messages.each do |msg| %>
+<div class="inline">- <%= msg %></div>
+<br class="clearBoth" />
+<% end %>
+</div>
+<% end %>

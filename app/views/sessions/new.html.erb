@@ -4,19 +4,7 @@
 
 <div class="signin_container alpha60 clearfix">
 
-<% if flash.count > 0 %>
-
-<div id="error_explanation">
-    <ul>
-		<% flash.each do |key, value| %>
-        <li>
-            <%= value %>
-        </li>
-		<% end %>
-    </ul>
-</div>
-
-<% end %>
+<%= render 'shared/flash_msg', :msg => "error" %>
 
 <!--%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"}, :builder => AppFormBuilder ) do |f| %-->
 <%= form_for :session, :url => sessions_path do |f| %>

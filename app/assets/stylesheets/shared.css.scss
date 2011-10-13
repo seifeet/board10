@@ -317,3 +317,8 @@ body{
 		@include rounded-corners(20px, #282828);
 	}
 }
+
+.flash_error{
+  color: red;
+  width: auto;
+}

@@ -5,18 +5,9 @@
 <div class="signin_container alpha60 clearfix">
 
 <%= form_for(@user) do |f| %>
-<% if @user.errors.any? %>
-<div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-    <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-        <li>
-            <%= msg %>
-        </li>
-        <% end %>
-    </ul>
-</div>
-<% end %>
+
+<%= render 'shared/flash_msg', :msg => "error" %>
+
 <div class="single_field">
     <%= f.label :email, :class => "nested_label" %>
     <%= f.text_field :email, :class => "text_big" %>
@@ -52,5 +43,6 @@
 	<%= f.submit "Create User", :class => "button_with_img button_green" %>
 </div>
 <% end %>
-
+<%= render 'shared/flash_errors', :element => @user %>
 </div>
+

@@ -1,0 +1,8 @@
+<% if flash.count > 0 %>
+<div class="flash_<%= msg %>">
+<% flash.each do |key, value| %>
+<div class="inline"><%= value %></div>
+<br class="clearBoth" />
+<% end %>
+</div>
+<% end %>
