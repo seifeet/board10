@@ -9,14 +9,17 @@
 <%= render 'shared/flash_msg', :msg => "error" %>
 
 <div class="single_field">
+	<div class="flash_error"><%= check(@user, "Email") %></div>
     <%= f.label :email, :class => "nested_label" %>
     <%= f.text_field :email, :class => "text_big" %>
 </div>
 <div class="single_field">
+	<div class="flash_error"><%= check(@user, "First name") %></div>
     <%= f.label :first_name, :class => "nested_label" %>
     <%= f.text_field :first_name, :class => "text_big" %>
 </div>
 <div class="single_field">
+	<div class="flash_error"><%= check(@user, "Last name") %></div>
     <%= f.label :last_name, :class => "nested_label" %>
     <%= f.text_field :last_name, :class => "text_big" %>
 </div>
@@ -32,6 +35,7 @@
     <%= f.text_field :city, :class => "text_big" %>
 </div>
 <div class="single_field">
+	<div class="flash_error"><%= check(@user, "Password") %></div>
     <%= f.label :password, 'Password', :class => "nested_label" %>
     <%= f.password_field :password, :size => 40, :class => "text_big" %>
 </div>
@@ -43,6 +47,5 @@
 	<%= f.submit "Create User", :class => "button_with_img button_green" %>
 </div>
 <% end %>
-<%= render 'shared/flash_errors', :element => @user %>
 </div>
 

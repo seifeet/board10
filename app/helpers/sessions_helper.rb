@@ -4,6 +4,14 @@ module SessionsHelper
       #flash[:success] = "Profile Unavailable"
       redirect_to '/404.html'
   end
+  
+  def check element, str
+    element.errors.full_messages.each do |msg|
+      if msg =~ /#{str}/ 
+        return msg
+      end
+    end
+  end
     
   def authenticate
     deny_access unless signed_in?
