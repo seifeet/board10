@@ -30,18 +30,21 @@ $btn-font-size: 16px;
 }
 
 @mixin bkground-image($from: $backgrnd, $to: #FFB673 ){
-  background-image: -moz-linear-gradient(
-    left, $from, $to
-  );
-  background-image: -webkit-gradient(
-    linear,left top, right top,
-    color-stop(0, $from),
-    color-stop(1, $to)
-    //-webkit-linear-gradient(top right, $from, $to)
-  );
-  background-image: linear-gradient(
-    left, $from, $to
-  );
+  background-color: $to; 
+   /* fallback image */
+  //background-image: url(images/fallback-gradient.png); 
+   /* Safari 4+, Chrome 1-9 */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+   /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+  background-image: -webkit-linear-gradient(left, $from, $to);
+   /* Firefox 3.6+ */
+  background-image: -moz-linear-gradient(left, $from, $to);
+   /* IE 10+ */
+  background-image: -ms-linear-gradient(left, $from, $to);
+   /* Opera 11.10+ */
+  background-image: -o-linear-gradient(left, $from, $to);
+
+  //background-image: -linear-gradient(left, $from, $to);
   //@include main-shadow;
 }
 
