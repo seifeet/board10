@@ -18,9 +18,9 @@ $btn-font-size: 16px;
 	border-radius: $radius;
 	-moz-border-radius: $radius;
 	-webkit-border-radius: $radius;
-	box-shadow: 2px 2px 3px $shadow;
-	-moz-box-shadow: 2px 2px 3px $shadow;
-	-webkit-box-shadow: 2px 2px 3px $shadow;
+	box-shadow: 1px 1px 2px $shadow;
+	-moz-box-shadow: 1px 1px 2px $shadow;
+	-webkit-box-shadow: 1px 1px 2px $shadow;
 	outline: 0;
 	-webkit-appearance: none;
 	
@@ -292,7 +292,7 @@ body{
 	border-color: #2c8e57;
 	background-color: #2c8e57;
 	background-position: 0 -150px;
-	@include rounded-corners(20px, #2c8e57);
+	@include rounded-corners(20px, #019245);
 	&:hover {
 		background-position: 0 -200px;
 		border-color: #306302;
@@ -300,7 +300,7 @@ body{
 	}
 	
 	&:active {
-		@include rounded-corners(20px, #2c8e57);
+		@include rounded-corners(20px, #019245);
 	}
 }
 
@@ -308,16 +308,16 @@ body{
 	border-color: #303030;
 	background-color: #303030;
 	background-position: 0 0px;
-	@include rounded-corners(20px, #303030);
+	@include rounded-corners(20px, #313130);
 	
 	&:hover {
 		background-position: 0 -50px;
 		border-color: #306302;
-		@include rounded-corners(20px, #303030);
+		@include rounded-corners(20px, #6f6f6f);
 	}
 	
 	&:active {
-		@include rounded-corners(20px, #282828);
+		@include rounded-corners(20px, #313130);
 	}
 }
 
