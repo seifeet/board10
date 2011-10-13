@@ -1,4 +1,4 @@
-<% if !params[:boards].nil? || !params[:schools].nil? %>
+<% if ( !params[:boards].nil? || !params[:schools].nil? ) && params[:page].nil? %>
 <% 
    # do nothing special (just default at the end)
 %>
