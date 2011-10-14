@@ -83,7 +83,8 @@ class SchoolsController < ApplicationController
     @school.destroy
 
     respond_to do |format|
-      format.html { redirect_to schools_url }
+      format.html { redirect_back_or home_path }
+      format.js
       format.json { head :ok }
     end
   end

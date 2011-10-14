@@ -20,7 +20,7 @@
 	<br />
 	<div class="background_write">Boards</div>
 	<br />
-	<div class="nav_link"><%= link_to "All My Boards", home_path %></div>
+	<div class="nav_link"><%= link_to "All My Boards", home_path + '?act=boards' %></div>
 	<br class="clearBoth" />
 	<br />
 	<div id="user_boards"><%= render 'home/user_boards', :user => current_user %></div>

@@ -100,7 +100,7 @@ class PostingsController < ApplicationController
 
     respond_to do |format|
       if @posting.update_attributes(params[:posting])
-        format.html { redirect_to board_path(@posting.board_id), notice: 'Posting was successfully updated.' }
+        format.html { redirect_to session[:return_to], notice: 'Your posting was updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

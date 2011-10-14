@@ -71,29 +71,24 @@ class BoardsController < ApplicationController
     if ( !params[:board].nil? )
       @board = Board.new(params[:board])
       @board.transaction do 
-        @board.save
-        @member = current_user.owner!(@board)
-        board_saved = true
+        if ( !@board.title.empty? && !@board.description.empty? )
+          @board.save
+          @member = current_user.owner!(@board)
+          board_saved = true
+        else
+          flash.now[:error] = "Please provide title and description for your board."
+        end
       end
     end
-    #else
-    #  if ( !current_user.member?(@board.id) )
-    #    raise ActiveRecord::RecordNotFound
-    #  end
-
-    #  @posting = Posting.new(params[:posting])
-    #  @posting.board_id = @board.id
-    #  @posting.user_id = current_user.id
-    #  @posting = current_user.postings.create!(@posting)
-    #end
     
     respond_to do |format|
       if ( !params[:posting].nil? && @posting.save ) || board_saved
-        format.html { redirect_to session[:return_to], notice: 'Board was successfully created.' }
+        format.html { redirect_back_or home_path, notice: 'Board was successfully created.' }
         format.js
         format.json { render json: @board, status: :created, location: @board }
       else
         format.html { render action: "new" }
+        format.js
         format.json { render json: @board.errors, status: :unprocessable_entity }
       end
     end
@@ -108,7 +103,7 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board.update_attributes(params[:board])
-        format.html { redirect_to @board, notice: 'Board was successfully updated.' }
+        format.html { redirect_back_or home_path, notice: 'Board was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -129,7 +124,8 @@ class BoardsController < ApplicationController
     delete_postings @board
 
     respond_to do |format|
-      format.html { redirect_back_or boards_url }
+      format.html { redirect_back_or home_path }
+      format.js
       format.json { head :ok }
     end
     rescue ActiveRecord::RecordNotFound
