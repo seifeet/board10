@@ -4,39 +4,39 @@
 
 <!-- FIRST LEVEL BUTTONS -->
 <div class="school_menu_button">
-<%= link_to 'SCHOOL', home_path+'?schools=on', :title => "Open School Menu" %>
+<%= link_to 'SCHOOL', home_path+'?act=schools', :title => "Open School Menu" %>
 </div>
 
 <div class="board_menu_button">
-<%= link_to 'BOARD', home_path+'?boards=on', :title => "Open Board Menu" %>
+<%= link_to 'BOARD', home_path+'?act=boards', :title => "Open Board Menu" %>
 </div>
 
 <div class="msg_menu_button">
-<% if ( !params[:board].nil? && params[:board] != 'all' ) %>
-<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&element_action=on", :title => "Post on the current board" %>
+<% if !params[:board].nil? %>
+<%= link_to 'MESSAGE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on the current board" %>
 <% end %>
-</div>
+</div>  
 
 <!-- SECOND LEVEL SERVICE BUTTONS -->
-<% if !params[:schools].nil? || !params[:school].nil? %>
+<% if params[:act] == 'schools' || !params[:school].nil? %>
 <div class="search_school_menu_button">
-<%= link_to 'FIND', home_path+"?school_search=on", :title => "Search for Schools" %>
+<%= link_to 'FIND', home_path+"?act=school_search", :title => "Search for Schools" %>
 </div>
-<% elsif !params[:boards].nil? %>
+<% elsif params[:act] == 'boards' || !params[:board].nil? %>
 <div class="search_board_menu_button">
-<%= link_to 'FIND', home_path+"?board_search=on", :title => "Search for Boards" %>
+<%= link_to 'FIND', home_path+"?act=board_search", :title => "Search for Boards" %>
 </div>
 <div class="new_board_menu_button">
-<%= link_to 'NEW', home_path+"?new_board=on", :title => "Create a new Board" %>
+<%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new Board" %>
 </div>
 <% end %>
 
 <!-- OPTIONAL BUTTONS -->
-<% if !params[:schools].nil? || !params[:school].nil? %>
+<% if params[:act] == 'schools' || !params[:school].nil? %>
 <%= render 'print_schools'%>
-<% elsif !params[:boards].nil? %>
+<% elsif params[:act] == 'boards' %>
 <%= render 'print_boards' %>
 <% end %>
-   
+
 <% end %>
 </div>

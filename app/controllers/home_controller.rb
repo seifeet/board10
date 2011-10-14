@@ -10,14 +10,14 @@ class HomeController < ApplicationController
     @user = current_user
     
     # SEARCHES
-    if !params[:school_search].nil?
+    if !params[:act].nil? && params[:act] == 'school_search'
       if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
         @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(50)
       elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
         @search_results = School.search(params[:search], params[:state], params[:city] ).limit(50)
       end
       
-    elsif !params[:board_search].nil?
+    elsif !params[:act].nil? && params[:act] == 'board_search'
       @search_results = Board.search(params[:search]).limit(50)
     end
     
@@ -62,7 +62,7 @@ class HomeController < ApplicationController
     @new_board = Board.new
     
     respond_to do |format|
-      format.html
+      format.html # index.html.erb
       format.js
       format.json { render json: @user }
     end

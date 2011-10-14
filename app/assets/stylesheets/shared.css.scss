@@ -77,6 +77,9 @@ $btn-font-size: 16px;
   font-weight: bold;
   line-height:.3em;
   @include rounded-corners;
+  &:hover{
+    @include main-hover( $from );
+  }
 }
 @mixin main-shadow($clr: $darker){
   -moz-box-shadow: 5px 5px 5px $clr;
@@ -235,16 +238,10 @@ body{
 	float: right;
   @include main-button( $btn-confirm );
 }
-.edit_button a:hover {
-  @include main-hover( $btn-confirm );
-}
 
 .delete_button a{
 	float: right;
   @include main-button( $btn-reject );
-}
-.delete_button a:hover {
-  @include main-hover( $btn-reject );
 }
 
 .action_button a{
@@ -252,8 +249,8 @@ body{
   @include main-button( $darker );
 }
 
-.action_button a:hover {
-  @include main-hover( $darker );
+.close_button a{
+  @include main-button( $darker );
 }
 
 .clearBoth { clear:both; }
