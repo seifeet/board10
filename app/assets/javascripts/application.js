@@ -22,7 +22,7 @@ if(history && history.pushState ) {
 			return false;
 		});
 		// #msg board school #                    #groups boards
-	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a").live("click", function() {
+	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a, .close_button a").live("click", function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			//$('.action_tab').slideUp('fast', 0);
 			$.getScript(this.href);
@@ -86,8 +86,6 @@ if(history && history.pushState ) {
 		$("#new_posting").live("ajax:complete", function(event, xhr, status) {
 			$('#posting_content').val('');
 		});
-		
-		$("#datepicker").datepicker();
 	});
 }
 

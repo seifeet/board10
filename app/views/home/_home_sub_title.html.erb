@@ -1,6 +1,6 @@
 <br class="clearBoth" />
 
-<% if !@board.nil? || ( !params[:board].nil? && params[:board] != 'all' ) %>
+<% if !@board.nil? || !params[:board].nil? %>
 <%= render 'shared/titles/sub_title', :element => @board, 
            :element_path => board_path(@board), :custom_action => "Write to board" %>
 <% elsif !@school.nil? %>
