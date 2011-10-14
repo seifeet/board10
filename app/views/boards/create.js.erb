@@ -1,6 +1,6 @@
 <% if session[:return_to] =~ /\/home?/ %>
-$("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
-$("#top_title_nav").html("<%= escape_javascript(render 'top_title_nav' ) %>");
+$("#top_title_action").html("");
+$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
 <% elsif session[:return_to] =~ /\/users\// %>
 $("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
 <% end %>

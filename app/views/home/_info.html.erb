@@ -1,0 +1,8 @@
+<% if flash.count == 0 && !notice.nil? %>
+<div class="flash_msg">
+<%= notice %>
+</div>
+<% else %>
+<%= render 'shared/flash_msg', :msg => 'msg' %>
+<% end %>
+

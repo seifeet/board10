@@ -5,7 +5,7 @@
 <div class="inline">(<%= user.full_name %>)</div>
 <% if !current_user.member?(element) %>
 <div class="inline_right">
-<%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
+<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "join_school", :remote => true do |f| %>
   
   <%= f.hidden_field :to_user, :value => owner.user_id %>
   <%= f.hidden_field :board_id, :value => element.id %>

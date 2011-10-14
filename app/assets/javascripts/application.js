@@ -82,6 +82,13 @@ if(history && history.pushState ) {
 			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
 			return false;
 		});*/
+		
+		$(".join_school").submit(function() {
+			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+			$.get(this.action, $(this).serialize(), null, "script");
+			//history.pushState(null, document.title, this.href);
+			return false;
+		});
 
 		$("#new_posting").live("ajax:complete", function(event, xhr, status) {
 			$('#posting_content').val('');

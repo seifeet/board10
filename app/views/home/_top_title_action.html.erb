@@ -1,11 +1,15 @@
-<% if !params[:school_search].nil? %>
+<% if !params[:act].nil? %>
+
+<% if params[:act] == 'school_search' %>
 <%= render 'tab_school_search' %>
-<% elsif !params[:board_search].nil? %>
+<% elsif params[:act] == 'board_search' %>
 <%= render 'tab_board_search' %>
-<% elsif !params[:element_action].nil? && !params[:board].nil? %>
+<% elsif params[:act] == 'write' %>
 <%= render 'tab_write_message' %>
-<% elsif !params[:new_board].nil? %>
+<% elsif params[:act] == 'new_board' %>
 <div class="action_tab">
 <%= render 'new_board_form' %>
 </div>
+<% end %>
+
 <% end %>
