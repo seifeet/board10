@@ -18,10 +18,14 @@
     <%= f.label :description %><br />
     <%= f.text_area :description, :rows => 3, :cols => 40 %>
   </div>
+  <% if current_user.schools.count > 0 %>
   <div class="field">
     <%= f.label :school_id %><br />
     <%= f.select(:school_id, current_user.schools.collect{|s| [s.name, s.id]}, { :include_blank => true } )  %>
   </div>
+  <% else %>
+  If you want to connect this board to a school. You have to add that school to your profile.
+  <% end %>
   <div class="field">
     <%= f.label :access_level %> 
     <%= f.radio_button 'access_level', '1' %><%= f.label :access_level , Board::PUBLIC %>

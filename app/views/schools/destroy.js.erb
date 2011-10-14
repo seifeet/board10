@@ -1,0 +1,5 @@
+<% if session[:return_to] =~ /\/home?/ %>
+$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
+<% end %>
+
+$(".loading").html("");

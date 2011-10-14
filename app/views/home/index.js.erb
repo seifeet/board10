@@ -22,6 +22,7 @@
 		document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
     
     <% elsif params[:act] == 'school_search' %>
+    	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#top_title_action").html("<%= escape_javascript(render 'tab_school_search') %>");
         document.title = "School Search";
     
@@ -30,6 +31,7 @@
 		document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
 	  
     <% elsif params[:act] == 'board_search' %>
+    	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#top_title_action").html("<%= escape_javascript(render 'tab_board_search') %>");
         document.title = "Board Search";
 	

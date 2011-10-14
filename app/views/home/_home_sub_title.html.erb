@@ -1,11 +1,9 @@
 <br class="clearBoth" />
 
 <% if !@board.nil? || !params[:board].nil? %>
-<%= render 'shared/titles/sub_title', :element => @board, 
-           :element_path => board_path(@board), :custom_action => "Write to board" %>
+<%= render 'shared/titles/sub_title', :element => @board, :element_path => board_path(@board) %>
 <% elsif !@school.nil? %>
-<%= render 'shared/titles/sub_title', :element => @school, 
-           :element_path => school_path(@school), :custom_action => nil %>
+<%= render 'shared/titles/sub_title', :element => @school, :element_path => school_path(@school) %>
 <% else %>
 <div class="_sub_title">
 <h3 class="_sub_title"><%= @postings_title %></h3>

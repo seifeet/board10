@@ -52,7 +52,8 @@ class UserSchoolsController < ApplicationController
 
     respond_to do |format|
       if valid && @user_school.save
-        format.html { redirect_to session[:return_to], notice: 'User school was successfully created.' }
+        format.html { redirect_to session[:return_to], notice: 'School was added to your profile.' }
+        format.js
         format.json { render json: @user_school, status: :created, location: @user_school }
       else
         format.html { render action: "new" }

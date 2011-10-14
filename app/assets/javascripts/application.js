@@ -83,7 +83,7 @@ if(history && history.pushState ) {
 			return false;
 		});*/
 		
-		$(".join_school").submit(function() {
+		$(".join_board, .join_school").submit(function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			//history.pushState(null, document.title, this.href);

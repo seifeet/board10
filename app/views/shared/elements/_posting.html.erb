@@ -17,12 +17,6 @@
 <div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 <% end %>
 
-<% if request.fullpath == home_path || (( !params[:boards].nil? || !params[:school].nil? ) && !read_only && current_user.member?(element.board_id)) %>
-<div class="action_button">
-	<%= link_to 'Group', home_path + "?board=" + element.board_id.to_s %>
-</div>
-<% end %>
-
 <br class="clearBoth" />
 
 <% if !element.subject.nil? && !element.subject.empty? %>
@@ -52,6 +46,6 @@
 	<% if board = Board.find_board(element.board_id) %>
 	on Board <%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
 	<% else %>
-	Unknown
-	<% end %>
+	<i>(Board was removed)</i>
+ 	<% end %>
 </div>
