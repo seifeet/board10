@@ -35,6 +35,7 @@
 	
 	<% elsif params[:act] == 'write' %>
 		$("#top_title_action").html("<%= escape_javascript(render 'tab_write_message') %>");
+		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "Write to Board";
 	
 	<% elsif params[:act] == 'new_board' %>
@@ -55,4 +56,5 @@
 	document.title = "School | <%= escape_javascript("#{current_user.full_name}") %>";
 <% end %>
 
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 $(".loading").html("");

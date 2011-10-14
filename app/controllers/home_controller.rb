@@ -21,6 +21,10 @@ class HomeController < ApplicationController
       @search_results = Board.search(params[:search]).limit(50)
     end
     
+    if !params[:act].nil? && params[:act] == 'new_board'
+      @new_board = Board.new
+    end
+    
     # FORM FOR POSITNGS
     @posting_form = Posting.new
 
@@ -54,12 +58,8 @@ class HomeController < ApplicationController
       @last_posting = @postings.first.created_at
     end
     
-    #@show_posting_form = false not used
-    
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
-    
-    @new_board = Board.new
     
     respond_to do |format|
       format.html # index.html.erb

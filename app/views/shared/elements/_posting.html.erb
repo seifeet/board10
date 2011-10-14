@@ -49,7 +49,7 @@
 <% end %>
 
 <div class="inline">
-	<% if board = Board.find(element.board_id) %>
+	<% if board = Board.find_board(element.board_id) %>
 	on Board <%= link_to "#{strip_and_cut(board.title,50)}", board_path(element.board_id) %>
 	<% else %>
 	Unknown

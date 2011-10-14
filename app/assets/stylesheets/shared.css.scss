@@ -264,7 +264,7 @@ body{
 
 /*********************** buttons ***********************************/
 .signin_container .text_big{
-    margin: auto;
+  margin: auto;
 	padding: 5px 5px 5px 5px;
 	font-size: $btn-font-size;
 	background-color: #fff;
@@ -321,4 +321,9 @@ body{
 .flash_error{
   color: red;
   width: auto;
+}
+
+.flash_msg{
+  color: green;
+  padding: 3px 3px 3px 3px;;
 }
