@@ -7,6 +7,8 @@
             current_user.schools )
 %>
 <div id="schools_area">
+	<div class="background_write">My Schools</div>
+	<br />
 <%
      schools.each do |school|
      	@current_school = school if school.id.to_s == params[:school]
@@ -30,6 +32,10 @@
 <%
      all_boards = @current_school.boards.where(:active => true)
      if !all_boards.empty?
+%>
+<div class="background_write">My Boards</div>
+<br />
+<%
        max_num_boards = 8
        boards = ( all_boards.count > max_num_boards ? 
                      all_boards[0..max_num_boards] : all_boards )
