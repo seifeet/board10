@@ -1,0 +1,12 @@
+<div class="inline"><%= link_to element.full_name, element %></div>
+<% if !element.member?(@board) %>
+<div class="inline_right">
+<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "invite", :remote => true do |f| %>
+  <%= f.hidden_field :board_id, :value => @board.id %>
+  <%= f.hidden_field :to_user, :value => element.id %>
+  <%= f.text_field :content, :value => "Hi! I would like to invite you to my board. Thank you!" %>
+  <%= f.submit "#{Message::Commit::INVITE}", :class => "button_confirm" %>
+<% end %>	
+</div>
+<% end %>
+<br class="clearBoth" />

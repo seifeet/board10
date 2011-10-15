@@ -1,7 +1,7 @@
 <% 
   if current_user?(@user)
 	  if @search_results.nil? && params[:search].nil?
-	    @search_results = Board.search(params[:search]).limit(50)
+	    @search_results = Board.search(params[:search]).limit(25)
 	  end
   end
   

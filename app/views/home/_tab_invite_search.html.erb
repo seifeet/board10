@@ -2,13 +2,13 @@
   <%= link_to "Close", home_path + '?act=cancel', :title => "Close Board Search" %>
 </div>
 <i><font color="red" size="smaller">Max 25 results</font></i>
-<%= form_tag home_path, :method => :get, :id => "tab_boards_search", :remote => true do %>
+<%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :size => 70 %>
-<%= hidden_field_tag 'act', 'board_search' %>
-<%= submit_tag "Search boards", :name => nil, :class => 'button_neutral' %>
+<%= hidden_field_tag 'act', 'invite' %>
+<%= hidden_field_tag 'board', params[:board] %>
+<%= submit_tag "Search people", :name => nil, :class => 'button_neutral' %>
 <% end %>
 
 <div class="action_tab">
-<%= render 'tab_board_results' %>
+<%= render 'tab_invite_results' %>
 </div>
-

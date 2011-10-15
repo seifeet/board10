@@ -1,7 +1,7 @@
 <% 
   if current_user?(@user)
 	  if @search_results.nil? && !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-	    @search_results = School.search(params[:search], params[:state], params[:city]).limit(50)
+	    @search_results = School.search(params[:search], params[:state], params[:city]).limit(25)
 	  end
   end
   

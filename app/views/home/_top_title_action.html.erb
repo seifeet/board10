@@ -6,6 +6,8 @@
 <%= render 'tab_board_search' %>
 <% elsif params[:act] == 'write' %>
 <%= render 'tab_write_message' %>
+<% elsif params[:act] == 'invite' %>
+<%= render 'tab_invite_search' %>
 <% elsif params[:act] == 'new_board' %>
 <div class="action_tab">
 <%= render 'new_board_form' %>

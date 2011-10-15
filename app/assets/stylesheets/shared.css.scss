@@ -327,3 +327,16 @@ body{
   color: green;
   padding: 3px 3px 3px 3px;;
 }
+
+.more_links{
+  float: right;
+  padding: 5px;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.now_loading{
+  float: right;
+  padding: 5px;
+}
