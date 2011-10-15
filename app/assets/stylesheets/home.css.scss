@@ -107,6 +107,11 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   top:5em;
   left:0.1em;
 }
+.invite_menu_button{ // main INVITE button
+  position:relative;
+  top:5em;
+  left:-1em;
+}
 #schools_area{ // area to display list of schools
   position:relative;
   left:0.1em;
@@ -119,7 +124,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 .secondary_menu_button{
   
 }
-
+.invite_menu_button a,
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
 .msg_menu_button a,

@@ -8,7 +8,6 @@
 		document.title = "<%= escape_javascript("#{current_user.full_name}") %>";
 		
 	<% elsif params[:act] == 'boards' %>
-	    $("#top_title_action").html("");
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
 		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
@@ -35,12 +34,7 @@
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#top_title_action").html("<%= escape_javascript(render 'tab_board_search') %>");
         document.title = "Board Search";
-        
-	<% elsif params[:act] == 'invite' %>
-    	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
-        $("#top_title_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
-        document.title = "Invite people";
-        
+	
 	<% elsif params[:act] == 'write' %>
 		$("#top_title_action").html("<%= escape_javascript(render 'tab_write_message') %>");
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
@@ -51,15 +45,13 @@
 	    document.title = "Create a new Board";
 	<% end %>
 	
-<% elsif !params[:board].nil? %>
-	$("#top_title_action").html("");
+<% elsif !params[:board].nil? %>	
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
     
 <% elsif !params[:school].nil? %>
-	$("#top_title_action").html("");
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
 	$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");

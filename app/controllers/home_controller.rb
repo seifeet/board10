@@ -12,13 +12,14 @@ class HomeController < ApplicationController
     # SEARCHES
     if !params[:act].nil? && params[:act] == 'school_search'
       if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-        @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(50)
+        @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(25)
       elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-        @search_results = School.search(params[:search], params[:state], params[:city] ).limit(50)
+        @search_results = School.search(params[:search], params[:state], params[:city] ).limit(25)
       end
-      
     elsif !params[:act].nil? && params[:act] == 'board_search'
-      @search_results = Board.search(params[:search]).limit(50)
+      @search_results = Board.search(params[:search]).limit(25)
+    elsif !params[:act].nil? && params[:act] == 'invite'
+      @search_results = User.search(params[:search]).limit(25)
     end
     
     if !params[:act].nil? && params[:act] == 'new_board'
@@ -60,7 +61,7 @@ class HomeController < ApplicationController
     
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.js

@@ -83,19 +83,23 @@ if(history && history.pushState ) {
 			return false;
 		});*/
 		
-		$(".join_board, .join_school").submit(function() {
+		$(".join_board, .join_school, .invite").submit(function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			//history.pushState(null, document.title, this.href);
 			return false;
 		});
-
-		$("#new_posting").live("ajax:complete", function(event, xhr, status) {
-			$('#posting_content').val('');
-		});
 	});
 }
 
+$(function() {
+	
+	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
+		$('#posting_content').val('');
+	});
+	
+    //$.bottomlessPagination();
+});
 /*
 
 Copyright (c) 2009 Stefano J. Attardi, http://attardi.org/
