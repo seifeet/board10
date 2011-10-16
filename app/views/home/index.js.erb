@@ -14,6 +14,12 @@
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "My Boards";
 	    
+	<% elsif params[:act] == 'messages' %>
+		$("#top_title_action").html("");
+		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
+		$("#user_postings").html("<%= escape_javascript(render 'messages/messages') %>");
+	    document.title = "My Messages";
+	    
 	<% elsif params[:act] == 'schools' %>
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
 	    document.title = "My Schools";

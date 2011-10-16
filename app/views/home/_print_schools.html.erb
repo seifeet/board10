@@ -1,8 +1,8 @@
 <% 
-   max_num_schools = 6
+   max_num_schools = 2
    if !current_user.schools.empty?
      schools = 
-       ( current_user.schools.count > max_num_schools ? 
+       ( current_user.schools.count - 1 > max_num_schools ? 
            current_user.schools[0..max_num_schools] :
             current_user.schools )
 %>
@@ -19,7 +19,7 @@
 <%   
      end # end of do loop
 %>
-<%   if current_user.schools.count > max_num_schools %>
+<%   if current_user.schools.count - 1 > max_num_schools %>
 	<div class="secondary_menu_button">
      <%= link_to "MORE", home_path+"?schools=on",{:confirm => "Your other schools are listed on the right bar."} %>
     </div>

@@ -86,6 +86,7 @@ class UserSchoolsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to session[:return_to] }
+      format.js
       format.json { head :ok }
     end
   end

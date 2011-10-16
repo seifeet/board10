@@ -5,8 +5,6 @@ $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 $("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
 $("#title").html("<%= escape_javascript( render 'home/title' ) %>");
 <% end %>
-<% elsif session[:return_to] =~ /\/users\// %>
-$("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
 <% end %>
 
 $(".loading").html("");

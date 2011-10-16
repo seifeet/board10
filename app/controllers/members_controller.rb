@@ -46,8 +46,7 @@ class MembersController < ApplicationController
   def create
     user = User.find_user(params[:member][:user_id])
     board = Board.find_board(params[:member][:board_id])
-    valid = true
-    if ( !user.nil? && !board.nil? && !user.member?(board))
+    if ( !user.nil? && !board.nil? )
       @member = Member.new(params[:member])
       @member.user_id = user.id
       if params[:commit] == Message::Commit::CONFIRM
@@ -59,20 +58,21 @@ class MembersController < ApplicationController
           end
         end
       end
-    else
-      valid = false
+    end
+    
+    if !user.member?(board)
+      @member.save
     end
 
     respond_to do |format|
-      if valid && @member.save
-        format.html { redirect_to session[:return_to], 
-          notice: 'Member was successfully created.' }
-        format.json { render json: board_path(@member.board_id),
-           status: :created, location: board_path(@member.board_id) }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @member.errors, status: :unprocessable_entity }
-      end
+      #if @member.save
+        format.html { redirect_to home_path, 
+          notice: "#{user.full_name} was added to your Board \"#{board.title} \"." }
+        format.json { render json: home_path, status: :created, location: home_path }
+      #else
+      #  format.html { render action: "new" }
+      #  format.json { render json: @member.errors, status: :unprocessable_entity }
+      #end
     end
   end
 

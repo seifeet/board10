@@ -22,7 +22,7 @@ class BoardsController < ApplicationController
   def show
     store_location # store the page location for back functionality
     @posting_form = Posting.new
-    @board = Board.find_board(params[:id])
+    @board = Board.unscoped.find(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
     
     # increment view_counter

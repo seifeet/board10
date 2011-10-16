@@ -16,6 +16,8 @@
 <% end %>
 </p>
 
+<% if @board.active? %>
+
 <% if current_user.owner?( @board.id ) %>
 <%= render 'grp_invite' %>
 <% elsif current_user.member?( @board.id ) %>
@@ -24,3 +26,4 @@
 <%= render 'grp_join' %>
 <% end %>
 
+<% end %>

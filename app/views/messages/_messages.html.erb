@@ -1,0 +1,7 @@
+<table>
+    <tr><td><b>From</b></td><td><b>Subject</b></td><td></td></tr>
+<% @messages.each do |message| %>
+<% @message = message %>
+<%= render @message %>
+<% end %>
+</table>

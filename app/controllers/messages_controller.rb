@@ -109,7 +109,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url }
+      format.html { redirect_back_or home_path }
       format.json { head :ok }
     end
   end

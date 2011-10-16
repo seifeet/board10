@@ -9,21 +9,26 @@ class HomeController < ApplicationController
 
     @user = current_user
     
-    # SEARCHES
-    if !params[:act].nil? && params[:act] == 'school_search'
-      if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-        @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(25)
-      elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-        @search_results = School.search(params[:search], params[:state], params[:city] ).limit(25)
+    # ACTIONS
+    if !params[:act].nil?
+      if params[:act] == 'school_search'
+        if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
+          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(25)
+        elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
+          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(25)
+        end
+      elsif params[:act] == 'board_search'
+        @search_results = Board.search(params[:search]).limit(25)
+      elsif params[:act] == 'invite'
+        @search_results = User.search(params[:search]).limit(25)
+      elsif params[:act] == 'messages'
+        @messages = current_user.recieved
+        @postings_title = 'Messages'
       end
-    elsif !params[:act].nil? && params[:act] == 'board_search'
-      @search_results = Board.search(params[:search]).limit(25)
-    elsif !params[:act].nil? && params[:act] == 'invite'
-      @search_results = User.search(params[:search]).limit(25)
-    end
-    
-    if !params[:act].nil? && params[:act] == 'new_board'
-      @new_board = Board.new
+      
+      if params[:act] == 'new_board'
+        @new_board = Board.new
+      end
     end
     
     # FORM FOR POSITNGS
@@ -47,7 +52,7 @@ class HomeController < ApplicationController
        @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 25 ).order('created_at DESC')
     # show all postings for the board.
     # postings will be filtered according to membership of the current_user
-    else # !params[:board].nil? && params[:board] == "all"
+    elsif @messages.nil? # exclude action for messages
        @postings_title = "From all my boards:"
        @postings = paginate_board_postings @user
     end

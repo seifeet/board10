@@ -1,10 +1,4 @@
 <h1>Listing messages</h1>
 
-<table>
-    <tr><td><b>From</b></td><td><b>Subject</b></td><td></td></tr>
-<% @messages.each do |message| %>
-<% @message = message %>
-<%= render @message %>
-<% end %>
-</table>
+<%= render 'messages' %>
 
