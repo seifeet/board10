@@ -2,9 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$rignt-nav-bar: 23%;  // the width of the right bar navigation
-$main-part: 72%;  // the width of the #main-part
+$rignt-nav-bar: 17%;  // the width of the right bar navigation
+$main-part: 45%;  // the width of the #main-part
 $left-side-shift: 3%; // #main_part has a shift left by this amount
+$title-bar: 78%; // $main-part + $left-side-shift - 1%
 
 @mixin menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em){
   width: $wide;
@@ -14,7 +15,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   padding: 1em;
   display:block;
   text-align:center;
-  color:black;
+  color:$darkest;
   text-decoration:none;
   font-weight: bold;
   line-height:$line;
@@ -25,15 +26,40 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   }
 }
 
+@mixin sec-menu-btn($wide:70%, $marge: 1px, $round: 5px, $line: 0.1em){
+  width: $wide;
+  float: left;
+  margin: $marge;
+  padding: 1em;
+  display:block;
+  text-align:center;
+  color:$darkest;
+  text-decoration:none;
+  font-weight: bold;
+  line-height:$line;
+  border:1px solid white;
+  @include rounded-corners($round);
+  @include main-shadow;
+  &:hover {
+    @include main-hover($darker);
+  }
+}
 #user_title_nav{ // right side navigation with schools, boards etc.
   float:right;
   width:$rignt-nav-bar;
+  min-width:20em;
+}
+#right_side_act{
+  position:absolute;
+  float:right;
+  left:50%;
+  width:29%;
 }
 
 #main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons
   position:relative;
+  left:$left-side-shift;
   width: $main-part;
-  left: $left-side-shift;
   height:100%;
   overflow-x:hidden;
 }
@@ -70,7 +96,7 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 }
 
 #title{ // area for buttons (SCHOOL, BOARD, MESSAGE etc)
-  width:$main-part;
+  width:$title-bar;
   height:16em; 
 }
 
@@ -78,6 +104,8 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   float:left;
 }
 
+#top_title_action{
+}
 .action_tab{ // results of the boards/schools search etc.
   overflow: auto;
   overflow-x: hidden;
@@ -87,47 +115,64 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
   @include rounded-corners(3px);
 }
 /*********************** buttons ***********************************/
-.menu_buttons{  // groups SCHOOL, BOARD, MESSAGE etc area
+#menu_buttons{  // groups SCHOOL, BOARD, MESSAGE etc area
   position:relative;
-  top:0.1em;
+  width:95%;
+  top:0;
   left:5em;
+  min-width:30em;
+}
+#main_menu{
+  position:absolute;
+  width:50%;
+}
+#optional_buttons{
+  position:absolute;
+  left:50%;
+  width:60%;
+  min-width:50em;
+}
+#schools_area{ // area to display list of schools
+  position:absolute;
+  width:40%;
+}
+#boards_area{ // area to display list of boards
+  position:absolute;
+  left:40%;
+  width:50%;
 }
 .school_menu_button{ // main SCHOOL button
   position:relative;
-  top:1em;
-  left:3em;
+  left:4em;
 }
 .board_menu_button{ // main BOARD button
   position:relative;
-  top:5em;
+  top:6em;
   left:1em;
 }
 .msg_menu_button{ // main MESSAGE button
   position:relative;
-  top:5em;
-  left:0.1em;
+  top:7.5em;
+  left:1em;
 }
 .invite_menu_button{ // main INVITE button
   position:relative;
-  top:5em;
-  left:-1em;
+  top:7.5em;
+  left:1em;
 }
-#schools_area{ // area to display list of schools
-  position:relative;
-  left:0.1em;
-}
-#boards_area{ // area to display list of boards
-  position:relative;
-  top:6.5em;
-  left:-9.5em;
-}
+
 .secondary_menu_button{
-  
+  position:relative;
+  padding:0.5em;
+  margin:0.5em;
+  left:1em;
 }
-.invite_menu_button a,
+.secondary_menu_button a{
+  @include sec-menu-btn;
+}
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
-.msg_menu_button a,
+
 .menu_button a{
   // menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em)
   @include menu-btn;
@@ -137,10 +182,11 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 .new_board_menu_button,
 .search_school_menu_button{
   position:relative;
-  top:0em;
+  top:3em;
   left:0.1em;
 }
-.secondary_menu_button a,
+.invite_menu_button a,
+.msg_menu_button a,
 .search_school_menu_button a,
 .new_board_menu_button a,
 .search_board_menu_button a{

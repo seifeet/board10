@@ -12,7 +12,7 @@ if !all_boards.empty?
 	boards.each do |board|
 %>
 <div class="secondary_menu_button">
-	<%= link_to "#{strip_and_cut(board.title, 7)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+	<%= link_to "#{strip_and_cut(board.title, 25)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
 </div>
 <%
 	end # end of @current_school do-loop

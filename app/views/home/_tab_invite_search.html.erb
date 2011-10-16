@@ -3,7 +3,7 @@
 </div>
 <i><font color="red" size="smaller">Max 25 results</font></i>
 <%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
-<%= text_field_tag :search, params[:search], :size => 70 %>
+<%= text_field_tag :search, params[:search], :size => 30 %>
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
 <%= submit_tag "Search people", :name => nil, :class => 'button_neutral' %>

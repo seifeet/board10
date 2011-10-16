@@ -1,5 +1,4 @@
-<div class="menu_buttons">
-	
+<div id="menu_buttons">
 <% unless current_user.nil? %>
 <div id="main_menu">
 <!-- FIRST LEVEL BUTTONS -->
@@ -19,7 +18,10 @@
 
 <div class="invite_menu_button">
 <% if !params[:board].nil? %>
-<%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board" %>
+<% board = ( @board.nil? ? Board.find_board(params[:board]) : @board ) %>
+	<% if !board.nil? && current_user.owner?(board) %>
+	<%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board" %>
+	<% end %>
 <% end %>
 </div>
 
@@ -40,12 +42,12 @@
 </div> <!-- end of main_menu div -->
 
 <!-- OPTIONAL BUTTONS -->
-<div id="schools_boards_menu">
-<% if params[:act] == 'schools' || !params[:school].nil? %>
+<div id="optional_buttons">
+<% if params[:act] == 'boards' || params[:act] == 'schools' || !params[:school].nil? || !params[:board].nil? %>
 <%= render 'print_schools'%>
-
-<% elsif params[:act] == 'boards' %>
+<% if params[:school].nil? %>
 <%= render 'print_boards' %>
+<% end %>
 <% end %>
 </div>
 
