@@ -1,3 +1,6 @@
+<%
+  @messeges = @messages = current_user.recieved if @messeges.nil?
+%>
 <table>
     <tr><td><b>From</b></td><td><b>Subject</b></td><td></td></tr>
 <% @messages.each do |message| %>

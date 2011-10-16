@@ -68,6 +68,7 @@ class MembersController < ApplicationController
       #if @member.save
         format.html { redirect_to home_path, 
           notice: "#{user.full_name} was added to your Board \"#{board.title} \"." }
+        format.js
         format.json { render json: home_path, status: :created, location: home_path }
       #else
       #  format.html { render action: "new" }

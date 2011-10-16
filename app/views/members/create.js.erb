@@ -1,0 +1,8 @@
+<% if session[:return_to] =~ /\/home?/ %>
+$("#user_postings").html("<%= escape_javascript(render 'messages/messages') %>");
+<% if flash.count > 0 %>
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+<% end %>
+<% end %>
+
+$(".loading").html("");
