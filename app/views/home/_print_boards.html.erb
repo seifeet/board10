@@ -10,9 +10,14 @@ if !all_boards.empty?
 	boards = ( all_boards.count > max_num_boards ?
 	all_boards[0..max_num_boards] : all_boards )
 	boards.each do |board|
+	  if board.id.to_s == params[:board]
+     	 @current_board = board
 %>
+<div class="secondary_menu_button selected">
+<%    else %>
 <div class="secondary_menu_button">
-	<%= link_to "#{strip_and_cut(board.title, 25)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+<%    end %>
+	<%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
 </div>
 <%
 	end # end of @current_school do-loop

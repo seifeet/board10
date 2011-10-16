@@ -167,12 +167,16 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   margin:0.5em;
   left:1em;
 }
+
 .secondary_menu_button a{
   @include sec-menu-btn;
 }
+.selected a{
+  background:$darker;
+  color:white;
+}
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
-
 .menu_button a{
   // menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em)
   @include menu-btn;

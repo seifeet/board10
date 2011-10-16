@@ -11,10 +11,14 @@
 	<br />
 <%
      schools.each do |school|
-     	@current_school = school if school.id.to_s == params[:school]
+       if school.id.to_s == params[:school]
+     	 @current_school = school 
 %>
+	 <div class="secondary_menu_button selected">
+<%      else %>
      <div class="secondary_menu_button">
-     <%= link_to "#{strip_and_cut(school.name, 25)}", {:school => school.id },{:title => "School: #{school.name}"} %>
+<%      end %>
+     <%= link_to "#{strip_and_cut(school.name, 20)}", {:school => school.id },{:title => "School: #{school.name}"} %>
      </div>
 <%   
      end # end of do loop
@@ -42,7 +46,7 @@
        boards.each do |board|
 %>
    <div class="secondary_menu_button">
-   	<%= link_to "#{strip_and_cut(board.title, 25)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+   	<%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
    </div>
 <%
        end # end of @current_school do-loop

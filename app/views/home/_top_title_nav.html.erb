@@ -2,21 +2,37 @@
 <% unless current_user.nil? %>
 <div id="main_menu">
 <!-- FIRST LEVEL BUTTONS -->
+<% if params[:act] == 'schools' %>
+<div class="school_menu_button selected">
+<% else %>
 <div class="school_menu_button">
+<% end %>
 <%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open School Menu" %>
 </div>
 
+<% if params[:act] == 'boards' %>
+<div class="board_menu_button selected">
+<% else %>
 <div class="board_menu_button">
+<% end %>
 <%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Board Menu" %>
 </div>
 
+<% if params[:act] == 'write' %>
+<div class="msg_menu_button selected">
+<% else %>
 <div class="msg_menu_button">
+<% end %>
 <% if !params[:board].nil? %>
 <%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on the current board" %>
 <% end %>
 </div>
 
+<% if params[:act] == 'invite' %>
+<div class="invite_menu_button selected">
+<% else %>
 <div class="invite_menu_button">
+<% end %>
 <% if !params[:board].nil? %>
 <% board = ( @board.nil? ? Board.find_board(params[:board]) : @board ) %>
 	<% if !board.nil? && current_user.owner?(board) %>
