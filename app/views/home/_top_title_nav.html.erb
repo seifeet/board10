@@ -44,14 +44,14 @@
 <!-- SECOND LEVEL SERVICE BUTTONS -->
 <% if params[:act] == 'schools' || !params[:school].nil? %>
 <div class="search_school_menu_button">
-<%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for Schools" %>
+<%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile" %>
 </div>
 <% elsif params[:act] == 'boards'  %>
 <div class="search_board_menu_button">
-<%= link_to 'JOIN', home_path+"?act=board_search", :title => "Search for Boards" %>
+<%= link_to 'JOIN', home_path+"?act=board_search", :title => "Search for boards and add them to your profile" %>
 </div>
 <div class="new_board_menu_button">
-<%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new Board" %>
+<%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new board" %>
 </div>
 <% end %>
 
