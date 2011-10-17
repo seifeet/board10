@@ -1,0 +1,13 @@
+<% if current_user.recieved.unread.count > 0 %>
+<div class="background_write">
+	<font color="red">Incoming...</font>
+</div>
+<br />
+<%= link_to "Messages (#{current_user.recieved.unread.count} new)", home_path + '?act=messages' %>
+<% else %>
+<div class="background_write">
+	Messages
+</div>
+<br />
+<%= link_to "Messages", home_path + '?act=messages' %>
+<% end %> 

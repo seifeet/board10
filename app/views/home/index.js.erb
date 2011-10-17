@@ -17,7 +17,7 @@
 	<% elsif params[:act] == 'messages' %>
 		$("#top_title_action").html("");
 		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
-		$("#user_postings").html("<%= escape_javascript(render 'messages/messages') %>");
+		$("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 	    document.title = "My Messages";
 	    
 	<% elsif params[:act] == 'schools' %>
@@ -72,5 +72,8 @@
 	document.title = "School | <%= escape_javascript("#{current_user.full_name}") %>";
 <% end %>
 
+<% if current_user.recieved.unread.count > 0 %>
+$("#user_title_nav .messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
+<% end %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 $(".loading").html("");

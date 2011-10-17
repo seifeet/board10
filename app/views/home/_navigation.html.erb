@@ -1,16 +1,8 @@
 <% return nil if current_user.nil? %>
 
 <div id="user_title_nav">
-	<div class="nav_link">
-	<% if current_user.recieved.unread.count > 0 %>
-	<div class="background_write"><font color="red">Incoming...</font></div>
-	<br />
-	<%= link_to "Messages (#{current_user.recieved.unread.count} new)", home_path + '?act=messages' %>
-	<% else %>
-	<div class="background_write">Messages</div>
-	<br />
-	<%= link_to "Messages", home_path + '?act=messages' %>
-	<% end %>    
+	<div class="nav_link messages">
+    <%= render 'home/check_new_msg' %>  
     </div>
     <br class="clearBoth" />
 	<div class="background_write">Schools</div>

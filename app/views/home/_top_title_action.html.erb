@@ -8,12 +8,11 @@
 <%= render 'tab_write_message' %>
 <% elsif params[:act] == 'invite' %>
 <%= render 'tab_invite_search' %>
-<% elsif params[:act] == 'messages' %>
-<%= render 'messages/messages' %>
 <% elsif params[:act] == 'new_board' %>
-<div class="action_tab">
-<%= render 'new_board_form' %>
-</div>
+<div class="action_tab"><%= render 'new_board_form' %></div>
+<% elsif params[:act] == 'messages' %>
+<% #nothing 
+%>
 <% end %>
 
 <% end %>

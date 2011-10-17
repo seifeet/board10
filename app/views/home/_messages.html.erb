@@ -1,0 +1,2 @@
+<% @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page ) if @messages.nil? %>
+<%= render 'shared/containers/page_container', :page_container => @messages %>

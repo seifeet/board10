@@ -26,7 +26,11 @@
 </div> <!-- close home_sub_title -->
 
 <div id="user_postings">
+<% if !@postings.nil? %>
 <%= render 'shared/containers/page_container', :page_container => @postings %>
+<% elsif !@messages.nil? %>
+<%= render 'home/messages' %>
+<% end %>
 </div> <!-- close user_postings -->
 
 </div> <!-- close main_part -->

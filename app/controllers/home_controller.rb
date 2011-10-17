@@ -13,16 +13,16 @@ class HomeController < ApplicationController
     if !params[:act].nil?
       if params[:act] == 'school_search'
         if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(25)
+          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(per_page)
         elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(25)
+          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(per_page)
         end
       elsif params[:act] == 'board_search'
-        @search_results = Board.search(params[:search]).limit(25)
+        @search_results = Board.search(params[:search]).limit(per_page)
       elsif params[:act] == 'invite'
-        @search_results = User.search(params[:search]).limit(25)
+        @search_results = User.search(params[:search]).limit(per_page)
       elsif params[:act] == 'messages'
-        @messages = current_user.recieved
+        @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
         @postings_title = 'Messages'
       end
       
@@ -46,10 +46,10 @@ class HomeController < ApplicationController
        @postings = paginate_school_postings @school
     # show all postings of the board if current_user is a member
     elsif !@board.nil? && current_user.member?( @board )
-       @postings = @board.postings.paginate(:page => params[:page], :per_page => 25 ).order('created_at DESC')
+       @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
     # show only public postings if current_user is not a member
     elsif !@board.nil? && !current_user.member?( @board )
-       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => 25 ).order('created_at DESC')
+       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
     # show all postings for the board.
     # postings will be filtered according to membership of the current_user
     elsif @messages.nil? # exclude action for messages
@@ -94,7 +94,7 @@ class HomeController < ApplicationController
       
       all_postings.uniq!
       
-      all_postings.paginate(:page => params[:page], :per_page => 25, :total_etries => all_postings.size )
+      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end
     
     def paginate_school_postings school
@@ -115,7 +115,7 @@ class HomeController < ApplicationController
       
       all_postings.uniq!
       
-      all_postings.paginate(:page => params[:page], :per_page => 25, :total_etries => all_postings.size )
+      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end 
 
 end
