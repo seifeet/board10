@@ -13,6 +13,7 @@ gem "mysql2","0.3.7"
 #gem 'mysql2', '< 0.3'
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '~> 3.0.0'
+gem 'tinymce-rails'
 
 group :development do
   gem 'rspec-rails', '2.6.1'

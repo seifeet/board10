@@ -1,3 +1,10 @@
+<script type="text/javascript">
+  $(function() {
+    $('textarea').tinymce({
+      theme: 'advanced'
+    });
+  });
+</script>
 <%= form_for @posting_form, :remote => true do |f| %>
   <% if @posting_form.errors.any? %>
     <div id="error_explanation">
@@ -30,7 +37,7 @@
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
     <br />
-    <%= f.text_area :content, :value => "", :rows => 3, :cols => 40 %>
+    <%= text_area_tag :editor, "", :rows => 3, :cols => 40 %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Post', :class => "button_neutral" %>
