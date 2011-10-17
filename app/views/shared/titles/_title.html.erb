@@ -6,7 +6,7 @@
 	<div class="delete_button"><%= link_to 'Del', element, confirm: 'Are you sure?', 
 	                   method: :delete, :title => "Delete #{element.title}" %></div>
 	<div class="edit_button"><%= link_to 'Edit', edit_link %></div>
-	<div class="action_button"><%= link_to 'Home', home_path %></div>
+	<div class="action_button clickable"><%= link_to 'Home', home_path %></div>
 	<div id="_desc"><%= element.description %></div>
 </div>
 

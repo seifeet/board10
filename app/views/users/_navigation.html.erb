@@ -7,7 +7,7 @@
 	<br class="clearBoth" />
 	<br />
 	<div class="background_write">Boards</div>
-	<div class="nav_link"><%= link_to "All My Boards", user_url(user) + "?board=all" %></div>
+	<div class="nav_link clickable"><%= link_to "All My Boards", user_url(user) + "?board=all" %></div>
 	<br class="clearBoth" />
 	<br />
 	<div id="user_boards"><%= render 'users/user_boards', :user => user %></div>

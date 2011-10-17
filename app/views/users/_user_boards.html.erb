@@ -3,7 +3,7 @@
 <% unless user.boards.empty? %>
   <% user.boards.each do |board| %>
      <% if board.active? %>
-     <div class="nav_link">
+     <div class="nav_link clickable">
      <%= link_to "#{board.title}", :board => board.id %>
      </div>
      <div class="delete_button">

@@ -15,17 +15,8 @@ if(history && history.pushState ) {
 
 	$(function() {
 
-		//$("#users .apple_pagination a, #boards .apple_pagination a, #public_postings .apple_pagination a, #user_postings .apple_pagination a").live("click", function() {
-		$("#user_postings .apple_pagination a, #search_container .apple_pagination a, .generic_container .apple_pagination a, #public_postings .apple_pagination a").live("click", function() {
+	    $(".clickable a").live("click", function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.getScript(this.href);
-			history.pushState(null, document.title, this.href);
-			return false;
-		});
-		// #msg board school #                    #groups boards
-	    $("#top_title_nav a, ._sub_title_action a, .nav_link a, .posting_element .action_button a, .close_button a, .element_link a").live("click", function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			//$('.action_tab').slideUp('fast', 0);
 			$.getScript(this.href);
 			history.pushState(null, document.title, this.href);
 			return false;
@@ -84,7 +75,7 @@ if(history && history.pushState ) {
 			return false;
 		});*/
 		
-		$(".join_board, .join_school, .invite, .confirm_msg, .reject_msg").submit(function() {
+		$(".submitable").submit(function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
 			//history.pushState(null, document.title, this.href);

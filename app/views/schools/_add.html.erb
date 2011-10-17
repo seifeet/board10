@@ -1,5 +1,5 @@
 <% unless current_user.has_school?(school.id) %>
-<%= form_for current_user.user_schools.build(:school_id => school.id), :class => "join_school", :remote => true do |f| %>
+<%= form_for current_user.user_schools.build(:school_id => school.id), :class => "submitable", :remote => true do |f| %>
   <%= f.hidden_field :school_id, :value => school.id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.submit "Add", :class => "button_confirm" %>

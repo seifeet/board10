@@ -1,7 +1,7 @@
 <% return nil if current_user.nil? %>
 <% if !current_user.schools.empty? %>
   <% current_user.schools.each do |school| %>
-     <div class="nav_link">
+     <div class="nav_link clickable">
      <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + '?school=' + school.id.to_s,{:title => "School: #{school.name}"} %>
      </div>
      <%= button_to 'Del', current_user.user_schools.find_by_school_id(school.id), :class => "button_reject", confirm: "Do you want to remove school \"#{school.name}\"?", method: :delete, :remote => true %>
