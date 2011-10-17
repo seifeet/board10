@@ -73,7 +73,7 @@ class PostingsController < ApplicationController
     @posting = Posting.new(params[:posting])
     @posting.board_id = board.id
     @posting.user_id = current_user.id
-    @posting.content = params[:editor]
+    @posting.content = params[:editor] if params[:content].nil?
     
     @last_posting = params[:last_posting]
     
