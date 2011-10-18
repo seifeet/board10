@@ -1,5 +1,5 @@
 <%= render 'shared/containers/container', :container => page_container %>
-<% if !page_container.nil? && !page_container.empty? %>
+<% if !page_container.nil? && !page_container.empty? && page_container.count >= per_page %>
 <div class="apple_pagination clickable">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
