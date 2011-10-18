@@ -71,6 +71,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   float: left;
   width: 99%;
 }
+.http_link a,
 ._nav_link a,
 .nav_link a{ // links on right side navigation bar
   float: right;
@@ -164,7 +165,6 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   position:relative;
   left:1em;
 }
-.http_link a,
 .secondary_menu_button a{
   @include sec-menu-btn;
 }
