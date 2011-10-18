@@ -1,4 +1,6 @@
 <% return nil if current_user.nil? %>
+<% if current_user.boards.count > max_num_boards %>
+
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
   <% user.boards.each do |board| %>
@@ -9,5 +11,9 @@
      <!-- %= button_to 'Del', current_user.boards.find_board(board.id), :class => "button_reject", confirm: "Do you want to remove Board \"#{board.title}\"?", method: :delete, :remote => true % -->
      <% end %>
   <% end %>
+<% end %>
+<br class="clearBoth" />
+<br />
+
 <% end %>
 

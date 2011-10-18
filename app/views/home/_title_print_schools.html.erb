@@ -24,7 +24,7 @@
 %>
 <%   if current_user.schools.count > max_num_schools %>
 	<div class="secondary_menu_button">
-     <%= link_to "MORE", home_path+"?act=schools",{:confirm => "Your other schools are listed on the right bar."} %>
+     <%= link_to "MORE", home_path+"?act=schools&subact=nav",{:confirm => "Your other schools are listed on the right bar."} %>
     </div>
 <%   end %>
 </div> <!-- end of school_area -->

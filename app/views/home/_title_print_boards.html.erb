@@ -23,7 +23,7 @@ if !all_boards.empty?
 	if all_boards.count > max_num_boards
 %>
 <div class="secondary_menu_button">
-	<%= link_to "MORE", home_path+"?boards=on",{:confirm => "Your other boards are listed on the right bar."} %>
+	<%= link_to "MORE", home_path+"?act=boards&subact=nav",{:confirm => "Your other boards are listed on the right bar."} %>
 </div>
 <%
 	end # of if all_boards.count > max_num_boards

@@ -72,6 +72,10 @@
 	document.title = "School | <%= escape_javascript("#{current_user.full_name}") %>";
 <% end %>
 
+<% if !params[:subact].nil? && params[:subact] == 'nav' %>
+	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
+<% end %>
+
 $(".logo_messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 $(".loading").html("");
