@@ -10,14 +10,6 @@
 //= require tinymce-jquery
 //= require_tree .
 //
-$(function() {
-	
-	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
-		$('#editor').val('');
-	});
-	
-    $.bottomlessPagination();
-});
 
 if(history && history.pushState ) {
 
@@ -92,6 +84,13 @@ if(history && history.pushState ) {
 	});
 }
 
+$(function() {
+	
+	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
+		$('#editor').val('');
+	});
+
+});
 /*
 
 Copyright (c) 2009 Stefano J. Attardi, http://attardi.org/

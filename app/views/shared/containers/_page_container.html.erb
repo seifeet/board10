@@ -3,6 +3,11 @@
 <div class="apple_pagination clickable">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
+
+<script type="text/javascript">
+$.bottomlessPagination();
+</script>
+
 <% end %>
 
 
