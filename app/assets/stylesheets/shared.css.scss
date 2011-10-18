@@ -135,6 +135,15 @@ body{
   zoom:1;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FF9E73', GradientType=1);
 }
+
+.logo_link a{
+  float:right;
+  font-style: italic;
+  color:white;
+  font-size:large;
+  text-decoration:none;
+  margin: 5px 25px 0 0;
+}
 /*********************** content ***********************************/
 .button_confirm{
   @include action-button($btn-confirm);

@@ -72,6 +72,6 @@
 	document.title = "School | <%= escape_javascript("#{current_user.full_name}") %>";
 <% end %>
 
-$("#user_title_nav .messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
+$(".logo_messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 $(".loading").html("");

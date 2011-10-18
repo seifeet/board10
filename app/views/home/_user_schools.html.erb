@@ -1,6 +1,6 @@
 <% return nil if current_user.nil? %>
 <% if current_user.schools.count > max_num_schools %>
-<div class="background_write">Schools</div>
+<div class="background_write">All My Schools</div>
 <br class="clearBoth" />
 <% if !current_user.schools.empty? %>
   <% current_user.schools.each do |school| %>
