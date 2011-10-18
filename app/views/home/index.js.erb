@@ -4,18 +4,18 @@
 <% elsif !params[:act].nil? %>
 
 	<% if params[:act] == 'cancel' %>
-		$("#top_title_action").html("");
+		$("#title_top_action").html("");
 		document.title = "<%= escape_javascript("#{current_user.full_name}") %>";
 		
 	<% elsif params[:act] == 'boards' %>
-	    $("#top_title_action").html("");
+	    $("#title_top_action").html("");
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
 		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "My Boards";
 	    
 	<% elsif params[:act] == 'messages' %>
-		$("#top_title_action").html("");
+		$("#title_top_action").html("");
 		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 		$("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 	    document.title = "My Messages";
@@ -30,7 +30,7 @@
     
     <% elsif params[:act] == 'school_search' %>
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
-        $("#top_title_action").html("<%= escape_javascript(render 'tab_school_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_school_search') %>");
         document.title = "School Search";
     
     <% elsif params[:act] == 'board_search' && !params[:search].nil? %>
@@ -39,33 +39,33 @@
 	  
     <% elsif params[:act] == 'board_search' %>
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
-        $("#top_title_action").html("<%= escape_javascript(render 'tab_board_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_board_search') %>");
         document.title = "Board Search";
         
 	<% elsif params[:act] == 'invite' %>
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
-        $("#top_title_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
         document.title = "Invite people";
         
 	<% elsif params[:act] == 'write' %>
-		$("#top_title_action").html("<%= escape_javascript(render 'tab_write_message') %>");
+		$("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "Write to Board";
 	
 	<% elsif params[:act] == 'new_board' %>
-	    $("#top_title_action").html("<%= escape_javascript(render 'new_board_form') %>");
+	    $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
 	    document.title = "Create a new Board";
 	<% end %>
 	
 <% elsif !params[:board].nil? %>
-	$("#top_title_action").html("");
+	$("#title_top_action").html("");
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
     
 <% elsif !params[:school].nil? %>
-	$("#top_title_action").html("");
+	$("#title_top_action").html("");
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
 	$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
 	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");

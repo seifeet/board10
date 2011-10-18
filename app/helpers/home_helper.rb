@@ -6,4 +6,12 @@ module HomeHelper
     def per_page
       5
     end
+    
+    def max_num_boards
+      5
+    end
+      
+    def max_num_schools
+      3
+    end
 end

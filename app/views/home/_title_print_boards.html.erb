@@ -4,11 +4,10 @@ all_boards = current_user.boards.where(:active => true)
 if !all_boards.empty?
 %>
 <div class="background_write">My Boards</div>
-<br />
+<br /><br />
 <%
-	max_num_boards = 4
 	boards = ( all_boards.count > max_num_boards ?
-	all_boards[0..max_num_boards] : all_boards )
+	all_boards[0..max_num_boards-1] : all_boards )
 	boards.each do |board|
 	  if board.id.to_s == params[:board]
      	 @current_board = board
