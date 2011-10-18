@@ -17,7 +17,7 @@
 <%      else %>
      <div class="secondary_menu_button">
 <%      end %>
-     <%= link_to "#{strip_and_cut(school.name, 20)}", {:school => school.id },{:title => "School: #{school.name}"} %>
+     <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + "?school=" + school.id.to_s ,{:title => "School: #{school.name}"} %>
      </div>
 <%   
      end # end of do loop
