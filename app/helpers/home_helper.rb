@@ -4,7 +4,7 @@ module HomeHelper
     end
     
     def per_page
-      5
+      25
     end
     
     def max_num_boards
