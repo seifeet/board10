@@ -10,6 +10,14 @@
 //= require tinymce-jquery
 //= require_tree .
 //
+$(function() {
+	
+	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
+		$('#editor').val('');
+	});
+	
+    $.bottomlessPagination();
+});
 
 if(history && history.pushState ) {
 
@@ -23,11 +31,11 @@ if(history && history.pushState ) {
 		});
 		
         /* do not remove this function anymore
-         * (withot it a new page will not reload after history events (e.g. Back)) 
+         * (withot it a new page will not reload after history events (e.g. Back)) */
 		$(window).bind("popstate", function() {
 			$.getScript(location.href);
 		});
-*/
+
 		$("#users_search").submit(function() {
 			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
 			$.get(this.action, $(this).serialize(), null, "script");
@@ -84,14 +92,6 @@ if(history && history.pushState ) {
 	});
 }
 
-$(function() {
-	
-	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
-		$('#editor').val('');
-	});
-	
-    $.bottomlessPagination();
-});
 /*
 
 Copyright (c) 2009 Stefano J. Attardi, http://attardi.org/
