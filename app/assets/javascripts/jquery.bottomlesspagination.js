@@ -27,7 +27,7 @@
           "<a class='more_links'>More " + settings.objName + "<span class='icon'></span></a>" +
         "</div></div>"
       );
-      
+
       // Setup the loader. If no image provided use a text message. Loader is initially hidden.
       if ((settings.ajaxLoaderPath == '') || (settings.ajaxLoaderPath == null)) {
         $(".more_links").after("<div class='now_loading'>Loading...</div>");
@@ -55,7 +55,9 @@
     
     $.fn.addrows = function(data) {
       curr_page = getPageNumber(settings.href);
-      $(settings.results).append(data);
+	  $(data).find('.posting_element').each(function(index) {
+		$(settings.results).append($(this));
+	  });
       
       // Replace live pagination if there are no more results, else update the href for the next page
       if (curr_page == settings.total_pages) {

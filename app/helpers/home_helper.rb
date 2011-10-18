@@ -4,6 +4,6 @@ module HomeHelper
     end
     
     def per_page
-      25
+      5
     end
 end
