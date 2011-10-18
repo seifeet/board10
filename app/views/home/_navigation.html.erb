@@ -5,10 +5,9 @@
     <%= render 'home/check_new_msg' %>  
     </div>
     <br class="clearBoth" />
-	<div class="background_write">Schools</div>
-	<br class="clearBoth" />
-	<div id="user_schools"><%= render 'home/user_schools', :user => current_user %></div>
-	<br class="clearBoth" />
+    <div id="user_schools">
+	<%= render 'home/user_schools', :user => current_user %>
+	</div>
 	<div class="background_write">Boards</div>
 	<br />
 	<div class="nav_link clickable"><%= link_to "All My Boards", home_path + '?act=boards' %></div>

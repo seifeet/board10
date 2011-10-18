@@ -104,7 +104,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   float:left;
 }
 
-#top_title_action{
+#title_top_action{
 }
 .action_tab{ // results of the boards/schools search etc.
   overflow: auto;
@@ -163,8 +163,6 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 
 .secondary_menu_button{
   position:relative;
-  padding:0.5em;
-  margin:0.5em;
   left:1em;
 }
 

@@ -59,11 +59,13 @@
 
 <!-- OPTIONAL BUTTONS -->
 <div id="optional_buttons">
-<% if params[:act] == 'boards' || params[:act] == 'schools' || !params[:school].nil? || !params[:board].nil? %>
-<%= render 'print_schools'%>
+<div id="title_print_schools">
+<%= render 'title_print_schools' %>
+</div>
 <% if params[:school].nil? %>
-<%= render 'print_boards' %>
-<% end %>
+<div id="title_print_boards">
+<%= render 'title_print_boards' %>
+</div>
 <% end %>
 </div>
 

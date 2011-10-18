@@ -1,10 +1,11 @@
 <% if session[:return_to] =~ /\/home?/ %>
-<% if flash.count > 0 %>
-$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
-<% else %>
-$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
-$("#title").html("<%= escape_javascript( render 'home/title' ) %>");
-<% end %>
+$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
+	<% if current_user.schools.count <= max_num_schools %>
+	$("#title_print_schools").html("<%= escape_javascript( render 'home/title_print_schools' ) %>");
+	<% end %>
 <% end %>
 
+<% if flash.count > 0 || !notice.nil? %>
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+<% end %>
 $(".loading").html("");
