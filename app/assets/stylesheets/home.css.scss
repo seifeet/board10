@@ -204,3 +204,11 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   float: left;
   white-space: nowrap;
 }
+
+.note{
+  border:2px solid $darker;
+  background:$backgrnd;
+  margin:5px;
+  padding:5px;
+  @include rounded-corners(15px);
+}

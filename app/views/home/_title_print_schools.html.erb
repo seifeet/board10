@@ -1,5 +1,15 @@
-<% 
-   if !current_user.schools.empty?
+<% if current_user.schools.empty? %>
+<div id="schools_area">
+	<div class="background_write">My Schools</div>
+	<br class="clearBoth" />
+	<div class="note">
+		<p>This area is empty because you currently don't have any schools linked to your profile.<br />
+		In order to add a school from your neighborhood please click on SCHOOLS and ADD.
+	    Then search for your school and click Add near the school's name in the search results.</p>
+	</div>
+</div>
+
+<% else # !current_user.schools.empty?
      schools = 
        ( current_user.schools.count > max_num_schools ? 
            current_user.schools[0..max_num_schools-1] :

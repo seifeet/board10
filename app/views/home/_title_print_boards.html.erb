@@ -1,8 +1,17 @@
 <div id="boards_area">
-<%
-all_boards = current_user.boards.where(:active => true)
-if !all_boards.empty?
+<% all_boards = current_user.boards.where(:active => true)
+   if all_boards.empty? 
 %>
+	<div class="background_write">My Boards</div>
+	<br class="clearBoth" />
+	<div class="note">
+		<p>This area is empty because your profile has not been linked to any boards yet.<br />
+     	In order to become a member of a board please click on BOARDS -> JOIN.<br />
+		Then search for a board of your interest and click Join. 
+		That will send your message to the board's owner. 
+		You will become a member of the board as soon as the owner confirms your request.</p>
+	</div>
+<% else %>
 <div class="background_write">My Boards</div>
 <br /><br />
 <%

@@ -83,7 +83,7 @@ class BoardsController < ApplicationController
     
     respond_to do |format|
       if ( !params[:posting].nil? && @posting.save ) || board_saved
-        format.html { redirect_back_or home_path, notice: 'Board was successfully created.' }
+        format.html { redirect_to home_path + '?board=' + @board.id.to_s, notice: 'Board was successfully created.' }
         format.js
         format.json { render json: @board, status: :created, location: @board }
       else
@@ -103,7 +103,7 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board.update_attributes(params[:board])
-        format.html { redirect_back_or home_path, notice: 'Board was successfully updated.' }
+        format.html { redirect_to home_path, notice: 'Board was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -124,7 +124,7 @@ class BoardsController < ApplicationController
     delete_postings @board
 
     respond_to do |format|
-      format.html { redirect_back_or home_path }
+      format.html { redirect_to home_path, notice: 'Your board became inactive.' }
       format.js
       format.json { head :ok }
     end
