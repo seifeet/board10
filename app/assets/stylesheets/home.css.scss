@@ -100,6 +100,10 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   height:16em; 
 }
 
+.sub_title_nav{
+  float:right;
+}
+
 .home_sub_title{ // name of the board, school, or provided posts
   float:left;
 }
@@ -150,21 +154,26 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   top:6em;
   left:1em;
 }
-.msg_menu_button{ // main MESSAGE button
-  position:relative;
-  top:7.5em;
-  left:1em;
+.sub_menu_button{
+  float: right;
+  margin:5px;
 }
-.invite_menu_button{ // main INVITE button
-  position:relative;
-  top:7.5em;
-  left:1em;
-}
+//.msg_menu_button{ // main MESSAGE button
+//  position:relative;
+//  top:7.5em;
+//  left:1em;
+//}
+//.invite_menu_button{ // main INVITE button
+//  position:relative;
+//  top:7.5em;
+//  left:1em;
+//}
 
 .secondary_menu_button{
   position:relative;
   left:1em;
 }
+.sub_menu_button a,
 .secondary_menu_button a{
   @include sec-menu-btn;
 }
@@ -178,7 +187,6 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   // menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em)
   @include menu-btn;
 }
-
 .search_board_menu_button,
 .new_board_menu_button,
 .search_school_menu_button{
@@ -186,8 +194,8 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   top:3em;
   left:0.1em;
 }
-.invite_menu_button a,
-.msg_menu_button a,
+//.invite_menu_button a,
+//.msg_menu_button a,
 .search_school_menu_button a,
 .new_board_menu_button a,
 .search_board_menu_button a{

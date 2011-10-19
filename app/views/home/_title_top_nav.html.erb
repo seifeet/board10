@@ -10,7 +10,7 @@
 <%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open School Menu" %>
 </div>
 
-<% if params[:act] == 'boards' %>
+<% if params[:act] == 'boards' || !params[:board].nil? %>
 <div class="board_menu_button selected">
 <% else %>
 <div class="board_menu_button">
@@ -18,35 +18,12 @@
 <%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Board Menu" %>
 </div>
 
-<% if params[:act] == 'write' %>
-<div class="msg_menu_button selected">
-<% else %>
-<div class="msg_menu_button">
-<% end %>
-<% if !params[:board].nil? %>
-<%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on the current board" %>
-<% end %>
-</div>
-
-<% if params[:act] == 'invite' %>
-<div class="invite_menu_button selected">
-<% else %>
-<div class="invite_menu_button">
-<% end %>
-<% if !params[:board].nil? %>
-<% board = ( @board.nil? ? Board.find_board(params[:board]) : @board ) %>
-	<% if !board.nil? && current_user.owner?(board) %>
-	<%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board" %>
-	<% end %>
-<% end %>
-</div>
-
 <!-- SECOND LEVEL SERVICE BUTTONS -->
 <% if params[:act] == 'schools' || !params[:school].nil? %>
 <div class="search_school_menu_button">
 <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile" %>
 </div>
-<% elsif params[:act] == 'boards'  %>
+<% elsif params[:act] == 'boards' || !params[:board].nil? %>
 <div class="search_board_menu_button">
 <%= link_to 'JOIN', home_path+"?act=board_search", :title => "Search for boards and add them to your profile" %>
 </div>

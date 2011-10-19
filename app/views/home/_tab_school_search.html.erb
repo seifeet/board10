@@ -1,5 +1,5 @@
 <div class="close_button inline_right clickable">
-  <%= link_to "Close", home_path + '?act=cancel', :title => "Close School Search" %>
+  <%= link_to "Close", home_path + '?subact=cancel', :title => "Close School Search" %>
 </div>
 <i><font color="red" size="smaller">Max 25 results</font></i>
 <%= form_tag home_path, :method => :get, :id => "tab_schools_search", :remote => true do %>
