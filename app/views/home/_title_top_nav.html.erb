@@ -2,7 +2,7 @@
 <% unless current_user.nil? %>
 <div id="main_menu">
 <!-- FIRST LEVEL BUTTONS -->
-<% if params[:act] == 'schools' %>
+<% if params[:act] == 'schools' || !params[:school].nil? %>
 <div class="school_menu_button selected">
 <% else %>
 <div class="school_menu_button">
