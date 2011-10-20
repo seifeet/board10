@@ -1,6 +1,5 @@
 <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
 	$("#title_top_action").html("");
-	$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
 	document.title = "<%= escape_javascript("#{current_user.full_name}") %>";
 <% end %>
 
