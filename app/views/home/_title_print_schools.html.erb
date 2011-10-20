@@ -38,16 +38,26 @@
     </div>
 <%   end %>
 </div> <!-- end of school_area -->
+
+
+
+<div id="boards_area">
 <% 
      if !@current_school.nil?
 %>
-<div id="boards_area">
+<div class="background_write"><%= strip_and_cut(@current_school.name, 15) %></div>
+<br /><br />
+<% if current_user.boards.where(:active => true).count >= 1 %>
+<div class="secondary_menu_button clickable">
+<%= link_to "All My Boards", home_path + '?act=boards' %>
+</div>
+<% end %>
+
 <%
      all_boards = @current_school.boards.where(:active => true)
      if !all_boards.empty?
 %>
-<div class="background_write"><%= strip_and_cut(@current_school.name, 15) %></div>
-<br /><br />
+
 <%
        boards = ( all_boards.count > max_num_boards ? 
                      all_boards[0..max_num_boards - 1] : all_boards )
@@ -67,8 +77,11 @@
        end # of if all_boards.count > max_num_boards
      end # end of !all_boards.empty?
 %>
-</div>
+
 <%
      end # end of if !@school.nil?
+%>
+</div>
+<%
    end  # end of if !current_user.schools.empty?
 %>

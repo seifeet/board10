@@ -1,9 +1,9 @@
 <div id="boards_area">
+<div class="background_write">My Boards</div>
+<br /><br />
 <% all_boards = current_user.boards.where(:active => true)
    if all_boards.empty? 
 %>
-	<div class="background_write">My Boards</div>
-	<br class="clearBoth" />
 	<div class="note">
 		<p>This area is empty because your profile has not been linked to any boards yet.<br />
      	In order to become a member of a board please click on BOARDS -> JOIN.<br />
@@ -12,8 +12,13 @@
 		You will become a member of the board as soon as the owner confirms your request.</p>
 	</div>
 <% else %>
-<div class="background_write">My Boards</div>
-<br /><br />
+
+<% if all_boards.count >= 1 %>
+<div class="secondary_menu_button clickable">
+<%= link_to "All My Boards", home_path + '?act=boards' %>
+</div>
+<% end %>
+
 <%
 	boards = ( all_boards.count > max_num_boards ?
 	all_boards[0..max_num_boards-1] : all_boards )
