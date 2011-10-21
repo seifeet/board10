@@ -100,7 +100,7 @@
     text-align: center;
     padding: 1em;
     cursor: default;
-    @include rounded-corners;
+    @include rounded-corners( 1em, #fcd6c1 );
 }
 .apple_pagination a, .apple_pagination span {
     padding: 0.2em 0.3em;
