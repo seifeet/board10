@@ -16,26 +16,29 @@
     // Get the total number of pages from the last numbered pagination link
     last_pagination_link = $(".apple_pagination a").not(".next_page, .previous_page").last();
     
-    settings.total_pages = getPageNumber(last_pagination_link.attr('href'));
+	if (last_pagination_link.length)
+	{
+		settings.total_pages = getPageNumber(last_pagination_link.attr('href'));
 
-  	// If pagination exists, hide existing and append the bottomless pagination html
-    if ($('div.apple_pagination').size() > 0){
-      $('div.apple_pagination').wrap("<div class='pagination_links'></div>").hide();
-      
-      $('.pagination_links').append(
-        "<div class='clearfix live_pagination'><div>" +
-          "<a class='more_links'>More " + settings.objName + "<span class='icon'></span></a>" +
-        "</div></div>"
-      );
+		// If pagination exists, hide existing and append the bottomless pagination html
+		if ($('div.apple_pagination').size() > 0){
+		  $('div.apple_pagination').wrap("<div class='pagination_links'></div>").hide();
+		  
+		  $('.pagination_links').append(
+			"<div class='clearfix live_pagination'><div>" +
+			  "<a class='more_links'>More " + settings.objName + "<span class='icon'></span></a>" +
+			"</div></div>"
+		  );
 
-      // Setup the loader. If no image provided use a text message. Loader is initially hidden.
-      if ((settings.ajaxLoaderPath == '') || (settings.ajaxLoaderPath == null)) {
-        $(".more_links").after("<div class='now_loading'>Loading...</div>");
-      } else {
-        $(".more_links").after("<div class='now_loading'><img src='"+settings.imgLoader.src+"' /></div>");
-      }
-      
-      $(".now_loading").hide();
+		  // Setup the loader. If no image provided use a text message. Loader is initially hidden.
+		  if ((settings.ajaxLoaderPath == '') || (settings.ajaxLoaderPath == null)) {
+			$(".more_links").after("<div class='now_loading'>Loading...</div>");
+		  } else {
+			$(".more_links").after("<div class='now_loading'><img src='"+settings.imgLoader.src+"' /></div>");
+		  }
+		  
+		  $(".now_loading").hide();
+	  }
     }
     
     $(".more_links").click(function(e){
