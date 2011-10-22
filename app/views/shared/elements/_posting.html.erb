@@ -1,56 +1,53 @@
-<div class="inline">
-	<%= link_to strip_and_cut(element.content, 120), posting_path(element) %>
-</div>
-
-<% unless element.view_count == 0 %>
-<div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
-<% end %>
-
-<% if element.access == Posting::PRIVATE %>
-<div class="inline"><i><font color="red"><%= element.access %></font></i></div>
-<% end %>
-
 <% if !read_only && current_user.id == element.user_id %>
-<div class="delete_button">
-	<%= link_to 'Del', element, confirm: 'Are you sure?', method: :delete %>
+<div class="edit_button">
+	<%= link_to 'Edit', edit_posting_path(element) %>
 </div>
-<div class="edit_button"><%= link_to 'Edit', edit_posting_path(element) %></div>
 <% end %>
-
-<br class="clearBoth" />
-
-<% if !element.subject.nil? && !element.subject.empty? %>
-<div class="inline"><%= ( "Subject: \"" + strip_and_cut(element.subject,120) ) + "\"" %></div>
-<% end %>
-
-<div class="inline">
-	posted by
-	<% if element.active_user %>
-	<% if current_user.id == element.user_id %>
-	you
-	<% elsif user = element.user %>
-	<%= link_to "#{user.full_name}", user_path(element.user_id) %>
-	<% else %>
-	Unknown user
+	
+<div class="posting_left_column">
+	<% if !element.subject.nil? && !element.subject.empty? %>
+	<div class="inline subject"><%= ( strip_and_cut(element.subject,120) ) %></div>
+	<br class="clearBoth" />
 	<% end %>
-	<% else %>
-	Unknown user
+
+	<div class="inline clickable">		
+		<% if element.active_user %>
+			<% if current_user.id == element.user_id %>
+			posted by me
+			<% elsif user = element.user %>
+				<%= link_to "#{user.full_name}", user_path(element.user_id) %>
+			<% else %>Unknown user<% end %>
+		<% else %>Unknown user<% end %>
+	</div>
+		
+	<% unless element.created_at.nil? %>
+		<div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
+	<% end %>
+	
+	<br class="clearBoth" />	
+	<div class="inline clickable">
+		<% if board = Board.find_board(element.board_id) %>
+		<%= link_to "#{strip_and_cut(board.title,30)}", home_path + "?board=#{element.board_id}" %>
+		<% else %>
+		<i>(Board was removed)</i>
+		<% end %>
+	</div>
+	
+	<br class="clearBoth" />
+	<% if !board.nil? && !board.school_id.nil? %>
+	<% school = School.find_school(board.school_id) %>
+	<div class="inline clickable"><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}" %></div>
 	<% end %>
 </div>
 
-<% unless element.created_at.nil? %>
-<div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
-<% end %>
-
-<div class="inline clickable">
-	<% if board = Board.find_board(element.board_id) %>
-	on Board <%= link_to "#{strip_and_cut(board.title,30)}", home_path + "?board=#{element.board_id}" %>
-	<% else %>
-	<i>(Board was removed)</i>
- 	<% end %>
+<div class="posting_right_column clickable">	
+	<div class="inline">
+	<%= link_to strip_and_cut(element.content, 300), posting_path(element) %>
+	</div>
+	<% unless element.view_count == 0 %>
+	<div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
+	<% end %>
+	<% if element.access == Posting::PRIVATE %>
+	<div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
+	<% end %>
 </div>
-
-<% if !board.nil? && !board.school_id.nil? %>
-<% school = School.find_school(board.school_id) %>
-<div class="inline clickable">in <%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}" %></div>
-<% end %>

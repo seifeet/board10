@@ -1,6 +1,15 @@
 (function($){
   var settings;
   
+  // transform buttons into context menu
+  $.toggleContextMenu = function(element) {
+		element.find(".edit_button").hide();
+		element.bind("contextmenu", function(e) {
+			$(this).find(".edit_button").toggle(500);
+			return false;
+		});
+  };
+  
   $.bottomlessPagination = function(callerSettings) {
     settings = $.extend({
       ajaxLoaderPath:'../../assets/loading.gif',
@@ -12,7 +21,7 @@
     settings.imgLoader = new Image();
     settings.imgLoader.src = settings.ajaxLoaderPath;
     settings.href = $(".next_page").attr("href");
-    
+
     // Get the total number of pages from the last numbered pagination link
     last_pagination_link = $(".apple_pagination a").not(".next_page, .previous_page").last();
     
@@ -25,7 +34,7 @@
 		  $('div.apple_pagination').wrap("<div class='pagination_links'></div>").hide();
 		  
 		  $('.pagination_links').append(
-			"<div class='clearfix live_pagination'><div>" +
+			"<div class='live_pagination clearfix'><div>" +
 			  "<a class='more_links'>More " + settings.objName + "<span class='icon'></span></a>" +
 			"</div></div>"
 		  );
@@ -56,29 +65,36 @@
       return false;
     });
     
-    $.fn.addrows = function(data) {
-      curr_page = getPageNumber(settings.href);
-	  $(data).find('.posting_element').each(function(index) {
-		$(settings.results).append($(this));
-	  });
-      
-      // Replace live pagination if there are no more results, else update the href for the next page
-      if (curr_page == settings.total_pages) {
-        $('.live_pagination').remove();
-        $('.pagination_links').append('<div class="live_pagination back_to_top"><a href="#" class="top">Back to top &uarr;</a></div>');
-        return false;
-      } else {
-        next_page = curr_page + 1;
-        settings.href = settings.href.replace('page=' + curr_page, 'page=' + next_page.toString());
-      }
-      
-      if (settings.callback) settings.callback();
+	$.fn.addrows = function(data) {
+		if(typeof settings.href !== 'undefined' && settings.href.length) {
+			curr_page = getPageNumber(settings.href);
+			$(data).find('.posting_element').each(function(index) {
+				$(settings.results).append($(this));
+				$.toggleContextMenu($(this));
+			}); 
+
+			// Replace live pagination if there are no more results, else update the href for the next page
+			if (curr_page == settings.total_pages) {
+				$('.live_pagination').remove();
+				$('.pagination_links').append('<div class="live_pagination"></div>');
+				return false;
+			} else {
+				next_page = curr_page + 1;
+				settings.href = settings.href.replace('page=' + curr_page, 'page=' + next_page.toString());
+			}
+
+			if (settings.callback) settings.callback();
+		} else {
+			$('.live_pagination').remove();
+			$('.pagination_links').append('<div class="live_pagination"></div>');
+			return false;
+		}
     };
     
     function getPageNumber(url) {
-      pageRE = /page=(\d+)/;
-      pageMatch = url.match(pageRE);
-      return parseInt(pageMatch[1]);
+		pageRE = /page=(\d+)/;
+		pageMatch = url.match(pageRE);
+		return parseInt(pageMatch[1]);
     };
     
   };

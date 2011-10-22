@@ -5,6 +5,7 @@
   <%= render 'layouts/stylesheets' %>
   <%= javascript_include_tag :application, :debug => true %>
   <%= yield :head_css %>
+  <%= yield :head_js %>
   <%= csrf_meta_tags %>
 </head>
 <body>

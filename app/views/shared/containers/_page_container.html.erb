@@ -1,13 +1,15 @@
 <%= render 'shared/containers/container', :container => page_container %>
 <% if !page_container.nil? && !page_container.empty? %>
+
 <div class="apple_pagination clickable">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
-
 <script type="text/javascript">
-$.bottomlessPagination();
+	$(window).ready(function() {
+		$.bottomlessPagination();
+		$.toggleContextMenu($(".posting_element"));
+	});
 </script>
-
 <% end %>
 
 
