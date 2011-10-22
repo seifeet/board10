@@ -40,9 +40,9 @@
 	<% end %>
 </div>
 
-<div class="posting_right_column clickable">	
+<div class="posting_right_column">	
 	<div class="inline">
-	<%= link_to strip_and_cut(element.content, 300), posting_path(element) %>
+	<%= link_to strip_and_cut(element.content, 300), posting_path(element), :target => "_blank" %>
 	</div>
 	<% unless element.view_count == 0 %>
 	<div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
