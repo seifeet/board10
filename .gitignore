@@ -2,6 +2,7 @@
 db/*.sqlite3*
 log/*.log
 *.log
+*.bak
 /tmp/
 doc/
 *.swp

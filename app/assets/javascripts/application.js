@@ -13,82 +13,82 @@
 
 if(history && history.pushState ) {
 
-	$(function() {
+    $(function() {
 
-	    $(".clickable a").live("click", function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.getScript(this.href);
-			history.pushState(null, document.title, this.href);
-			return false;
-		});
-		
+        $(".clickable a").live("click", function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.getScript(this.href);
+            history.pushState(null, document.title, this.href);
+            return false;
+        });
+        
         /* do not remove this function anymore
          * (withot it a new page will not reload after history events (e.g. Back)) */
-		$(window).bind("popstate", function() {
-			$.getScript(location.href);
-		});
+        $(window).bind("popstate", function() {
+            $.getScript(location.href);
+        });
 
-		$("#users_search").submit(function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#users_search").attr("action") + "?" + $("#users_search").serialize());
-			return false;
-		});
-		
-	    $("#boards_search").submit(function() {
-	    	$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#boards_search").attr("action") + "?" + $("#boards_search").serialize());
-			return false;
-		});
-		
-	    $("#schools_search").submit(function() {
-	    	$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#schools_search").attr("action") + "?" + $("#schools_search").serialize());
-			return false;
-		});
-		
-		$("#tab_schools_search").submit(function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
-			return false;
-		});
-		
-		$("#new_user_board").submit(function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, this.href);
-			return false;
-		});
-		
-		/*$(".inline_right .new_message").submit(function() {
-			$.get(this.action, $(this).serialize(), null, "script");
-			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
-			return false;
-		});*/
-		
-		/*$("#tab_schools_search input").keyup(function() {
-			$.get($("#tab_schools_search").attr("action"), $("#tab_schools_search").serialize(), null, "script");
-			history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
-			return false;
-		});*/
-		
-		$(".submitable").submit(function() {
-			$(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
-			$.get(this.action, $(this).serialize(), null, "script");
-			//history.pushState(null, document.title, this.href);
-			return false;
-		});
-	});
+        $("#users_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#users_search").attr("action") + "?" + $("#users_search").serialize());
+            return false;
+        });
+        
+        $("#boards_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#boards_search").attr("action") + "?" + $("#boards_search").serialize());
+            return false;
+        });
+        
+        $("#schools_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#schools_search").attr("action") + "?" + $("#schools_search").serialize());
+            return false;
+        });
+        
+        $("#tab_schools_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+            return false;
+        });
+        
+        $("#new_user_board").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, this.href);
+            return false;
+        });
+        
+        /*$(".inline_right .new_message").submit(function() {
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+            return false;
+        });*/
+        
+        /*$("#tab_schools_search input").keyup(function() {
+            $.get($("#tab_schools_search").attr("action"), $("#tab_schools_search").serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+            return false;
+        });*/
+        
+        $(".submitable").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            //history.pushState(null, document.title, this.href);
+            return false;
+        });
+    });
 }
 
 $(function() {
-	
-	$("#new_posting").live("ajax:complete", function(event, xhr, status) {
-		$('#editor').val('');
-	});
+    
+    $("#new_posting").live("ajax:complete", function(event, xhr, status) {
+        $('#editor').val('');
+    });
 
 });
 /*

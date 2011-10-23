@@ -15,70 +15,70 @@ $btn-font-size: 16px;
 //$right-side-bar: 150px;
 
 @mixin rounded-corners($radius: 1em, $shadow: #666){
-	border-radius: $radius;
-	-moz-border-radius: $radius;
-	-webkit-border-radius: $radius;
-	box-shadow: 1px 1px 2px $shadow;
-	-moz-box-shadow: 1px 1px 2px $shadow;
-	-webkit-box-shadow: 1px 1px 2px $shadow;
-	outline: 0;
-	-webkit-appearance: none;
-	
-	&:focus {
-		border-color: #2c8e57;
-	}
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    box-shadow: 1px 1px 2px $shadow;
+    -moz-box-shadow: 1px 1px 2px $shadow;
+    -webkit-box-shadow: 1px 1px 2px $shadow;
+    outline: 0;
+    -webkit-appearance: none;
+    
+    &:focus {
+        border-color: #2c8e57;
+    }
 }
 
 @mixin bkground-image($from: $backgrnd, $to: #FFB673 ){
-  background-color: $to; 
-   /* fallback image */
-  //background-image: url(images/fallback-gradient.png); 
-   /* Safari 4+, Chrome 1-9 */
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
-   /* Safari 5.1+, Mobile Safari, Chrome 10+ */
-  background-image: -webkit-linear-gradient(left, $from, $to);
-   /* Firefox 3.6+ */
-  background-image: -moz-linear-gradient(left, $from, $to);
-   /* IE 10+ */
-  background-image: -ms-linear-gradient(left, $from, $to);
-   /* Opera 11.10+ */
-  background-image: -o-linear-gradient(left, $from, $to);
+    background-color: $to; 
+    /* fallback image */
+    //background-image: url(images/fallback-gradient.png); 
+    /* Safari 4+, Chrome 1-9 */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+    /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+    background-image: -webkit-linear-gradient(left, $from, $to);
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(left, $from, $to);
+    /* IE 10+ */
+    background-image: -ms-linear-gradient(left, $from, $to);
+    /* Opera 11.10+ */
+    background-image: -o-linear-gradient(left, $from, $to);
 
-  //background-image: -linear-gradient(left, $from, $to);
-  //@include main-shadow;
+    //background-image: -linear-gradient(left, $from, $to);
+    //@include main-shadow;
 }
 
 @mixin action-button($bk_color){
-  color: $lightest;
-  font-weight: bold;
-  background-color: $bk_color;
-  border: 1px solid transparent;
-  padding: 5px;
-  @include rounded-corners(20px);
-  
-  &:hover {
-    color: $bk_color;
-    background: transparent;
-    cursor: pointer;
-    border: 1px solid $bk_color;
-  }
+    color: $lightest;
+    font-weight: bold;
+    background-color: $bk_color;
+    border: 1px solid transparent;
+    padding: 5px;
+    @include rounded-corners(20px);
+
+    &:hover {
+        color: $bk_color;
+        background: transparent;
+        cursor: pointer;
+        border: 1px solid $bk_color;
+    }
 }
 
 @mixin main-button($bkcolor: $darker){
-  margin: 2px;
-  border:1px solid $bkcolor;
-  background: $bkcolor;
-  padding: .5em;
-  display:block;
-  text-align:center;
-  color:#fff;
-  text-decoration:none;
-  font-weight: bold;
-  line-height:.5em;
-  @include rounded-corners;
-  &:hover{
-    @include main-hover( $bkcolor );
-  }
+    margin: 2px;
+    border:1px solid $bkcolor;
+    background: $bkcolor;
+    padding: .5em;
+    display:block;
+    text-align:center;
+    color:#fff;
+    text-decoration:none;
+    font-weight: bold;
+    line-height:.5em;
+    @include rounded-corners;
+    &:hover{
+        @include main-hover( $bkcolor );
+    }
 }
 @mixin main-shadow($clr: $darker){
   -moz-box-shadow: 5px 5px 5px $clr;
@@ -94,114 +94,114 @@ $btn-font-size: 16px;
 
 /************************* body ******************************/
 body{
-  min-width:100em;
-  margin:0;
-  padding: 0 0 0 0;    //0 $right-side-bar $footer-height 0; 
-  color:$font-color;
-  font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
-  font-size: 12px; //small;
-  @include bkground-image;
-  /* MS */
-  zoom:1;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
+    min-width:100em;
+    margin:0;
+    padding: 0 0 0 0;    //0 $right-side-bar $footer-height 0; 
+    color:$font-color;
+    font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
+    font-size: 12px; //small;
+    @include bkground-image;
+    /* MS */
+    zoom:1;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
 }
 /*********************** logo ***********************************/
 #logo{
-  @include bkground-image($header-backgrnd);
-  float:left;   
-  width: 100%;
-  color:white;
-  font-size: xx-large;
-  font-weight: bold;
-  /* MS */
-  zoom:1;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FFB673', GradientType=1);
+    @include bkground-image($header-backgrnd);
+    float:left;   
+    width: 100%;
+    color:white;
+    font-size: xx-large;
+    font-weight: bold;
+    /* MS */
+    zoom:1;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FFB673', GradientType=1);
 }  
 #wide_line{
-  float: left;   
-  width: 100%;    
-  height: 6em; // controls height where context starts
+    float: left;   
+    width: 100%;    
+    height: 6em; // controls height where context starts
 }
 .loading{
-  padding:3em;
+    padding:3em;
 }
 #wider_line{
-  @include bkground-image($header-backgrnd,$backgrnd);
-  float:left;
-  width:100%;
-  height: 16em;
-  /* MS */
-  zoom:1;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FF9E73', GradientType=1);
+    @include bkground-image($header-backgrnd,$backgrnd);
+    float:left;
+    width:100%;
+    height: 16em;
+    /* MS */
+    zoom:1;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#FF4F00', endColorstr='#FF9E73', GradientType=1);
 }
 
 .logo_link a{
-  float:right;
-  font-style: italic;
-  color:white;
-  font-size:large;
-  text-decoration:none;
-  margin: 5px 25px 0 0;
+    float:right;
+    font-style: italic;
+    color:white;
+    font-size:large;
+    text-decoration:none;
+    margin: 5px 25px 0 0;
 }
 /*********************** content ***********************************/
 .button_confirm{
-  @include action-button($btn-confirm);
+    @include action-button($btn-confirm);
 }
 .button_reject{
-  @include action-button($btn-reject);
+    @include action-button($btn-reject);
 }
 .button_neutral{
-  @include action-button($darker);
+    @include action-button($darker);
 }
 /*********************** shared folder ***********************************/
 #_title_nav{
-  float:right;
-  width:20%;
-  background:transparent;
-  font-weight:normal;
-  font-size:small;
-  color:$darkest;
+    float:right;
+    width:20%;
+    background:transparent;
+    font-weight:normal;
+    font-size:small;
+    color:$darkest;
 }
 #_title{
-  font-weight: bold;
+    font-weight: bold;
 }
 #_desc{
 }
 #sign_out{
-  float:right;
+    float:right;
 }
 
 ._sub_title{
-  font-weight:bold;
+    font-weight:bold;
 }
 ._sub_title_action a{
-  float: left;
-  border:2px solid $darker;
-  @include bkground-image;
-  padding: 1em;
-  display:block;
-  text-align:center;
-  /* background:#eee; nav button color */
-  color:$darker;
-  text-decoration:none;
-  font-weight: bold;
-  line-height:.05em;
-  @include rounded-corners;
+    float: left;
+    border:2px solid $darker;
+    @include bkground-image;
+    padding: 1em;
+    display:block;
+    text-align:center;
+    /* background:#eee; nav button color */
+    color:$darker;
+    text-decoration:none;
+    font-weight: bold;
+    line-height:.05em;
+    @include rounded-corners;
 }
 ._sub_title_nav a:hover {
-  background:$darker; /* nav hover color */
-  color:lighten($darker, 70%);
-  font-weight: bold;
+    background:$darker; /* nav hover color */
+    color:lighten($darker, 70%);
+    font-weight: bold;
 }
 
 .generic_container{
-  float:left;
-	width: 99%;
-  margin: 2px auto;
-  border: 3px solid $backgrnd;
-  border-radius: 5px;
-  padding:1px;
-	color: $darkest;
+    float:left;
+    width: 99%;
+    margin: 2px auto;
+    border: 3px solid $backgrnd;
+    border-radius: 5px;
+    padding:1px;
+    color: $darkest;
 }
 .generic_container div.posting_element:hover,
 .generic_container div.user_element:hover,
@@ -211,92 +211,98 @@ body{
     /*color:lighten($backgrnd, 70%);*/
 }
 .small_container{
-  float:left;
-  width: 99%;
-  margin: 1px auto;
-  border: 1px solid $backgrnd;
-  @include rounded-corners(3px);
-  padding:1px;
-  color: $darkest;
+    float:left;
+    width: 99%;
+    margin: 1px auto;
+    border: 1px solid $backgrnd;
+    @include rounded-corners(3px);
+    padding:1px;
+    color: $darkest;
 }
 .small_container div.small_element:hover{
-  background:$light;
+    background:$light;
 } 
 .small_element{
-  width: 99%;
-  margin: 1px auto;
-  @include bkground-image;
-  border:1px solid $backgrnd;
-  padding:2px;
-  //@include rounded-corners(3px);
+    width: 99%;
+    margin: 1px auto;
+    @include bkground-image;
+    border:1px solid $backgrnd;
+    padding:2px;
+    //@include rounded-corners(3px);
 }
 .school_element,
 .posting_element,
 .user_element,
 .board_element,
 .member_element{
-	width: auto;
-	margin: 2px auto;
-	@include bkground-image;
-	border:3px solid $backgrnd;
-	padding:1px;
-	border-radius: 5px;
+    width: auto;
+    margin: 2px auto;
+    @include bkground-image;
+    border:3px solid $backgrnd;
+    padding:1px;
+    border-radius: 5px;
 }
 
 .edit_button a{
-	float: right;
-	@include main-button( $btn-confirm );
+    float: right;
+    @include main-button( $btn-confirm );
 }
 
 .delete_button a{
-	float: right;
-	@include main-button( $btn-reject );
+    float: right;
+    @include main-button( $btn-reject );
 }
 
 .action_button a{
-	float: right;
-	@include main-button( $darker );
+    float: right;
+    @include main-button( $darker );
 }
 
 .close_button a{
-	@include main-button( $darker );
+    @include main-button( $darker );
 }
 
 .clickable a{
-	text-decoration: none;
-	color:#000;
-	&:hover {
-		text-decoration: underline;
-	}
-	
-	&:active {
-		text-decoration: none;
-	}
+    color:#000;
+}
+
+.link_to_text{
+    text-decoration: none;
+    color:#000;
+    display: block;
+    width: 99%;
+    &:hover {
+        text-decoration: none;
+    }
+    
+    &:active {
+        text-decoration: none;
+    }
 }
 
 .posting_element .subject{
-	color:#A62F00;
-	font-weight: bold;
+    color:#A62F00;
+    font-weight: bold;
 }
 
 .posting_left_column
 {
-	float: left;
-	width: 180px;
-	margin: 0;
-	padding: 1em;
+    float: left;
+    width: 180px;
+    margin: 0;
+    padding: 1em;
 }
 
 .posting_right_column
 {
-	margin-left: 220px;
-	border-left: 1px solid gray;
-	padding: 1em;
+    margin-left: 220px;
+    border-left: 1px solid gray;
+    padding: 1em;
 }
 
 .clearBoth { clear:both; }
-.inline{ float: left; margin: 2px; }
-.inline_right{ float: right; margin: 2px; }
+.inline{ float: left; margin: 2px; width: 99%; }
+.inline_right{ float: right; margin: 2px; width: 99%; }
 
 /*********************** clearfix ***********************************/
 .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
@@ -305,80 +311,82 @@ body{
 
 /*********************** buttons ***********************************/
 .signin_container .text_big{
-  margin: auto;
-	padding: 5px 5px 5px 5px;
-	font-size: $btn-font-size;
-	background-color: #fff;
-	width: 95%;
+    margin: auto;
+    padding: 5px 5px 5px 5px;
+    font-size: $btn-font-size;
+    background-color: #fff;
+    width: 95%;
 }
 
 .signin_container .button_with_img, a.button_with_img {
-	display: block;
-	margin: auto;
-	padding: 10px 10px 10px 10px;
-	text-decoration: none;
-	text-align:center;
-	font-weight: normal;
-	font-size: $btn-font-size;
-	color: #fff;
-	background-image:url('../../assets/knopkibolwie.png');
-	width:95%;
-	cursor: pointer;
+    display: block;
+    margin: auto;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    text-align:center;
+    font-weight: normal;
+    font-size: $btn-font-size;
+    color: #fff;
+    background-image:url('../../assets/knopkibolwie.png');
+    width:95%;
+    cursor: pointer;
 }
 
 .signin_container .button_green, a.button_green {
-	border-color: #2c8e57;
-	background-color: #2c8e57;
-	background-position: 0 -150px;
-	@include rounded-corners(20px, #019245);
-	&:hover {
-		background-position: 0 -200px;
-		border-color: #306302;
-		@include rounded-corners(20px, #78b494);
-	}
-	
-	&:active {
-		@include rounded-corners(20px, #019245);
-	}
+    border-color: #2c8e57;
+    background-color: #2c8e57;
+    background-position: 0 -150px;
+    @include rounded-corners(20px, #019245);
+    &:hover {
+        background-position: 0 -200px;
+        border-color: #306302;
+        @include rounded-corners(20px, #78b494);
+    }
+    
+    &:active {
+        @include rounded-corners(20px, #019245);
+    }
 }
 
 .signin_container .button_grey, a.button_grey {
-	border-color: #303030;
-	background-color: #303030;
-	background-position: 0 0px;
-	@include rounded-corners(20px, #313130);
-	
-	&:hover {
-		background-position: 0 -50px;
-		border-color: #306302;
-		@include rounded-corners(20px, #6f6f6f);
-	}
-	
-	&:active {
-		@include rounded-corners(20px, #313130);
-	}
+    border-color: #303030;
+    background-color: #303030;
+    background-position: 0 0px;
+    @include rounded-corners(20px, #313130);
+    
+    &:hover {
+        background-position: 0 -50px;
+        border-color: #306302;
+        @include rounded-corners(20px, #6f6f6f);
+    }
+    
+    &:active {
+        @include rounded-corners(20px, #313130);
+    }
 }
 
 .flash_error{
-  color: red;
-  width: auto;
+    color: red;
+    width: auto;
 }
 
 .flash_msg{
-  color: green;
-  padding: 3px 3px 3px 3px;;
+    color: green;
+    padding: 3px 3px 3px 3px;
 }
 
 .more_links{
-  float: right;
-  padding: 5px;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-  }
+    float: right;
+    padding: 5px;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .now_loading, .live_pagination{
-  float: right;
-  padding: 5px;
+    float: right;
+    padding: 5px;
+    float: right;
+    padding: 5px;
 }
