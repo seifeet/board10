@@ -8,7 +8,7 @@ module HomeHelper
     end
     
     def max_num_boards
-      4
+      3
     end
       
     def max_num_schools

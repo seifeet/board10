@@ -9,6 +9,7 @@
 </div>
 
 <% else # !current_user.schools.empty?
+    @current_school = current_user.schools.find_school(params[:school])
     schools = 
         ( current_user.schools.count > max_num_schools ? 
             current_user.schools[0..max_num_schools-1] :
