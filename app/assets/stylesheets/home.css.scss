@@ -46,8 +46,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 #user_title_nav{ // right side navigation with schools, boards etc.
     float:right;
-    width:$rignt-nav-bar;
-    min-width:20em;
+    padding: 0 10px 0 0;
 }
 #right_side_act{
     position:absolute;
