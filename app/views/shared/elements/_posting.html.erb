@@ -7,7 +7,6 @@
 <div class="posting_left_column clearfix">
     <% if !element.subject.nil? && !element.subject.empty? %>
     <div class="inline subject"><%= ( strip_and_cut(element.subject,120) ) %></div>
-    <br class="clearBoth" />
     <% end %>
 
     <div class="inline">        
@@ -23,8 +22,7 @@
     <% unless element.created_at.nil? %>
         <div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
     <% end %>
-    
-    <br class="clearBoth" />    
+  
     <div class="inline clickable">
         <% if board = Board.find_board(element.board_id) %>
         <%= link_to "#{strip_and_cut(board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text" %>
@@ -32,8 +30,7 @@
         <i>(Board was removed)</i>
         <% end %>
     </div>
-    
-    <br class="clearBoth" />
+
     <% if !board.nil? && !board.school_id.nil? %>
     <% school = School.find_school(board.school_id) %>
     <div class="inline clickable"><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></div>

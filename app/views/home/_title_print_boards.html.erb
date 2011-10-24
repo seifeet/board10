@@ -1,16 +1,15 @@
 <div id="boards_area">
 <div class="background_write">My Boards</div>
-<br /><br />
 <% all_boards = current_user.boards.where(:active => true)
    if all_boards.empty? 
 %>
-	<div class="note">
-		<p>This area is empty because your profile has not been linked to any boards yet.<br />
-     	In order to become a member of a board please click on BOARDS -> JOIN.<br />
-		Then search for a board of your interest and click Join. 
-		That will send your message to the board's owner. 
-		You will become a member of the board as soon as the owner confirms your request.</p>
-	</div>
+    <div class="note">
+        <p>This area is empty because your profile has not been linked to any boards yet.<br />
+         In order to become a member of a board please click on BOARDS -> JOIN.<br />
+        Then search for a board of your interest and click Join. 
+        That will send your message to the board's owner. 
+        You will become a member of the board as soon as the owner confirms your request.</p>
+    </div>
 <% else %>
 
 <% if all_boards.count >= 1 %>
@@ -20,27 +19,27 @@
 <% end %>
 
 <%
-	boards = ( all_boards.count > max_num_boards ?
-	all_boards[0..max_num_boards-1] : all_boards )
-	boards.each do |board|
-	  if board.id.to_s == params[:board]
-     	 @current_board = board
+    boards = ( all_boards.count > max_num_boards ?
+    all_boards[0..max_num_boards-1] : all_boards )
+    boards.each do |board|
+      if board.id.to_s == params[:board]
+          @current_board = board
 %>
 <div class="secondary_menu_button selected">
 <%    else %>
 <div class="secondary_menu_button">
 <%    end %>
-	<%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+    <%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
 </div>
 <%
-	end # end of @current_school do-loop
-	if all_boards.count > max_num_boards
+    end # end of @current_school do-loop
+    if all_boards.count > max_num_boards
 %>
 <div class="secondary_menu_button">
-	<%= link_to "MORE", home_path+"?act=boards&subact=nav",{:confirm => "Your other boards are listed on the right bar."} %>
+    <%= link_to "MORE", home_path+"?act=boards&subact=nav",{:confirm => "Your other boards are listed on the right bar."} %>
 </div>
 <%
-	end # of if all_boards.count > max_num_boards
+    end # of if all_boards.count > max_num_boards
 end # end of !all_boards.empty?
 %>
 </div>

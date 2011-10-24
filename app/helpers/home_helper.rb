@@ -12,6 +12,6 @@ module HomeHelper
     end
       
     def max_num_schools
-      3
+      4
     end
 end

@@ -1,87 +1,84 @@
 <% if current_user.schools.empty? %>
-<div id="schools_area">
-	<div class="background_write">My Schools</div>
-	<br class="clearBoth" />
-	<div class="note">
-		<p>This area is empty because you currently don't have any schools linked to your profile.<br />
-		In order to add a school of your interest please click on SCHOOLS and ADD.
-	    Then search for your school and click Add near the school's name in the search results.</p>
-	</div>
+<div id="schools_area" class="clearfix">
+    <div class="background_write">My Schools</div>
+    <div class="note">
+        <p>This area is empty because you currently don't have any schools linked to your profile.<br />
+        In order to add a school of your interest please click on SCHOOLS and ADD.
+        Then search for your school and click Add near the school's name in the search results.</p>
+    </div>
 </div>
 
 <% else # !current_user.schools.empty?
-     schools = 
-       ( current_user.schools.count > max_num_schools ? 
-           current_user.schools[0..max_num_schools-1] :
-            current_user.schools )
+    schools = 
+        ( current_user.schools.count > max_num_schools ? 
+            current_user.schools[0..max_num_schools-1] :
+                current_user.schools )
 %>
-<div id="schools_area">
-	<div class="background_write">My Schools</div>
-	<br /><br />
+<div id="schools_area" class="clearfix" >
+    <div class="background_write">My Schools</div>
 <%
-     schools.each do |school|
+    schools.each do |school|
        if school.id.to_s == params[:school]
-     	 @current_school = school 
+          @current_school = school 
 %>
-	 <div class="secondary_menu_button selected">
-<%      else %>
-     <div class="secondary_menu_button">
-<%      end %>
-     <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + "?school=" + school.id.to_s ,{:title => "School: #{school.name}"} %>
-     </div>
+    <div class="secondary_menu_button selected clearfix">
+<%     else %>
+    <div class="secondary_menu_button clearfix">
+<%     end %>
+    <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + "?school=" + school.id.to_s ,{:title => "School: #{school.name}"} %>
+    </div>
 <%   
-     end # end of do loop
+    end # end of do loop
 %>
+
 <%   if current_user.schools.count > max_num_schools %>
-	<div class="secondary_menu_button">
+    <div class="secondary_menu_button clearfix">
      <%= link_to "MORE", home_path+"?act=schools&subact=nav",{:confirm => "Your other schools are listed on the right bar."} %>
     </div>
-<%   end %>
+<% end %>
 </div> <!-- end of school_area -->
 
-
-
-<div id="boards_area">
 <% 
      if !@current_school.nil?
 %>
-<div class="background_write"><%= strip_and_cut(@current_school.name, 15) %></div>
-<br /><br />
+<div id="boards_area" class="clearfix" >
+<div class="background_write clearfix" ><%= strip_and_cut(@current_school.name, 15) %></div>
+
 <% if current_user.boards.where(:active => true).count >= 1 %>
-<div class="secondary_menu_button clickable">
+<div class="secondary_menu_button clickable clearfix" >
 <%= link_to "All My Boards", home_path + '?act=boards' %>
 </div>
 <% end %>
 
 <%
-     all_boards = @current_school.boards.where(:active => true)
-     if !all_boards.empty?
+    all_boards = @current_school.boards.where(:active => true)
+    if !all_boards.empty?
 %>
 
 <%
-       boards = ( all_boards.count > max_num_boards ? 
-                     all_boards[0..max_num_boards - 1] : all_boards )
-       boards.each do |board|
+        boards = ( all_boards.count > max_num_boards ? 
+                    all_boards[0..max_num_boards - 1] : all_boards )
+        boards.each do |board|
 %>
-   <div class="secondary_menu_button">
-   	<%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
-   </div>
-<%
-       end # end of @current_school do-loop
-       if all_boards.count > max_num_boards
-%>
-    <div class="secondary_menu_button">
-     <%= link_to "MORE", home_path+"?boards=on",{:confirm => "Your other boards are listed on the right bar."} %>
+    <div class="secondary_menu_button clearfix" >
+        <%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
     </div>
 <%
-       end # of if all_boards.count > max_num_boards
-     end # end of !all_boards.empty?
+        end # end of @current_school do-loop
+ 
+        if all_boards.count > max_num_boards
 %>
-
+    <div class="secondary_menu_button clearfix">
+        <%= link_to "MORE", home_path+"?boards=on",{:confirm => "Your other boards are listed on the right bar."} %>
+    </div>
 <%
-     end # end of if !@school.nil?
+        end # end of if all_boards.count > max_num_boards
+    end # end of !all_boards.empty?
 %>
 </div>
 <%
-   end  # end of if !current_user.schools.empty?
+    end # end of if !@school.nil?
+%>
+<%
+    end  # end of if !current_user.schools.empty?
 %>
