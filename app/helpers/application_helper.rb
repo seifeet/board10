@@ -1,4 +1,16 @@
 module ApplicationHelper
+  
+  def per_page
+      5
+  end
+    
+  def max_num_boards
+      3
+  end
+      
+  def max_num_schools
+      4
+  end
 
   def avatar_for(user, options = { :size => 50 })
     #gravatar_image_tag(user.email.downcase, :alt => user.full_name,

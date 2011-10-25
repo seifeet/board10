@@ -1,15 +1,9 @@
 Board10::Application.routes.draw do
   
+  match '/home', :to => 'home#index'
   get "home/index"
+  root :to => 'home#index'
   
-  # if I type 'users' it will take me to their index
-  #get 'users' => 'users#index'
-  #post 'users' => 'users#index'
-
-# without the scaffolding conventions to guide it, 
-# Rails has no way of knowing which actions are to respond to GET
-# requests, which are to respond to POST requests,
-# and so on, for session controller, so we define them:
   resources :users
   resources :boards
   resources :members #, :only => [:create, :destroy]
@@ -22,13 +16,8 @@ Board10::Application.routes.draw do
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-  match '/home', :to => 'home#index'
+  match '/signout', :to => 'sessions#destroy'  
   
-  #root :to => 'home#index', :as => 'home'
-   
-  root :to => 'sessions#new'
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

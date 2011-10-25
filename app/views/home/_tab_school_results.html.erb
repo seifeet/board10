@@ -1,11 +1,12 @@
-<% 
-  if current_user?(@user)
-	  if @search_results.nil? && !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-	    @search_results = School.search(params[:search], params[:state], params[:city]).limit(25)
-	  end
-  end
-  
-  if !@search_results.nil? && @search_results.count > 0 
+<% return nil if current_user.nil? %>
+<%
+if @search_results.nil?
+	if !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
+		@search_results = School.search(params[:search], params[:state], params[:city]).limit(25)
+	end
+end
+
+if !@search_results.nil? && @search_results.count > 0
 %>
 <%= render 'shared/containers/small_container', :container => @search_results %>
 <% end %>

@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   include HomeHelper
+  include ApplicationHelper
   before_filter :only_current_user
   
   def index

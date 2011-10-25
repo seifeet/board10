@@ -1,4 +1,5 @@
 class UserSchoolsController < ApplicationController
+  include ApplicationHelper
   # GET /user_schools
   # GET /user_schools.json
   def index
@@ -45,19 +46,24 @@ class UserSchoolsController < ApplicationController
     valid = true
     if ( !user.nil? && !school.nil? && !user.has_school?(school))
       @user_school = UserSchool.new(params[:user_school])
-      @user_school.user_id = user.id
+      current_user.has_school!(@user_school.school_id)
     else
       valid = false
+      flash.now[:error] = "Unable to link this school to your profile."
     end
+    
+    params[:search] = params[:user_school][:search] if !params[:user_school][:search].nil?
+    params[:state] = params[:user_school][:state] if !params[:user_school][:state].nil?
+    params[:city] = params[:user_school][:city] if !params[:user_school][:city].nil?
 
     respond_to do |format|
-      if valid && @user_school.save
+      if valid # && @user_school.save
         format.html { redirect_to session[:return_to], notice: 'School was added to your profile.' }
         format.js
         format.json { render json: @user_school, status: :created, location: @user_school }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user_school.errors, status: :unprocessable_entity }
+      #else
+      #  format.html { render action: "new" }
+      #  format.json { render json: @user_school.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -83,7 +89,9 @@ class UserSchoolsController < ApplicationController
   def destroy
     @user_school = UserSchool.find(params[:id])
     @user_school.destroy
-
+    
+    flash.now[:notice] = "School was removed."
+    
     respond_to do |format|
       format.html { redirect_to session[:return_to] }
       format.js

@@ -1,15 +1,15 @@
 <% if !params[:act].nil? %>
 
 <% if params[:act] == 'school_search' %>
-<%= render 'tab_school_search' %>
+<div id="tab_school_search"><%= render 'home/tab_school_search' %></div>
 <% elsif params[:act] == 'board_search' %>
-<%= render 'tab_board_search' %>
+<div id="tab_board_search"><%= render 'home/tab_board_search' %></div>
 <% elsif params[:act] == 'write' %>
 <%= render 'tab_write_message' %>
 <% elsif params[:act] == 'invite' %>
-<%= render 'tab_invite_search' %>
+<div id="tab_invite_search"><%= render 'home/tab_invite_search' %></div>
 <% elsif params[:act] == 'new_board' %>
-<div class="action_tab"><%= render 'new_board_form' %></div>
+<div class="action_tab"><%= render 'home/new_board_form' %></div>
 <% elsif params[:act] == 'messages' %>
 <% #nothing 
 %>

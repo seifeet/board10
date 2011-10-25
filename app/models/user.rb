@@ -118,6 +118,10 @@ class User < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
     false
   end
+  
+  def has_school!(school_id)
+    user_schools.create!(:school_id => school_id)
+  end
 
   def should_validate_password?
     updating_password || new_record?
