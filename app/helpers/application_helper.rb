@@ -1,15 +1,19 @@
 module ApplicationHelper
   
   def per_page
-      5
+    5
+  end
+  
+  def per_page_search
+    25
   end
     
   def max_num_boards
-      3
+    3
   end
       
   def max_num_schools
-      4
+    4
   end
 
   def avatar_for(user, options = { :size => 50 })

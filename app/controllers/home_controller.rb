@@ -14,14 +14,14 @@ class HomeController < ApplicationController
     if !params[:act].nil?
       if params[:act] == 'school_search'
         if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(per_page)
+          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(per_page_search)
         elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(per_page)
+          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(per_page_search)
         end
       elsif params[:act] == 'board_search'
-        @search_results = Board.search(params[:search]).limit(per_page)
+        @search_results = Board.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'invite'
-        @search_results = User.search(params[:search]).limit(per_page)
+        @search_results = User.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'messages'
         @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
         @postings_title = 'Messages'
