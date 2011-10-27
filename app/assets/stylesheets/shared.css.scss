@@ -175,20 +175,31 @@ body{
 ._sub_title{
     font-weight:bold;
 }
-._sub_title_action a{
-    float: left;
-    border:2px solid $darker;
-    @include bkground-image;
-    padding: 1em;
-    display:block;
-    text-align:center;
-    /* background:#eee; nav button color */
-    color:$darker;
-    text-decoration:none;
-    font-weight: bold;
-    line-height:.05em;
-    @include rounded-corners;
+
+._sub_title_action {
+	margin: auto;
+	text-align:center;
 }
+
+._sub_title_action a {
+    margin: auto;
+    padding: 2px 2px 2px 2px;
+    text-decoration: none;
+    text-align:center;
+    font-weight: bold;
+    font-size: $btn-font-size;
+	overflow:visible;
+    cursor: pointer;
+	color:$darker;
+	@include rounded-corners;
+  
+  &:hover {
+    background:$darker; /* nav hover color */
+    color:lighten($darker, 70%);
+    font-weight: bold;
+  }
+}
+
 ._sub_title_nav a:hover {
     background:$darker; /* nav hover color */
     color:lighten($darker, 70%);
