@@ -8,29 +8,28 @@ $left-side-shift: 3%; // #main_part has a shift left by this amount
 $title-bar: 78%; // $main-part + $left-side-shift - 1%
 
 @mixin menu-btn($wide:6em, $marge: 10px, $round: 100px, $line: 6em){
-  width: $wide;
-  float: left;
-  margin: $marge;
-  border: 3px solid white;
-  padding: 1em;
-  display:block;
-  text-align:center;
-  color:$darkest;
-  text-decoration:none;
-  font-weight: bold;
-  line-height:$line;
-  @include rounded-corners($round);
-  @include main-shadow;
-  &:hover {
-    @include main-hover($darker);
-  }
+	width: $wide;
+	float: left;
+	margin: $marge;
+	border: 3px solid white;
+	padding: 1em;
+	display:block;
+	text-align:center;
+	color:$darkest;
+	text-decoration:none;
+	font-weight: bold;
+	line-height:$line;
+	@include rounded-corners($round);
+	@include main-shadow;
+	&:hover {
+		@include main-hover($darker);
+	}
 }
 
 @mixin sec-menu-btn($wide:14em, $marge: 2px, $round: 5px, $line: 0.1em){
     width: $wide;
     margin: $marge;
     padding: 1em;
-    display:block;
     display:block;
     text-align:center;
     color:$darkest;
@@ -103,7 +102,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .home_sub_title{ // name of the board, school, or provided posts
-    float:left;
+	float: left;
 }
 
 #title_top_action{
@@ -174,10 +173,14 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 .secondary_menu_button{
     position:relative;
 }
-.sub_menu_button a,
 .secondary_menu_button a{
     @include sec-menu-btn;
 }
+
+.sub_menu_button a{
+    @include sec-menu-btn(6em);
+}
+
 .selected a{
   background:$darker;
   color:white;
