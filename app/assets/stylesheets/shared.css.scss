@@ -1,11 +1,12 @@
 $header-backgrnd: #FF4F00;
 $backgrnd:       #FF9E73;
-$darkest:         darken($backgrnd,70%);
-$darker:           darken($backgrnd,40%);
-$light:             lighten($backgrnd, 40%);
-$lightest:       lighten($backgrnd, 70%);
+$bgdarken70:    darken($backgrnd, 70%);
+$bgdarken40:    darken($backgrnd, 40%);
+$bgdarken10:    darken($backgrnd, 10%);
+$bglighten20:  lighten($backgrnd, 20%);
+$bglighten40:  lighten($backgrnd, 40%);
 
-$font-color: $darkest;
+$font-color: $bgdarken70;
 
 $btn-confirm: #996600;
 $btn-reject: #0F4DA8;
@@ -49,7 +50,7 @@ $btn-font-size: 16px;
 }
 
 @mixin action-button($bk_color){
-    color: $lightest;
+    color: $bglighten40;
     font-weight: bold;
     background-color: $bk_color;
     border: 1px solid transparent;
@@ -64,7 +65,7 @@ $btn-font-size: 16px;
     }
 }
 
-@mixin main-button($bkcolor: $darker){
+@mixin main-button($bkcolor: $bgdarken40){
     margin: 2px;
     border:1px solid $bkcolor;
     background: $bkcolor;
@@ -80,7 +81,7 @@ $btn-font-size: 16px;
         @include main-hover( $bkcolor );
     }
 }
-@mixin main-shadow($clr: $darker){
+@mixin main-shadow($clr: $bgdarken40){
   -moz-box-shadow: 5px 5px 5px $clr;
   -webkit-box-shadow: 5px 5px 5px $clr;
   -o-box-shadow: 5px 5px 5px $clr;
@@ -152,7 +153,7 @@ body{
     @include action-button($btn-reject);
 }
 .button_neutral{
-    @include action-button($darker);
+    @include action-button($bgdarken40);
 }
 /*********************** shared folder ***********************************/
 #_title_nav{
@@ -161,7 +162,7 @@ body{
     background:transparent;
     font-weight:normal;
     font-size:small;
-    color:$darkest;
+    color:$bgdarken70;
 }
 #_title{
     font-weight: bold;
@@ -190,19 +191,19 @@ body{
     font-size: $btn-font-size;
 	overflow:visible;
     cursor: pointer;
-	color:$darker;
-	@include rounded-corners;
+	color:$bgdarken40;
+	background:$bglighten20;
   
-  &:hover {
-    background:$darker; /* nav hover color */
-    color:lighten($darker, 70%);
-    font-weight: bold;
-  }
+	&:hover {
+		background:$bgdarken40;
+		color: $bglighten20;
+		font-weight: bold;
+	}
 }
 
 ._sub_title_nav a:hover {
-    background:$darker; /* nav hover color */
-    color:lighten($darker, 70%);
+    background:$bgdarken40; /* nav hover color */
+    color:lighten($bgdarken40, 70%);
     font-weight: bold;
 }
 
@@ -213,13 +214,13 @@ body{
     border: 3px solid $backgrnd;
     border-radius: 5px;
     padding:1px;
-    color: $darkest;
+    color: $bgdarken70;
 }
 .generic_container div.posting_element:hover,
 .generic_container div.user_element:hover,
 .generic_container div.board_element:hover,
 .generic_container div.member_element:hover{
-    background:$light; /* nav hover color */
+    background:$bglighten40; /* nav hover color */
     /*color:lighten($backgrnd, 70%);*/
 }
 .small_container{
@@ -229,10 +230,10 @@ body{
     border: 1px solid $backgrnd;
     @include rounded-corners(3px);
     padding:1px;
-    color: $darkest;
+    color: $bgdarken70;
 }
 .small_container div.small_element:hover{
-    background:$light;
+    background:$bglighten40;
 } 
 .small_element{
     width: 99%;
@@ -267,11 +268,11 @@ body{
 
 .action_button a{
     float: right;
-    @include main-button( $darker );
+    @include main-button( $bgdarken40 );
 }
 
 .close_button a{
-    @include main-button( $darker );
+    @include main-button( $bgdarken40 );
 }
 
 .clickable a{
@@ -283,8 +284,10 @@ body{
     color:#000;
     display: block;
     width: 99%;
+	background-color: transparent;
     &:hover {
         text-decoration: none;
+		background-color: $bglighten20;
     }
     
     &:active {

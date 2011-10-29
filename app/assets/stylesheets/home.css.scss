@@ -15,14 +15,14 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 	padding: 1em;
 	display:block;
 	text-align:center;
-	color:$darkest;
+	color:$bgdarken70;
 	text-decoration:none;
 	font-weight: bold;
 	line-height:$line;
 	@include rounded-corners($round);
 	@include main-shadow;
 	&:hover {
-		@include main-hover($darker);
+		@include main-hover($bgdarken40);
 	}
 }
 
@@ -30,17 +30,17 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
     width: $wide;
     margin: $marge;
     padding: 1em;
-    display:block;
-    text-align:center;
-    color:$darkest;
-    text-decoration:none;
+    display: block;
+    text-align: center;
+    color: $bgdarken70;
+    text-decoration: none;
     font-weight: bold;
     line-height:$line;
     border:1px solid white;
     @include rounded-corners($round);
     @include main-shadow;
     &:hover {
-        @include main-hover($darker);
+        @include main-hover($bgdarken40);
     }
 }
 #user_title_nav{ // right side navigation with schools, boards etc.
@@ -74,20 +74,20 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 .nav_link a{ // links on right side navigation bar
   width: 10em;
   margin: 2px;
-  border:1px solid $darker;
+  border:1px solid $bgdarken40;
   //@include bkground-image;
   padding: 1em;
   display:block;
   text-align:center;
-  color:$darker;
+  color:$bgdarken40;
   text-decoration:none;
   font-weight: bold;
   line-height:.05em;
   @include rounded-corners;
   
   &:hover {
-    background:$darker; /* nav hover color */
-    color:lighten($darker, 70%);
+    background:$bgdarken40; /* nav hover color */
+    color:lighten($bgdarken40, 70%);
     font-weight: bold;
   }
 }
@@ -98,11 +98,9 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .sub_title_nav{
-    float:right;
 }
 
 .home_sub_title{ // name of the board, school, or provided posts
-	float: left;
 }
 
 #title_top_action{
@@ -182,7 +180,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .selected a{
-  background:$darker;
+  background:$bgdarken40;
   color:white;
 }
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
@@ -218,7 +216,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .note{
-    border:2px solid $darker;
+    border:2px solid $bgdarken40;
     background:$backgrnd;
     margin:5px;
     padding:5px;
