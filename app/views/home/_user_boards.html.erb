@@ -2,7 +2,6 @@
 <% if current_user.boards.count > max_num_boards %>
 
 <div class="background_write">All My Boards</div>
-<br /><br />
 
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>

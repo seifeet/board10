@@ -2,12 +2,18 @@
   @board = Board.find(posting.board_id) if @board.nil?
   if ( current_user.member?( @board.id ) )
   	new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, posting.created_at).order('created_at DESC')
-    new_postings.each do |new_posting|
+    # The current posting if it is the first one on the board will not be picked up
+    # by the above query. In this case it will be printed in the 'else' statement.
+    if ( new_postings.count > 0 )
+      new_postings.each do |new_posting|
 %>
-
 <%= render 'shared/elements/element', :element => new_posting, :read_only => false %>
-
 <%
-    end
+      end
+    else
+%>
+<%= render 'shared/elements/element', :element => posting, :read_only => false %>
+<%
+    end # end of new_postings.count > 0
   end 
 %>

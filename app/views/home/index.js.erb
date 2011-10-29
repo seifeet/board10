@@ -66,8 +66,8 @@
 	$("#title_top_action").html("");
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
-	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+	$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
     
 <% elsif !params[:school].nil? %>

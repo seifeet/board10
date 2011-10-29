@@ -98,9 +98,14 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .sub_title_nav{
+  height:20px;
 }
 
 .home_sub_title{ // name of the board, school, or provided posts
+  margin: 5px;
+  text-decoration:underline;
+  color: $bgdarken40;
+  font-weight: bold;
 }
 
 #title_top_action{

@@ -3,15 +3,11 @@
 <% elsif !@school.nil? %>
 <%= render 'shared/titles/sub_title', :element => @school, :element_path => school_path(@school) %>
 <% elsif !params[:act].nil? && params[:act] == 'messages' %>
-<div class="_sub_title">
-<h3 class="_sub_title">Messages</h3>
-<div class="_sub_title_action clickable"></div>
-</div>
+<div class="_sub_title_action">Messages</div>
+<div class="sub_title_nav"><div class="sub_menu_button">&nbsp;</div></div>
 <% else %>
-<div class="_sub_title">
-<h3 class="_sub_title"><%= @postings_title %></h3>
-<div class="_sub_title_action clickable"></div>
-</div>
+<div class="_sub_title_action"><%= @postings_title %></div>
+<div class="sub_title_nav"><div class="sub_menu_button">&nbsp;</div></div>
 <% end %>
 
 

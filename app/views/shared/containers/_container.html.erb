@@ -4,7 +4,6 @@
 <%= render 'shared/elements/element', :element => element, :read_only => !current_user?(@user) %>
 <% end %>
 <% else %>
-
 <div class="note">
 <% if params[:act] != 'messages' %>
    <% if current_user.schools.empty? && current_user.boards.empty? %>

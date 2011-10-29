@@ -1,4 +1,5 @@
 <% if session[:return_to] =~ /\/home?/ %>
+$('.generic_container .note').remove();
 $('#user_postings .generic_container').prepend("<%= escape_javascript(render 'home/add_postings', :posting => @posting, :last_posting => @last_posting)%>");
 $('#last_posting').val("<%= escape_javascript(@posting.created_at.to_s) %>");
 <% elsif session[:return_to] =~ /\/users\// %>
