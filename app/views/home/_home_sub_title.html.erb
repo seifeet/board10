@@ -1,13 +1,11 @@
 <% if !@board.nil? || !params[:board].nil? %>
-<%= render 'shared/titles/sub_title', :element => @board, :element_path => board_path(@board) %>
+<%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
 <% elsif !@school.nil? %>
-<%= render 'shared/titles/sub_title', :element => @school, :element_path => school_path(@school) %>
+<%= link_to strip_and_cut(@school.title, 80), school_path(@school) %>
 <% elsif !params[:act].nil? && params[:act] == 'messages' %>
-<div class="_sub_title_action">Messages</div>
-<div class="sub_title_nav"><div class="sub_menu_button">&nbsp;</div></div>
+Messages
 <% else %>
-<div class="_sub_title_action"><%= @postings_title %></div>
-<div class="sub_title_nav"><div class="sub_menu_button">&nbsp;</div></div>
+<%= @postings_title %>
 <% end %>
 
 

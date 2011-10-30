@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(:version => 20110929201405) do
   create_table "members", :force => true do |t|
     t.integer  "user_id"
     t.integer  "board_id"
-    t.boolean  "owner",      :default => false
+    t.integer  "type",       :default => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "members", ["board_id"], :name => "index_members_on_board_id"
-  add_index "members", ["owner"], :name => "index_members_on_owner"
+  add_index "members", ["type"], :name => "index_members_on_type"
   add_index "members", ["user_id", "board_id"], :name => "index_members_on_user_id_and_board_id", :unique => true
   add_index "members", ["user_id"], :name => "index_members_on_user_id"
 

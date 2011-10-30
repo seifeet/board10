@@ -102,10 +102,27 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 
 .home_sub_title{ // name of the board, school, or provided posts
-  margin: 5px;
-  text-decoration:underline;
-  color: $bgdarken40;
+  margin: auto;
+  padding: 5px 5px 5px 5px;
+  text-align:left;
   font-weight: bold;
+  text-decoration: underline;
+  font-size: $btn-font-size;
+  color:$bgdarken40;
+}
+
+.home_sub_title a {
+  margin: auto;
+  text-decoration: underline;
+  overflow:visible;
+  cursor: pointer;
+  font-size: $btn-font-size;
+  color:$bgdarken40;
+  
+  &:hover {
+    color: $bglighten20;
+    font-weight: bold;
+  }
 }
 
 #title_top_action{

@@ -1,5 +1,15 @@
 <% if session[:return_to] =~ /\/home?/ %>
+<% if @action == 'join' %>
 $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
+<% elsif @action == 'follow' %>
+$(".action_tab").html("<%= escape_javascript(render 'home/tab_board_results') %>");
+	<% if current_user.boards.count <= max_num_boards+1 %>
+	$("#title_print_boards").html("<%= escape_javascript( render 'home/title_print_boards' ) %>");
+	<% end %>
+	<% if current_user.boards.count > max_num_boards %>
+	$("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
+	<% end %>
+<% end %>
 <% if flash.count > 0 || !notice.nil? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% end %>

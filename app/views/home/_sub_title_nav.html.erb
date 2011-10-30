@@ -1,27 +1,28 @@
 <% if !params[:board].nil? %>
 <% board = ( @board.nil? ? Board.find_board(params[:board]) : @board ) %>
+<% end %>
 
+<% if !board.nil? %>
+<div class="sub_menu_button">
+<%= link_to 'SHOW', board, :title => "Take me to this Board" %>
+</div>
+
+<% if current_user.member?(board) %>
 <% if params[:act] == 'write' %>
 <div class="sub_menu_button clickable selected">
 <% else %>
 <div class="sub_menu_button clickable">
 <% end %>
-<% if !params[:board].nil? %>
 <%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on the current board" %>
+</div>
 <% end %>
-</div>
 
-<div class="sub_menu_button">
-<%= link_to 'SHOW', @board, :title => "Take me to this Board" %>
-</div>
-
-
+<% if current_user.owner?(board) %>
 <% if params[:act] == 'invite' %>
 <div class="sub_menu_button clickable selected">
 <% else %>
 <div class="sub_menu_button clickable">
 <% end %>
-<% if !board.nil? && current_user.owner?(board) %>
 <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board" %>
 </div>
 <div class="sub_menu_button">

@@ -54,27 +54,47 @@ class Board < ActiveRecord::Base
      nil
   end
   
-  def member?(user_id)
+  def follower?(user_id)
     members.find_by_user_id(user_id)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
+  def follower!(user)
+    member = member?(board_id)
+    return member if member
+    members.create!(:user_id => user.id, :member_type => Member::MemberType::FOLLOWER)
+  end
+  
+  def member?(user_id)
+    member = members.find_by_user_id(user_id)
+    return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::Type::OWNER)
+    false
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
   def member!(user)
-    members.create!(:user_id => user.id)
+    members.create!(:user_id => user.id, :member_type => Member::MemberType::MEMBER)
   end
   
   def owner?(user_id)
-    members.find_by_user_id_and_owner(user_id,true)
+    members.find_by_user_id_and_member_type(user_id,Member::MemberType::OWNER)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
   def owner!(user)
-    members.create!(:user_id => user.id, :owner => true)
+    members.create!(:user_id => user.id, :member_type => Member::MemberType::OWNER)
   end
   
   def unmember!(user_id)
+    members.find_by_user_id(user_id).destroy
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def unfollow!(user_id)
     members.find_by_user_id(user_id).destroy
     rescue ActiveRecord::RecordNotFound
     false

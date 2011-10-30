@@ -28,10 +28,14 @@
    <% elsif params[:act] == 'schools' && !current_user.schools.empty? %>
      <p>This place is empty because your schools do not have any posts yet.</p>
    <% elsif params[:school].nil? && @school.nil? && !@board.nil? %>
+     <% if current_user.member?(@board) %>
 	 <p>This board does not have any posts yet. Click on WRITE and type in your first post.<br />
 	 You can also invite people to your board by clicking on INVITE and searching for people on this website.<br />
 	 Your invitation will be sent once you click on the Invite button near the person's name in the search results.</p>
-   <% elsif params[:board].nil? && !@school.nil? && @board.nil? %>
+     <% else %>
+     <p>This board does not have any public posts yet.</p>
+     <% end %>
+  <% elsif params[:board].nil? && !@school.nil? && @board.nil? %>
 	 <p>This school does not have any posts yet, so you have several options.
 	 One of them is to wait until other people create new boards and link them to this school.<br />
 	 Another is to link some of your existing boards to this school.<br />

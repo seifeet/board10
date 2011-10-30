@@ -16,7 +16,8 @@ Board10::Application.routes.draw do
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'  
+  match '/signout', :to => 'sessions#destroy'
+  match '/sessions',  :to => 'sessions#new'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

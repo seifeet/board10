@@ -1,11 +1,10 @@
+<% return nil if current_user.nil? %>
 <% 
-  if current_user?(@user)
-	  if @search_results.nil? && params[:search].nil?
-	    @search_results = Board.search(params[:search]).limit(25)
-	  end
-  end
-  
-  if !@search_results.nil? && @search_results.count > 0 
+if @search_results.nil? && !params[:search].nil?
+  @search_results = Board.search(params[:search]).limit(25)
+end
+
+if !@search_results.nil? && @search_results.count > 0 
 %>
 <%= render 'shared/containers/small_container', :container => @search_results %>
 <% end %>

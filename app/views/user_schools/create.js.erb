@@ -1,7 +1,9 @@
 <% if session[:return_to] =~ /\/home?/ %>
 $(".action_tab").html("<%= escape_javascript(render 'home/tab_school_results') %>");
-$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
 	<% if current_user.schools.count > max_num_schools %>
+	$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
+	<% end %>
+	<% if current_user.schools.count <= max_num_schools+1 %>
 	$("#title_print_schools").html("<%= escape_javascript( render 'home/title_print_schools' ) %>");
 	<% end %>
 <% elsif session[:return_to] =~ /\/users\// %>

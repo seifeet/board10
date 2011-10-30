@@ -129,7 +129,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        format.html { redirect_to @user, notice: "Welcome, " + @user.full_name + '!'}
+        format.html { redirect_to home_path, notice: "Welcome, " + @user.full_name + '!'}
         format.json { render json: @user, status: :created, location: @user }
       else
         @title = "Sign up"

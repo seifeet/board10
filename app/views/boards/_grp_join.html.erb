@@ -6,7 +6,7 @@
   <% end %>
 <% else @board.active? %>
 <%= form_for current_user.sent.build(:from_user => current_user.id) do |f| %>
-  <% owner = @board.members.find_by_owner(true) %>
+  <% owner = @board.members.find_by_member_type(Member::MemberType::OWNER) %>
   <div><%= f.hidden_field :to_user, :value => owner.user_id %></div>
   <div><%= f.hidden_field :board_id, :value => @board.id %></div>
   <div><%= f.text_area :content , :rows => 3, :cols => 40, :value => "Hi!\nI would like to join your board.\nThank you!" %></div>

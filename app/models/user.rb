@@ -87,27 +87,47 @@ class User < ActiveRecord::Base
     end
   end
   
-  def member?(board_id)
+  def follower?(board_id)
     members.find_by_board_id(board_id)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
+  def follower!(board_id)
+    member = member?(board_id)
+    return member if member
+    members.create!(:board_id => board.id, :member_type => Member::MemberType::FOLLOWER)
+  end
+  
+  def member?(board_id)
+    member = members.find_by_board_id(board_id)
+    return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::MemberType::OWNER)
+    false
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
   def member!(board)
-    members.create!(:board_id => board.id)
+    members.create!(:board_id => board.id, :member_type => Member::MemberType::MEMBER)
   end
   
   def owner?(board_id)
-    members.find_by_board_id_and_owner(board_id,true)
+    members.find_by_board_id_and_member_type(board_id,Member::MemberType::OWNER)
     rescue ActiveRecord::RecordNotFound
     false
   end
   
   def owner!(board)
-    members.create!(:board_id => board.id, :owner => true)
+    members.create!(:board_id => board.id, :member_type => Member::MemberType::OWNER)
   end
   
   def unmember!(board_id)
+    members.find_by_board_id(board_id).destroy
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def unfollow!(board_id)
     members.find_by_board_id(board_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
@@ -142,8 +162,8 @@ class User < ActiveRecord::Base
   end
   
   def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
-
+    user = self.find_by_email(email)
+logger.info "User is nil" if user.nil?
     return nil  if user.nil?
     return user if user.has_password?(submitted_password)
     rescue ActiveRecord::RecordNotFound
