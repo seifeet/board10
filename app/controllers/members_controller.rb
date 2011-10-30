@@ -59,15 +59,16 @@ class MembersController < ApplicationController
         flash.now[:success] = "Board \"#{board.title}\" was linked to your profile."
         end
       else
-        if !user.member?(board) && current_user.follower?(board)
-        #G This update is trying to insert and failing
-        #G @member.update_attribute(:member_type, Member::MemberType::MEMBER)
-        flash.now[:error] = "UNABLE to link #{user.full_name} to your Board \"#{board.title}\"."
-        elsif !user.member?(board)
+        if !user.member?(board) 
+          follower = user.follower?(board)
+          if follower
+          follower.update_attribute(:member_type, Member::MemberType::MEMBER)
+          end
+        elsif
         @member.member_type = Member::MemberType::MEMBER
         @member.save
-        flash.now[:success] = "#{user.full_name} was added to your Board \"#{board.title}\"."
         end
+        flash.now[:success] = "#{user.full_name} was added to your Board \"#{board.title}\"."
       end
     end
 
