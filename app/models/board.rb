@@ -68,7 +68,7 @@ class Board < ActiveRecord::Base
   
   def member?(user_id)
     member = members.find_by_user_id(user_id)
-    return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::Type::OWNER)
+    return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::MemberType::OWNER)
     false
     rescue ActiveRecord::RecordNotFound
     false
