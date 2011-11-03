@@ -118,10 +118,13 @@ class BoardsController < ApplicationController
   # DELETE /boards/1.json
   def destroy
     @board = Board.find(params[:id])
-    #@board.destroy
-
-    @board.toggle!(:active)
-    delete_postings @board
+    
+    if ( @board.postings.count > 0 )
+      @board.toggle!(:active)
+      delete_postings @board
+    else
+      @board.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to home_path, notice: 'Your board became inactive.' }
