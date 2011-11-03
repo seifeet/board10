@@ -3,9 +3,9 @@
   
   // transform buttons into context menu
   $.toggleContextMenu = function(element) {
-        element.find(".edit_button").hide();
+        element.find(".hidable").hide();
         element.bind("contextmenu", function(e) {
-            $(this).find(".edit_button").toggle(500);
+            $(this).find(".hidable").toggle(500);
             return false;
         });
   };

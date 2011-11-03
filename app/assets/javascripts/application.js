@@ -89,7 +89,14 @@ $(function() {
     $("#new_posting").live("ajax:complete", function(event, xhr, status) {
         $('#editor').val('');
     });
-
+    
+    $(".posting_element").live("ajax:complete", function(event, xhr, status) {
+        if ( status == "success" ){
+          $(this).hide();
+        } else {
+          alert("Can't do it! (" + status + ")");
+        }
+    });
 });
 /*
 

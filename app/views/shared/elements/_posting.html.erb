@@ -1,6 +1,12 @@
 <% if !read_only && current_user.id == element.user_id %>
-<div class="edit_button">
+<div class="edit_button hidable">
     <%= link_to 'Edit', edit_posting_path(element) %>
+</div>
+<div class="hidable">
+<%= button_to 'Delete', element, confirm: 'Are you sure?',
+    :remote => true, :disable_with => 'Deleting...',
+    method: :delete, :class => "button_neutral"
+%>
 </div>
 <% end %>
     
