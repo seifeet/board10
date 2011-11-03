@@ -1,4 +1,4 @@
-<% if !@board.nil? || !params[:board].nil? %>
+<% if !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
 <%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
 <% elsif !@school.nil? %>
 <%= link_to strip_and_cut(@school.title, 80), school_path(@school) %>

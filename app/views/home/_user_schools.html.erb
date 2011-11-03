@@ -7,7 +7,12 @@
      <div class="nav_link clickable">
      <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + '?school=' + school.id.to_s,{:title => "School: #{school.name}"} %>
      </div>
-     <%= button_to 'Del', current_user.user_schools.find_by_school_id(school.id), :class => "button_reject", confirm: "Do you want to remove school \"#{school.name}\"?", method: :delete, :remote => true %>
+     <div class="clickable">
+     <%= button_to 'Del', current_user.user_schools.find_by_school_id(school.id),
+      :class => "button_reject", :disable_with => 'Deleting...',
+      confirm: "Do you want to remove school \"#{school.name}\"?", 
+      method: :delete, :remote => true %>
+     </div>  
   <% end %>
 <% end %>
 <br class="clearBoth" />
