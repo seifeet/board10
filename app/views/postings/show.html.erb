@@ -24,7 +24,7 @@
 </b><p>
 <p><b>Subject:</b> <%= @posting.subject %></p>
 <p><b>Content:</b> <%= wrap(@posting.content) %></p>
-<% if current_user.id != @posting.user_id %>
+<% if !@board.nil? && @board.active? && current_user.id != @posting.user_id %>
 <% @reply = true %>
 <%= render 'boards/posting_form' %>
 <% end %>

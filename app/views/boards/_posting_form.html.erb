@@ -17,7 +17,9 @@
     </div>
   <% end %>
     <%= hidden_field_tag 'last_posting', @last_posting %>
+    <% if !@board.nil? %>
     <%= hidden_field_tag 'board_id', @board.id %>
+    <% end %>
   <div class="field">
     <% if !@reply %>
     <%= f.label :subject %><br />
@@ -29,10 +31,10 @@
   </div>
   <div class="field">
     <%= f.label :content %>
-    <% if @board.access == Posting::PUBLIC %>
+    <% if !@board.nil? && @board.access == Posting::PUBLIC %>
     <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
     <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
-    <% elsif @board.access == Posting::PRIVATE %>
+    <% elsif !@board.nil? && @board.access == Posting::PRIVATE %>
         <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
