@@ -1,5 +1,7 @@
+<% if current_user.nil? %>
 <% content_for :head_css do %>
 <%= stylesheet_link_tag 'sessions' %>
+<% end %>
 <% end %>
 
 <div class="signin_container alpha60 clearfix">
@@ -40,6 +42,8 @@
     <%= f.label :city, :class => "nested_label" %>
     <%= f.text_field :city, :class => "text_big" %>
 </div>
+
+<% if current_user.nil? %>
 <div class="single_field">
 	<% if !check(@user, "Password").nil? %>
 	<div class="flash_error"><%= check(@user, "Password") %></div>
@@ -54,8 +58,14 @@
     <%= f.label :password_confirmation, 'Confirm Password', :class => "nested_label" %>
     <%= f.password_field :password_confirmation, :size => 40, :class => "text_big" %>
 </div>
+<% end %>
+
 <div class="single_field">
+<% if current_user.nil? %>
 	<%= f.submit "Create User", :class => "button_with_img button_green" %>
+<% else %>
+	<%= f.submit "Update", :class => "button_with_img button_green" %>
+<% end %>
 </div>
 <% end %>
 </div>
