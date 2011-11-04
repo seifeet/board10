@@ -9,7 +9,11 @@
 	<div class="action_button"><%= link_to 'Home', home_path %></div>
 	<div id="_desc"><%= element.description %></div>
 </div>
+<% if request.fullpath =~ /\/home?/ %>
 <div class="logo_link clickable logo_messages">
+<% else %>
+<div class="logo_link logo_messages">
+<% end %>
     <%= render 'home/check_new_msg' %>  
 </div>
 
