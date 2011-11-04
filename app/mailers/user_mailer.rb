@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "myotherneeds@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -8,6 +8,12 @@ class UserMailer < ActionMailer::Base
   #
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "Password Reset"
+    mail(:to => "#{user.full_name} <#{user.email}>", :subject => "Password Reset")
+  end
+  
+  def registration_confirmation(user)
+    @user = user # to pass @user variable to the body of the email
+    #attachments["laoding.gif"] = File.read("#{Rails.root}/public/images/loading.gif")
+    mail(:to => user.email, :subject => "Registered")
   end
 end

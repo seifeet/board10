@@ -11,6 +11,7 @@ module SessionsHelper
         return msg
       end
     end
+    nil
   end
     
   def authenticate
