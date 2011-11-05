@@ -65,7 +65,7 @@ class HomeController < ApplicationController
     # postings will be filtered according to membership of the current_user
     elsif params[:act] != 'post_search' && @messages.nil? # exclude action for messages and post search
        @postings_title = "From all my boards:"
-       @postings = paginate_board_postings @user
+       @postings = paginate_board_postings
     end
     
     if @postings.nil? || @postings.empty?
@@ -87,19 +87,41 @@ class HomeController < ApplicationController
 
   private
   
-    def paginate_board_postings user
+    def paginate_board_postings
       require 'will_paginate/array'
-      all_postings = user.get_boards_postings
+      all_postings = []
+      current_user.boards.each do |board|
+        if current_user.member?(board)
+          all_postings += board.all_member_comments(current_user.id)
+        else
+          all_postings += board.postings.where(:visibility => 1)
+        end
+      end
       if !all_postings.nil? && !all_postings.empty?
-        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
-      end 
+        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      end
+      all_postings.uniq!
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end
     end
     
     def paginate_school_postings school
       require 'will_paginate/array'
-      all_postings = current_user.get_school_postings school
+      all_postings = []
+      school.boards.each do |board|
+        if current_user.member?(board)
+          all_postings += board.postings
+        else
+          all_postings += board.postings.where(:visibility => 1)
+        end
+      end
       if !all_postings.nil? && !all_postings.empty?
-        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+       all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      end
+      all_postings.uniq!
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
       end 
     end 
 
