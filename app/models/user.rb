@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
       # which isn’t what we want at all.
       self.salt = make_salt unless has_password?(password) 
       self.password_digest = encrypt(password)
-      logger.debug "\n\n\npassword: #{password}\nself.salt: #{self.salt}\nself.password_digest: #{self.password_digest}"
+      #logger.debug "\n\n\npassword: #{password}\nself.salt: #{self.salt}\nself.password_digest: #{self.password_digest}"
     end
     
     def make_salt

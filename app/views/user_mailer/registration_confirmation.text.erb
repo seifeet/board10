@@ -1,5 +1,7 @@
 Hello, <%= @user.full_name %>!
 
-Thank you for registering!
+Thank you for registering with Boardten!
 
-Edit Profile: <%= edit_user_url(@user) %>
+Your login:      <%= @user.email %>
+Your Home page:  <%= home_url %>
+Edit Profile:    <%= edit_user_url(@user) %>
