@@ -1,0 +1,12 @@
+<% return nil if current_user.nil? %>
+<% 
+if !params[:act] == 'post_search'
+  @postings = Posting.search(params[:search]).
+     paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+end
+%>
+<% if !@postings.nil? %>
+<%= render 'shared/containers/page_container', :page_container => @postings %>
+<% elsif !@messages.nil? %>
+<%= render 'home/messages' %>
+<% end %>

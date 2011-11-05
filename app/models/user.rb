@@ -72,6 +72,36 @@ class User < ActiveRecord::Base
     end
   end
   
+  def get_boards_postings
+    all_postings = []
+    boards.each do |board|
+      if member?(board)
+        all_postings += board.all_member_comments(id)
+      else
+        all_postings += board.postings.where(:visibility => 1)
+      end
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+    end
+    all_postings.uniq!
+  end
+  
+  def get_school_postings school
+    all_postings = []
+    school.boards.each do |board|
+      if member?(board)
+        all_postings += board.postings
+      else
+        all_postings += board.postings.where(:visibility => 1)
+      end
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+    end
+    all_postings.uniq!
+  end
+  
   def full_name
     first_name + ' ' + last_name + ' (' + id.to_s + ')'
   end

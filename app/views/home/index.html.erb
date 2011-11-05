@@ -30,11 +30,7 @@
 </div>
 
 <div id="user_postings" class="clearfix">
-<% if !@postings.nil? %>
-<%= render 'shared/containers/page_container', :page_container => @postings %>
-<% elsif !@messages.nil? %>
-<%= render 'home/messages' %>
-<% end %>
+<%= render 'home/user_postings' %>
 </div> <!-- close user_postings -->
 
 </div> <!-- close main_part -->
