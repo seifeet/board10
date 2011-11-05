@@ -27,6 +27,10 @@
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
 	    document.title = "My Schools";
 	    
+	<% elsif params[:act] == 'posts' %>
+		$("#title").html("<%= escape_javascript( render 'title' ) %>");
+	    document.title = "Search Posts";
+	    
 	<% elsif params[:act] == 'school_search' && !params[:search].nil? %>
 	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
     	$(".action_tab").html("<%= escape_javascript(render 'tab_school_results') %>");
@@ -49,8 +53,17 @@
         $("#title_top_action").html("<%= escape_javascript(render 'tab_board_search') %>");
         document.title = "Board Search";
         
+    <% elsif params[:act] == 'post_search' && !params[:search].nil? %>
+        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+    	$(".action_tab").html("<%= escape_javascript(render 'tab_post_results') %>");
+		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Posts") %>";
+	  
+    <% elsif params[:act] == 'post_search' %>
+        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_post_search') %>");
+        document.title = "Posts Search";
+        
 	<% elsif params[:act] == 'invite' %>
-    	//# $("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
     	$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
         document.title = "Invite people";

@@ -20,6 +20,8 @@ class HomeController < ApplicationController
         end
       elsif params[:act] == 'board_search'
         @search_results = Board.search(params[:search]).limit(per_page_search)
+      elsif params[:act] == 'post_search'
+        @search_results = Posting.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'invite'
         @search_results = User.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'messages'

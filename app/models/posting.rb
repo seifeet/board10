@@ -10,6 +10,15 @@ class Posting < ActiveRecord::Base
 
   default_scope :order => 'postings.created_at DESC'
   
+  def self.search(search)
+    if search && !search.blank?
+      tmp = search.sub(' ', '%')
+      unscoped.where('CONCAT( subject, \' \', content ) LIKE ?', "%#{tmp}%")
+    else
+      unscoped # the same as all, but does not perform the actual query
+    end
+  end
+  
   def user_status
     USER_STATUS[active_user]
   end

@@ -1,21 +1,7 @@
-<% if params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
-<div class="school_menu_button selected">
-<% else %>
-<div class="school_menu_button">
-<% end %>
-<%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open School Menu" %>
-</div>
-
-<% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
-<div class="board_menu_button selected">
-<% else %>
-<div class="board_menu_button">
-<% end %>
-<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Board Menu" %>
-</div>
-
 <!-- SECOND LEVEL SERVICE BUTTONS -->
-<% if params[:act] == 'schools' || params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
+<div id="second_level_btns">
+
+<% if params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
 <% if params[:act] == 'school_search' %>
 <div class="search_school_menu_button selected">
 <% else %>
@@ -23,6 +9,7 @@
 <% end %>
 <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile" %>
 </div>
+
 <% elsif params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
 <% if params[:act] == 'board_search' %>
 <div class="search_board_menu_button selected">
@@ -38,4 +25,42 @@
 <% end %>
 <%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new board" %>
 </div>
+<% elsif params[:act] == 'posts' || params[:act] == 'post_search' %>
+<% if params[:act] == 'post_search' %>
+<div class="search_posts_menu_button selected">
+<% else %>
+<div class="search_posts_menu_button">
 <% end %>
+<%= link_to 'SEARCH', home_path+"?act=post_search", :title => "Search posts" %>
+</div>
+<% end %>
+
+</div> <!-- end of second_level_btns -->
+<!-- END OF SECOND LEVEL SERVICE BUTTONS -->
+
+
+<!-- FIRST LEVEL SERVICE BUTTONS -->
+<% if params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
+<div class="school_menu_button selected">
+<% else %>
+<div class="school_menu_button">
+<% end %>
+<%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open Schools Menu" %>
+</div>
+
+<% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
+<div class="board_menu_button selected">
+<% else %>
+<div class="board_menu_button">
+<% end %>
+<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu" %>
+</div>
+
+<% if params[:act] == 'posts' || params[:act] == 'post_search' %>
+<div class="post_menu_button selected">
+<% else %>
+<div class="post_menu_button">
+<% end %>
+<%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu" %>
+</div>
+<!-- END OF FIRST LEVEL SERVICE BUTTONS -->

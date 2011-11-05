@@ -58,6 +58,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   position:relative;
   left:$left-side-shift;
   width: $main-part;
+  top:3em;
   height:100%;
   overflow-x:hidden;
 }
@@ -168,27 +169,23 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 .school_menu_button{ // main SCHOOL button
     position:relative;
-    left:4em;
+    top:0;
+    left:5em;
 }
 .board_menu_button{ // main BOARD button
     position:relative;
-    top:6em;
-    left:1em;
+    top:6.7em;
+    left:1.1em;
+}
+.post_menu_button{ // main MESSAGE button
+  position:relative;
+  top:2.6em;
+  left:0;
 }
 .sub_menu_button{
     float: right;
     margin:5px;
 }
-//.msg_menu_button{ // main MESSAGE button
-//  position:relative;
-//  top:7.5em;
-//  left:1em;
-//}
-//.invite_menu_button{ // main INVITE button
-//  position:relative;
-//  top:7.5em;
-//  left:1em;
-//}
 
 .secondary_menu_button{
     position:relative;
@@ -207,19 +204,29 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
 }
 .school_menu_button a, // secondary navigation buttons for main SCHOOL and BOARD buttons
 .board_menu_button a,
+.post_menu_button a,
 .menu_button a{
   // menu-btn($wide:70px, $marge: 10px, $round: 100px, $line: 6em)
     @include menu-btn;
 }
+
+#second_level_btns{
+  position:relative;
+  float:right;
+  width:16em;
+  top:1em;
+  right:3em;
+}
+.search_posts_menu_button,
 .search_board_menu_button,
 .new_board_menu_button,
 .search_school_menu_button{
     position:relative;
-    top:3em;
-    left:0.1em;
+    float:left;
+    top:0.8em;
+    right:3em;
 }
-//.invite_menu_button a,
-//.msg_menu_button a,
+.search_posts_menu_button a,
 .search_school_menu_button a,
 .new_board_menu_button a,
 .search_board_menu_button a{
