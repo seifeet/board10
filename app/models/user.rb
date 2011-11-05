@@ -144,13 +144,14 @@ class User < ActiveRecord::Base
   end
 
   def should_validate_password?
-    updating_password || new_record?
+    self.updating_password || new_record?
   end
   
   def save_without_password
-    self.updating_password = false
-    self.save
     self.updating_password = true
+    returned_value = self.save
+    self.updating_password = false
+    returned_value
   end
   
   # needed for 'remember me' functionality
@@ -163,7 +164,7 @@ class User < ActiveRecord::Base
   
   def self.authenticate(email, submitted_password)
     user = self.find_by_email(email)
-logger.info "User is nil" if user.nil?
+
     return nil  if user.nil?
     return user if user.has_password?(submitted_password)
     rescue ActiveRecord::RecordNotFound
@@ -198,7 +199,7 @@ logger.info "User is nil" if user.nil?
       # which isn’t what we want at all.
       self.salt = make_salt unless has_password?(password) 
       self.password_digest = encrypt(password)
-      #logger.debug "\n\n\npassword: #{password}\nself.salt: #{self.salt}\nself.password_digest: #{self.password_digest}"
+      logger.debug "\n\n\npassword: #{password}\nself.salt: #{self.salt}\nself.password_digest: #{self.password_digest}"
     end
     
     def make_salt

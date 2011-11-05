@@ -44,12 +44,10 @@ class UsersController < ApplicationController
     if @user.id != current_user.id
       search_str = ' ' + @user.id.to_s + ' '
       if session[:user_counter].nil?
-        @user.view_count = @user.view_count + 1
-        @user.save_without_password
+        @user.update_attribute(:view_count, @user.view_count+1)
         session[:user_counter] = search_str
       elsif session[:user_counter].index(search_str).nil?
-        @user.view_count = @user.view_count + 1
-        @user.save_without_password
+        @user.update_attribute(:view_count, @user.view_count+1)
         session[:user_counter] += @user.id.to_s + ' ';
         # reset the :user_counter with too many users
         session[:user_counter] = search_str if session[:user_counter].split.count > 30
@@ -129,7 +127,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        UserMailer.registration_confirmation(@user).deliver
+        #UserMailer.registration_confirmation(@user).deliver
         format.html { redirect_to home_path, notice: "Welcome, " + @user.full_name + '!'}
         format.json { render json: @user, status: :created, location: @user }
       else

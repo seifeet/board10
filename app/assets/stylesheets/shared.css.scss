@@ -387,7 +387,15 @@ body{
     color: green;
     padding: 3px 3px 3px 3px;
 }
-
+.flash_bckgrd_msg{
+  z-index:30;
+  background:white;
+  width:auto;
+  color:green;
+  border:2px solid green;
+  padding: 3px 3px 3px 3px;
+  @include rounded-corners(20px, green);
+}
 .more_links{
     float: right;
     padding: 5px;
