@@ -1,4 +1,5 @@
 <% board = Board.find_board(element.board_id) %>
+<% return nil if board.nil? %>
 <div class="inline"><%= board.access %></div>
 <div class="inline">Board: <%= link_to board.title, board %></div>
 <div class="inline"><%= board.status unless ( board.active ) %></div>
