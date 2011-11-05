@@ -214,6 +214,7 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   position:relative;
   float:right;
   width:16em;
+  min-height:7em;
   top:1em;
   right:3em;
 }
