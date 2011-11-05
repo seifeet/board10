@@ -26,8 +26,10 @@ class HomeController < ApplicationController
         else
           @postings_title = "Search Results:"
         end
-        @postings = Posting.search(params[:search]).
-          paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        @postings = Posting.search(params[:search])
+        if !@postings.nil? && !@postings.empty?
+          @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        end
       elsif params[:act] == 'invite'
         @search_results = User.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'messages'
@@ -88,28 +90,17 @@ class HomeController < ApplicationController
     def paginate_board_postings user
       require 'will_paginate/array'
       all_postings = user.get_boards_postings
-      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end
     
     def paginate_school_postings school
       require 'will_paginate/array'
-      @boards = school.boards
-      all_postings = []
-      @boards.each do |board|
-        if current_user.member?(board)
-          all_postings += board.postings
-        else
-          all_postings += board.postings.where(:visibility => 1)
-        end
-      end
-      
+      all_postings = current_user.get_school_postings school
       if !all_postings.nil? && !all_postings.empty?
-        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
-      end
-      
-      all_postings.uniq!
-      
-      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end 
 
 end

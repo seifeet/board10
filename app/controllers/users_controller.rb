@@ -177,13 +177,17 @@ class UsersController < ApplicationController
     def paginate_board_postings user
       require 'will_paginate/array'
       all_postings = user.get_boards_postings
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end
     
     def paginate_school_postings school
       require 'will_paginate/array'
-      all_postings = get_school_postings school
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      all_postings = user.get_school_postings school
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end 
   
     def delete_postings user

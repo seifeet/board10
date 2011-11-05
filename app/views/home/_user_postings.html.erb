@@ -1,8 +1,10 @@
 <% return nil if current_user.nil? %>
 <% 
 if !params[:act] == 'post_search'
-  @postings = Posting.search(params[:search]).
-     paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+  @postings = Posting.search(params[:search])
+  if !@postings.nil? && !@postings.empty?
+    @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+  end
 end
 %>
 <% if !@postings.nil? %>
