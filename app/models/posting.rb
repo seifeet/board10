@@ -11,11 +11,11 @@ class Posting < ActiveRecord::Base
   default_scope :order => 'postings.created_at DESC'
   
   def self.search(search, date)
-    if search && !search.blank? && date
+    if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
       date_start = Date.parse(date)
       unscoped.where("CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start)
-    elsif date
+    elsif date && !date.blank?
       date_start = Date.parse(date)
       unscoped.where("created_at <= ?", date_start)
     elsif search && !search.blank?
