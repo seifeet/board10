@@ -39,21 +39,6 @@ class UsersController < ApplicationController
       @search_results = Board.search(params[:search]).limit(50)
     end
     
-    # VIEW COUNTER
-    # we can remove this if as soon as Andrey finishs with home page.
-    if @user.id != current_user.id
-      search_str = ' ' + @user.id.to_s + ' '
-      if session[:user_counter].nil?
-        @user.update_attribute(:view_count, @user.view_count+1)
-        session[:user_counter] = search_str
-      elsif session[:user_counter].index(search_str).nil?
-        @user.update_attribute(:view_count, @user.view_count+1)
-        session[:user_counter] += @user.id.to_s + ' ';
-        # reset the :user_counter with too many users
-        session[:user_counter] = search_str if session[:user_counter].split.count > 30
-      end
-    end
-    
     # FORM FOR POSITNGS
     @posting_form = Posting.new
 

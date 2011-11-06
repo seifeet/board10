@@ -26,6 +26,14 @@ class Board < ActiveRecord::Base
     where("`members`.`user_id` = ?", user_id )
   end
   
+  def add_vote
+    update_attribute(:view_count, view_count+1)
+  end
+  
+  def remove_vote
+    update_attribute(:view_count, view_count-1)
+  end
+  
   def status
     STATUS[active]
   end

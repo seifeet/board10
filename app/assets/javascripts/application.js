@@ -114,8 +114,9 @@ $(function() {
     $(".posting_element").live("ajax:complete", function(event, xhr, status) {
         if ( status == "success" ){
           $(this).hide();
+          return false;
         } else {
-          alert("Can't do it! (" + status + ")");
+          // just skip on failure //alert("Can't do it! (" + status + ")");
         }
     });
 });

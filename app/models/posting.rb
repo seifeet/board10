@@ -26,6 +26,14 @@ class Posting < ActiveRecord::Base
     end
   end
   
+  def add_vote
+    update_attribute(:view_count, view_count+1)
+  end
+  
+  def remove_vote
+    update_attribute(:view_count, view_count-1)
+  end
+  
   def user_status
     USER_STATUS[active_user]
   end

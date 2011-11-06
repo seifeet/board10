@@ -25,17 +25,6 @@ class PostingsController < ApplicationController
   def show
     @posting_form = Posting.new
     @posting = Posting.find(params[:id])
-    
-    search_str = ' ' + @posting.id.to_s + ' '
-    if session[:post_counter].nil?
-      @posting.update_attribute(:view_count, @posting.view_count+1)
-      session[:post_counter] = search_str
-    elsif session[:post_counter].index(search_str).nil?
-      @posting.update_attribute(:view_count, @posting.view_count+1)
-      session[:post_counter] += @posting.id.to_s + ' ';
-      # reset the :post_counter with too many boards
-      session[:post_counter] = search_str if session[:post_counter].split.count > 30
-    end
 
     respond_to do |format|
       format.html # show.html.erb

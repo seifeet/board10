@@ -9,7 +9,9 @@
 %>
 </div>
 <% end %>
-    
+
+<%= render 'votes/vote_btn', :element => element %>
+
 <div class="posting_left_column clearfix">
     <% if !element.subject.nil? && !element.subject.empty? %>
     <div class="inline subject"><%= ( strip_and_cut(element.subject,120) ) %></div>
@@ -43,12 +45,12 @@
     <% end %>
 </div>
 
-<div class="posting_right_column nice clearfix">    
+<div class="posting_right_column nice clearfix">
     <div class="inline">
     <%= link_to strip_and_cut(element.content, 300), posting_path(element), :target => "_blank", :class => "link_to_text" %>
     </div>
     <% unless element.view_count == 0 %>
-    <div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
+    <div class="inline">(<%= pluralize( element.view_count, 'UP')  %>)</div>
     <% end %>
     <% if element.access == Posting::PRIVATE %>
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>

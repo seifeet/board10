@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :boards, :through => :members
   has_many :user_schools, :foreign_key => "user_id"
   has_many :schools, :through => :user_schools
+  has_many :votes, :foreign_key => "user_id", :dependent => :destroy
   
   before_save :encrypt_password, :if => :should_validate_password?
   
@@ -120,7 +121,7 @@ class User < ActiveRecord::Base
   def owner!(board)
     members.create!(:board_id => board.id, :member_type => Member::MemberType::OWNER)
   end
-  
+   
   def unmember!(board_id)
     members.find_by_board_id(board_id).destroy
     rescue ActiveRecord::RecordNotFound
@@ -141,6 +142,52 @@ class User < ActiveRecord::Base
   
   def has_school!(school_id)
     user_schools.create!(:school_id => school_id)
+  end
+  
+  # this method returns a vote (true) if a user has a positive vote
+  def voted?(obj)
+    votes.find_by_obj_type_and_obj_id_and_vote(Vote.obj_type_by_class(obj), obj.id, true)
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  # this method returns a vote (true) if a user has voted before
+  def has_voted?(obj)
+    votes.find_by_obj_type_and_obj_id(Vote.obj_type_by_class(obj), obj.id)
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def vote!(vote)
+    obj = Vote.object_by_vote(vote)
+    if !obj.nil? 
+      user_vote = has_voted?(obj)
+      if user_vote && user_vote.vote == false
+        obj.add_vote
+        user_vote.toggle!(:vote)
+      elsif user_vote.nil?
+        obj.add_vote
+        votes.create!(:obj_type => vote.obj_type, :obj_id => vote.obj_id)
+      end
+    end
+  end
+  
+  def unvote!(vote)
+    obj = Vote.object_by_vote(vote)
+    if !obj.nil? && ( user_vote = has_voted?(obj) ) && user_vote.vote == true
+      obj.remove_vote
+      vote.toggle!(:vote)
+    end
+    rescue ActiveRecord::RecordNotFound
+    false
+  end
+  
+  def add_vote
+    update_attribute(:view_count, view_count+1)
+  end
+  
+  def remove_vote
+    update_attribute(:view_count, view_count-1)
   end
 
   def should_validate_password?
