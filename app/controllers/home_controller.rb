@@ -21,12 +21,16 @@ class HomeController < ApplicationController
       elsif params[:act] == 'board_search'
         @search_results = Board.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'post_search'
-        if !params[:search].nil? && !params[:search].empty?
+        if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
+          @postings_title = "Search Results for \"#{params[:search]}\" on \"#{params[:date]}\":"
+        elsif !params[:date].nil? && !params[:date].empty?
+          @postings_title = "Search Results on \"#{params[:date]}\":"
+        elsif !params[:search].nil? && !params[:search].empty?
           @postings_title = "Search Results for \"#{params[:search]}\":"
         else
           @postings_title = "Search Results:"
         end
-        @postings = Posting.search(params[:search])
+        @postings = Posting.search(params[:search],params[:date])
         if !@postings.nil? && !@postings.empty?
           @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
         end
