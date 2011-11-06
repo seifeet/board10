@@ -21,7 +21,19 @@ class HomeController < ApplicationController
       elsif params[:act] == 'board_search'
         @search_results = Board.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'post_search'
-        @search_results = Posting.search(params[:search]).limit(per_page_search)
+        if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
+          @postings_title = "Search Results for \"#{params[:search]}\" on \"#{params[:date]}\":"
+        elsif !params[:date].nil? && !params[:date].empty?
+          @postings_title = "Search Results on \"#{params[:date]}\":"
+        elsif !params[:search].nil? && !params[:search].empty?
+          @postings_title = "Search Results for \"#{params[:search]}\":"
+        else
+          @postings_title = "Search Results:"
+        end
+        @postings = Posting.search(params[:search],params[:date])
+        if !@postings.nil? && !@postings.empty?
+          @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        end
       elsif params[:act] == 'invite'
         @search_results = User.search(params[:search]).limit(per_page_search)
       elsif params[:act] == 'messages'
@@ -55,9 +67,9 @@ class HomeController < ApplicationController
        @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
     # show all postings for the board.
     # postings will be filtered according to membership of the current_user
-    elsif @messages.nil? # exclude action for messages
+    elsif params[:act] != 'post_search' && @messages.nil? # exclude action for messages and post search
        @postings_title = "From all my boards:"
-       @postings = paginate_board_postings @user
+       @postings = paginate_board_postings
     end
     
     if @postings.nil? || @postings.empty?
@@ -79,46 +91,42 @@ class HomeController < ApplicationController
 
   private
   
-    def paginate_board_postings user
+    def paginate_board_postings
       require 'will_paginate/array'
-      @boards = user.boards
       all_postings = []
-      @boards.each do |board|
+      current_user.boards.each do |board|
         if current_user.member?(board)
-          all_postings += board.all_member_comments(user.id)
+          all_postings += board.all_member_comments(current_user.id)
         else
           all_postings += board.postings.where(:visibility => 1)
         end
       end
-      
       if !all_postings.nil? && !all_postings.empty?
         all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
       end
-      
       all_postings.uniq!
-      
-      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end
     end
     
     def paginate_school_postings school
       require 'will_paginate/array'
-      @boards = school.boards
       all_postings = []
-      @boards.each do |board|
+      school.boards.each do |board|
         if current_user.member?(board)
           all_postings += board.postings
         else
           all_postings += board.postings.where(:visibility => 1)
         end
       end
-      
       if !all_postings.nil? && !all_postings.empty?
-        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+       all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
       end
-      
       all_postings.uniq!
-      
-      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end 
 
 end

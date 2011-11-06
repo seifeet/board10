@@ -13,6 +13,7 @@ Board10::Application.routes.draw do
   resources :password_resets
   resources :schools
   resources :user_schools
+  resources :votes
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

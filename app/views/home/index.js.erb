@@ -31,7 +31,7 @@
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
 	    document.title = "Search Posts";
 	    
-	<% elsif params[:act] == 'school_search' && !params[:search].nil? %>
+	<% elsif params[:act] == 'school_search' && (!params[:search].nil? || !params[:date].nil?) %>
 	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
     	$(".action_tab").html("<%= escape_javascript(render 'tab_school_results') %>");
 		document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
@@ -55,7 +55,9 @@
         
     <% elsif params[:act] == 'post_search' && !params[:search].nil? %>
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
-    	$(".action_tab").html("<%= escape_javascript(render 'tab_post_results') %>");
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("");
+    	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Posts") %>";
 	  
     <% elsif params[:act] == 'post_search' %>

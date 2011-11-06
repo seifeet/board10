@@ -1,0 +1,15 @@
+<% return nil if current_user.nil? %>
+
+<% if current_user.voted?(element) %>
+	<%= button_to '_', current_user.votes.find_by_obj_type_and_obj_id(Vote.obj_type_by_class(element),element.id), 
+	    #:remote => true,
+	    method: :delete, :class => "button_reject", :title => 'Take your vote back'
+	%>
+<% else %>
+	<%= form_for current_user.votes.build(:obj_type => Vote.obj_type_by_class(element), 
+	           :obj_id => element.id) do |f| %> <!-- , :remote => true do |f| % -->
+	  <%= f.hidden_field :obj_type, :value => Vote.obj_type_by_class(element) %>
+	  <%= f.hidden_field :obj_id, :value => element.id %>
+	  <%= f.submit "10!", :class => "button_confirm", :title => 'Vote Up!' %>
+	<% end %>
+<% end %>

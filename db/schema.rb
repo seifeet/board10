@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929201405) do
+ActiveRecord::Schema.define(:version => 20111106101231) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(:version => 20110929201405) do
   create_table "members", :force => true do |t|
     t.integer  "user_id"
     t.integer  "board_id"
-    t.integer  "type",       :default => 2
+    t.integer  "member_type", :default => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "members", ["board_id"], :name => "index_members_on_board_id"
-  add_index "members", ["type"], :name => "index_members_on_type"
+  add_index "members", ["member_type"], :name => "index_members_on_member_type"
   add_index "members", ["user_id", "board_id"], :name => "index_members_on_user_id_and_board_id", :unique => true
   add_index "members", ["user_id"], :name => "index_members_on_user_id"
 
@@ -112,5 +112,19 @@ ActiveRecord::Schema.define(:version => 20110929201405) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "obj_type"
+    t.integer  "obj_id"
+    t.boolean  "vote",       :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["obj_id"], :name => "index_votes_on_obj_id"
+  add_index "votes", ["obj_type"], :name => "index_votes_on_obj_type"
+  add_index "votes", ["user_id", "obj_type", "obj_id"], :name => "index_votes_on_user_id_and_obj_type_and_obj_id", :unique => true
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

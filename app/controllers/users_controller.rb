@@ -39,21 +39,6 @@ class UsersController < ApplicationController
       @search_results = Board.search(params[:search]).limit(50)
     end
     
-    # VIEW COUNTER
-    # we can remove this if as soon as Andrey finishs with home page.
-    if @user.id != current_user.id
-      search_str = ' ' + @user.id.to_s + ' '
-      if session[:user_counter].nil?
-        @user.update_attribute(:view_count, @user.view_count+1)
-        session[:user_counter] = search_str
-      elsif session[:user_counter].index(search_str).nil?
-        @user.update_attribute(:view_count, @user.view_count+1)
-        session[:user_counter] += @user.id.to_s + ' ';
-        # reset the :user_counter with too many users
-        session[:user_counter] = search_str if session[:user_counter].split.count > 30
-      end
-    end
-    
     # FORM FOR POSITNGS
     @posting_form = Posting.new
 
@@ -173,47 +158,43 @@ class UsersController < ApplicationController
   end
   
   private
-  
+ 
     def paginate_board_postings user
       require 'will_paginate/array'
-      @boards = user.boards
       all_postings = []
-      @boards.each do |board|
-        if current_user.member?(board)
+      user.boards.each do |board|
+        if user.member?(board)
           all_postings += board.all_member_comments(user.id)
         else
           all_postings += board.postings.where(:visibility => 1)
         end
       end
-      
       if !all_postings.nil? && !all_postings.empty?
         all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
       end
-      
       all_postings.uniq!
-      
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end
     end
     
     def paginate_school_postings school
       require 'will_paginate/array'
-      @boards = school.boards
       all_postings = []
-      @boards.each do |board|
+      school.boards.each do |board|
         if current_user.member?(board)
           all_postings += board.postings
         else
           all_postings += board.postings.where(:visibility => 1)
         end
       end
-      
       if !all_postings.nil? && !all_postings.empty?
-        all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+       all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
       end
-      
       all_postings.uniq!
-      
-      all_postings.paginate(:page => params[:page], :per_page => 50, :total_etries => all_postings.size )
+      if !all_postings.nil? && !all_postings.empty?
+        all_postings = all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+      end 
     end 
   
     def delete_postings user

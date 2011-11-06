@@ -49,10 +49,31 @@ if(history && history.pushState ) {
             return false;
         });
         
+        $("#tab_posts_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_posts_search").attr("action") + "?" + $("#tab_posts_search").serialize());
+            return false;
+        });
+        
+        $("#tab_boards_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_boards_search").attr("action") + "?" + $("#tab_boards_search").serialize());
+            return false;
+        });
+        
         $("#tab_schools_search").submit(function() {
             $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
             $.get(this.action, $(this).serialize(), null, "script");
             history.pushState(null, document.title, $("#tab_schools_search").attr("action") + "?" + $("#tab_schools_search").serialize());
+            return false;
+        }); 
+        
+        $("#tab_invite_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_invite_search").attr("action") + "?" + $("#tab_invite_search").serialize());
             return false;
         });
         
@@ -93,8 +114,9 @@ $(function() {
     $(".posting_element").live("ajax:complete", function(event, xhr, status) {
         if ( status == "success" ){
           $(this).hide();
+          return false;
         } else {
-          alert("Can't do it! (" + status + ")");
+          // just skip on failure //alert("Can't do it! (" + status + ")");
         }
     });
 });

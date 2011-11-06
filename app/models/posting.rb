@@ -10,13 +10,28 @@ class Posting < ActiveRecord::Base
 
   default_scope :order => 'postings.created_at DESC'
   
-  def self.search(search)
-    if search && !search.blank?
+  def self.search(search, date)
+    if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
-      unscoped.where('CONCAT( subject, \' \', content ) LIKE ?', "%#{tmp}%")
+      date_start = Date.parse(date)
+      unscoped.where("CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start)
+    elsif date && !date.blank?
+      date_start = Date.parse(date)
+      unscoped.where("created_at <= ?", date_start)
+    elsif search && !search.blank?
+      tmp = search.sub(' ', '%')
+      unscoped.where("CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
     else
       unscoped # the same as all, but does not perform the actual query
     end
+  end
+  
+  def add_vote
+    update_attribute(:view_count, view_count+1)
+  end
+  
+  def remove_vote
+    update_attribute(:view_count, view_count-1)
   end
   
   def user_status

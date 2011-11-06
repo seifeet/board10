@@ -24,19 +24,7 @@ class BoardsController < ApplicationController
     @posting_form = Posting.new
     @board = Board.unscoped.find(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
-    
-    # increment view_counter
-    search_str = ' ' + @board.id.to_s + ' '
-    if session[:board_counter].nil?
-      @board.update_attribute(:view_count, @board.view_count+1)
-      session[:board_counter] = search_str
-    elsif session[:board_counter].index(search_str).nil?
-      @board.update_attribute(:view_count, @board.view_count+1)
-      session[:board_counter] += @board.id.to_s + ' ';
-      # reset the :board_counter with too many boards
-      session[:board_counter] = search_str if session[:board_counter].split.count > 30
-    end
-    
+        
     @members = @board.members.order('created_at ASC')
     
     respond_to do |format|

@@ -1,13 +1,14 @@
 <div class="close_button inline_right clickable">
   <%= link_to "Close", home_path + '?subact=cancel', :title => "Close Posts Search" %>
 </div>
-<i><font color="red" size="smaller">Max <%= pluralize(per_page_search, 'result' ) %></font></i>
 <%= form_tag home_path, :method => :get, :id => "tab_posts_search", :remote => true do %>
-<%= text_field_tag :search, params[:search], :size => 30 %>
-<%= hidden_field_tag 'act', 'post_search' %>
+<%= text_field_tag :search, params[:search], :size => 40 %>
+<%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker" %>
+<%= hidden_field_tag 'act', 'post_search' %><br />
 <%= submit_tag "Search posts", :name => nil, :class => 'button_neutral' %>
 <% end %>
-
-<div class="action_tab">
-<%= render 'home/tab_post_results' %>
-</div>
+<script>
+$(function() {
+	$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
