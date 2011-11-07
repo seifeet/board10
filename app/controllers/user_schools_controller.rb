@@ -58,7 +58,7 @@ class UserSchoolsController < ApplicationController
 
     respond_to do |format|
       if valid # && @user_school.save
-        format.html { redirect_to session[:return_to], notice: 'School was added to your profile.' }
+        format.html { redirect_to home_path, notice: 'School was added to your profile.' }
         format.js
         format.json { render json: @user_school, status: :created, location: @user_school }
       #else
@@ -93,7 +93,7 @@ class UserSchoolsController < ApplicationController
     flash.now[:notice] = "School was removed."
     
     respond_to do |format|
-      format.html { redirect_to session[:return_to] }
+      format.html { redirect_to home_path }
       format.js
       format.json { head :ok }
     end

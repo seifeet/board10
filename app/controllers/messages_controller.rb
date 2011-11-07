@@ -75,7 +75,7 @@ class MessagesController < ApplicationController
       else
         msg = 'Unable to send your request.'
       end
-      format.html { redirect_to session[:return_to], notice: msg }
+      format.html { redirect_to home_path, notice: msg }
       format.json { render json: @message }
     end
     rescue ActiveRecord::RecordNotFound
