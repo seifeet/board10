@@ -76,7 +76,7 @@ class HomeController < ApplicationController
     
     if @postings.nil? || @postings.empty?
       @postings_title = "no posts"
-      @last_posting = Time.now
+      @last_posting = Time.now.utc
     else
       @last_posting = @postings.first.created_at
     end

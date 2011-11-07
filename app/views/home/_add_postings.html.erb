@@ -2,7 +2,7 @@
   @board = Board.find(posting.board_id) if @board.nil? && params[:autorefresh].nil?
   @board = Board.find_board(params[:board_id]) if !params[:autorefresh].nil?
   if ( @board && current_user.member?( @board.id ) )
-  	new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, (posting ? posting.created_at : Time.now )).order('created_at DESC')
+  	new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, (posting ? posting.created_at : Time.now.utc )).order('created_at DESC')
     # The current posting if it is the first one on the board will not be picked up
     # by the above query. In this case it will be printed in the 'else' statement.
     if ( new_postings.count > 0 )
