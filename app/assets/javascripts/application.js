@@ -106,7 +106,7 @@ if(history && history.pushState ) {
 }
 
 $(function() {
-    
+ 
     $("#new_posting").live("ajax:complete", function(event, xhr, status) {
         $('#editor').val('');
     });
