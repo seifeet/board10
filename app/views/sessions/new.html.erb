@@ -6,15 +6,14 @@
 
 <%= render 'shared/flash_msg', :msg => "error" %>
 
-<!--%= form_for(:session, :url => sessions_path, :html => { :class => "clearfix"}, :builder => AppFormBuilder ) do |f| %-->
-<%= form_for :session, :url => sessions_path do |f| %>
+<%= form_for :session, :url => sessions_path  do |f| %>
   <div class="single_field">
     <%= f.label :email, :class => "nested_label" %>
-	<%= f.text_field :email, :class => "text_big", :size => 34 %>
+	<%= f.text_field :email, :class => "text_big" %>
   </div>
   <div class="single_field">
     <%= f.label :password, :class => "nested_label" %>
-    <%= f.password_field :password, :class => "text_big", :size => 34 %>
+    <%= f.password_field :password, :class => "text_big" %>
   </div>
   <div class="single_field white">
     <%= check_box_tag :remeber_me, 1, params[:remeber_me] %>
@@ -28,4 +27,5 @@
 	<%= link_to "New user? Sign up now!", signup_path, :class => "button_with_img button_grey"  %>
   </div>
 <% end %>
+
 </div>

@@ -344,23 +344,25 @@ body{
 
 /*********************** buttons ***********************************/
 .signin_container .text_big{
-    margin: auto;
-    padding: 5px 5px 5px 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-size: $btn-font-size;
     background-color: #fff;
+    width:99%;
 }
 
 .signin_container .button_with_img, a.button_with_img {
     display: block;
-    margin: auto;
-    padding: 10px 10px 10px 10px;
+    padding-top:10px; // make wider top
+    padding-bottom:10px; // and bottom
+    margin-top:10px;
     text-decoration: none;
     text-align:center;
     font-weight: normal;
     font-size: $btn-font-size;
     color: #fff;
     background-image:url('../../assets/knopkibolwie.png');
-    width:95%;
+    width:100%;
     cursor: pointer;
 }
 
@@ -368,6 +370,8 @@ body{
     border-color: #2c8e57;
     background-color: #2c8e57;
     background-position: 0 -150px;
+    width:100%;
+    margin-top:15px;
     @include rounded-corners(20px, #019245);
     &:hover {
         background-position: 0 -200px;
@@ -384,7 +388,7 @@ body{
     border-color: #303030;
     background-color: #303030;
     background-position: 0 0px;
-    width:90%;
+    width:100%;
     @include rounded-corners(20px, #313130);
     
     &:hover {
