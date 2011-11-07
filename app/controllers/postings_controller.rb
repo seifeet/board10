@@ -58,18 +58,24 @@ class PostingsController < ApplicationController
     unless current_user.member?(board)
       raise ActiveRecord::RecordNotFound
     end
-      
-    @posting = Posting.new(params[:posting])
-    @posting.board_id = board.id
-    @posting.user_id = current_user.id
-    @posting.content = params[:editor] if params[:content].nil?
     
-    @last_posting = params[:last_posting]
+    if params[:content] == 'auto_refresh'
+      @no_save = true
+      params[:board_id] = board.id
+      params[:autorefresh] = true
+      @last_posting = params[:auto_posting]
+    else
+      @posting = Posting.new(params[:posting])
+      @posting.board_id = board.id
+      @posting.user_id = current_user.id
+      @posting.content = params[:editor] if params[:content].nil?
+      @err = true if @posting.content.nil? || @posting.content.empty?
+      @last_posting = params[:last_posting]
+    end
     
-    @err = true if @posting.content.nil? || @posting.content.empty?
-      
+
     respond_to do |format|
-      if !@err && @posting.save
+      if @no_save || ( !@err && @posting.save )
         format.html { redirect_to session[:return_to], notice: '' }
         format.js
         format.json { render :json => @posting, status: :created, location: @posting }

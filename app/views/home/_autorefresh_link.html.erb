@@ -1,0 +1,26 @@
+<% 
+ # return nil if params[:board].nil? || @board.nil?
+ return nil if board.nil?
+ 
+ #@board = Board.find_board(params[:board]) if @board.nil?
+ #if @board.active? && current_user.member?( @board.id )
+ if board.active? && current_user.member?( board.id )
+ user = User.find_user(params[:id])
+ @reply = false
+ 
+ #if @board.postings.nil? || @board.postings.empty?
+ if board.postings.nil? || board.postings.empty?
+   @last_posting = Time.now
+ else
+   #@last_posting = @board.postings.first.created_at
+   @last_posting = board.postings.first.created_at
+ end
+%>
+<%= form_for @autorefresh, :remote => true do |f| %>
+<%= hidden_field_tag 'auto_posting', @last_posting %>
+<%= hidden_field_tag 'board_id', @board.id %>
+<%= hidden_field_tag :content, "auto_refresh" %>
+<%= f.submit 'Refresh', :class => "button_neutral" %>
+<% end %>
+
+<% end %>

@@ -48,6 +48,8 @@ class HomeController < ApplicationController
     
     # FORM FOR POSITNGS
     @posting_form = Posting.new
+    # Autorefresh form
+    @autorefresh = Posting.new
 
     if !params[:school].nil?
       @school = School.find_school(params[:school])
