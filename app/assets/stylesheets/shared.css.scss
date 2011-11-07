@@ -328,7 +328,6 @@ body{
     padding: 5px 5px 5px 5px;
     font-size: $btn-font-size;
     background-color: #fff;
-    width: 95%;
 }
 
 .signin_container .button_with_img, a.button_with_img {
@@ -365,6 +364,7 @@ body{
     border-color: #303030;
     background-color: #303030;
     background-position: 0 0px;
+    width:90%;
     @include rounded-corners(20px, #313130);
     
     &:hover {

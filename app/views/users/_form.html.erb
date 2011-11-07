@@ -10,37 +10,38 @@
 
 <%= render 'shared/flash_msg', :msg => "error" %>
 
+<% field_length = 34 %>
 <div class="single_field">
 	<% if !check(@user, "Email").nil? %>
 	<div class="flash_error"><%= check(@user, "Email") %></div>
 	<% end %>
     <%= f.label :email, :class => "nested_label" %>
-    <%= f.text_field :email, :class => "text_big" %>
+    <%= f.text_field :email, :class => "text_big", :size => field_length %>
 </div>
 <div class="single_field">
 	<% if !check(@user, "First name").nil? %>
 	<div class="flash_error"><%= check(@user, "First name") %></div>
 	<% end %>
     <%= f.label :first_name, :class => "nested_label" %>
-    <%= f.text_field :first_name, :class => "text_big" %>
+    <%= f.text_field :first_name, :class => "text_big", :size => field_length %>
 </div>
 <div class="single_field">
 	<% if !check(@user, "Last name").nil? %>
 	<div class="flash_error"><%= check(@user, "Last name") %></div>
 	<% end %>
     <%= f.label :last_name, :class => "nested_label" %>
-    <%= f.text_field :last_name, :class => "text_big" %>
+    <%= f.text_field :last_name, :class => "text_big", :size => field_length %>
 </div>
 <div class="single_field">
-    <%= f.select(:country, Country.all, {:selected => "United States"},:class => "text_big") %>
+    <%= f.select(:country, Country.all, {:selected => "United States"},:class => "text_big",:style => "width:290px") %>
 </div>
 
 <div class="single_field">
-	<%= f.select(:state, State.all, {:include_blank => true},:class => "text_big") %>
+	<%= f.select(:state, State.all, {:include_blank => true},:class => "text_big",:style => "width:290px") %>
 </div>
 <div class="single_field">
     <%= f.label :city, :class => "nested_label" %>
-    <%= f.text_field :city, :class => "text_big" %>
+    <%= f.text_field :city, :class => "text_big", :size => field_length %>
 </div>
 
 <% if current_user.nil? %>
@@ -49,14 +50,14 @@
 	<div class="flash_error"><%= check(@user, "Password") %></div>
 	<% end %>
     <%= f.label :password, 'Password', :class => "nested_label" %>
-    <%= f.password_field :password, :size => 40, :class => "text_big" %>
+    <%= f.password_field :password, :class => "text_big", :size => 34 %>
 </div>
 <div class="single_field">
 	<% if !check(@user, "Password").nil? %>
 	<div class="flash_error"><%= check(@user, "Password") %></div>
 	<% end %>
     <%= f.label :password_confirmation, 'Confirm Password', :class => "nested_label" %>
-    <%= f.password_field :password_confirmation, :size => 40, :class => "text_big" %>
+    <%= f.password_field :password_confirmation, :class => "text_big", :size => 34 %>
 </div>
 <% end %>
 
