@@ -1,19 +1,18 @@
-<div id="_title_nav">
-	<div id="sign_out"><%= link_to "Sign out", signout_path, :method => :delete %></div>
-	<div id="_title">
-		<%= element.title %>
-	</div>
-	<div class="delete_button"><%= link_to 'Del', element, confirm: 'Are you sure?', 
-	                   method: :delete, :title => "Delete #{element.title}" %></div>
-	<div class="edit_button"><%= link_to 'Edit', edit_link %></div>
-	<div class="action_button"><%= link_to 'Home', home_path %></div>
-	<div id="_desc"><%= element.description %></div>
+<div id="_title_nav">    
+    <div id="_title">
+        <%= element.title %>
+    </div>
+    <div id="_desc"><%= element.description %></div>
 </div>
 <% if request.fullpath =~ /\/home?/ %>
-<div class="logo_link clickable logo_messages">
+<div class="logo_link logo_messages clickable">
 <% else %>
 <div class="logo_link logo_messages">
 <% end %>
-    <%= render 'home/check_new_msg' %>  
+    <%= render 'home/check_new_msg' %>
 </div>
-
+<div class="logo_nav clearfix">
+    <div id="sign_out"><%= link_to "Sign out", signout_path, :method => :delete %></div>
+    <%= link_to 'Settings', edit_link %>
+    <%= link_to 'Home', home_path %>
+</div>
