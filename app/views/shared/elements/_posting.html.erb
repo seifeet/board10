@@ -28,7 +28,8 @@
     </div>
         
     <% unless element.created_at.nil? %>
-        <div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
+        <div class="inline"><%= element.created_at.strftime("%m/%d/%Y %I:%M%p")  %><br />
+        	<i>(<%= (time_ago_in_words(element.created_at)+" ago") %>)</i></div>
     <% end %>
   
     <div class="inline nice clickable">
