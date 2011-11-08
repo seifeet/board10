@@ -1,15 +1,6 @@
 (function($){
   var settings;
   
-  // transform buttons into context menu
-  $.toggleContextMenu = function(element) {
-        element.find(".hidable").hide();
-        element.bind("contextmenu", function(e) {
-            $(this).find(".hidable").toggle(500);
-            return false;
-        });
-  };
-  
   $.bottomlessPagination = function(callerSettings) {
     settings = $.extend({
         ajaxLoaderPath:'../../assets/loading.gif',
