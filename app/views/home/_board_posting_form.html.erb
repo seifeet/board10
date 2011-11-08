@@ -6,7 +6,7 @@
  @reply = false
  
  if @board.postings.nil? || @board.postings.empty?
-   @last_posting = Time.now
+   @last_posting = Time.now.utc
  else
    @last_posting = @board.postings.first.created_at
  end

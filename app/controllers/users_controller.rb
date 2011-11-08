@@ -164,7 +164,7 @@ class UsersController < ApplicationController
       all_postings = []
       user.boards.each do |board|
         if user.member?(board)
-          all_postings += board.all_member_comments(user.id)
+          all_postings += board.postings # all_member_comments(user.id)
         else
           all_postings += board.postings.where(:visibility => 1)
         end

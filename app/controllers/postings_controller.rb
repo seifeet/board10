@@ -54,17 +54,17 @@ class PostingsController < ApplicationController
   # POST /postings
   # POST /postings.json
   def create
-    board = Board.find(params[:board_id])
-    unless current_user.member?(board)
-      raise ActiveRecord::RecordNotFound
-    end
+    board = Board.find(params[:board_id]) unless params[:board_id].nil?
+    school = School.find(params[:school_id]) unless params[:school_id].nil?
     
     if params[:content] == 'auto_refresh'
+      params[:board_id] = board.id unless params[:board_id].nil?
+      params[:school_id] = school.id unless params[:school_id].nil?
+      params[:act] = 'boards' unless params[:boards].nil?
       @no_save = true
-      params[:board_id] = board.id
       params[:autorefresh] = true
       @last_posting = params[:auto_posting]
-    else
+    elsif current_user.member?(board) # only member can create messages
       @posting = Posting.new(params[:posting])
       @posting.board_id = board.id
       @posting.user_id = current_user.id
@@ -73,7 +73,6 @@ class PostingsController < ApplicationController
       @last_posting = params[:last_posting]
     end
     
-
     respond_to do |format|
       if @no_save || ( !@err && @posting.save )
         format.html { redirect_to session[:return_to], notice: '' }

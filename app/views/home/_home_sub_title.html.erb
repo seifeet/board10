@@ -1,10 +1,18 @@
 <% if !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
 <%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
+<div class="refreshable">
+<%= render 'home/autorefresh_link', :element => @board %>
+</div>
 <% elsif !@school.nil? %>
 <%= link_to strip_and_cut(@school.title, 80), school_path(@school) %>
+<div class="refreshable">
+<%= render 'home/autorefresh_link', :element => @school %>
+</div>
 <% elsif !params[:act].nil? && params[:act] == 'messages' %>
 Messages
 <% else %>
 <%= @postings_title %>
+<div class="refreshable">
+<%= render 'home/autorefresh_link', :element => nil %>
+</div>
 <% end %>
-
