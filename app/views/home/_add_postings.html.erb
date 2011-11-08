@@ -1,20 +1,39 @@
 <%
-  @board = Board.find(posting.board_id) if @board.nil? && params[:autorefresh].nil?
-  @board = Board.find_board(params[:board_id]) if !params[:autorefresh].nil?
-  if ( @board && current_user.member?( @board.id ) )
-  	new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, (posting ? posting.created_at : Time.now.utc )).order('created_at DESC')
-    # The current posting if it is the first one on the board will not be picked up
-    # by the above query. In this case it will be printed in the 'else' statement.
-    if ( new_postings.count > 0 )
-      new_postings.each do |new_posting|
+  if params[:autorefresh].nil?
+    @board = Board.find_board(posting.board_id) if @board.nil?
+  else
+  	if !params[:board_id].nil?
+      @board = Board.find_board(params[:board_id])
+    elsif !params[:school_id].nil?
+   	  @school = School.find_school(params[:school_id])
+    end
+  end
+  
+  if @board 
+  	if current_user.member?( @board.id )
+  	  new_postings = @board.postings.where('created_at > ? and created_at <= ?', last_posting, (posting ? posting.created_at : Time.now.utc )).order('created_at DESC')
+    else
+   	  new_postings = @board.postings.where('visibility = 1 and created_at > ? and created_at <= ?', last_posting, (posting ? posting.created_at : Time.now.utc )).order('created_at DESC')
+    end
+  elsif @school
+    school_postings( @school, last_posting, (posting ? posting.created_at : Time.now.utc ) )
+  elsif params[:act] == 'boards'
+   	board_postings( last_posting, (posting ? posting.created_at : Time.now.utc ) )
+  end
+%>
+
+<%
+  # The current posting if it is the first one on the board will not be picked up
+  # by the above query. In this case it will be printed in the 'else' statement.
+  if new_postings && new_postings.count > 0
+    new_postings.each do |new_posting|
 %>
 <%= render 'shared/elements/element', :element => new_posting, :read_only => false %>
 <%
-      end
-    else
+    end
+  elsif !posting.nil?
 %>
 <%= render 'shared/elements/element', :element => posting, :read_only => false %>
 <%
-    end # end of new_postings.count > 0
-  end 
+  end # end of new_postings.count > 0
 %>

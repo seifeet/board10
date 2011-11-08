@@ -1,26 +1,33 @@
 <% 
- # return nil if params[:board].nil? || @board.nil?
- return nil if board.nil?
- 
- #@board = Board.find_board(params[:board]) if @board.nil?
- #if @board.active? && current_user.member?( @board.id )
- if board.active? && current_user.member?( board.id )
- user = User.find_user(params[:id])
- @reply = false
- 
- #if @board.postings.nil? || @board.postings.empty?
- if board.postings.nil? || board.postings.empty?
-   @last_posting = Time.now.utc
- else
-   #@last_posting = @board.postings.first.created_at
-   @last_posting = board.postings.first.created_at
- end
+  # element is nil if all postings from the board were requested
+  # or if element is school with all its postings
+  if element.nil? || element.class_type == 'school'
+  	if @postings.nil? || @postings.empty?
+	  @last_posting = Time.now.utc
+    else !@postings.nil?
+	  @last_posting = @postings.first.created_at
+	end
+  elsif element.class_type == 'board'
+	if element.active? # (add_postings will take care of whethe user is a memeber or not) && current_user.member?( element.id )
+	  if element.postings.nil? || element.postings.empty?
+		@last_posting = Time.now.utc
+      else !element.postings.nil?
+		@last_posting = element.postings.first.created_at
+	  end
+	end
+  end
 %>
-<%= form_for @autorefresh, :remote => true do |f| %>
-<%= hidden_field_tag 'auto_posting', @last_posting %>
-<%= hidden_field_tag 'board_id', @board.id %>
-<%= hidden_field_tag :content, "auto_refresh" %>
-<%= f.submit 'Refresh', :class => "button_neutral" %>
-<% end %>
-
+<% if @last_posting %>
+	<%= form_for @autorefresh, :remote => true do |f| %>
+	<%= hidden_field_tag 'auto_posting', @last_posting %>
+	<% if element.nil? %>
+	    <%= hidden_field_tag 'boards', 'boards' %>
+	<% elsif element.class_type == 'board' %>
+		<%= hidden_field_tag 'board_id', element.id %>
+	<% elsif element.class_type == 'school' %>
+		<%= hidden_field_tag 'school_id', element.id %>
+	<% end %>
+	<%= hidden_field_tag :content, "auto_refresh" %>
+	<%= f.submit 'Refresh', :class => "button_neutral" %>
+	<% end %>
 <% end %>
