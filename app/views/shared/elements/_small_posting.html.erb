@@ -29,7 +29,7 @@
         <div class="inline"><%= (time_ago_in_words(element.created_at)+" ago") %></div>
     <% end %>
   
-    <div class="inline nice clickable">
+    <div class="inline clickable">
         <% if board = Board.find_board(element.board_id) %>
         <%= link_to "#{strip_and_cut(board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text" %>
         <% else %>
@@ -39,11 +39,11 @@
 
     <% if !board.nil? && !board.school_id.nil? %>
     <% school = School.find_school(board.school_id) %>
-    <div class="inline nice clickable"><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></div>
+    <div class="inline clickable"><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></div>
     <% end %>
 </div>
 
-<div class="posting_right_column nice clearfix">    
+<div class="posting_right_column clearfix">    
     <div class="inline">
     <%= link_to strip_and_cut(element.content, 300), posting_path(element), :target => "_blank", :class => "link_to_text" %>
     </div>

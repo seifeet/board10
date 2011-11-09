@@ -1,10 +1,10 @@
 $header-backgrnd: #709423;
-$backgrnd:        #336633;
+$backgrnd:       #336633;
 $bgdarken70:    darken($backgrnd, 70%);
 $bgdarken40:    darken($backgrnd, 40%);
 $bgdarken10:    darken($backgrnd, 10%);
 $bglighten20:  lighten($backgrnd, 20%);
-$bglighten40:  lighten($backgrnd, 40%);
+$bglighten50:  lighten($backgrnd, 50%);
 
 $font-color: $bgdarken70;
 
@@ -50,7 +50,7 @@ $btn-font-size: 16px;
 }
 
 @mixin action-button($bk_color){
-    color: $bglighten40;
+    color: $bglighten50;
     font-weight: bold;
     background-color: $bk_color;
     border: 1px solid transparent;
@@ -66,19 +66,19 @@ $btn-font-size: 16px;
 }
 
 @mixin main-button($bkcolor: $bgdarken40){
-    margin: 2px;
+    margin: 5px;
     border:1px solid $bkcolor;
     background: $bkcolor;
     padding: .5em;
-    display:block;
+    display: inline-block;
     text-align:center;
-    color:#fff;
+    color: $bglighten50;
     text-decoration:none;
     font-weight: bold;
     line-height:.5em;
     @include rounded-corners;
     &:hover{
-        @include main-hover( $bkcolor );
+        @include main-hover;
     }
 }
 @mixin main-shadow($clr: $bgdarken40){
@@ -87,10 +87,9 @@ $btn-font-size: 16px;
   -o-box-shadow: 5px 5px 5px $clr;
   box-shadow: 5px 5px 5px $clr;
 }
-@mixin main-hover($bkcolor){
-    background: $bkcolor; /* nav hover color */
-    color: $bglighten40;
-    font-weight: bold;
+@mixin main-hover(){
+    color: black;
+    background-color: #ffb770;
 }
 
 /************************* body ******************************/
@@ -165,16 +164,6 @@ body{
     }
 }
 
-/*********************** content ***********************************/
-.button_confirm{
-    @include action-button($btn-confirm);
-}
-.button_reject{
-    @include action-button($btn-reject);
-}
-.button_neutral{
-    @include action-button($bgdarken40);
-}
 /*********************** shared folder ***********************************/
 #_title_nav{
     float:right;
@@ -189,33 +178,30 @@ body{
 }
 #_desc{
 }
-#sign_out{
-    float:right;
-}
 
 // _sub_title_action will be depricated:
 ._sub_title_action {
-	margin: auto;
-	padding: 5px 5px 5px 5px;
-	text-align:left;
-	font-weight: bold;
+    margin: auto;
+    padding: 5px 5px 5px 5px;
+    text-align:left;
+    font-weight: bold;
   font-size: $btn-font-size;
-	color:$bgdarken40;
+    color:$bgdarken40;
   //background:$bglighten20;
 }
 // _sub_title_action will be depricated:
 ._sub_title_action a {
   margin: auto;
   text-decoration: underline;
-	overflow:visible;
+    overflow:visible;
   cursor: pointer;
   font-size: $btn-font-size;
   color:$bgdarken40;
   
-	&:hover {
-		color: $bglighten20;
-		font-weight: bold;
-	}
+    &:hover {
+        color: $bglighten20;
+        font-weight: bold;
+    }
 }
 
 .generic_container{
@@ -231,8 +217,7 @@ body{
 .generic_container div.user_element:hover,
 .generic_container div.board_element:hover,
 .generic_container div.member_element:hover{
-    background:$bglighten40; /* nav hover color */
-    /*color:lighten($backgrnd, 70%);*/
+    background: white;
 }
 .small_container{
     float:left;
@@ -244,7 +229,7 @@ body{
     color: $bgdarken70;
 }
 .small_container div.small_element:hover{
-    background:$bglighten40;
+    background:$bglighten50;
 } 
 .small_element{
     width: 99%;
@@ -261,7 +246,7 @@ body{
 .member_element{
     width: auto;
     margin: 2px auto;
-    @include bkground-image;
+    @include bkground-image(#A6B299, #A6B299);
     border:3px solid $backgrnd;
     padding:1px;
     border-radius: 5px;
@@ -277,35 +262,32 @@ body{
     @include main-button( $btn-reject );
 }
 
-.action_button a{
-    float: right;
-    @include main-button( $bgdarken40 );
+.button_confirm{
+    @include action-button($btn-confirm);
 }
-
-.close_button a{
-    @include main-button( $bgdarken40 );
+.button_reject{
+    @include action-button($btn-reject);
+}
+.button_neutral,
+.close_button a,
+.action_button a{
+    @include main-button( $bgdarken10 );
 }
 
 .clickable a{
-    color:#000;
     &:hover{
       cursor: pointer;
     }
 }
 
-.link_to_text{
-    text-decoration: none;
+a.link_to_text{
     color:#000;
     display: block;
     width: 99%;
-	background-color: transparent;
+    background-color: transparent;
+    text-decoration: none;
     &:hover {
-        text-decoration: none;
-		background-color: $bglighten20;
-    }
-    
-    &:active {
-        text-decoration: none;
+        background-color: $bglighten50;
     }
 }
 
@@ -328,11 +310,7 @@ body{
     border-left: 1px solid gray;
     padding: 1em;
 }
-.nice a{
-  &:hover{
-    text-decoration:underline;
-  }
-}
+
 .clearBoth { clear:both; }
 .inline{ float: left; margin: 2px; width: 99%; }
 .inline_right{ float: right; margin: 2px; width: 99%; }

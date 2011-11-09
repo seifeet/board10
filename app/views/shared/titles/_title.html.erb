@@ -12,7 +12,7 @@
     <%= render 'home/check_new_msg' %>
 </div>
 <div class="logo_nav clearfix">
-    <div id="sign_out"><%= link_to "Sign out", signout_path, :method => :delete %></div>
+    <%= link_to "Sign out", signout_path, :method => :delete %>
     <%= link_to 'Settings', edit_link %>
     <%= link_to 'Home', home_path %>
 </div>
