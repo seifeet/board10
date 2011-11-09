@@ -109,6 +109,8 @@ $(function() {
 
     $("#new_posting").live("ajax:complete", function(event, xhr, status) {
         $('#editor').val('');
+        $('#posting_content').val('');
+        return false;
     });
  
     $(".posting_element").live("ajax:complete", function(event, xhr, status) {
