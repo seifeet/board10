@@ -30,7 +30,11 @@
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
     <br />
+    <% if !params[:subact].nil? %>
     <%= text_area_tag :editor, "", :rows => 3, :cols => 40 %>
+    <% else %>
+    <%= f.text_area :content, :rows => 3, :cols => 40 %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Post', :class => "button_neutral" %>

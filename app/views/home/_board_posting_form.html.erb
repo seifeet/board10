@@ -6,11 +6,9 @@
  @reply = false
  
  if @board.postings.nil? || @board.postings.empty?
-   #@from_posting = Time.now.utc
    last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
    @from_posting = last_post[0].maxid
  else
-   #@from_posting = @board.postings.first.created_at
    @from_posting = @board.postings.first.id
  end
 %>
