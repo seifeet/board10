@@ -102,7 +102,8 @@ body{
     color:$font-color;
     font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
     font-size: 12px; //small;
-    @include bkground-image(#99b299, #99b299);
+    background:#99b299;
+    //@include bkground-image(#99b299, #99b299);
     /* MS */
     zoom:1;
     /* filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#336633', endColorstr='#709423', GradientType=1); */
@@ -135,6 +136,7 @@ body{
     height: 20em;
     /* MS */
     zoom:1;
+    @include main-shadow;
 }
 
 .logo_link a{

@@ -41,7 +41,10 @@ $title-bar: 78%;
 }
 #user_title_nav{ // right side navigation with schools, boards etc.
     float:right;
-    padding: 0 10px 0 0;
+    padding: 0 10px 25px 25px;
+    background:#336633;
+    @include rounded-corners(25px);
+    @include main-shadow;
 }
 #right_side_act{
     position:absolute;

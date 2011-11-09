@@ -7,7 +7,8 @@
 <% unless user.boards.empty? %>
   <% user.boards.each do |board| %>
      <% if board.active? %>
-     <div class="nav_link clickable">
+     <!-- div class="nav_link clickable" -->
+     <div class="secondary_menu_button clickable">
      <%= link_to "#{strip_and_cut(board.title,20)}", home_path + '?board=' + board.id.to_s, {:title => "Board: #{board.title}"} %>
      </div>
      <div class="clickable">

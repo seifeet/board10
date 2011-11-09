@@ -4,7 +4,8 @@
 <br class="clearBoth" />
 <% if !current_user.schools.empty? %>
   <% current_user.schools.each do |school| %>
-     <div class="nav_link clickable">
+     <!-- div class="nav_link clickable" -->
+     <div class="secondary_menu_button clickable">
      <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + '?school=' + school.id.to_s,{:title => "School: #{school.name}"} %>
      </div>
      <div class="clickable">
