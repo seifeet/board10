@@ -11,7 +11,9 @@
 <% elsif !params[:act].nil? && params[:act] == 'messages' %>
 Messages
 <% else %>
-<%= @postings_title %>
+<div class="clickable">
+<%= link_to @postings_title, home_path+'?act=boards', :title => "Posts from all your boards" %>
+</div>
 <div class="autorefresh_link refreshable">
 <%= render 'home/autorefresh_link', :element => nil %>
 </div>
