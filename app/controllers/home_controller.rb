@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   include HomeHelper
+  include PostingsHelper
   include ApplicationHelper
   before_filter :only_current_user
   
@@ -76,9 +77,10 @@ class HomeController < ApplicationController
     
     if @postings.nil? || @postings.empty?
       @postings_title = "no posts"
-      @last_posting = Time.now.utc
+      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+      @from_posting = last_post[0].maxid #@from_posting = Time.now.utc
     else
-      @last_posting = @postings.first.created_at
+      @from_posting = @postings.first.id #@from_posting = @postings.first.created_at
     end
     
     # logger.debug "\n\n After postings \n\n\n"
@@ -94,10 +96,16 @@ class HomeController < ApplicationController
   private
   
   def paginate_board_postings
-    board_postings
+    all_postings = board_postings
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+    end
   end
   
   def paginate_school_postings school
-    school_postings school
+    all_postings = school_postings school
+    if !all_postings.nil? && !all_postings.empty?
+     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+    end
   end
 end

@@ -3,23 +3,25 @@
   # or if element is school with all its postings
   if element.nil? || element.class_type == 'school'
   	if @postings.nil? || @postings.empty?
-	  @last_posting = Time.now.utc
+	  last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+	  @from_posting = last_post[0].maxid
     else !@postings.nil?
-	  @last_posting = @postings.first.created_at
+	  @from_posting = @postings.first.id
 	end
   elsif element.class_type == 'board'
-	if element.active? # (add_postings will take care of whethe user is a memeber or not) && current_user.member?( element.id )
+	if element.active?
 	  if element.postings.nil? || element.postings.empty?
-		@last_posting = Time.now.utc
+		last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+		@from_posting = last_post[0].maxid
       else !element.postings.nil?
-		@last_posting = element.postings.first.created_at
+		@from_posting = element.postings.first.id
 	  end
 	end
   end
 %>
-<% if @last_posting %>
+<% if @from_posting %>
 	<%= form_for @autorefresh, :remote => true do |f| %>
-	<%= hidden_field_tag 'auto_posting', @last_posting %>
+	<%= hidden_field_tag 'auto_posting', @from_posting %>
 	<% if element.nil? %>
 	    <%= hidden_field_tag 'boards', 'boards' %>
 	<% elsif element.class_type == 'board' %>

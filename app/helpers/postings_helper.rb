@@ -1,2 +1,56 @@
 module PostingsHelper
+  def board_postings from = nil
+    require 'will_paginate/array'
+    all_postings = []
+    current_user.boards.each do |board|
+      if current_user.member?(board)
+        if from.nil?
+        all_postings += board.postings # board.all_member_comments(current_user.id)
+        else
+        #all_postings += board.postings.where('created_at > ? and created_at <= ?', from_time, to_time)
+        all_postings += board.postings.where('id > ?', from)
+        end
+      else # current_user is not a member
+        if from.nil?
+        all_postings += board.postings.where(:visibility => 1)
+        else
+        #all_postings += board.postings.where('visibility = 1 and created_at > ? and created_at <= ?', from_time, to_time)
+        all_postings += board.postings.where('visibility = 1 and id > ?', from)
+        end
+      end
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      ##all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+
+  def school_postings school, from = nil
+    require 'will_paginate/array'
+    all_postings = []
+    school.boards.each do |board|
+      if current_user.member?(board)
+        if from.nil?
+        all_postings += board.postings
+        else
+        all_postings += board.postings.where('id > ?', from)
+        end
+      else # current_user is not a member
+        if from.nil?
+        all_postings += board.postings.where(:visibility => 1)
+        else
+        #all_postings += board.postings.where('visibility = 1 and created_at > ? and created_at <= ?', from_time, to_time)
+        all_postings += board.postings.where('visibility = 1 and id > ?', from)
+        end
+      end
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      #all_postings.sort_by!{|posting|[posting.created_at]}.reverse!
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
 end

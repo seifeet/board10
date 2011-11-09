@@ -16,7 +16,7 @@
       </ul>
     </div>
   <% end %>
-    <%= hidden_field_tag 'last_posting', @last_posting %>
+    <%= hidden_field_tag 'from_posting', @from_posting %>
     <% if !@board.nil? %>
     <%= hidden_field_tag 'board_id', @board.id %>
     <% end %>
