@@ -31,9 +31,9 @@
     <% end %>
     <br />
     <% if !params[:subact].nil? %>
-    <%= text_area_tag :editor, "", :rows => 3, :cols => 40 %>
+    <%= text_area_tag :editor, "", :rows => 3, :cols => 35 %>
     <% else %>
-    <%= f.text_area :content, :rows => 3, :cols => 40 %>
+    <%= f.text_area :content, :rows => 3, :cols => 35 %>
     <% end %>
   </div>
   <div class="actions">

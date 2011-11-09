@@ -56,7 +56,7 @@
     <% if element.access == Posting::PRIVATE %>
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
     <% end %>
-    <div class="inline_right">
-    <%= render 'votes/vote_btn', :element => element %>
-    </div>
+	<div class="inline">
+	  <%= render 'votes/vote_btn', :element => element %>
+	</div>
 </div>

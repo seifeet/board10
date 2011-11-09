@@ -5,7 +5,7 @@
 $rignt-nav-bar: 17%;  // the width of the right bar navigation
 $main-part: 45%;  // the width of the #main-part
 $left-side-shift: 3%; // #main_part has a shift left by this amount
-$title-bar: 78%; // $main-part + $left-side-shift - 1%
+$title-bar: 78%;
 
 @mixin menu-btn($wide:6em, $marge: 10px, $round: 100px, $line: 6em){
     width: $wide;
@@ -122,8 +122,14 @@ $title-bar: 78%; // $main-part + $left-side-shift - 1%
   }
 }
 
-#title_top_action{
+#right_side_act{
+  left:650px;
+  margin-left:1em;
+  min-width:35%;
+}
 
+#title_top_action{
+  align:right;
 }
 .action_tab{ // results of the boards/schools search etc.
     overflow: auto;

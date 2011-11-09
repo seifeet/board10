@@ -14,3 +14,11 @@ body, #logo, #wider_line{
   /* MS */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#FF9E73', endColorstr='#FFB673', GradientType=1);
 }
+
+.signin_container{
+    position: relative;
+    top: 85px;
+    width: 27em;
+    margin: auto;
+    padding: 15px 15px 15px 15px;
+}
