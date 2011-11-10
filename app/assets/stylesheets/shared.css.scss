@@ -56,6 +56,7 @@ $btn-font-size: 16px;
     background: $bglighten50;//transparent;
     border: 2px solid $bk_color;
     padding: 2px;
+    margin: 5px;
     @include rounded-corners(5px);
 
     &:hover {
@@ -256,22 +257,23 @@ body{
     background: white; //#A6B299;
 }
 
+.hidable {
+}
+
+.edit_button,
 .edit_button a{
-    float: right;
     @include main-button( $btn-confirm );
 }
 
+.delete_button,
 .delete_button a{
-    float: right;
     @include main-button( $btn-reject );
 }
 
 .button_confirm{
-  float:right;
     @include action-button($btn-confirm);
 }
 .button_reject{
-  float:right;
   @include action-button($btn-reject);
 }
 .button_neutral,
@@ -293,11 +295,13 @@ a.link_to_text{
     background-color: transparent;
     text-decoration: none;
     &:hover {
-        //background-color: $bglighten50;
-        text-decoration: underline;
+        text-decoration: none;
     }
 }
 
+.posting_element {
+}
+    
 .posting_element .subject{
     color:#A62F00;
     font-weight: bold;
@@ -316,12 +320,13 @@ a.link_to_text{
     width:50%;
     margin-left: 220px; 
     border-left: 1px solid gray;
-    padding: 1em;
+    padding: 5px;
 }
 
 .clearBoth { clear:both; }
 .inline{ float: left; margin: 2px; width: 99%; }
 .inline_right{ float: right; margin: 2px; width: 99%; }
+.float_right{ float: right;}
 
 /*********************** clearfix ***********************************/
 .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }

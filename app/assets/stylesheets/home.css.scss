@@ -4,7 +4,7 @@
 
 $rignt-nav-bar: 17%;  // the width of the right bar navigation
 $left-side: 45%;  // the width of the #main-part
-$right-side: 50%;
+$right-side: 35%;
 $left-side-shift: 3%; // #main_part left shift
 $title-bar: 78%;
 
@@ -45,16 +45,16 @@ $title-bar: 78%;
     padding: 0 10px 25px 25px;
     background:#336633;
     @include rounded-corners(25px);
-    @include main-shadow;
 }
 #content
 {
 }
 
 #right_side_act{
-    position:relative;
+    position: relative;
     width: $right-side;
-    float:right;
+    float: right;
+    margin: 0 15% 0 0;
 }
 
 #main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons
