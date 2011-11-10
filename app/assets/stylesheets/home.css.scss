@@ -46,6 +46,9 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     background:#336633;
     @include rounded-corners(25px);
 }
+#avalable_sapce{
+  height:30em;
+}
 #content
 {
 }
