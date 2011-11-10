@@ -82,11 +82,11 @@ $btn-font-size: 16px;
         @include main-hover;
     }
 }
-@mixin main-shadow($clr: $bgdarken20){
-  -moz-box-shadow: 5px 5px 5px $clr;
-  -webkit-box-shadow: 5px 5px 5px $clr;
-  -o-box-shadow: 5px 5px 5px $clr;
-  box-shadow: 5px 5px 5px $clr;
+@mixin main-shadow($clr: $bgdarken20, $depth: 5px){
+  -moz-box-shadow: $depth $depth $depth $clr;
+  -webkit-box-shadow: $depth $depth $depth $clr;
+  -o-box-shadow: $depth $depth $depth $clr;
+  box-shadow: $depth $depth $depth $clr;
 }
 @mixin main-hover(){
     color: black;
