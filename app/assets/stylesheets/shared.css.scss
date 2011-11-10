@@ -1,5 +1,6 @@
 $header-backgrnd: #709423;
 $backgrnd:       #336633;
+$general-bkground: #99b299;
 $bgdarken70:    darken($backgrnd, 70%);
 $bgdarken40:    darken($backgrnd, 40%);
 $bgdarken20:    darken($backgrnd, 20%);
@@ -94,7 +95,7 @@ $btn-font-size: 16px;
     background-color: #ffb770;
 }
 
-/************************* body ******************************/
+/************************* obj_type_by_class ******************************/
 body{
     overflow-y: scroll;
     min-width:100em;
@@ -103,7 +104,7 @@ body{
     color:$font-color;
     font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
     font-size: 12px; //small;
-    background:#99b299;
+    background:$general-bkground;
     //@include bkground-image(#99b299, #99b299);
     /* MS */
     zoom:1;
@@ -319,10 +320,11 @@ a.link_to_text{
 
 .posting_right_column
 {
-    width:50%;
+   // width:50%;
     margin-left: 220px; 
     border-left: 1px solid gray;
-    padding: 5px;
+    padding: 1em;
+    height: 5em;
 }
 
 .clearBoth { clear:both; }

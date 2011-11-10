@@ -1,0 +1,32 @@
+<%= form_for @posting_form do |f| %>
+  <% if @posting_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@posting_form.errors.count, "error") %> prohibited this posting from being saved:</h2>
+      <ul>
+      <% @posting_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= hidden_field_tag 'board_id', @board.id %>
+  <div class="field">
+    <b>Reply:</b>
+    <% if !@user.nil? || @user = User.find_user(@posting.user_id) %>
+    <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name} (#{strip_and_cut(@posting.content, 45)})", :size => 40 %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :content %>
+    <% if @board.access == Posting::PUBLIC %>
+    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+    <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+    <% elsif @board.access == Posting::PRIVATE %>
+        <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
+        <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+    <% end %>
+    <br />
+    <%= f.text_area :content, :rows => 5, :cols => 40 %>
+  </div>
+  <%= f.submit 'Reply', :class => "edit_button" %>
+<% end %>

@@ -1,12 +1,16 @@
-<% if !read_only && current_user.id == element.user_id %>
+
 <div class="hidable float_right">
+    <% if !read_only && current_user.id == element.user_id %>
     <%= link_to 'Edit', edit_posting_path(element), :class => "edit_button" %>
 
     <%= link_to 'Delete', element, confirm: 'Are you sure?',
         :remote => true, :disable_with => 'Deleting...', method: :delete, :class => "delete_button"
     %>
+    <% elsif current_user.id != element.user_id %>
+    <%= link_to 'Reply', posting_path(element), :class => "button_neutral" %>
+    <% end %>
 </div>
-<% end %>
+
 
 <div class="posting_left_column clearfix">
     <% if !element.subject.nil? && !element.subject.empty? %>
@@ -46,7 +50,7 @@
 
 <div class="posting_right_column clearfix">
     <div class="inline">
-    <%= link_to strip_and_cut(element.content, 300), posting_path(element), :target => "_blank", :class => "link_to_text" %>
+    <%= link_to strip_and_cut(element.content, 300), posting_path(element), :class => "link_to_text" %>
     </div>
     <% unless element.view_count == 0 %>
     <div class="inline">(<%= pluralize( element.view_count, 'UP')  %>)</div>

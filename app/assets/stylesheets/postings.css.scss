@@ -1,3 +1,18 @@
 // Place all the styles related to the postings controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#posting_content{
+    position:relative;
+    width: 60%;
+    margin: 2px auto;
+    background:$bglighten50; 
+    border:3px solid $backgrnd;
+    padding:30px;
+    border-radius: 25px;
+}
+
+#posting_content .subject{
+    color:#A62F00;
+    font-weight: bold;
+}

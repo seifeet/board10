@@ -58,7 +58,6 @@ class PostingsController < ApplicationController
     school = School.find_school(params[:school_id]) unless params[:school_id].nil?
 
     empty_err = false
-    save_status = false
 
     # create a new posting
     if params[:content] != 'auto_refresh' && current_user.member?(board)
@@ -75,11 +74,14 @@ class PostingsController < ApplicationController
 
     respond_to do |format|
       if no_save || ( !empty_err && @posting.save )
+        # only get other posts before and after if it comes from home page
+        # params[:from_posting] && params[:auto_posting] are used for refresh functionality
+        if !params[:from_posting].nil? || !params[:auto_posting].nil?
         @from_posting = @posting.id - 1 if @posting
         # get from_posting value
-        if !params[:auto_posting].nil?
+        if !params[:auto_posting].nil? && !params[:from_posting] != ""
         @from_posting = Integer(params[:auto_posting])
-        elsif !params[:from_posting].nil?
+        elsif !params[:from_posting].nil? && !params[:from_posting] != ""
         @from_posting = Integer(params[:from_posting])
         end
 
@@ -104,6 +106,7 @@ class PostingsController < ApplicationController
         else
         @from_posting = last_post[0].maxid
         end
+        end # for "if !params[:from_posting].nil?"
 
         format.html { redirect_to session[:return_to], notice: '' }
         format.js
