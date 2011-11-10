@@ -3,8 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $rignt-nav-bar: 17%;  // the width of the right bar navigation
-$main-part: 45%;  // the width of the #main-part
-$left-side-shift: 3%; // #main_part has a shift left by this amount
+$left-side: 45%;  // the width of the #main-part
+$right-side: 50%;
+$left-side-shift: 3%; // #main_part left shift
 $title-bar: 78%;
 
 @mixin menu-btn($wide:6em, $marge: 10px, $round: 100px, $line: 6em){
@@ -46,19 +47,23 @@ $title-bar: 78%;
     @include rounded-corners(25px);
     @include main-shadow;
 }
+#content
+{
+}
+
 #right_side_act{
-    position:absolute;
+    position:relative;
+    width: $right-side;
     float:right;
-    left:50%;
-    width:29%;
 }
 
 #main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons
   position:relative;
   left:$left-side-shift;
-  width: $main-part;
+  width: $left-side;
   top:3em;
   height:100%;
+  float:left;
   overflow-x:hidden;
 }
 
