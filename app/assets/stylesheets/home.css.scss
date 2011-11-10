@@ -34,7 +34,7 @@ $title-bar: 78%;
     line-height:$line;
     border:1px solid $bgdarken40;
     @include rounded-corners($round);
-    @include main-shadow;
+    @include main-shadow($bgdarken20, 2px);
     &:hover {
         @include main-hover;
     }
@@ -125,13 +125,12 @@ $title-bar: 78%;
 }
 
 #right_side_act{
-  left:650px;
   margin-left:1em;
   min-width:35%;
 }
 
 #title_top_action{
-  align:right;
+
 }
 .action_tab{ // results of the boards/schools search etc.
     overflow: auto;
