@@ -271,9 +271,11 @@ body{
 }
 
 .button_confirm{
+  float:right;
     @include action-button($btn-confirm);
 }
 .button_reject{
+  float:right;
   @include action-button($btn-reject);
 }
 .button_neutral,
