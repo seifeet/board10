@@ -51,18 +51,18 @@ $btn-font-size: 16px;
 }
 
 @mixin action-button($bk_color){
-    color: $bglighten50;
+    color: $bk_color;
     font-weight: bold;
-    background-color: $bk_color;
-    border: 1px solid transparent;
-    padding: 5px;
-    @include rounded-corners(20px);
+    background: $bglighten50;//transparent;
+    border: 2px solid $bk_color;
+    padding: 2px;
+    @include rounded-corners(5px);
 
     &:hover {
-        color: $bk_color;
-        background: transparent;
+        color: $bglighten50;
+        background-color: $bk_color;
         cursor: pointer;
-        border: 1px solid $bk_color;
+        border: 2px solid $bk_color;
     }
 }
 
@@ -267,10 +267,12 @@ body{
 }
 
 .button_confirm{
+  float:right;
     @include action-button($btn-confirm);
 }
 .button_reject{
-    @include action-button($btn-reject);
+  float:right;
+  @include action-button($btn-reject);
 }
 .button_neutral,
 .close_button a,
