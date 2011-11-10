@@ -44,10 +44,11 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     float:right;
     padding: 0 10px 25px 25px;
     background:#336633;
+    background-color: transparent;
     @include rounded-corners(25px);
 }
-#avalable_sapce{
-  height:30em;
+#avalable_space{
+  height:300px;
 }
 #content
 {
