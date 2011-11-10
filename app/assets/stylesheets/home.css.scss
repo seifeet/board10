@@ -45,11 +45,16 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     padding: 0 10px 25px 25px;
     background:#336633;
     background-color: transparent;
-    @include rounded-corners(25px);
 }
+
 #avalable_space{
-  height:300px;
+    height:40em;
 }
+
+#whatsNew{
+    height:20em;
+}
+
 #content
 {
 }
@@ -58,8 +63,8 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     position: relative;
     width: $right-side;
     float: right;
-    margin-top:6.5em;
-    //margin-right:2em;
+    margin-top: 6.5em;
+    margin-right: 5px;
 }
 
 #main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons

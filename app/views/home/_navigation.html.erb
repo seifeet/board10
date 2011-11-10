@@ -1,17 +1,20 @@
 <% return nil if current_user.nil? %>
 
 <div id="user_title_nav">
+    <div id="whatsNew">
+        <div class="background_write">What's new?</div>
+        <div class="http_link"><%= link_to "Users", users_path %></div>
+        <div class="http_link"><%= link_to "Schools", schools_path %></div>
+        <div class="http_link"><%= link_to "Boards", boards_path %></div>
+        <div class="http_link"><%= link_to "Posts", postings_path %></div>
+    </div>
     <div id="user_schools">
     <%= render 'home/user_schools', :user => current_user %>
     </div>
     <div id="user_boards">
     <%= render 'home/user_boards', :user => current_user %>
     </div>
-    <div class="background_write">What's new?</div>
-    <div class="http_link"><%= link_to "Users", users_path %></div>
-    <div class="http_link"><%= link_to "Schools", schools_path %></div>
-    <div class="http_link"><%= link_to "Boards", boards_path %></div>
-    <div class="http_link"><%= link_to "Posts", postings_path %></div>
     <div id="avalable_space"></div>
+    
 </div>
 
