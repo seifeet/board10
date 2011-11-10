@@ -59,10 +59,10 @@ end
     </div>
     <% end %>
 </div>
-
+<% max_content = 300 %>
 <div class="posting_right_column clearfix">
 	<div class="inline">
-    <%= strip_and_cut( @posting.content, 300 ) %>
+    <%= strip_and_cut( @posting.content, max_content ) %>
     </div>
     <% unless @posting.view_count == 0 %>
     <div class="inline"><%= pluralize( @posting.view_count, 'UP')  %></div>
@@ -73,9 +73,12 @@ end
 </div>
 
 <br class="clearBoth" />
+
+<% if @posting.content.length > max_content %>
 <p><b>Full content:</b><br />
 <%= @posting.content %>
 </p>
+<% end %>
 
 <% if current_user.id != @posting.user_id %>
 <%= render 'reply_form' %>
