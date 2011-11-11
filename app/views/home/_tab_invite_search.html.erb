@@ -1,6 +1,3 @@
-<div class="close_button inline_right clickable">
-  <!-- %= link_to "Close", home_path + '?subact=cancel', :title => "Close Board Search" % --> 
-</div>
 <%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :size => 30 %>
 <%= hidden_field_tag 'act', 'invite' %>

@@ -12,9 +12,11 @@
 Messages
 <% else %>
 <div class="clickable">
-<%= link_to @postings_title, home_path+'?act=boards', :title => "Posts from all your boards" %>
+<%= @postings_title %>
 </div>
+<% if params[:board] || params[:school] || params[:act] == 'boards' %>
 <div class="autorefresh_link refreshable">
 <%= render 'home/autorefresh_link', :element => nil %>
 </div>
+<% end %>
 <% end %>

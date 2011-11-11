@@ -1,5 +1,5 @@
 <div class="close_button inline_right clickable">
-  <%= link_to "Close", home_path + '?subact=cancel', :title => "Close Posts Search" %>
+  <!-- %= link_to "Close", home_path + '?subact=cancel', :title => "Close Posts Search" % -->
 </div>
 <%= form_tag home_path, :method => :get, :id => "tab_posts_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :size => 40 %>

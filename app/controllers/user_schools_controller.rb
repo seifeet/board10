@@ -52,6 +52,7 @@ class UserSchoolsController < ApplicationController
       flash.now[:error] = "Unable to link this school to your profile."
     end
     
+    params[:act] = 'school_search'
     params[:search] = params[:user_school][:search] if !params[:user_school][:search].nil?
     params[:state] = params[:user_school][:state] if !params[:user_school][:state].nil?
     params[:city] = params[:user_school][:city] if !params[:user_school][:city].nil?

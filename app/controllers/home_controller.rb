@@ -8,19 +8,31 @@ class HomeController < ApplicationController
     return nil if current_user.nil?
     
     store_location
+    
+    paginate = true
 
     @user = current_user
     
     # ACTIONS
     if !params[:act].nil?
-      if params[:act] == 'school_search'
+      if params[:act] == 'boards'
+        # show all postings for the board.
+        # postings will be filtered according to membership of the current_user
+        @postings_title = "From all my boards:"
+        @postings = paginate_board_postings
+        paginate = false
+
+      elsif params[:act] == 'school_search'
+        @postings_title = "Search results for schools:"
         if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-          @search_results = School.search(params[:search], current_user.state, current_user.city ).limit(per_page_search)
+          @postings = School.search(params[:search], current_user.state, current_user.city )
         elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
-          @search_results = School.search(params[:search], params[:state], params[:city] ).limit(per_page_search)
+          @postings = School.search(params[:search], params[:state], params[:city] )
         end
+
       elsif params[:act] == 'board_search'
         @search_results = Board.search(params[:search]).limit(per_page_search)
+
       elsif params[:act] == 'post_search'
         if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
           @postings_title = "Search Results for \"#{params[:search]}\" on \"#{params[:date]}\":"
@@ -29,17 +41,19 @@ class HomeController < ApplicationController
         elsif !params[:search].nil? && !params[:search].empty?
           @postings_title = "Search Results for \"#{params[:search]}\":"
         else
-          @postings_title = "Search Results:"
+          @postings_title = "Search results for posts:"
         end
         @postings = Posting.search(params[:search],params[:date])
+
       elsif params[:act] == 'invite'
         @postings = User.search(params[:search])
+
       elsif params[:act] == 'messages'
         @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
         @postings_title = 'Messages'
       end
       
-      if !@postings.nil? && !@postings.empty?
+      if paginate && !@postings.nil? && !@postings.empty?
         @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
       end
       
@@ -66,11 +80,6 @@ class HomeController < ApplicationController
       # show only public postings if current_user is not a member
       elsif !@board.nil? && params[:act] != 'invite' && !current_user.member?( @board )
         @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-      # show all postings for the board.
-      # postings will be filtered according to membership of the current_user
-      elsif params[:act].nil? && @messages.nil? # exclude action for messages and post search
-        @postings_title = "From all my boards:"
-        @postings = paginate_board_postings
       end
     end
     
@@ -95,6 +104,7 @@ class HomeController < ApplicationController
   private
   
   def paginate_board_postings
+    require 'will_paginate/array'
     all_postings = board_postings
     if !all_postings.nil? && !all_postings.empty?
       all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
@@ -102,6 +112,7 @@ class HomeController < ApplicationController
   end
   
   def paginate_school_postings school
+    require 'will_paginate/array'
     all_postings = school_postings school
     if !all_postings.nil? && !all_postings.empty?
      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )

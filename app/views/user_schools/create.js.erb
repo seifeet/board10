@@ -1,5 +1,5 @@
 <% if session[:return_to] =~ /\/home?/ %>
-$(".action_tab").html("<%= escape_javascript(render 'home/tab_school_results') %>");
+$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 	<% if current_user.schools.count > max_num_schools %>
 	$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
 	<% end %>
