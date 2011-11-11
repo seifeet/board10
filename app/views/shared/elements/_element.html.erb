@@ -1,6 +1,5 @@
 <% return nil if element.nil? %>
-<div class="<%= element.class_type %>_element">
+<div class="<%= element.class_type %>_element clearfix">
 <%= render "shared/elements/#{element.class_type}", :element => element, :read_only => read_only %>
-<br class="clearBoth" />
 </div> <!-- cl-el -->
 

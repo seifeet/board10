@@ -245,8 +245,7 @@ body{
 .member_element{
     width: auto;
     margin: 2px auto;
-    background:$bglighten50; 
-    //@include bkground-image(#A6B299, #A6B299);
+    background:$bglighten50;
     border:3px solid $backgrnd;
     padding:1px;
     border-radius: 5px;
@@ -271,14 +270,22 @@ body{
     @include main-button( $btn-reject );
 }
 
+a.link_delete_button {
+    text-decoration: none;
+    color: red;
+    
+    &:hover {
+        color: black;
+    }
+}
+
 .button_confirm{
-  float:right;
     @include action-button($btn-confirm);
 }
 .button_reject{
-  float:right;
   @include action-button($btn-reject);
 }
+
 .button_neutral,
 .close_button a,
 .action_button a{
@@ -320,7 +327,6 @@ a.link_to_text{
 
 .posting_right_column
 {
-   // width:50%;
     margin-left: 220px; 
     border-left: 1px solid gray;
     padding: 1em;

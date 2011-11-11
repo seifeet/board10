@@ -95,12 +95,13 @@
 
 
 .apple_pagination {
-    background: $backgrnd;
-    border: 1px solid $backgrnd;
+    margin: 0;
+    background: transparent;
     text-align: center;
-    padding: 1em;
+    padding: 1em 0;
     cursor: default;
-    @include rounded-corners( 1em, #fcd6c1 );
+    float:left;
+    width:99%;
 }
 .apple_pagination a, .apple_pagination span {
     padding: 0.2em 0.3em;

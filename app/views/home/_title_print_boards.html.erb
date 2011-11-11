@@ -29,7 +29,7 @@
 <%    else %>
 <div class="secondary_menu_button">
 <%    end %>
-    <%= link_to "#{strip_and_cut(board.title, 20)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+    <%= link_to "#{strip_and_cut(board.title, 33)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
 </div>
 <%
     end # end of @current_school do-loop

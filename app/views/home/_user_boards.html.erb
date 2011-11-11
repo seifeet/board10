@@ -1,28 +1,27 @@
 <% return nil if current_user.nil? %>
 <% if current_user.boards.count > max_num_boards %>
 
+<div id="all_user_boards" class="clearfix">
 <div class="background_write">All My Boards</div>
-
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
-  <% user.boards.each do |board| %>
-     <% if board.active? %>
-     <!-- div class="nav_link clickable" -->
-     <div class="secondary_menu_button clickable">
-     <div class="inline clickable">
-     <%= button_to 'Delete', current_user.boards.find_board(board.id),
-      confirm: "Do you want to remove Board \"#{board.title}\"?", 
-      :class => "button_reject", :disable_with => 'Deleting...',
-      method: :delete, :remote => true %>
-     </div>
-     <%= link_to "#{strip_and_cut(board.title,20)}", home_path + '?board=' + board.id.to_s, {:title => "Board: #{board.title}"} %>
-     </div>
-     
-     <% end %>     
-  <% end %>
+    <% user.boards.each do |board| %>
+        <% if board.active? %>
+        <div class="clickable">
+        <%= link_to 'del', current_user.boards.find_board(board.id),
+         confirm: "Do you want to remove Board \"#{board.title}\"?", 
+         :class => "link_delete_button", :disable_with => 'Deleting...',
+         method: :delete, :remote => true %>
+
+        <%= link_to "#{strip_and_cut(board.title,20)}",
+         home_path + '?board=' + board.id.to_s,
+         :class => "secondary_menu_button",
+         :title => "Board: #{board.title}" %>
+        </div>
+        <% end %>     
+    <% end %>
 <% end %>
-<br class="clearBoth" />
-<br />
+</div>
 
 <% end %>
 
