@@ -1,16 +1,29 @@
+<div class="hidable float_right">
+<% if current_user.id == element.id %>
+<%= link_to 'Edit', edit_user_path(element), :class => "edit_button" %>
+<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	:title => "Delete #{element.full_name}", :class => "delete_button" %>
+<% elsif admin?  %>
+<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
+	:title => "Delete #{element.full_name}", :class => "delete_button" %>
+<% end %>
+</div>
+
+<div class="posting_left_column clearfix">
 <div class="inline"><%= link_to element.full_name, element %></div>
 <div class="inline"><%= pluralize( element.view_count, 'view' ) %></div>
 <div class="inline"><%= element.location %></div>
-<div class="inline">(<%= element.email %>)</div>
-<% if !read_only || current_user?(element) %>
-<div class="edit_button"><%= link_to 'Edit', edit_user_path(element) %></div>
-<div class="delete_button">
-	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
-	:title => "Delete #{element.full_name}" %>
 </div>
-<% elsif admin?  %>
-<div class="delete_button">
-	<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
-	:title => "Delete #{element.full_name}" %>
+
+<div class="posting_right_column clearfix">
+<% if !element.member?(@board) %>
+<div class="inline_right">
+<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
+  <%= f.hidden_field :board_id, :value => @board.id %>
+  <%= f.hidden_field :to_user, :value => element.id %>
+  <%= f.text_area :content, :rows => 4, :cols => 33, :value => "Hi!\nI would like to invite you to my board.\nThank you!" %>
+  <%= f.submit "#{Message::Commit::INVITE}", :class => "button_confirm" %>
+<% end %>	
 </div>
 <% end %>
+</div>

@@ -5,7 +5,7 @@ module ApplicationHelper
   end
   
   def per_page_search
-    25
+    5
   end
     
   def max_num_boards

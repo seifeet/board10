@@ -59,14 +59,19 @@
         $(".sub_title_nav").html("");
     	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Posts") %>";
-	  
+	
+	<% elsif params[:act] == 'invite' && !params[:search].nil? %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+    	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
+		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Users") %>";
+		
     <% elsif params[:act] == 'post_search' %>
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_post_search') %>");
         document.title = "Posts Search";
         
 	<% elsif params[:act] == 'invite' %>
-    	$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
         document.title = "Invite people";
         

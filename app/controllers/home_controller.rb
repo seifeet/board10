@@ -32,14 +32,15 @@ class HomeController < ApplicationController
           @postings_title = "Search Results:"
         end
         @postings = Posting.search(params[:search],params[:date])
-        if !@postings.nil? && !@postings.empty?
-          @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-        end
       elsif params[:act] == 'invite'
-        @search_results = User.search(params[:search]).limit(per_page_search)
+        @postings = User.search(params[:search])
       elsif params[:act] == 'messages'
         @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
         @postings_title = 'Messages'
+      end
+      
+      if !@postings.nil? && !@postings.empty?
+        @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
       end
       
       if params[:act] == 'new_board'
@@ -52,35 +53,33 @@ class HomeController < ApplicationController
     # Autorefresh form
     @autorefresh = Posting.new
 
-    if !params[:school].nil?
-      @school = School.find_school(params[:school])
-    elsif !params[:board].nil?
-      @board = Board.find_board(params[:board])
-    end
-
     # show all postings for the school.
     # postings will be filtered according to membership of the current_user
-    if !@school.nil?
-       @postings = paginate_school_postings @school
-    # show all postings of the board if current_user is a member
-    elsif !@board.nil? && current_user.member?( @board )
-       @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-    # show only public postings if current_user is not a member
-    elsif !@board.nil? && !current_user.member?( @board )
-       @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-    # show all postings for the board.
-    # postings will be filtered according to membership of the current_user
-    elsif params[:act] != 'post_search' && @messages.nil? # exclude action for messages and post search
-       @postings_title = "From all my boards:"
-       @postings = paginate_board_postings
+    if !params[:school].nil?
+      @school = School.find_school(params[:school])
+      @postings = paginate_school_postings @school if !@school.nil?
+    elsif !params[:board].nil?
+      @board = Board.find_board(params[:board])
+      # show all postings of the board if current_user is a member
+      if !@board.nil? && params[:act] != 'invite' && current_user.member?( @board )
+        @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+      # show only public postings if current_user is not a member
+      elsif !@board.nil? && params[:act] != 'invite' && !current_user.member?( @board )
+        @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+      # show all postings for the board.
+      # postings will be filtered according to membership of the current_user
+      elsif params[:act].nil? && @messages.nil? # exclude action for messages and post search
+        @postings_title = "From all my boards:"
+        @postings = paginate_board_postings
+      end
     end
     
     if @postings.nil? || @postings.empty?
       @postings_title = "no posts"
       last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-      @from_posting = last_post[0].maxid #@from_posting = Time.now.utc
+      @from_posting = last_post[0].maxid
     else
-      @from_posting = @postings.first.id #@from_posting = @postings.first.created_at
+      @from_posting = @postings.first.id
     end
     
     # logger.debug "\n\n After postings \n\n\n"
