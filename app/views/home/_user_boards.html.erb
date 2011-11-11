@@ -3,6 +3,7 @@
 
 <div id="all_user_boards" class="clearfix">
 <div class="background_write">All My Boards</div>
+<div class="secondary_menu_button clickable"><%= link_to "All My Boards", home_path + '?act=boards' %></div>
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>

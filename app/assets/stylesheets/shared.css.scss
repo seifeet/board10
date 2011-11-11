@@ -94,53 +94,10 @@ $btn-font-size: 16px;
     color: black;
     background-color: #ffb770;
 }
-
-/************************* obj_type_by_class ******************************/
-body{
-    overflow-y: scroll;
-    min-width:100em;
-    margin:0;
-    padding: 0 0 0 0;
-    color:$font-color;
-    font-family: "MyriadPro-Regular", Arial, Helvetica, Tahoma, sans-serif;
-    font-size: 12px; //small;
-    background:$general-bkground;
-    //@include bkground-image(#99b299, #99b299);
-    /* MS */
-    zoom:1;
-    /* filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#336633', endColorstr='#709423', GradientType=1); */
-}
 /*********************** logo ***********************************/
-#logo{
-    @include bkground-image(#336633);
-    float:left;   
-    width: 100%;
-    color:white;
-    font-size: xx-large;
-    font-weight: bold;
-    /* MS */
-    zoom:1;
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#336633', endColorstr='#709423', GradientType=1);
-}
-#wide_line{
-    float: left;   
-    width: 100%;    
-    height: 4em; // controls height where context starts
-    @include bkground-image(#336633);
-}
 .loading{
     padding:3em;
 }
-#wider_line{
-    @include bkground-image(#336633, #336633);
-    float:left;
-    width:100%;
-    height: 20em;
-    /* MS */
-    zoom:1;
-    @include main-shadow;
-}
-
 .logo_link a{
     float:right;
     font-style: italic;
@@ -149,7 +106,6 @@ body{
     text-decoration:none;
     margin: 5px 25px 0 0;
 }
-
 .logo_nav{
     width:30%;
     float:right;
