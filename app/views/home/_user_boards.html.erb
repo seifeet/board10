@@ -13,7 +13,7 @@
          :class => "link_delete_button", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
 
-        <%= link_to "#{strip_and_cut(board.title,20)}",
+        <%= link_to "#{strip_and_cut(board.title,30)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button",
          :title => "Board: #{board.title}" %>

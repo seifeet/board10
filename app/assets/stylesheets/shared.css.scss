@@ -125,7 +125,7 @@ body{
 #wide_line{
     float: left;   
     width: 100%;    
-    height: 6em; // controls height where context starts
+    height: 4em; // controls height where context starts
     @include bkground-image(#336633);
 }
 .loading{

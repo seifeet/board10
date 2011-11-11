@@ -4,27 +4,31 @@
 <div class="inline"><i>(This board is inactive)</i></div>
 <% end %>
 <% owner = element.members.find_by_member_type(Member::MemberType::OWNER) %>
+<% if owner %>
 <% user = User.find_user(owner.user_id) %>
-<div class="inline">(<%= user.full_name %>)</div>
-<% if element.active? && !current_user.member?(element) %>
-<div class="inline_right">
-<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
-  <%= f.hidden_field :to_user, :value => owner.user_id %>
-  <%= f.hidden_field :board_id, :value => element.id %>
-  <%= f.text_field :content, :size => 40, :value => "Hi! I would like to join your board. Thank you!" %>
-  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
 <% end %>
-</div>
-<% end %>
-<% if element.active? && !current_user.follower?(element) %>
-<div class="inline_right">
-<%= form_for current_user.members.build(:board_id => element.id), :class => "submitable", :remote => true do |f| %>
-  
-  <%= f.hidden_field :board_id %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-  <%= f.hidden_field :search, :value => params[:search] %>
-  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :title => "Follow will allow you to recieve only public posts from this boad. You do not need owner's permission to follow a board, but you will not be able to post on the followed board." %>
-<% end %>
-</div>
+<% if user %>
+	<div class="inline">(<%= user.full_name %>)</div>
+	<% if element.active? && !current_user.member?(element) %>
+	<div class="inline_right">
+	<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
+	  <%= f.hidden_field :to_user, :value => owner.user_id %>
+	  <%= f.hidden_field :board_id, :value => element.id %>
+	  <%= f.text_field :content, :size => 40, :value => "Hi! I would like to join your board. Thank you!" %>
+	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
+	<% end %>
+	</div>
+	<% end %>
+	<% if element.active? && !current_user.follower?(element) %>
+	<div class="inline_right">
+	<%= form_for current_user.members.build(:board_id => element.id), :class => "submitable", :remote => true do |f| %>
+	  
+	  <%= f.hidden_field :board_id %>
+	  <%= f.hidden_field :user_id, :value => current_user.id %>
+	  <%= f.hidden_field :search, :value => params[:search] %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :title => "Follow will allow you to recieve only public posts from this boad. You do not need owner's permission to follow a board, but you will not be able to post on the followed board." %>
+	<% end %>
+	</div>
+	<% end %>
 <% end %>
 <br class="clearBoth" />
