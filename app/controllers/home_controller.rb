@@ -31,7 +31,8 @@ class HomeController < ApplicationController
         end
 
       elsif params[:act] == 'board_search'
-        @search_results = Board.search(params[:search]).limit(per_page_search)
+        @postings_title = "Search results for boards:"
+        @postings = Board.search(params[:search])
 
       elsif params[:act] == 'post_search'
         if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
@@ -60,6 +61,12 @@ class HomeController < ApplicationController
       if params[:act] == 'new_board'
         @new_board = Board.new
       end
+    else params[:school].nil? && params[:board].nil?
+      # default to postings from all user's boards:
+      # postings will be filtered according to membership of the current_user
+      @postings_title = "From all my boards:"
+      @postings = paginate_board_postings
+      paginate = false
     end
     
     # FORM FOR POSITNGS

@@ -14,6 +14,10 @@ elsif params[:act] == 'school_search'
   if !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
 	@postings = School.search(params[:search], params[:state], params[:city])
   end
+elsif params[:act] == 'board_search'
+  if @postings.nil? && !params[:search].nil?
+  @postings = Board.search(params[:search])
+end
 end
 
 if !@postings.nil? && !@postings.empty?

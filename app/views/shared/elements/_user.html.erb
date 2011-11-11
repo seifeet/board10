@@ -1,9 +1,6 @@
 <div class="hidable float_right">
-<% if current_user.id == element.id %>
+<% if admin?  %>
 <%= link_to 'Edit', edit_user_path(element), :class => "edit_button" %>
-<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
-	:title => "Delete #{element.full_name}", :class => "delete_button" %>
-<% elsif admin?  %>
 <%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
 	:title => "Delete #{element.full_name}", :class => "delete_button" %>
 <% end %>
