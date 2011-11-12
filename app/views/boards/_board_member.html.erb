@@ -10,7 +10,7 @@
      |
     <% end %>
     <% if current_user.owner?(@member.board_id) && !current_user?(@user) %>
-    <!-- %= render 'grp_ban' % -->
+    <%= render 'grp_ban' %>
     <% end %>
 </span>
 <% end %>

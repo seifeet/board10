@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $(function() {
     $('textarea').tinymce({
-      theme: 'advanced'
+      theme: 'simple'
     });
   });
 </script>
@@ -39,7 +39,7 @@
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
     <br />
-    <%= text_area_tag :editor, "", :rows => 20, :cols => 60 %>
+    <%= text_area_tag :editor, "", :rows => 15, :cols => 45 %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Post', :class => "button_neutral" %>

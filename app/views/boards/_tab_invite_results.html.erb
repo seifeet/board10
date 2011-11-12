@@ -1,0 +1,17 @@
+<% 
+  if current_user?(@user)
+	  if @search_results.nil? && !params[:search].nil?
+	    @search_results = User.search(params[:search]).limit(per_page_search)
+	  end
+  end
+  
+  if !@search_results.nil? && @search_results.count > 0
+  	@board = Board.find_board(params[:board]) if @board.nil?
+  	if !@board.nil?
+%>
+<%= render 'shared/containers/small_container', :container => @search_results, :action => 'invite' %>
+
+<% 
+    end
+  end
+ %>

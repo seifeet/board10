@@ -1,0 +1,9 @@
+<%= form_tag board_path(@board), :method => :get, :id => "tab_invite_search", :remote => true do %>
+<%= text_field_tag :search, params[:search], :size => 30 %>
+<%= hidden_field_tag 'act', 'invite' %>
+<%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
+<% end %>
+
+<div id="action_tab">
+<%= render 'boards/tab_invite_results' %>
+</div>

@@ -2,6 +2,6 @@
 
 <div class="small_container">
 <% container.each do |element| %>
-<%= render 'shared/elements/small_element', :element => element, :read_only => !current_user?(@user) %>
+<%= render 'shared/elements/small_element', :element => element, :action => action, :read_only => !current_user?(@user) %>
 <% end %>
 </div> <!-- cls-cntnr -->

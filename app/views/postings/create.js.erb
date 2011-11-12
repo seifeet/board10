@@ -6,6 +6,7 @@ $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% elsif session[:return_to] =~ /\/users\// %>
 $('#user_postings').html("<%= escape_javascript(render 'users/postings', :posting => @posting)%>");
 <% elsif session[:return_to] =~ /\/boards\// %>
-$('#board_postings').html("<%= escape_javascript(render 'boards/postings', :posting => @posting)%>");
+$('#board_postings .generic_container').prepend("<%= escape_javascript(render 'home/add_postings', :postings => @postings)%>");
+$('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% end %>
 $(".loading").html("");

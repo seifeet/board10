@@ -1,4 +1,5 @@
 class BoardsController < ApplicationController
+  include ApplicationHelper
   include BoardsHelper
   before_filter :authenticate, :only => [:index, :show] #, :edit, :update]
   before_filter :correct_board, :only => [:edit, :update] #, :destroy]
@@ -24,8 +25,27 @@ class BoardsController < ApplicationController
     @posting_form = Posting.new
     @board = Board.unscoped.find(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
-        
     @members = @board.members.order('created_at ASC')
+    
+    if !params[:act].nil?
+      if params[:act] == 'invite'
+        @search_results = User.search(params[:search])
+      end
+    end
+    
+    if ( current_user.member?( @board.id ) )
+      @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page )
+    else
+      @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page )
+    end
+   
+    if @postings.nil? || @postings.empty?
+      @postings_title = "no posts"
+      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+      @from_posting = last_post[0].maxid
+    else
+      @from_posting = @postings.first.id
+    end
     
     respond_to do |format|
       format.html # show.html.erb

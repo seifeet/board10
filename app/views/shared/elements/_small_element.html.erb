@@ -1,5 +1,5 @@
 <% return nil if element.nil? %>
 
 <div class="small_element">
-<%= render "shared/elements/small_#{element.class_type}", :element => element, :read_only => read_only %>
+<%= render "shared/elements/small_#{element.class_type}", :element => element, :action => action, :read_only => read_only %>
 </div> <!-- cl-el -->
