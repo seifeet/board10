@@ -1,2 +1,2 @@
 $(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title', :element => @board, :element_path => board_path(@board), :custom_action => nil ) %>");
-$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>" );
+$("#user_postings").html("<%= escape_javascript(render 'shared/containers/small_page_container', :container => @postings) %>" );

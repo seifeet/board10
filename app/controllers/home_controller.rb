@@ -104,7 +104,7 @@ class HomeController < ApplicationController
     end
     
     if @postings.nil? || @postings.empty?
-      @postings_title = "no posts"
+      @postings_title = "No results were found."
       last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
       @from_posting = last_post[0].maxid
     else

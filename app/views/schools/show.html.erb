@@ -1,25 +1,7 @@
+<div id="school_content">
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>State:</b>
-  <%= @school.state %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @school.city %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @school.name %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @school.url %>
-</p>
-
-
-<%= link_to 'Edit', edit_school_path(@school) %> |
-<%= link_to 'Back', schools_path %>
+<%= link_to @school.name, @school.url, :confirm => "You will be redirected to the #{@school.name} website\n(#{@school.url}).\nAre you sure?" %>
+<br />
+<%= @school.location %>
+<br />
+</div>

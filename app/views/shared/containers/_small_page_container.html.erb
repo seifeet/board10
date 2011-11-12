@@ -1,0 +1,20 @@
+<% return nil if container.nil? || container.empty? || container.count == 0 %>
+
+<div class="small_container">
+<% container.each do |element| %>
+<%= render 'shared/elements/small_element', :element => element, :action => '', :read_only => !current_user?(@user) %>
+<% end %>
+</div> <!-- cls-cntnr -->
+
+<% if !container.nil? && !container.empty? %>
+
+<div class="apple_pagination clearfix clickable">
+    <%= will_paginate container, :container => false , :total_entries => container.count %>
+</div>
+<script type="text/javascript">
+    $(window).ready(function() {
+        $.bottomlessPagination();
+        $.toggleContextMenu($(".small_element"));
+    });
+</script>
+<% end %>
