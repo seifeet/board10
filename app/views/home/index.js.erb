@@ -24,7 +24,11 @@
 	    document.title = "My Messages";
 	    
 	<% elsif params[:act] == 'schools' %>
+	    $("#title_top_action").html("");
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
+		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
+		$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "My Schools";
 	    
 	<% elsif params[:act] == 'posts' %>

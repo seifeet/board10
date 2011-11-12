@@ -14,7 +14,7 @@ Messages
 <div class="clickable">
 <%= @postings_title %>
 </div>
-<% if params[:board] || params[:school] || params[:act] == 'boards' %>
+<% if params[:board] || params[:school] || params[:act] == 'boards' || params[:act] == 'schools' %>
 <div class="autorefresh_link refreshable">
 <%= render 'home/autorefresh_link', :element => nil %>
 </div>

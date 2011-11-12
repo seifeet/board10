@@ -9,11 +9,11 @@ module ApplicationHelper
   end
     
   def max_num_boards
-    8
+    10
   end
       
   def max_num_schools
-    9
+    10
   end
 
   def avatar_for(user, options = { :size => 50 })

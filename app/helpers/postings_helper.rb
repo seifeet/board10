@@ -25,6 +25,16 @@ module PostingsHelper
 
   def school_postings school, from = nil
     all_postings = []
+    all_postings = get_school_postings school, from
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+  
+  def get_school_postings school, from = nil
+    all_postings = []
     school.boards.each do |board|
       if current_user.member?(board)
         if from.nil?
@@ -39,6 +49,15 @@ module PostingsHelper
         all_postings += board.postings.where('visibility = 1 and id > ?', from)
         end
       end
+    end
+    all_postings
+  end
+  
+  def schools_postings from = nil
+    all_postings = []
+    current_user.schools.each do |school|
+      all_postings += get_school_postings school, from
+      logger.debug "----------------- GEETING SCHOOLS #{all_postings.count} _________________________"
     end
     if !all_postings.nil? && !all_postings.empty?
       all_postings.sort_by!{|posting|[posting.id]}.reverse!

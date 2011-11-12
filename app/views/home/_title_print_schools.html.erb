@@ -45,12 +45,6 @@
 <div id="boards_area" class="clearfix" >
 <div class="background_write clearfix" ><%= strip_and_cut(@current_school.name, 15) %></div>
 
-<% if current_user.boards.where(:active => true).count >= 1 %>
-<div class="secondary_menu_button clickable clearfix" >
-<%= link_to "All My Boards", home_path + '?act=boards' %>
-</div>
-<% end %>
-
 <%
     all_boards = @current_school.boards.where(:active => true)
     if !all_boards.empty?
@@ -62,7 +56,7 @@
         boards.each do |board|
 %>
     <div class="secondary_menu_button clearfix" >
-        <%= link_to "#{strip_and_cut(board.title, 33)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
     </div>
 <%
         end # end of @current_school do-loop

@@ -16,10 +16,16 @@ class HomeController < ApplicationController
     # ACTIONS
     if !params[:act].nil?
       if params[:act] == 'boards'
-        # show all postings for the board.
+        # show all postings for all user's boards.
         # postings will be filtered according to membership of the current_user
         @postings_title = "From all my boards:"
         @postings = paginate_board_postings
+        paginate = false
+      elsif params[:act] == 'schools'
+        # show all postings for all user's schools.
+        # postings will be filtered according to membership of the current_user
+        @postings_title = "From all my schools:"
+        @postings = paginate_schools_postings
         paginate = false
 
       elsif params[:act] == 'school_search'
@@ -121,6 +127,14 @@ class HomeController < ApplicationController
   def paginate_school_postings school
     require 'will_paginate/array'
     all_postings = school_postings school
+    if !all_postings.nil? && !all_postings.empty?
+     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+    end
+  end
+  
+  def paginate_schools_postings
+    require 'will_paginate/array'
+    all_postings = schools_postings
     if !all_postings.nil? && !all_postings.empty?
      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end

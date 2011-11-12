@@ -3,7 +3,6 @@
 
 <div id="all_user_boards" class="clearfix">
 <div class="background_write">All My Boards</div>
-<div class="secondary_menu_button clickable"><%= link_to "All My Boards", home_path + '?act=boards' %></div>
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>
@@ -14,7 +13,7 @@
          :class => "link_delete_button", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
 
-        <%= link_to "#{strip_and_cut(board.title,30)}",
+        <%= link_to "#{strip_and_cut(board.title,33)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button",
          :title => "Board: #{board.title}" %>
