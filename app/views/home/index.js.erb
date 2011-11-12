@@ -32,18 +32,21 @@
 	    document.title = "My Schools";
 	    
 	<% elsif params[:act] == 'posts' %>
+		$("#title_top_action").html("");
 		$("#title").html("<%= escape_javascript( render 'title' ) %>");
+		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
+		$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "Search Posts";
 	    
 	<% elsif params[:act] == 'school_search' && (!params[:search].nil? || !params[:date].nil?) %>
-	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
 	    $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
-        $(".sub_title_nav").html("");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
     	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
     
     <% elsif params[:act] == 'school_search' %>
-        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_school_search') %>");
         document.title = "School Search";
@@ -51,12 +54,12 @@
     <% elsif params[:act] == 'board_search' && !params[:search].nil? %>
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
     	$(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
-        $(".sub_title_nav").html("");
     	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
 	  
     <% elsif params[:act] == 'board_search' %>
-        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_board_search') %>");
         document.title = "Board Search";
@@ -64,19 +67,19 @@
     <% elsif params[:act] == 'post_search' && !params[:search].nil? %>
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
-        $(".sub_title_nav").html("");
     	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Posts") %>";
+		
+	<% elsif params[:act] == 'post_search' %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_post_search') %>");
+        document.title = "Posts Search";
 	
 	<% elsif params[:act] == 'invite' && !params[:search].nil? %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
     	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Users") %>";
-		
-    <% elsif params[:act] == 'post_search' %>
-        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
-        $("#title_top_action").html("<%= escape_javascript(render 'tab_post_search') %>");
-        document.title = "Posts Search";
         
 	<% elsif params[:act] == 'invite' %>
 	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
@@ -90,7 +93,8 @@
 	    document.title = "Write to Board";
 	
 	<% elsif params[:act] == 'new_board' %>
-	    $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+	    $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+	    $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
 	    $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
 	    document.title = "Create a new Board";
 	<% end %>

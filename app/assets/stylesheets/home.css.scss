@@ -164,8 +164,7 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 }
 .post_menu_button{ // main MESSAGE button
     position:relative;
-    //float:bottom;
-    bottom:-4em;
+    top:12em;
     left:0;
 }
 .sub_menu_button{
@@ -256,7 +255,7 @@ a.secondary_menu_button.selected,
 #second_level_btns{
   position:relative;
   float:right;
-  min-width:35%;
+  // min-width:35%; commented out because buttons were removed, but this place can be used in future
   min-height:7em;
   top:1em;
   right:3em;

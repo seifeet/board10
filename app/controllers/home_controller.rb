@@ -39,8 +39,14 @@ class HomeController < ApplicationController
       elsif params[:act] == 'board_search'
         @postings_title = "Search results for boards:"
         @postings = Board.search(params[:search])
+        
+      elsif params[:act] == 'new_board'
+        @new_board = Board.new
+        @postings_title = "Create New Board"
+        @postings = paginate_board_postings
+        paginate = false
 
-      elsif params[:act] == 'post_search'
+      elsif params[:act] == 'post_search' || params[:act] == 'posts'
         if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
           @postings_title = "Search Results for \"#{params[:search]}\" on \"#{params[:date]}\":"
         elsif !params[:date].nil? && !params[:date].empty?
@@ -48,7 +54,7 @@ class HomeController < ApplicationController
         elsif !params[:search].nil? && !params[:search].empty?
           @postings_title = "Search Results for \"#{params[:search]}\":"
         else
-          @postings_title = "Search results for posts:"
+          @postings_title = "Search posts:"
         end
         @postings = Posting.search(params[:search],params[:date])
 
@@ -64,9 +70,6 @@ class HomeController < ApplicationController
         @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
       end
       
-      if params[:act] == 'new_board'
-        @new_board = Board.new
-      end
     else params[:school].nil? && params[:board].nil?
       # default to postings from all user's boards:
       # postings will be filtered according to membership of the current_user
