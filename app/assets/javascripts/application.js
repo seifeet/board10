@@ -77,6 +77,13 @@ if(history && history.pushState ) {
             return false;
         });
         
+        $("#tab_user_search").submit(function() {
+            $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
+            $.get(this.action, $(this).serialize(), null, "script");
+            history.pushState(null, document.title, $("#tab_user_search").attr("action") + "?" + $("#tab_user_search").serialize());
+            return false;
+        });
+        
         $("#new_user_board").submit(function() {
             $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");
             $.get(this.action, $(this).serialize(), null, "script");

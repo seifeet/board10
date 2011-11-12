@@ -5,9 +5,9 @@
 <% elsif params[:act] == 'board_search' %>
 <div id="tab_board_search"><%= render 'home/tab_board_search' %></div>
 <% elsif params[:act] == 'post_search' %>
-<div id="tab_post_search">
-<%= render 'home/tab_post_search' %>
-</div>
+<div id="tab_post_search"><%= render 'home/tab_post_search' %></div>
+<% elsif params[:act] == 'user_search' %>
+<div id="tab_user_search"><%= render 'home/tab_user_search' %></div>
 <% elsif params[:act] == 'write' %>
 <%= render 'tab_write_message' %>
 <% elsif params[:act] == 'invite' %>

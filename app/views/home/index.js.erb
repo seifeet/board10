@@ -39,6 +39,14 @@
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "Search Posts";
 	    
+	<% elsif params[:act] == 'users' %>
+		$("#title_top_action").html("");
+		$("#title").html("<%= escape_javascript( render 'title' ) %>");
+		$(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
+		$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
+	    document.title = "Search Posts";
+	    
 	<% elsif params[:act] == 'school_search' && (!params[:search].nil? || !params[:date].nil?) %>
 	    $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
@@ -75,6 +83,18 @@
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_post_search') %>");
         document.title = "Posts Search";
+        
+    <% elsif params[:act] == 'user_search' && !params[:search].nil? %>
+        $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+    	$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
+		document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Users") %>";
+		
+	<% elsif params[:act] == 'user_search' %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_user_search') %>");
+        document.title = "People Search";
 	
 	<% elsif params[:act] == 'invite' && !params[:search].nil? %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");

@@ -29,4 +29,12 @@
 <% end %>
 <%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu" %>
 </div>
+
+<% if params[:act] == 'users' || params[:act] == 'user_search' %>
+<div class="user_menu_button selected">
+<% else %>
+<div class="user_menu_button">
+<% end %>
+<%= link_to 'USERS', home_path+'?act=users', :title => "Open Users Menu" %>
+</div>
 <!-- END OF FIRST LEVEL SERVICE BUTTONS -->

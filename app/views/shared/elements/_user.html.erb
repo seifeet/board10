@@ -13,7 +13,7 @@
 </div>
 
 <div class="posting_right_column clearfix">
-<% if !element.member?(@board) %>
+<% if @board && !element.member?(@board) %>
 <div class="inline_right">
 <%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
   <%= f.hidden_field :board_id, :value => @board.id %>

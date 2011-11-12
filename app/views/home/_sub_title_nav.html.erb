@@ -59,7 +59,15 @@
 	<% else %>
 	<div class="sub_menu_button clickable">
 	<% end %>
-	<%= link_to 'SEARCH', home_path+"?act=post_search", :title => "Search posts" %>
+	<%= link_to 'FIND', home_path+"?act=post_search", :title => "Find posts" %>
+	</div>
+<% elsif params[:act] == 'users' || params[:act] == 'user_search' %>
+	<% if params[:act] == 'user_search' %>
+	<div class="sub_menu_button clickable selected">
+	<% else %>
+	<div class="sub_menu_button clickable">
+	<% end %>
+	<%= link_to 'FIND', home_path+"?act=user_search", :title => "Find users" %>
 	</div>
 <% 
 end # end of "if !params[:school].nil? || ..."

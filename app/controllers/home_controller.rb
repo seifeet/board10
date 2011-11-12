@@ -27,6 +27,10 @@ class HomeController < ApplicationController
         @postings_title = "From all my schools:"
         @postings = paginate_schools_postings
         paginate = false
+        
+      elsif params[:act] == 'users' || params[:act] == 'user_search'
+        @postings_title = "Search for users:"
+        @postings = User.search(params[:search])
 
       elsif params[:act] == 'school_search'
         @postings_title = "Search results for schools:"
@@ -42,7 +46,7 @@ class HomeController < ApplicationController
         
       elsif params[:act] == 'new_board'
         @new_board = Board.new
-        @postings_title = "Create New Board"
+        @postings_title = "Create New Board:"
         @postings = paginate_board_postings
         paginate = false
 
@@ -58,7 +62,7 @@ class HomeController < ApplicationController
         end
         @postings = Posting.search(params[:search],params[:date])
 
-      elsif params[:act] == 'invite'
+      elsif params[:act] == 'invite' || params[:act] == 'users'
         @postings = User.search(params[:search])
 
       elsif params[:act] == 'messages'
