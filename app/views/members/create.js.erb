@@ -2,7 +2,7 @@
 <% if @action == 'join' %>
 $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 <% elsif @action == 'follow' %>
-$(".action_tab").html("<%= escape_javascript(render 'home/tab_board_results') %>");
+$("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 	<% if current_user.boards.count <= max_num_boards+1 %>
 	$("#title_print_boards").html("<%= escape_javascript( render 'home/title_print_boards' ) %>");
 	<% end %>
