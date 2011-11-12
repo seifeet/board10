@@ -1,26 +1,2 @@
-
-<% if !params[:school_search].nil? || !params[:board_search].nil? %>
-    <% if params[:search].nil? && !params[:school_search].nil? %>
-      $("#title_top_action").html("<%= escape_javascript(render 'tab_school_search') %>");
-    <% elsif params[:search].nil? && !params[:board_search].nil? %>
-      $("#title_top_action").html("<%= escape_javascript(render 'tab_board_search') %>");
-	<% elsif !params[:school_search].nil? %>
-	  $(".action_tab").html("<%= escape_javascript(render 'tab_school_results') %>");
-	  document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Schools by #{(params[:state] || 'name').titleize}") %>";
-	<% elsif !params[:board_search].nil? %>
-	  $(".action_tab").html("<%= escape_javascript(render 'tab_board_results') %>");
-	  document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
-	<% end %>
-<% elsif !params[:element_action].nil? %>
-      $("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
-	  document.title = "<%= escape_javascript("Write to Board") %>";
-<% elsif !params[:new_board].nil? %>
-      $("#user_title_nav").html("<%= escape_javascript(render 'navigation') %>");
-      $("#title_top_action").html("<%= escape_javascript(render 'title_top_action') %>");
-<% else %>
-$("#title").html("<%= escape_javascript( render 'title' ) %>");
-$("#title_top_action").html("<%= escape_javascript( render 'title_top_action' ) %>");
-<% @loader = true %>
 $(".user_sub_title").html("<%= escape_javascript(render 'user_sub_title', :element => @board, :element_path => board_path(@board), :custom_action => nil ) %>");
 $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>" );
-<% end %>

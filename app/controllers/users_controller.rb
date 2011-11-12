@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   def index
     store_location
     @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
-    #@users = User.paginate(:page => params[:page], :per_page => 40).order('created_at ASC')
     @title = 'People'
     
     respond_to do |format|
@@ -70,13 +69,8 @@ class UsersController < ApplicationController
     
     @postings_title = "no posts" if @postings.nil? || @postings.empty?
     
-    #@show_posting_form = false not used
-    
-    # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
-    
-    @new_board = Board.new
-    
+   
     respond_to do |format|
       format.html # show.html.erb
       format.js
