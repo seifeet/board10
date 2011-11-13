@@ -166,8 +166,8 @@ class User < ActiveRecord::Base
         obj.add_vote
         user_vote.toggle!(:vote)
       elsif user_vote.nil?
-        obj.add_vote
-        votes.create!(:obj_type => vote.obj_type, :obj_id => vote.obj_id)
+        total = obj.add_vote
+        votes.create!(:obj_type => vote.obj_type, :obj_id => vote.obj_id, :level_up => (Vote.raise_level?(total)) )
       end
     end
   end
@@ -184,10 +184,12 @@ class User < ActiveRecord::Base
   
   def add_vote
     update_attribute(:view_count, view_count+1)
+    self.view_count
   end
   
   def remove_vote
     update_attribute(:view_count, view_count-1)
+    self.view_count
   end
 
   def should_validate_password?

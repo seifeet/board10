@@ -118,12 +118,14 @@ ActiveRecord::Schema.define(:version => 20111106101231) do
     t.integer  "obj_type"
     t.integer  "obj_id"
     t.boolean  "vote",       :default => true
+    t.boolean  "level_up",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "votes", ["obj_id"], :name => "index_votes_on_obj_id"
   add_index "votes", ["obj_type"], :name => "index_votes_on_obj_type"
+  add_index "votes", ["updated_at", "level_up"], :name => "index_votes_on_updated_at_and_level_up"
   add_index "votes", ["user_id", "obj_type", "obj_id"], :name => "index_votes_on_user_id_and_obj_type_and_obj_id", :unique => true
   add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 

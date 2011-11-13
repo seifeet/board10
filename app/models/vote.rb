@@ -1,5 +1,5 @@
 class Vote < ActiveRecord::Base
-  attr_accessible :obj_id, :obj_type
+  attr_accessible :obj_id, :obj_type, :level_up
   
   belongs_to :user, :class_name => "User"
     
@@ -11,6 +11,10 @@ class Vote < ActiveRecord::Base
   
   def class_type
     'vote'
+  end
+  
+  def self.raise_level? total
+    total % 10 == 0
   end
   
   def object_type type_idx # from ObjectType

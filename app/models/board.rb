@@ -28,10 +28,12 @@ class Board < ActiveRecord::Base
   
   def add_vote
     update_attribute(:view_count, view_count+1)
+    self.view_count
   end
   
   def remove_vote
     update_attribute(:view_count, view_count-1)
+    self.view_count
   end
   
   def status
