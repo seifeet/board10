@@ -179,7 +179,7 @@ $btn-font-size: 16px;
     width: 99%;
     margin: 1px auto;
     border: 1px solid $backgrnd;
-    @include rounded-corners(3px);
+    @include rounded-corners(5px);
     padding:1px;
     color: $bgdarken70;
 }
@@ -192,7 +192,7 @@ $btn-font-size: 16px;
     @include bkground-image;
     border:1px solid $backgrnd;
     padding:2px;
-    //@include rounded-corners(3px);
+    @include rounded-corners(5px);
 }
 .school_element,
 .posting_element,
