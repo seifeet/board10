@@ -4,6 +4,12 @@
 <%= link_to 'Delete Board', @board, confirm: 'Are you sure?', method: :delete, :class => "delete_button" %>
 <% end %>
 <h2 align="center"><strong><%= @board.title %></strong></h2>
+<% if @board.school_id %>
+<% school = School.find_school(@board.school_id) %>
+<% if school %>
+<p align="center"><b>Linked to <%= school.name %></b></p>
+<% end %>
+<% end %>
 <p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, 'view') %></b>
 <br /><%= @board.description %><br />
 
