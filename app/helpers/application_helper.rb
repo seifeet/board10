@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def hours_back
+    5
+  end
+  
   def per_page
     5
   end

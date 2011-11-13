@@ -13,6 +13,8 @@ class HomeController < ApplicationController
 
     @user = current_user
     
+    @level_ups = Vote.level_ups.where('updated_at > ?', Time.now.utc - hours_back.hours).limit(10)
+    
     # ACTIONS
     if !params[:act].nil?
       if params[:act] == 'boards'

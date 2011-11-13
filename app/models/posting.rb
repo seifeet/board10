@@ -10,6 +10,24 @@ class Posting < ActiveRecord::Base
 
   default_scope :order => 'postings.created_at DESC'
   
+  # **************** abstract methods: ****************
+  def class_type
+    'posting'
+  end
+  
+  def title
+    if access == PUBLIC
+      return (subject && !subject.blank? ) ? subject : content
+    else
+      return (subject && !subject.blank? ) ? subject : "Private Post"
+    end
+  end
+  
+  def description
+    "Board: #{board.title}"
+  end
+  # **************** end of abstract methods ****************
+  
   def self.search(search, date)
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
@@ -46,10 +64,6 @@ class Posting < ActiveRecord::Base
   
   def access
     VISIBILITY[visibility]
-  end
-  
-  def class_type
-    'posting'
   end
   
   ACTIVE = 'Active'

@@ -1,0 +1,7 @@
+<% obj = Vote.object_by_vote element %>
+<% if obj.title == "Private Post" %>
+Private Post<br />
+<% else %>
+<%= link_to strip_and_cut(obj.title, 50), obj %><br />
+<% end %>
+<%= strip_and_cut(obj.description, 30) %> <i>(<%= pluralize(obj.view_count,'UP') %>)</i><br />

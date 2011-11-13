@@ -8,9 +8,19 @@ class Board < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  # **************** abstract methods: ****************
   def class_type
     'board'
   end
+  
+  #def title # already has a title field
+  #  title
+  #end
+  
+  #def description # already has a description field
+  #  location
+  #end
+  # **************** end of abstract methods ****************
   
   def self.search(search)
     if search && !search.blank?

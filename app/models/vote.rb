@@ -9,6 +9,8 @@ class Vote < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, :scope => [:obj_type, :obj_id]
   
+  scope :level_ups, where(:level_up => true)
+  
   def class_type
     'vote'
   end
