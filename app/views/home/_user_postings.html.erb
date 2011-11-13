@@ -21,7 +21,7 @@ end
 end
 
 if !@postings.nil? && !@postings.empty?
-  @postings = @postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+  @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
 end
 
 end

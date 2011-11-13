@@ -81,7 +81,8 @@ class MembersController < ApplicationController
         end
       end
     end
-
+    
+    params[:act] = 'board_search'
     params[:search] = params[:member][:search] if !params[:member][:search].nil?
 
     respond_to do |format|
