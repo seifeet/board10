@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
 
     if current_user.id == @user.id
-      @postings_title = ""
+      @postings_title = "Recent Posts:"
       @postings = @user.postings.paginate(:page => params[:page], :per_page => per_page )
     else
       @postings_title = @user.first_name + "'s Public Posts:"

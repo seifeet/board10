@@ -1,9 +1,14 @@
 <%= notice %>
 
-<div id='main_part'>
+<div id='user_content'>
+	
+<div id="members">
+Member in boards:
+<%= render 'shared/containers/small_container', :container => @user.boards, :action => 'ban' %>
+</div>
 
 <div class="user_sub_title">
-<%= render 'user_sub_title' %>
+<%= @postings_title %>
 </div> <!-- close user_sub_title -->
 		
 <div id="user_postings">

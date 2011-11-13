@@ -34,7 +34,7 @@
 </div>
 
 <div class="posting_right_column clearfix">
-	<% if !read_only && current_user.id == element.user_id %>
+	<% if (!read_only && current_user.id == element.user_id) || admin? %>
 	<div class="hidable">
 	<%= link_to 'Edit', edit_posting_path(element), :class => "edit_button" %>
 	<%= button_to 'Delete', element, confirm: 'Are you sure?',
