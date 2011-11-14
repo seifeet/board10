@@ -17,17 +17,30 @@
       if board.id.to_s == params[:board]
           @current_board = board
 %>
-<div class="secondary_menu_button selected">
+<div class="link_with_btn secondary_menu_button selected">
 <%    else %>
-<div class="secondary_menu_button">
+<div class="link_with_btn secondary_menu_button">
 <%    end %>
-    <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}",{:title => "Board: #{board.title}"} %>
+	<div class="link_btn">
+	<% if current_user.owner?(board) %>
+	<%= button_to 'X'.html_safe, current_user.boards.find_board(board.id),
+		confirm: "Do you want to remove Board \"#{board.title}\"?", 
+        :class => "button_reject", :disable_with => 'Deleting...',
+        method: :delete, :remote => true %>
+    <% else %>
+    <%= button_to 'X', current_user.members.find_by_board_id(board.id),
+        confirm: "Do you want to remove Board \"#{board.title}\"?", 
+        :class => "button_reject", :disable_with => 'Deleting...',
+        method: :delete, :remote => true %>
+    <% end %>
+    </div>
+    <%= link_to "#{strip_and_cut(board.title, 21)}", home_path+"?board=#{board.id}",{:title => "Board: #{board.title}"} %>
 </div>
 <%
     end # end of @current_school do-loop
     if all_boards.count > max_num_boards
 %>
-<div class="secondary_menu_button">
+<div class="link_with_btn secondary_menu_button">
     <%= link_to "MORE", home_path+"?act=boards&subact=nav",{:confirm => "Your other boards are listed on the right bar."} %>
 </div>
 <%

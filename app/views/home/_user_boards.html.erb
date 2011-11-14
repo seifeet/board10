@@ -7,19 +7,21 @@
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>
         <% if board.active? %>
-        <div class="clickable">
+        <div class="link_with_btn clickable">
+        <div class="link_btn">
         <% if current_user.owner?(board) %>
-        <%= button_to 'delete', current_user.boards.find_board(board.id),
+        <%= button_to 'X', current_user.boards.find_board(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
         <% else %>
-        <%= button_to 'leave', current_user.members.find_by_board_id(board.id),
+        <%= button_to 'X', current_user.members.find_by_board_id(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
         <% end %>
-        <%= link_to "#{strip_and_cut(board.title,33)}",
+        </div>
+         <%= link_to "#{strip_and_cut(board.title,23)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button",
          :title => "Board: #{board.title}" %>

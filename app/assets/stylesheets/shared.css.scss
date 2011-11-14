@@ -54,17 +54,16 @@ $btn-font-size: 16px;
 @mixin action-button($bk_color){
     color: $bk_color;
     font-weight: bold;
-    background: $bglighten50;//transparent;
-    border: 2px solid $bk_color;
-    padding: 2px;
+    background: transparent;
+    border: 1px solid transparent; //$bk_color;
     margin: 5px;
-    @include rounded-corners(5px);
+    //@include rounded-corners(5px);
 
     &:hover {
         color: $bglighten50;
-        background-color: $bk_color;
+        background-color: transparent; //$bk_color;
         cursor: pointer;
-        border: 2px solid $bk_color;
+        border: 1px solid transparent; //$bk_color;
     }
 }
 

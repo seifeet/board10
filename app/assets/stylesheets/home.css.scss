@@ -181,6 +181,15 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     margin:5px;
 }
 
+.link_btn{
+  float:right;
+  width:50px;
+  height:1em;
+  margin-top:-0.6em;
+}
+.link_with_btn{
+  padding:2px;
+}
 .secondary_menu_button{
     position:relative;
     margin:2px;
@@ -317,6 +326,7 @@ a.secondary_menu_button.selected,
     color:white;
     left:-1.3em;
     opacity:0.2;
+    height:27px;
     font-size:xx-large;
     font-style:italic;
     white-space: nowrap;
