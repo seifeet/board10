@@ -21,7 +21,7 @@
          method: :delete, :remote => true %>
         <% end %>
         </div>
-         <%= link_to "#{strip_and_cut(board.title,23)}",
+         <%= link_to "#{strip_and_cut(board.title,33)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button",
          :title => "Board: #{board.title}" %>
