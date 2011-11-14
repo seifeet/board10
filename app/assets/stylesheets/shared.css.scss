@@ -11,7 +11,7 @@ $bglighten50:  lighten($backgrnd, 50%);
 $font-color: $bgdarken70;
 
 $btn-confirm: #996600;
-$btn-reject: #0F4DA8;
+$btn-reject: #A62F00; //#0F4DA8;
 $btn-font-size: 16px;
 
 //$footer-height: 0;
@@ -69,16 +69,16 @@ $btn-font-size: 16px;
 
 @mixin main-button($bkcolor: $bgdarken40){
     margin: 5px;
-    border:1px solid $bkcolor;
-    background: $bkcolor;
+    border:0 solid transparent; //$bkcolor;
+    background: transparent; //$bkcolor;
     padding: .5em;
     display: inline-block;
     text-align:center;
-    color: $bglighten50;
+    color: $bkcolor; //$bglighten50;
     text-decoration:none;
     font-weight: bold;
     line-height:.5em;
-    @include rounded-corners;
+    //@include rounded-corners;
     &:hover{
         @include main-hover;
     }
@@ -91,7 +91,8 @@ $btn-font-size: 16px;
 }
 @mixin main-hover(){
     color: black;
-    background-color: #ffb770;
+    cursor: pointer;
+    //background-color: #ffb770;
 }
 /*********************** logo ***********************************/
 .loading{
@@ -286,6 +287,15 @@ a.link_to_text{
     border-left: 1px solid gray;
     padding: 1em;
     height: 5em;
+}
+
+.action_btns{
+  width:85px;
+}
+.action_btn{
+  float:right;
+  width:40px;
+  height:1em;
 }
 
 .clearBoth { clear:both; }

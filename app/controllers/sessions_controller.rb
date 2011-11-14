@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def new
     @title = "Sign in"
+    @level_ups = Vote.level_ups.where('updated_at > ?', Time.now.utc - 5.hours).limit(10)
   end
 
   def create

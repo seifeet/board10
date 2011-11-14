@@ -1,13 +1,18 @@
 
 <div class="hidable float_right">
     <% if !read_only && current_user.id == element.user_id %>
-    <%= link_to 'Edit', edit_posting_path(element), :class => "edit_button" %>
-
-    <%= link_to 'Delete', element, confirm: 'Are you sure?',
-        :remote => true, :disable_with => 'Deleting...', method: :delete, :class => "delete_button"
+    <div class="action_btns">
+    <div class="action_btn">
+    <%= button_to 'x', element, confirm: 'Are you sure?',
+        :remote => true, :disable_with => 'Deleting...',
+        method: :delete, :class => "delete_button",
+        :title => 'Delete post'
     %>
+    </div>
+    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post" %>
+    </div>
     <% elsif current_user.id != element.user_id %>
-    <%= link_to 'Reply', posting_path(element), :class => "button_neutral" %>
+    <%= link_to 'reply', posting_path(element), :class => "button_neutral" %>
     <% end %>
 </div>
 
@@ -61,5 +66,5 @@
     
 </div>
 <div class="float_right">
-      <%= render 'votes/vote_btn', :element => element %>
+   <%= render 'votes/vote_btn', :element => element %>
 </div>

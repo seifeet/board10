@@ -23,15 +23,17 @@
 <%    end %>
 	<div class="link_btn">
 	<% if current_user.owner?(board) %>
-	<%= button_to 'X'.html_safe, current_user.boards.find_board(board.id),
+	<%= button_to 'x', current_user.boards.find_board(board.id),
 		confirm: "Do you want to remove Board \"#{board.title}\"?", 
         :class => "button_reject", :disable_with => 'Deleting...',
-        method: :delete, :remote => true %>
+        method: :delete, :remote => true,
+        :title => "Delete Board \"#{board.title}\"" %>
     <% else %>
-    <%= button_to 'X', current_user.members.find_by_board_id(board.id),
+    <%= button_to 'x', current_user.members.find_by_board_id(board.id),
         confirm: "Do you want to remove Board \"#{board.title}\"?", 
         :class => "button_reject", :disable_with => 'Deleting...',
-        method: :delete, :remote => true %>
+        method: :delete, :remote => true,
+        :title => "Unlink Board \"#{board.title}\"" %>
     <% end %>
     </div>
     <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}",{:title => "Board: #{board.title}"} %>
