@@ -1,12 +1,15 @@
 <% if session[:return_to] =~ /\/home?/ %>
+<% if @postings && !@postings.empty? %>
 $('.generic_container .note').remove();
 $('#user_postings .generic_container').prepend("<%= escape_javascript(render 'home/add_postings', :postings => @postings)%>");
+<% end %>
 $('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
-<% elsif session[:return_to] =~ /\/users\// %>
-$('#user_postings').html("<%= escape_javascript(render 'users/postings', :posting => @posting)%>");
 <% elsif session[:return_to] =~ /\/boards\// %>
+<% if @postings && !@postings.empty? %><br/>
+$('.generic_container .note').remove();
 $('#board_postings .generic_container').prepend("<%= escape_javascript(render 'home/add_postings', :postings => @postings)%>");
+<% end %>
 $('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% end %>
 $(".loading").html("");

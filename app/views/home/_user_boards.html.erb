@@ -2,24 +2,23 @@
 <% if current_user.boards.count > max_num_boards %>
 
 <div id="all_user_boards" class="clearfix">
-<div class="background_write">All My Boards</div>
+<div class="background_write_2">All My Boards</div>
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>
         <% if board.active? %>
         <div class="clickable">
         <% if current_user.owner?(board) %>
-        <%= link_to 'delete', current_user.boards.find_board(board.id),
+        <%= button_to 'delete', current_user.boards.find_board(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "link_delete_button", :disable_with => 'Deleting...',
+         :class => "button_reject", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
         <% else %>
-        <%= link_to '&nbsp;leave'.html_safe, current_user.members.find_by_board_id(board.id),
+        <%= button_to 'leave', current_user.members.find_by_board_id(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "link_delete_button", :disable_with => 'Deleting...',
+         :class => "button_reject", :disable_with => 'Deleting...',
          method: :delete, :remote => true %>
         <% end %>
-
         <%= link_to "#{strip_and_cut(board.title,33)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button",

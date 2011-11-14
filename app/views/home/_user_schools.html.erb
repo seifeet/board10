@@ -1,20 +1,21 @@
 <% return nil if current_user.nil? %>
 <% if current_user.schools.count > max_num_schools %>
-<div class="background_write">All My Schools</div>
+<div id="all_user_schools" class="clearfix">
+<div class="background_write_2">All My Schools</div>
 <br class="clearBoth" />
 <% if !current_user.schools.empty? %>
   <% current_user.schools.each do |school| %>
      <!-- div class="nav_link clickable" -->
-     <div class="secondary_menu_button clickable">
-     <div class="inline clickable">
+     <div class="clickable">
      <%= button_to 'Delete', current_user.user_schools.find_by_school_id(school.id),
       :class => "button_reject", :disable_with => 'Deleting...',
       confirm: "Do you want to remove school \"#{school.name}\"?", 
       method: :delete, :remote => true %>
-     </div>
-     <%= link_to "#{strip_and_cut(school.name, 20)}", home_path + '?school=' + school.id.to_s,{:title => "School: #{school.name}"} %>
+
+     <%= link_to "#{strip_and_cut(school.name, 33)}", home_path + '?school=' + school.id.to_s,
+      :class => "secondary_menu_button", :title => "School: #{school.name}" %>
      </div>  
   <% end %>
 <% end %>
-<br class="clearBoth" />
+</div> 
 <% end %>

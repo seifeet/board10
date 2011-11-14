@@ -16,7 +16,7 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @member = Member.find!(params[:id])
+    @member = Member.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +37,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member = Member.find!(params[:id])
+    @member = Member.find(params[:id])
   end
 
   # POST /members
@@ -100,7 +100,7 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find!(params[:id])
+    @member = Member.find(params[:id])
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
@@ -121,6 +121,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_back_or user_path(params[:id]) }
+      format.js
       format.json { head :ok }
     end
   end

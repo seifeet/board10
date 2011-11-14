@@ -40,9 +40,13 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
         @include main-hover;
     }
 }
+#all_user_schools,
 #all_user_boards{
     background-color: $backgrnd;
-    padding: 0 3em;
+    margin-top: 0.5em;
+    padding: 1em 1em;
+    @include rounded-corners(20px);
+    border:2px solid $bgdarken20;
 }
 
 #avalable_space{
@@ -315,11 +319,17 @@ a.secondary_menu_button.selected,
     opacity:0.2;
     font-size:xx-large;
     font-style:italic;
-    //height:20px;
     white-space: nowrap;
-    //z-index:1;
 }
-
+.background_write_2{
+    position:relative;
+    color:white;
+    //left:-1.3em;
+    opacity:0.2;
+    font-size:xx-large;
+    font-style:italic;
+    white-space: nowrap;
+}
 .note{
     border:2px solid $bgdarken40;
     background:$backgrnd;
