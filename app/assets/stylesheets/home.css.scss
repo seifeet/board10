@@ -140,8 +140,9 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 #optional_buttons{
     position:absolute;
     left:50%;
-    width:60%;
-    min-width:50em;
+    width:45%;
+    min-width:45em;
+    height:17em;
 }
 #schools_area{ // area to display list of schools
     position:absolute;
