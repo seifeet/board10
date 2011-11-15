@@ -159,19 +159,22 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 }
 .school_menu_button{ // main SCHOOLS button
     position:relative;
-    top: 140px;
+    top: 60px;
     left: 50px;
 }
-.board_menu_button{ // main BOARDS button
+
+.post_menu_button{ // main POSTS button
     position:relative;
     top: 140px;
     left: 20px;
 }
-.post_menu_button{ // main POSTS button
+
+.board_menu_button{ // main BOARDS button
     position:relative;
-    top: 140px;
+    top: 60px;
     left: -10px;
 }
+
 .user_menu_button{ // main USERS button
     position:relative;
     top: 140px;

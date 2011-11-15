@@ -14,20 +14,20 @@
 <%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open Schools Menu" %>
 </div>
 
-<% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
-<div class="board_menu_button selected">
-<% else %>
-<div class="board_menu_button">
-<% end %>
-<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu" %>
-</div>
-
 <% if params[:act] == 'posts' || params[:act] == 'post_search' %>
 <div class="post_menu_button selected">
 <% else %>
 <div class="post_menu_button">
 <% end %>
 <%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu" %>
+</div>
+
+<% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
+<div class="board_menu_button selected">
+<% else %>
+<div class="board_menu_button">
+<% end %>
+<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu" %>
 </div>
 
 <% if params[:act] == 'users' || params[:act] == 'user_search' %>
