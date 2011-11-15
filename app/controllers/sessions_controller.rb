@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include ApplicationHelper
   def new
     @title = "Sign in"
     @level_ups = Vote.level_ups.where('updated_at > ? and created_at > ?',
