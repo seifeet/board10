@@ -1,9 +1,11 @@
 class BoardsController < ApplicationController
   include ApplicationHelper
   include BoardsHelper
-  before_filter :authenticate, :only => [:index, :show] #, :edit, :update]
-  before_filter :correct_board, :only => [:edit, :update] #, :destroy]
-  before_filter :correct_owner, :only => [:destroy]
+  #G before_filter :authenticate, :only => [:index, :show] #, :edit, :update]
+  #G before_filter :correct_board, :only => [:edit, :update] #, :destroy]
+  #G before_filter :correct_owner, :only => [:destroy]
+  before_filter :authenticate, :only => [:index, :show]
+  before_filter :correct_owner, :only => [:destroy, :edit, :update]
   
   # GET /boards
   # GET /boards.json

@@ -1,7 +1,8 @@
 class SessionsController < ApplicationController
   def new
     @title = "Sign in"
-    @level_ups = Vote.level_ups.where('updated_at > ?', Time.now.utc - 5.hours).limit(10)
+    @level_ups = Vote.level_ups.where('updated_at > ? and created_at > ?',
+       Time.now.utc - hours_back.hours, Time.now.utc - days_back.days).limit(10)
   end
 
   def create

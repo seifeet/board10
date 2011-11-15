@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def days_back
+    1
+  end
+  
   def hours_back
     5
   end
