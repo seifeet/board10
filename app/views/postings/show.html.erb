@@ -1,6 +1,6 @@
 <%
 @board = @posting.board
-if @board.access == Posting::PRIVATE && !current_user.member?(@board)
+if @posting.access == Posting::PRIVATE && !current_user.member?(@board)
 return "This is a private post."
 end
 %>
