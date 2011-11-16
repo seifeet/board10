@@ -50,17 +50,14 @@ body{
 }
 #right_side_act{
     position: relative;
-    width: $right-side;
-    float: right;
+    float: left;
     top:3em;
-    //margin-top: 6.5em;
-    //margin-right: 5px;
-    //margin-left:1em;
-    //min-width:35%;
+    left: 80px;
+    max-width: 35%;
 }
 #main_part{ // the main section that starts after SCHOOL, BOARD, MESSAGE title buttons
   position:relative;
-  left:$left-side-shift;
+  left: 50px;
   width: $left-side;
   top:3em;
   height:100%;
@@ -68,8 +65,8 @@ body{
   overflow-x:hidden;
 }
 #right_side_and_main{
-  display:block;
-  margin-top: 2.5em;
+    display:block;
+    margin-top: 2.5em;
 }
 #main_menu{
     position:absolute;

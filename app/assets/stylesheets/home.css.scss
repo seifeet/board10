@@ -4,8 +4,7 @@
 
 $rignt-nav-bar: 17%;  // the width of the right bar navigation
 $left-side: 42%;  // the width of the #main-part
-$right-side: 35%; 
-$left-side-shift: 3%; // #main_part left shift
+$right-side: 30%;
 $title-bar: 78%; //sum of $left-side + $right-side - 1%
 
 @mixin menu-btn($wide:6em, $marge: 10px, $round: 100px, $line: 6em){
@@ -159,26 +158,26 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 }
 .school_menu_button{ // main SCHOOLS button
     position:relative;
-    top: 60px;
+    top: 0;
     left: 50px;
-}
-
-.post_menu_button{ // main POSTS button
-    position:relative;
-    top: 140px;
-    left: 20px;
 }
 
 .board_menu_button{ // main BOARDS button
     position:relative;
-    top: 60px;
+    top: 100px;
     left: -10px;
+}
+
+.post_menu_button{ // main POSTS button
+    position:relative;
+    top: 150px;
+    left: -25px;
 }
 
 .user_menu_button{ // main USERS button
     position:relative;
-    top: 140px;
-    left: -40px;
+    top: 150px;
+    left: -30px;
 }
 .sub_menu_button{
     float: right;

@@ -23,25 +23,28 @@
   <div class="field">
     <% if !@reply %>
     <%= f.label :subject %><br />
-    <%= f.text_field :subject, :size => 40 %> 
+    <%= f.text_field :subject, :size => 58 %> 
     <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
     <b>Reply:</b>
     <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 40 %>
     <% end %>
   </div>
   <div class="field">
+    <div class="inline">
     <%= f.label :content %>
     <% if !@board.nil? && @board.access == Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility, Posting::PUBLIC %>
     <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
     <% elsif !@board.nil? && @board.access == Posting::PRIVATE %>
         <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
-    <br />
-    <%= text_area_tag :editor, "", :rows => 15, :cols => 45 %>
+    </div>
+    <div class="inline">
+    <%= text_area_tag :editor, "", :rows => 5, :cols => 45 %>
+    </div>
   </div>
-  <div class="actions">
+  <div class="float_left actions clearfix">
     <%= f.submit 'Add Post', :class => "button_neutral" %>
   </div>
 <% end %>

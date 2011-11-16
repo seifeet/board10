@@ -14,13 +14,14 @@
   <div class="field">
     <% if !@reply %>
     <%= f.label :subject %><br />
-    <%= f.text_field :subject, :size => 40 %> 
+    <%= f.text_field :subject, :size => 45 %> 
     <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
     <b>Reply:</b>
-    <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 40 %>
+    <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 20 %>
     <% end %>
   </div>
   <div class="field">
+    <div class="inline">
     <%= f.label :content %>
     <% if @board.access == Posting::PUBLIC %>
     <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
@@ -29,11 +30,11 @@
         <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
         <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
     <% end %>
-    <br />
+    </div>
     <% if !params[:subact].nil? %>
-    <%= text_area_tag :editor, "", :rows => 3, :cols => 40 %>
+    <%= text_area_tag :editor, "", :rows => 3, :cols => 20 %>
     <% else %>
-    <%= f.text_area :content, :rows => 3, :cols => 40 %>
+    <%= f.text_area :content, :rows => 3, :cols => 20 %>
     <% end %>
   </div>
   <div class="actions">

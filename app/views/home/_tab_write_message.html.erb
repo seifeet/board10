@@ -15,13 +15,13 @@
 <div class="close_button clickable">
     <%= link_to "Close", home_path + '?subact=cancel', :title => "Close Messages" %>
     <% if !params[:subact].nil? %>
-	    <% if params[:subact] == 'advanced' %>
-	    <%= link_to "Simple", home_path + "?act=write&subact=simple&board=#{params[:board]}", :title => "Switch to simple editing" %>
-	    <% else %>
-	    <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :title => "Switch to advanced editing" %>
-	    <% end %>
-	<% else %>
-	<%= link_to "Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :title => "Turn on post editing" %>
+        <% if params[:subact] == 'advanced' %>
+        <%= link_to "Simple", home_path + "?act=write&subact=simple&board=#{params[:board]}", :title => "Switch to simple editing" %>
+        <% else %>
+        <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :title => "Switch to advanced editing" %>
+        <% end %>
+    <% else %>
+    <%= link_to "Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :title => "Turn on post editing" %>
     <% end %>
 </div>
 <div id="action_tab">

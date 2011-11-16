@@ -67,18 +67,17 @@ $btn-font-size: 16px;
     }
 }
 
-@mixin main-button($bkcolor: $bgdarken40){
-    margin: 5px;
-    border:0 solid transparent; //$bkcolor;
-    background: transparent; //$bkcolor;
-    padding: .5em;
+@mixin main-button($color: $bgdarken40){
+    margin: 5px 5px 5px 0;
+    padding: 5px 5px 5px 0;
+    border: 0 solid transparent;
+    background: transparent;
     display: inline-block;
     text-align:center;
-    color: $bkcolor; //$bglighten50;
+    color: $color;
     text-decoration:none;
     font-weight: bold;
     line-height:.5em;
-    //@include rounded-corners;
     &:hover{
         @include main-hover;
     }
@@ -301,7 +300,8 @@ a.link_to_text{
 .clearBoth { clear:both; }
 .inline{ float: left; margin: 2px; width: 99%; }
 .inline_right{ float: right; margin: 2px; width: 99%; }
-.float_right{ float: right;}
+.float_left{ float: left !important; }
+.float_right{ float: right !important; }
 
 /*********************** clearfix ***********************************/
 .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
