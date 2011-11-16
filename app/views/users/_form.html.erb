@@ -10,21 +10,21 @@
 
 <%= render 'shared/flash_msg', :msg => "error" %>
 
-<div class="single_field">
+<div class="single_field togglelabel">
     <% if !check(@user, "Email").nil? %>
     <div class="flash_error"><%= check(@user, "Email") %></div>
     <% end %>
     <%= f.label :email, :class => "nested_label" %>
     <%= f.text_field :email, :class => "text_big" %>
 </div>
-<div class="single_field">
+<div class="single_field togglelabel">
     <% if !check(@user, "First name").nil? %>
     <div class="flash_error"><%= check(@user, "First name") %></div>
     <% end %>
     <%= f.label :first_name, :class => "nested_label" %>
     <%= f.text_field :first_name, :class => "text_big" %>
 </div>
-<div class="single_field">
+<div class="single_field togglelabel">
     <% if !check(@user, "Last name").nil? %>
     <div class="flash_error"><%= check(@user, "Last name") %></div>
     <% end %>
@@ -36,22 +36,22 @@
 </div>
 
 <div class="single_field">
-	<%= f.select(:state, State.all, {:include_blank => true},:class => "text_big", :style => "width:100%") %>
+    <%= f.select(:state, State.all, {:include_blank => true},:class => "text_big", :style => "width:100%") %>
 </div>
-<div class="single_field">
+<div class="single_field togglelabel">
     <%= f.label :city, :class => "nested_label" %>
     <%= f.text_field :city, :class => "text_big" %>
 </div>
 
 <% if current_user.nil? %>
-<div class="single_field">
+<div class="single_field togglelabel">
     <% if !check(@user, "Password").nil? %>
     <div class="flash_error"><%= check(@user, "Password") %></div>
     <% end %>
     <%= f.label :password, 'Password', :class => "nested_label" %>
     <%= f.password_field :password, :class => "text_big" %>
 </div>
-<div class="single_field">
+<div class="single_field togglelabel">
     <% if !check(@user, "Password").nil? %>
     <div class="flash_error"><%= check(@user, "Password") %></div>
     <% end %>

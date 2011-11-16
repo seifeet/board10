@@ -26,3 +26,58 @@
   };
     
 })(jQuery);
+/*
+
+Copyright (c) 2009 Stefano J. Attardi, http://attardi.org/
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+*/
+(function($) {
+    function toggleLabel() {
+        var input = $(this);
+        setTimeout(function() {
+            var def = input.attr('title');
+            if (!input.val() || (input.val() == def)) {
+                input.prev('label').css('visibility', '');
+                if (def) {
+                    var dummy = $('<label></label>').text(def).css('visibility','hidden').appendTo('body');
+                    input.prev('label').css('margin-left', dummy.width() + 3 + 'px');
+                    dummy.remove();
+                }
+            } else {
+                input.prev('label').css('visibility', 'hidden');
+            }
+        }, 0);
+    };
+
+    function resetField() {
+        var def = $(this).attr('title');
+        if (!$(this).val() || ($(this).val() == def)) {
+            $(this).val(def);
+            $(this).prev('label').css('visibility', '');
+        }
+    };
+
+    $('.togglelabel > input, .togglelabel > textarea').live('keydown', toggleLabel);
+    $('.togglelabel > input, .togglelabel > textarea').live('paste', toggleLabel);
+    $('.togglelabel > select').live('change', toggleLabel);
+
+    $('.togglelabel > input, .togglelabel > textarea').live('focusin', function() {
+        $(this).prev('label').css('color', '#ccc');
+    });
+    $('.togglelabel > input, .togglelabel > textarea').live('focusout', function() {
+        $(this).prev('label').css('color', '#999');
+    });
+
+    $(function() {
+        $('.togglelabel > input, .togglelabel > textarea').each(function() { toggleLabel.call(this); });
+    });
+
+})(jQuery);
