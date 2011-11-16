@@ -1,6 +1,6 @@
 <%
 @board = @posting.board
-if @board.access == Posting::PRIVATE && !current_user.member?(@board)
+if @posting.access == Posting::PRIVATE && ( current_user.nil? || !current_user.member?(@board) )
 return "This is a private post."
 end
 %>
@@ -8,7 +8,7 @@ end
 
 <div id="posting_content">
 
-<% if current_user.id == @posting.user_id %>
+<% if current_user && current_user.id == @posting.user_id %>
 <div class="float_right">
     <%= link_to 'Edit', edit_posting_path(@posting), :class => "edit_button" %>
 
@@ -21,7 +21,9 @@ end
 <br class="clearBoth" />
 
 <div class="float_right">
+<% if current_user %>
       <%= render 'votes/vote_btn', :element => @posting %>
+<% end %>
 </div>
 
 <div class="posting_left_column clearfix">
@@ -31,10 +33,14 @@ end
 
     <div class="inline">        
         <% if @posting.active_user %>
-            <% if current_user.id == @posting.user_id %>
+            <% if current_user && current_user.id == @posting.user_id %>
             posted by me
             <% elsif user = @posting.user %>
+              <% if current_user %>
                 <%= link_to "#{user.full_name}", user_path(@posting.user_id) %>
+              <% else %>
+                <b><%= user.full_name %></b>
+              <% end %>
             <% else %>Unknown user<% end %>
         <% else %>Unknown user<% end %>
     </div>
@@ -44,9 +50,13 @@ end
             <i>(<%= (time_ago_in_words(@posting.created_at)+" ago") %>)</i></div>
     <% end %>
   
-    <div class="inline clickable">
+    <div class="inline">
         <% if @board %>
+          <% if current_user %>
         <b><%= link_to "#{strip_and_cut(@board.title,30)}", home_path + "?board=#{@posting.board_id}", :class => "link_to_text" %></b>
+          <% else %>
+        <b><%= strip_and_cut(@board.title,30) %></b>
+          <% end %>
         <% else %>
         <i>(Board was removed)</i>
         <% end %>
@@ -54,8 +64,12 @@ end
 
     <% if !@board.nil? && !@board.school_id.nil? %>
     <% school = School.find_school(@board.school_id) %>
-    <div class="inline clickable">
+    <div class="inline">
+      <% if current_user %>
         <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></b>
+      <% else %>
+        <b><%= strip_and_cut(school.name,30) %></b>
+      <% end %>
     </div>
     <% end %>
 </div>
@@ -80,10 +94,13 @@ end
 </p>
 <% end %>
 
-<% if current_user.id != @posting.user_id %>
+<% if current_user && current_user.id != @posting.user_id %>
 <%= render 'reply_form' %>
 <% end %>
 
+<% if current_user %>
 <%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>
+<% end %>
 
+<%= link_to 'All Posts', postings_path, :class => "button_neutral" %>
 </div> <!-- end of posting_element -->
