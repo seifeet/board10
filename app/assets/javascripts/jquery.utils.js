@@ -65,19 +65,19 @@ the following conditions:
         }
     };
 
-    $('.togglelabel > input, textarea').live('keydown', toggleLabel);
-    $('.togglelabel > input, textarea').live('paste', toggleLabel);
-    $('select').live('change', toggleLabel);
+    $('.togglelabel > input, .togglelabel > textarea').live('keydown', toggleLabel);
+    $('.togglelabel > input, .togglelabel > textarea').live('paste', toggleLabel);
+    $('.togglelabel > select').live('change', toggleLabel);
 
-    $('.togglelabel > input, textarea').live('focusin', function() {
+    $('.togglelabel > input, .togglelabel > textarea').live('focusin', function() {
         $(this).prev('label').css('color', '#ccc');
     });
-    $('.togglelabel > input, textarea').live('focusout', function() {
+    $('.togglelabel > input, .togglelabel > textarea').live('focusout', function() {
         $(this).prev('label').css('color', '#999');
     });
 
     $(function() {
-        $('.togglelabel > input, textarea').each(function() { toggleLabel.call(this); });
+        $('.togglelabel > input, .togglelabel > textarea').each(function() { toggleLabel.call(this); });
     });
 
 })(jQuery);
