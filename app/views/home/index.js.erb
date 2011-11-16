@@ -70,6 +70,7 @@
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
     	$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
         $("#title_top_action").html("<%= escape_javascript(render 'tab_board_search') %>");
+        $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
         document.title = "Board Search";
         
     <% elsif params[:act] == 'post_search' && !params[:search].nil? %>
@@ -107,7 +108,11 @@
         document.title = "Invite people";
         
 	<% elsif params[:act] == 'write' %>
-		$("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
+		<% if !params[:subact].nil? && params[:subact] == 'cancel' %>
+	      $("#title_top_action").html("");
+	    <% else %>
+	      $("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
+	    <% end %>
 		$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
 		$("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
 	    document.title = "Write to Board";
@@ -115,7 +120,11 @@
 	<% elsif params[:act] == 'new_board' %>
 	    $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
 	    $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+	    <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
+		$("#title_top_action").html("");
+		<% else %>
 	    $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
+	    <% end %>
 	    document.title = "Create a new Board";
 	<% end %>
 	
