@@ -1,5 +1,5 @@
 <div class="float_right hidable">
-    <% if !read_only && current_user.id == element.user_id %>
+    <% if !read_only && current_user && current_user.id == element.user_id %>
     <div class="action_btns">
     <div class="action_btn">
     <%= button_to 'x', element, confirm: 'Are you sure?',
@@ -10,7 +10,7 @@
     </div>
     <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post" %>
     </div>
-    <% elsif current_user.id != element.user_id %>
+    <% elsif current_user && current_user.id != element.user_id %>
     <%= link_to 'reply', posting_path(element), :class => "button_neutral" %>
     <% end %>
 </div>
@@ -23,10 +23,14 @@
 
     <div class="inline">        
         <% if element.active_user %>
-            <% if current_user.id == element.user_id %>
+            <% if current_user && current_user.id == element.user_id %>
             posted by me
             <% elsif user = element.user %>
+                <% if current_user %>
                 <%= link_to "#{user.full_name}", user_path(element.user_id), :target => "_blank" %>
+                <% else %>
+                <%= user.full_name %>
+                <% end %>
             <% else %>Unknown user<% end %>
         <% else %>Unknown user<% end %>
     </div>
@@ -38,7 +42,11 @@
   
     <div class="inline clickable">
         <% if element.board %>
+          <% if current_user %>
         <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text" %></b>
+          <% else %>
+        <b><%= strip_and_cut(element.board.title,30) %></b>
+          <% end %>
         <% else %>
         <i>(Board was removed)</i>
         <% end %>
@@ -47,7 +55,11 @@
     <% if element.board && !element.board.school_id.nil? %>
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
+    	<% if current_user %>
         <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></b>
+        <% else %>
+        <b><%= strip_and_cut(school.name,30) %></b>
+        <% end %>
     </div>
     <% end %>
 </div>

@@ -1,9 +1,10 @@
 class PostingsController < ApplicationController
   include PostingsHelper
   # allow authenticated users to do only the following actions
-  before_filter :authenticate, :only => [:index, :show] #, :edit, :update, :destroy]
+  #G before_filter :authenticate, :only => [:index] #, :edit, :update, :destroy]
+  before_filter :authenticate, :only => [:create]
   # only owner of this posting can delete it
-  before_filter :authorized_user, :only => [:edit, :update, :destroy]
+  before_filter :owner_user, :only => [:edit, :update, :destroy]
   # GET /postings
   # GET /postings.json
   def index
@@ -154,8 +155,7 @@ class PostingsController < ApplicationController
 
   private
 
-  def authorized_user
-    # ADD: || the owner of the board is trying to delete his board
+  def owner_user
     @posting = current_user.postings.find_by_id(params[:id])
     redirect_to user_path(params[:id]) if @posting.nil?
   end
