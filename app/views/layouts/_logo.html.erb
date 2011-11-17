@@ -3,7 +3,7 @@
         <% if !current_user.nil? %>
         <%= render 'shared/titles/title', :element => current_user, :edit_link => edit_user_path(current_user) %>
         <% end %>
-        Board<font color="yellow">ten</font>
+        <%= link_to "<font color='white'>Board</font><font color='yellow'>ten</font>".html_safe, home_path %>
     </div>
     <div id="wider_line"><div class="loading"></div></div>
     &nbsp;
