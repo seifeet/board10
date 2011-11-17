@@ -17,10 +17,6 @@
 
 
 <div class="posting_left_column clearfix">
-    <% if !element.subject.nil? && !element.subject.empty? %>
-    <div class="inline subject"><%= ( strip_and_cut(element.subject,120) ) %></div>
-    <% end %>
-
     <div class="inline">        
         <% if element.active_user %>
             <% if current_user && current_user.id == element.user_id %>
@@ -65,8 +61,11 @@
 </div>
 
 <div class="posting_right_column clearfix">
+	<% if !element.subject.nil? && !element.subject.empty? %>
+    <div class="inline subject"><%= ( strip_and_cut(element.subject,150) ) %></div>
+    <% end %>
     <div class="inline">
-    <%= link_to strip_and_cut(element.content, 300), posting_path(element), :class => "link_to_text" %>
+    <%= link_to strip_and_cut(element.content, 250), posting_path(element), :class => "link_to_text" %>
     </div>
     <% unless element.view_count == 0 %>
     <div class="inline">(<%= pluralize( element.view_count, 'UP')  %>)</div>
