@@ -120,13 +120,10 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 #title_top_action{
 
 }
-.action_tab{ // results of the boards/schools search etc.
-    overflow: auto;
+#action_tab{ // results of the boards/schools search etc.
     overflow-x: hidden;
-    height: 23.5em;
-    width: 90%;
-    border: 2px solid $backgrnd;
-    @include rounded-corners(3px);
+    height: 30em;
+    width: 30em;
 }
 /*********************** buttons ***********************************/
 #menu_buttons{  // groups SCHOOL, BOARD, MESSAGE etc area
@@ -170,13 +167,13 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 
 .post_menu_button{ // main POSTS button
     position:relative;
-    top: 150px;
+    top: 140px;
     left: -25px;
 }
 
 .user_menu_button{ // main USERS button
     position:relative;
-    top: 150px;
+    top: 140px;
     left: -30px;
 }
 .sub_menu_button{

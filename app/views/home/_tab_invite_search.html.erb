@@ -1,10 +1,9 @@
 <%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
-<div class="float_left">
+<div class="clearfix">
 <%= text_field_tag :search, params[:search], :size => 30 %>
-</div>
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
-<div class="float_left">
+<br />
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
 </div>
 <% end %>

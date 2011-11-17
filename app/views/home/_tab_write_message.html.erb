@@ -12,7 +12,7 @@
   });
 </script>
 <% end %>
-<div class="close_button clickable">
+<div class="close_button clearfix clickable">
     <%= link_to "Close", home_path + "?act=write&board=#{params[:board]}&subact=cancel", :title => "Close Messages" %>
     <% if !params[:subact].nil? %>
         <% if params[:subact] == 'advanced' %>
@@ -21,10 +21,10 @@
         <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :title => "Switch to advanced editing" %>
         <% end %>
     <% else %>
-    <%= link_to "Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :title => "Turn on post editing" %>
+    <%= link_to "WYSIWYG Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :title => "Turn on post editing" %>
     <% end %>
 </div>
-<div id="action_tab">
+<div id="action_tab" class="clearfix">
 <%= render 'board_posting_form' %>
 </div>
 <% end %>

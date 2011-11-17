@@ -1,6 +1,6 @@
 <div id="posting_content">
-	<%= notice %>
-	<h2>Edit post</h2>
+    <%= notice %>
+    <h2>Edit post</h2>
 <% @board = Board.find_board(@posting.board_id) %>
 <%= render 'form' %>
 <%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>
