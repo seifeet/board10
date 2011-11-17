@@ -17,7 +17,7 @@ class Posting < ActiveRecord::Base
   
   def title
     if access == PUBLIC
-      return (subject && !subject.blank? ) ? subject : content
+      return (subject && !subject.blank? ) ? ( subject + ': ' + content ) : content
     else
       return (subject && !subject.blank? ) ? subject : "Private Post"
     end

@@ -129,7 +129,7 @@ $(function() {
         }
     });
     
-    $('#whatsNew .small_container').jscroll({duration:1000});
+    $('#whatsNew .small_container').jscroll({duration:2000});
     
     $(".voting").live("ajax:complete", function(event, xhr, status) {
         if ( status == "success" ){
