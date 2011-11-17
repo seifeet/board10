@@ -12,10 +12,12 @@ class HomeController < ApplicationController
     paginate = true
 
     @user = current_user
-    
-    @level_ups = Vote.level_ups.where('updated_at > ? and created_at > ?',
-       Time.now.utc - hours_back.hours, Time.now.utc - days_back.days).limit(10)
-    
+    i = 1
+    begin
+      @level_ups = Vote.level_ups.where('updated_at > ? and created_at > ?',
+        Time.now.utc - (i*hours_back).hours, Time.now.utc - (i*days_back).days).limit(10)
+      i += 1
+    end while @level_ups.count < 10 && i < 30
     # ACTIONS
     if !params[:act].nil?
       if params[:act] == 'boards'

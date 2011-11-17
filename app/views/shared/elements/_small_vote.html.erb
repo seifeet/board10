@@ -1,4 +1,5 @@
 <% obj = Vote.object_by_vote element %>
+<% return nil if obj.nil? %>
 <% if obj.title == "Private Post" %>
 Private Post<br />
 <% else %>
