@@ -128,6 +128,15 @@ $(function() {
           // just skip on failure //alert("Can't do it! (" + status + ")");
         }
     });
+    
+    $(".voting").live("ajax:complete", function(event, xhr, status) {
+        if ( status == "success" ){
+          $(this).find(':input.togglable').toggleClass('hidden').slideToggle('slow');;
+          return false;
+        } else {
+          // just skip on failure //alert("Can't do it! (" + status + ")");
+        }
+    });
   
 });
 

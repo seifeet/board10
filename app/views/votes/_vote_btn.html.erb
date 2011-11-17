@@ -1,15 +1,25 @@
-<% return nil if current_user.nil? %>
-
+<% return nil if current_user.nil? || element.nil? %>
+<% obj_type = Vote.obj_type_by_class(element) %>
+<% curr_vote = current_user.votes.find_by_obj_type_and_obj_id(obj_type,element.id) %>
+<% build_vote = current_user.votes.build(:obj_type => obj_type, :obj_id => element.id) %>
+<div class="voting">
 <% if current_user.voted?(element) %>
-	<%= button_to '__', current_user.votes.find_by_obj_type_and_obj_id(Vote.obj_type_by_class(element),element.id), 
-	    #:remote => true,
-	    method: :delete, :class => "button_reject", :title => 'Take your vote back'
+	<%= button_to '__', curr_vote, :remote => true, :disable_with => '__',
+	    method: :delete, :class => "togglable button_reject", :title => 'Take your vote back'
 	%>
-<% else %>
-	<%= form_for current_user.votes.build(:obj_type => Vote.obj_type_by_class(element), 
-	           :obj_id => element.id) do |f| %> <!-- , :remote => true do |f| % -->
-	  <%= f.hidden_field :obj_type, :value => Vote.obj_type_by_class(element) %>
+	<%= form_for build_vote, :remote => true do |f| %>
+	  <%= f.hidden_field :obj_type, :value => obj_type %>
 	  <%= f.hidden_field :obj_id, :value => element.id %>
-	  <%= f.submit "10!", :class => "button_confirm", :title => 'Vote Up!' %>
+	  <%= f.submit "10!", :class => "togglable button_confirm", :disable_with => "10!", :hidden => true, :title => 'Vote Up!' %>
+	<% end %>
+<% else %>
+    <%= button_to '__', curr_vote, :remote => true, :class => "togglable button_reject",
+	    method: :delete, :hidden => true, :disable_with => '__', :title => 'Take your vote back'
+	%>
+	<%= form_for build_vote, :remote => true do |f| %>
+	  <%= f.hidden_field :obj_type, :value => obj_type %>
+	  <%= f.hidden_field :obj_id, :value => element.id %>
+	  <%= f.submit "10!", :class => "togglable button_confirm", :disable_with => "10!", :title => 'Vote Up!' %>
 	<% end %>
 <% end %>
+</div>
