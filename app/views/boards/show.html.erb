@@ -1,6 +1,6 @@
 <div id="board_content" class="clearfix">
 <p id="notice"><%= notice %></p>
-<%= link_to 'Back', :back, :class => "button_neutral" %>
+<%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>
 
 <%= render 'board_details' %>
 

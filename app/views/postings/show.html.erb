@@ -98,7 +98,9 @@ end
 <%= render 'reply_form' %>
 <% end %>
 
-<%= link_to 'Back', :back, :class => "button_neutral" %>
+<% if current_user %>	  	
+<%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>	  	
+<% end %>
 
 <%= link_to 'All Posts', postings_path, :class => "button_neutral" %>
 </div> <!-- end of posting_element -->
