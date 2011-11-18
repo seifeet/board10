@@ -1,3 +1,4 @@
+<div class="clearfix">
 <%= form_for @posting_form, :remote => true do |f| %>
   <% if @posting_form.errors.any? %>
     <div id="error_explanation">
@@ -14,7 +15,7 @@
     <div class="clearfix">
         <% if !@reply %>
         <%= f.label :subject %><br />
-        <%= f.text_field :subject, :class => "posting_content" %> 
+        <%= f.text_field :subject, :class => "posting_subject" %> 
         <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
         <b>Reply:</b>
         <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
@@ -22,9 +23,9 @@
     </div>
     <div class="clearfix">
         <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, "", :rows => 10 %>
+        <%= text_area_tag :editor, "", :rows => 10, :class => "posting_editor" %>
         <% else %>
-        <%= f.text_area :content, :rows => 10, :class => "posting_content" %>
+        <%= f.text_area :content, :rows => 10, :class => "posting_editor" %>
         <% end %>
     </div>
     <div class="clearfix">
@@ -40,3 +41,4 @@
         <%= f.submit 'Add Post', :class => "button_neutral" %>
     </div>
 <% end %>
+</div>

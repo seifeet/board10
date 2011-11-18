@@ -123,12 +123,11 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 }
 
 #title_top_action{
-
+    height: 30em;
+    width: 30em;
 }
 #action_tab{ // results of the boards/schools search etc.
     overflow-x: hidden;
-    height: 30em;
-    width: 30em;
 }
 /*********************** buttons ***********************************/
 #menu_buttons{  // groups SCHOOL, BOARD, MESSAGE etc area
@@ -351,4 +350,20 @@ a.secondary_menu_button.selected,
     margin:5px;
     padding:5px;
     @include rounded-corners(15px);
+}
+
+.boards_search_boards,
+.boards_create_new,
+.posts_school_search,
+.users_find_people,
+.schools_school_search,
+.invite_find_people,
+.posting_subject,
+.posting_editor{
+    position:relative;
+    width: 85%;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
 }

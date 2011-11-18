@@ -2,7 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.posting_content{
+#posting_show_content,
+#posting_edit_content {
     position:relative;
     width: 85%;
     margin: 2px auto;

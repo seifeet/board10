@@ -15,11 +15,11 @@
   </div>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title, :size => 40 %>
+    <%= f.text_field :title, :class => "boards_create_new" %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 3, :cols => 40 %>
+    <%= f.text_area :description, :rows => 3, :class => "boards_create_new" %>
   </div>
   <% if current_user.schools.count > 0 %>
   <div class="field">
@@ -30,7 +30,6 @@
   <br />If you want to connect this board to a school. You have to add that school to your profile.
   <% end %>
   <div class="field">
-    <%= f.label :access_level %> 
     <%= f.radio_button 'access_level', '1', :checked => true %><%= f.label :access_level , Board::PUBLIC %>
     <%= f.radio_button 'access_level', '0', :checked => false %><%= f.label :access_level , Board::PRIVATE %><br />
   </div>
