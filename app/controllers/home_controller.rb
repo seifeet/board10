@@ -54,6 +54,13 @@ class HomeController < ApplicationController
         @postings_title = "Create New Board:"
         @postings = paginate_board_postings
         paginate = false
+        
+      elsif params[:act] == 'edit_board'
+        @new_board = Board.find_board(params[:board])
+        @new_board = nil unless current_user.owner?( @new_board )
+        @postings_title = "Edit Board:"
+        #@postings = paginate_board_postings
+        #paginate = false
 
       elsif params[:act] == 'post_search' || params[:act] == 'posts'
         if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?

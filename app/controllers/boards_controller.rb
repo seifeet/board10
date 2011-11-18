@@ -110,13 +110,23 @@ class BoardsController < ApplicationController
   # PUT /boards/1.json
   def update
     @board = Board.find(params[:id])
+    @failures = false
+    
+    if params[:board][:title] && params[:board][:description] && (params[:board][:title].blank? || params[:board][:description].blank?)
+      flash.now[:failure] = "Title can't be blank" if params[:board][:title] && params[:board][:title].blank?
+      flash.now[:failure] = "Description can't be blank" if params[:board][:description] && params[:board][:description].blank?
+      @failures = true
+    end
 
     respond_to do |format|
-      if @board.update_attributes(params[:board])
+      if !@failures && @board.update_attributes(params[:board])
+        flash.now[:success] = 'Your board was successfully updated.'
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }
+        format.js
         format.json { head :ok }
       else
         format.html { render action: "edit" }
+        format.js
         format.json { render json: @board.errors, status: :unprocessable_entity }
       end
     end

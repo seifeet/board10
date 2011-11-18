@@ -48,11 +48,24 @@
 	<% end %>
 	<%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board", :disable_with => "Loading..." %>
 	</div>
-	<div class="sub_menu_button">
-	<%= link_to 'EDIT', edit_board_path(@board), :title => "Take me to this Board", :disable_with => "Loading..." %>
+	<% if params[:act] == 'edit_board' %>
+	<div class="sub_menu_button clickable selected">
+	<% else %>
+	<div class="sub_menu_button clickable">
+	<% end %>
+	<%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :title => "Take me to this Board", :disable_with => "Loading..." %>
+	</div>
+	<% if params[:act] == 'add_event' %>
+	<div class="sub_menu_button clickable selected">
+	<% else %>
+	<div class="sub_menu_button clickable">
+	<% end %>
+	<%= link_to 'ADD EVENT', home_path+"?board=#{params[:board]}&act=add_event", :title => "Add a new event to your calendar", :disable_with => "Loading..." %>
 	</div>
 	<% end %>
+
 	<% end %>
+	
 <% elsif params[:act] == 'posts' || params[:act] == 'post_search' %>
 	<% if params[:act] == 'post_search' %>
 	<div class="sub_menu_button clickable selected">

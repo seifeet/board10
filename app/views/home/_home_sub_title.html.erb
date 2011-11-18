@@ -1,5 +1,5 @@
 <% if !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
-<div class="float_left">
+<div class="board_title float_left">
 <%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
 </div>
 <div class="autorefresh_link float_right refreshable">

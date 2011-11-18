@@ -1,3 +1,4 @@
+<% return "" unless @new_board %>
 <%= form_for @new_board, :id => "new_user_board", :remote => true do |f| %>
   <% if @new_board.errors.any? %>
     <div id="error_explanation">
@@ -11,7 +12,11 @@
     </div>
   <% end %>
   <div class="close_button inline_right clickable">
+  <% if params[:act] == 'new_board' %>
   <%= link_to "Close", home_path + '?act=new_board&subact=cancel', :title => "Close New Board" %>
+  <% elsif params[:act] == 'edit_board' %>
+  <%= link_to "Close", home_path + "?board=#{@new_board.id}", :title => "Close Edit Board" %>
+  <% end %>
   </div>
   <div class="field">
     <%= f.label :title %><br />

@@ -7,6 +7,7 @@ class Board < ActiveRecord::Base
   has_many :postings, :dependent => :destroy
   
   validates :title, :presence => true
+  validates :description, :presence => true
   
   # **************** abstract methods: ****************
   def class_type

@@ -133,15 +133,23 @@
         $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
         document.title = "Write to Board";
     
-    <% elsif params[:act] == 'new_board' %>
+    <% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
-        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
         $("#title_top_action").html("");
         <% else %>
         $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
         <% end %>
-        document.title = "Create a new Board";
+        <% if params[:act] == 'new_board' %>
+          document.title = "Create a new Board";
+        <% else %>
+          document.title = "Edit Board";
+        <% end %>
+    <% elsif params[:act] == 'add_event' %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
+        $("#title_top_action").html("COMMING SOON!!!");
     <% end %>
     
 <% elsif !params[:board].nil? %>
