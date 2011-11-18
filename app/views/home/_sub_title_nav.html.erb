@@ -27,7 +27,7 @@
 	
 	<% if !board.nil? %>
 	<div class="sub_menu_button">
-	<%= link_to 'SHOW', board, :title => "Take me to this Board", :disable_with => "Loading..." %>
+	<%= link_to 'SHOW', board, :title => "Show this board", :disable_with => "Loading..." %>
 	</div>
 	
 	<% if current_user.member?(board) %>
@@ -36,7 +36,7 @@
 	<% else %>
 	<div class="sub_menu_button clickable">
 	<% end %>
-	<%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on the current board", :disable_with => "Loading..." %>
+	<%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on this board", :disable_with => "Loading..." %>
 	</div>
 	<% end %>
 	
@@ -53,7 +53,7 @@
 	<% else %>
 	<div class="sub_menu_button clickable">
 	<% end %>
-	<%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :title => "Take me to this Board", :disable_with => "Loading..." %>
+	<%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :title => "Edit your Board", :disable_with => "Loading..." %>
 	</div>
 	<% if params[:act] == 'add_event' %>
 	<div class="sub_menu_button clickable selected">
