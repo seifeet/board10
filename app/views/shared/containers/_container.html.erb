@@ -5,7 +5,7 @@
 <% end %>
 <% else %>
 <div class="note">
-<% if params[:act] != 'messages' %>
+<% if params[:act] != 'messages' && params[:act] != 'invite' %>
    <% if current_user.schools.empty? && current_user.boards.empty? %>
      <p>This place is empty because your profile has not been linked to any schools or boards yet.</p>
    <% end %>

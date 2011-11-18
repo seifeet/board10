@@ -1,10 +1,11 @@
 <% if session[:return_to] =~ /\/home?/ %>
 <% if flash.count > 0 %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+<% else %>
+$("#title_top_action").html("");
 <% end %>
 $("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
 $("#title_print_boards").html("<%= escape_javascript(render 'home/title_print_boards' ) %>");
-$("#title_top_action").html("");
 <% elsif session[:return_to] =~ /\/users\// %>
 $("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
 <% end %>

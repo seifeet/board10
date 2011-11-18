@@ -119,6 +119,7 @@
         <% else %>
             $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
         <% end %>
+        $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         document.title = "Invite people";
         

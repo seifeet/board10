@@ -113,7 +113,10 @@ class PostingsController < ApplicationController
         format.js
         format.json { render :json => @posting, status: :created, location: @posting }
       else
+        @errors = true
+        flash.now[:error] = ( empty_err ? 'Content is empty.' : 'Unable to save your post.' )
         format.html { redirect_to session[:return_to], notice: ( empty_err ? 'Content is empty.' : 'Unable to save your post.' ) }
+        format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
     end
