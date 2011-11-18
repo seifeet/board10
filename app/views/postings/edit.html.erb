@@ -3,6 +3,6 @@
     <h2>Edit post</h2>
     <% @board = Board.find_board(@posting.board_id) %>
     <%= render 'form' %>
-    <%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>
+    <%= link_to 'Back', :back, :class => "button_neutral" %>
 </div>
 

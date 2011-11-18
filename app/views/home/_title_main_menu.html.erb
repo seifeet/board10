@@ -11,7 +11,7 @@
 <% else %>
 <div class="school_menu_button">
 <% end %>
-<%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open Schools Menu" %>
+<%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open Schools Menu", :disable_with => "Loading..." %>
 </div>
 
 <% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
@@ -19,7 +19,7 @@
 <% else %>
 <div class="board_menu_button">
 <% end %>
-<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu" %>
+<%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu", :disable_with => "Loading..." %>
 </div>
 
 <% if params[:act] == 'posts' || params[:act] == 'post_search' %>
@@ -27,7 +27,7 @@
 <% else %>
 <div class="post_menu_button">
 <% end %>
-<%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu" %>
+<%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu", :disable_with => "Loading..." %>
 </div>
 
 <% if params[:act] == 'users' || params[:act] == 'user_search' %>
@@ -35,6 +35,6 @@
 <% else %>
 <div class="user_menu_button">
 <% end %>
-<%= link_to 'USERS', home_path+'?act=users', :title => "Open Users Menu" %>
+<%= link_to 'USERS', home_path+'?act=users', :title => "Open Users Menu", :disable_with => "Loading..." %>
 </div>
 <!-- END OF FIRST LEVEL SERVICE BUTTONS -->

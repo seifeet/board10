@@ -33,7 +33,7 @@
       method: :delete, :remote => true,
       :title => "Unlink #{school.name} from your profile" %>
     </div> 
-    <%= link_to "#{strip_and_cut(school.name, 30)}", home_path + "?school=" + school.id.to_s ,{:title => "School: #{school.name}"} %>
+    <%= link_to "#{strip_and_cut(school.name, 30)}", home_path + "?school=" + school.id.to_s , :title => "School: #{school.name}", :disable_with => "Loading..." %>
     </div>
 <%   
     end # end of do loop
@@ -41,7 +41,7 @@
 
 <%   if current_user.schools.count > max_num_schools %>
     <div class="link_with_btn secondary_menu_button clearfix">
-     <%= link_to "MORE", home_path+"?act=schools&subact=nav",{:confirm => "Your other schools are listed on the right bar."} %>
+     <%= link_to "MORE", home_path+"?act=schools&subact=nav", :confirm => "Your other schools are listed on the right bar." %>
     </div>
 <% end %>
 </div> <!-- end of school_area -->
@@ -78,7 +78,7 @@
          :title => "Unlink Board \"#{board.title}\"" %>
         <% end %>
         </div>
-        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id },{:title => "Board: #{board.title}"} %>
+        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :title => "Board: #{board.title}", :disable_with => "Loading..." %>
     </div>
 <%
         end # end of @current_school do-loop

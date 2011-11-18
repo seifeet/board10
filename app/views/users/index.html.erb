@@ -1,5 +1,7 @@
 <h1>Users</h1>
 
+<%= link_to 'Back', :back, :class => "button_neutral" %>
+
 <%= link_to 'New User', new_user_path %>
 
 <%= render 'shared/search', :search_path => users_path, :object_type => 'user' %>

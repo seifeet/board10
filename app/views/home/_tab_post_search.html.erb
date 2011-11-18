@@ -8,7 +8,7 @@
 <%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker" %>
 <%= text_field_tag :search, params[:search], :class => "posts_school_search" %>
 <%= hidden_field_tag 'act', 'post_search' %>
-<%= submit_tag "Search posts", :name => nil, :class => 'button_neutral' %>
+<%= submit_tag "Search posts", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
 <script type="text/javascript">
 $(function() {

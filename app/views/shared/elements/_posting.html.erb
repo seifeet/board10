@@ -8,10 +8,10 @@
         :title => 'Delete post'
     %>
     </div>
-    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post" %>
+    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
     </div>
     <% elsif current_user && current_user.id != element.user_id %>
-    <%= link_to 'reply', posting_path(element), :class => "button_neutral" %>
+    <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
     <% end %>
 </div>
 
@@ -39,7 +39,7 @@
     <div class="inline clickable">
         <% if element.board %>
           <% if current_user %>
-        <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text" %></b>
+        <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text", :disable_with => "Loading..." %></b>
           <% else %>
         <b><%= strip_and_cut(element.board.title,30) %></b>
           <% end %>
@@ -52,7 +52,7 @@
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
     	<% if current_user %>
-        <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text" %></b>
+        <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text", :disable_with => "Loading..." %></b>
         <% else %>
         <b><%= strip_and_cut(school.name,30) %></b>
         <% end %>

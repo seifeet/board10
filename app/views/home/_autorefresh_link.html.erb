@@ -30,6 +30,6 @@
         <%= hidden_field_tag 'school_id', element.id %>
     <% end %>
     <%= hidden_field_tag :content, "auto_refresh" %>
-    <%= f.submit 'Refresh', :class => "button_neutral" %>
+    <%= f.submit 'Refresh', :class => "button_neutral", :disable_with => "Refresh..." %>
     <% end %>
 <% end %>

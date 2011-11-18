@@ -15,7 +15,7 @@
 <%= text_field_tag :city, params[:city], :class => "invite_find_people" %>
 <% end %>
 <%= text_field_tag :search, params[:search], :class => "schools_school_search" %>
-<%= submit_tag "Search schools", :name => nil, :class => 'button_neutral' %>
+<%= submit_tag "Search schools", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
 </div>
 

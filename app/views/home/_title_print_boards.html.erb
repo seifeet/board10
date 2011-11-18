@@ -36,7 +36,7 @@
         :title => "Unlink Board \"#{board.title}\"" %>
     <% end %>
     </div>
-    <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}",{:title => "Board: #{board.title}"} %>
+    <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}",:title => "Board: #{board.title}", :disable_with => "Loading..." %>
 </div>
 <%
     end # end of @current_school do-loop

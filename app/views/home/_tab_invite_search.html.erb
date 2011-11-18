@@ -6,7 +6,7 @@
 <%= text_field_tag :search, params[:search], :class => "invite_find_people" %>
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
-<%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
+<%= submit_tag "Find people", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
 </div>
 

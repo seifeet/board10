@@ -1,7 +1,7 @@
 <%= notice %>
 
 <div id='user_content'>
-	
+<%= link_to 'Back', :back, :class => "button_neutral" %>
 <div id="members">
 Member in boards:
 <%= render 'shared/containers/small_container', :container => @user.boards, :action => 'ban' %>
@@ -14,7 +14,6 @@ Member in boards:
 <div id="user_postings">
 <%= render 'postings' %>
 </div> <!-- close user_postings -->
-
 </div> <!-- close main_part -->
 
 
