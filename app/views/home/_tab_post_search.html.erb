@@ -1,14 +1,18 @@
-<div class="close_button inline_right clickable">
-  <!-- %= link_to "Close", home_path + '?subact=cancel', :title => "Close Posts Search" % -->
+<div class="clearfix">
+
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?act=post_search&subact=cancel", :title => "Close Post Search" %>
 </div>
+
 <%= form_tag home_path, :method => :get, :id => "tab_posts_search", :remote => true do %>
-<%= text_field_tag :search, params[:search], :size => 40 %>
 <%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker" %>
-<%= hidden_field_tag 'act', 'post_search' %><br />
+<%= text_field_tag :search, params[:search], :class => "posts_school_search" %>
+<%= hidden_field_tag 'act', 'post_search' %>
 <%= submit_tag "Search posts", :name => nil, :class => 'button_neutral' %>
 <% end %>
 <script type="text/javascript">
 $(function() {
-	$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
+    $( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
 });
 </script>
+</div>

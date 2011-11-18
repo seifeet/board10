@@ -1,10 +1,12 @@
-<%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <div class="clearfix">
-<%= text_field_tag :search, params[:search], :size => 30 %>
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?act=invite&board=#{params[:board]}&subact=cancel", :title => "Close Find People" %>
+</div>
+<%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
+<%= text_field_tag :search, params[:search], :class => "invite_find_people" %>
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
-<br />
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
-</div>
 <% end %>
+</div>
 

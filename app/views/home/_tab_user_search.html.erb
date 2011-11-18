@@ -1,5 +1,10 @@
+<div class="clearfix">
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?act=user_search&subact=cancel", :title => "Close Find People" %>
+</div>
 <%= form_tag home_path, :method => :get, :id => "tab_user_search", :remote => true do %>
-<%= text_field_tag :search, params[:search], :size => 30 %>
+<%= text_field_tag :search, params[:search], :class => "users_find_people" %>
 <%= hidden_field_tag 'act', 'user_search' %>
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
 <% end %>
+</div>

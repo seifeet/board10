@@ -1,20 +1,21 @@
+<div class="clearfix">
+
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?act=school_search&subact=cancel", :title => "Close School Search" %>
+</div>
+
 <%= form_tag home_path, :method => :get, :id => "tab_schools_search", :remote => true do %>
-
 <%= hidden_field_tag 'act', 'school_search' %>
-
 <% states = State.all %>
-<br />
 <%= select_tag 'state', options_from_collection_for_select(states, :last, :first, params[:state] ||= current_user.state ) %>
-
 <% @cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
 <% if @cities.count > 0 %>
-<%= text_field_tag :city, params[:city] ||= current_user.city, :size => 15 %>
+<%= text_field_tag :city, params[:city] ||= current_user.city, :class => "schools_school_search" %>
 <% else %>
-<%= text_field_tag :city, params[:city] %>
+<%= text_field_tag :city, params[:city], :class => "invite_find_people" %>
 <% end %>
-<br />
-<%= text_field_tag :search, params[:search], :size => 30 %>
+<%= text_field_tag :search, params[:search], :class => "schools_school_search" %>
 <%= submit_tag "Search schools", :name => nil, :class => 'button_neutral' %>
 <% end %>
-
+</div>
 
