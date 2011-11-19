@@ -30,7 +30,7 @@
 	<%= link_to 'SHOW', board, :title => "Show this board", :disable_with => "Loading..." %>
 	</div>
 	
-	<% if current_user.member?(board) %>
+	<% if board.access == Posting::PUBLIC || current_user.member?(board) %>
 	<% if params[:act] == 'write' %>
 	<div class="sub_menu_button clickable selected">
 	<% else %>

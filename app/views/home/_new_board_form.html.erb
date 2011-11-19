@@ -35,8 +35,13 @@
   <br />If you want to connect this board to a school. You have to add that school to your profile.
   <% end %>
   <div class="field">
+  <% if params[:act] == 'new_board' || ( params[:act] == 'edit_board' && @new_board.access == Posting::PUBLIC ) %>
     <%= f.radio_button 'access_level', '1', :checked => true %><%= f.label :access_level , Board::PUBLIC %>
     <%= f.radio_button 'access_level', '0', :checked => false %><%= f.label :access_level , Board::PRIVATE %><br />
+  <% else  %>
+  	<%= f.radio_button 'access_level', '1', :checked => false %><%= f.label :access_level , Board::PUBLIC %>
+    <%= f.radio_button 'access_level', '0', :checked => true %><%= f.label :access_level , Board::PRIVATE %><br />
+  <% end %>
   </div>
   <br />
   <div class="actions">

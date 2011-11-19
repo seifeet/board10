@@ -61,7 +61,7 @@ class PostingsController < ApplicationController
     empty_err = false
 
     # create a new posting
-    if params[:content] != 'auto_refresh' && current_user.member?(board)
+    if params[:content] != 'auto_refresh' && ( board.access == Posting::PUBLIC || current_user.member?(board) )
     @posting = Posting.new(params[:posting])
     @posting.board_id = board.id
     @posting.user_id = current_user.id

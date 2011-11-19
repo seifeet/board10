@@ -1,10 +1,14 @@
 <% from_user = User.find_user( element.from_user )%>
-<% if element.msg_state == Message::State::UNREAD %> 
-<div class="inline"><b><%= link_to from_user.full_name, from_user %></b></div>
-<div class="inline"><b><%= link_to strip_and_cut(element.subject, 70), element %></b></div>
-<% else %> 
-<div class="inline"><%= link_to from_user.full_name, from_user %></div>
-<div class="inline"><%= link_to strip_and_cut(element.subject, 70), element %></div>
+<% if from_user %>
+	<% if element.msg_state == Message::State::UNREAD %> 
+	<div class="inline"><b><%= link_to from_user.full_name, from_user %></b></div>
+	<div class="inline"><b><%= link_to strip_and_cut(element.subject, 70), element %></b></div>
+	<% else %> 
+	<div class="inline"><%= link_to from_user.full_name, from_user %></div>
+	<div class="inline"><%= link_to strip_and_cut(element.subject, 70), element %></div>
+	<% end %>
+<% else %>
+	<div class="inline"><b>This user account has been deactivated</b></div>
 <% end %>
 <div class="inline_right"><%= button_to 'Del', element, :class => "button_reject", confirm: "Do you want to remove this message?", method: :delete, :remote => true %></div>
 <%= render 'messages/cofirm_reject', :message => element, :from => from_user %>

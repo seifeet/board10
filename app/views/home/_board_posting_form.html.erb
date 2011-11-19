@@ -1,7 +1,7 @@
 <% 
  return nil if params[:board].nil? || @board.nil?
  @board = Board.find_board(params[:board]) if @board.nil?
- if @board.active? && current_user.member?( @board.id )
+ if @board.active? && ( @board.access == Posting::PUBLIC || current_user.member?( @board.id ) )
  user = User.find_user(params[:id])
  @reply = false
  
