@@ -149,7 +149,7 @@
     <% elsif params[:act] == 'add_event' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
-        $("#title_top_action").html("COMMING SOON!!!");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/new_event') %>");
     <% end %>
     
 <% elsif !params[:board].nil? %>

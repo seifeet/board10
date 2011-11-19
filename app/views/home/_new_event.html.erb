@@ -1,0 +1,71 @@
+<div class="clearfix">
+<%= form_for @posting_form, :remote => true do |f| %>
+  <% if @posting_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@posting_form.errors.count, "error") %> prohibited this posting from being saved:</h2>
+      <ul>
+      <% @posting_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= hidden_field_tag 'from_posting', @from_posting %>
+    <%= hidden_field_tag 'board_id', @board.id %>
+    
+    <b>From:</b><%= select_date Date.today, :prefix => :start_date %><br />
+    <b>To:</b><%= select_date Date.today, :prefix => :end_date %><br />
+    <b>From:</b><%= select_time Time.now, :prefix => :start_time %>
+    <b>To:</b><%= select_time Time.now, :prefix => :end_time %><br />
+    
+    <%= f.radio_button 'repeat', '0', :checked => false %><%= f.label :daily , "Daily" %><br />
+    <%= f.radio_button 'repeat', '1', :checked => true %><%= f.label :weekly , "Weekly" %>
+      <%= check_box :mo, "Mo" %>Mo<%= check_box :tu, "Tu" %>Tu<%= check_box :we, "We" %>We
+      <%= check_box :th, "Th" %>Th<%= check_box :fr, "Fr" %>Fr<%= check_box :sa, "Sa" %>Sa
+      <%= check_box :su, "Su" %>Su<br />
+    <%= f.radio_button 'repeat', '2', :checked => false %><%= f.label :biweekly , "Biweekly" %>
+      <%= check_box :mo, "Mo" %>Mo<%= check_box :tu, "Tu" %>Tu<%= check_box :we, "We" %>We
+      <%= check_box :th, "Th" %>Th<%= check_box :fr, "Fr" %>Fr<%= check_box :sa, "Sa" %>Sa
+      <%= check_box :su, "Su" %>Su<br />
+    <%= f.radio_button 'repeat', '3', :checked => false %><%= f.label :monthly , "Monthly" %>
+      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepickerM" %> or
+      <%= check_box :me, "Me" %>Month End<br />
+    <%= f.radio_button 'repeat', '4', :checked => false %><%= f.label :yearly , "Yearly" %>
+      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepickerY" %> or
+      <%= check_box :me, "Me" %>Month End of <%= select_month 1 %><br />
+    <div class="clearfix">
+        <% if !@reply %>
+        <%= f.label :subject %><br />
+        <%= f.text_field :subject, :class => "posting_subject" %> 
+        <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
+        <b>Reply:</b>
+        <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
+        <% end %>
+    </div>
+    <div class="clearfix">
+        <% if !params[:subact].nil? %>
+        <%= text_area_tag :editor, "", :rows => 10, :class => "posting_editor" %>
+        <% else %>
+        <%= f.text_area :content, :value => params[:posting_content], :rows => 10, :class => "posting_editor" %>
+        <% end %>
+    </div>
+    <div class="clearfix">
+        <% if @board.access == Posting::PUBLIC %>
+        <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+        <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+        <% elsif @board.access == Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+        <% end %>
+    </div>
+    <div class="actions">
+        <%= f.submit 'Add Event', :class => "button_neutral", :disable_with => "Adding..." %>
+    </div>
+<% end %>
+</div>
+<script type="text/javascript">
+$(function() {
+    $( "#datepickerM" ).datepicker({dateFormat: 'yy-mm-dd'});
+    $( "#datepickerY" ).datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
