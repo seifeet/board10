@@ -115,7 +115,7 @@
         
     <% elsif params[:act] == 'invite' %>
         <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
-            $("#title_top_action").html("");
+            $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
         <% else %>
             $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
         <% end %>
@@ -125,7 +125,7 @@
         
     <% elsif params[:act] == 'write' %>
         <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
-            $("#title_top_action").html("");
+            $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
         <% else %>
             $("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
         <% end %>
@@ -137,7 +137,7 @@
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
-        $("#title_top_action").html("");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
         <% else %>
         $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
         <% end %>
