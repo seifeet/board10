@@ -32,15 +32,47 @@ class Posting < ActiveRecord::Base
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
       date_start = Date.parse(date)
-      unscoped.where("CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start)
+      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start)
     elsif date && !date.blank?
       date_start = Date.parse(date)
-      unscoped.where("created_at <= ?", date_start)
+      unscoped.where("visibility = 1 and created_at <= ?", date_start)
     elsif search && !search.blank?
       tmp = search.sub(' ', '%')
-      unscoped.where("CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
+      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
     else
-      unscoped # the same as all, but does not perform the actual query
+      unscoped.where(:visibility => 1) # the same as all, but does not perform the actual query
+    end
+  end
+  
+  def self.search_board_postings(board, search, date)
+    if !current_user.member?(board)
+      if search && !search.blank? && date && !date.blank?
+        tmp = search.sub(' ', '%')
+        date_start = Date.parse(date)
+        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start)
+      elsif date && !date.blank?
+        date_start = Date.parse(date)
+        unscoped.where("visibility = 1 and board_id = ? and created_at <= ?", board.id, date_start)
+      elsif search && !search.blank?
+        tmp = search.sub(' ', '%')
+        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
+      else
+        unscoped.where("visibility = 1 and board_id = ?", board.id) # the same as all, but does not perform the actual query
+      end
+    else
+      if search && !search.blank? && date && !date.blank?
+        tmp = search.sub(' ', '%')
+        date_start = Date.parse(date)
+        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start)
+      elsif date && !date.blank?
+        date_start = Date.parse(date)
+        unscoped.where("board_id = ? and created_at <= ?", board.id, date_start)
+      elsif search && !search.blank?
+        tmp = search.sub(' ', '%')
+        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
+      else
+        unscoped.where(:board_id => board.id) # the same as all, but does not perform the actual query
+      end
     end
   end
   
