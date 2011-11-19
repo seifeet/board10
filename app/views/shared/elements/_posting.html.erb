@@ -62,7 +62,7 @@
 
 <div class="posting_right_column clearfix">
 	<% if !element.subject.nil? && !element.subject.empty? %>
-    <div class="inline subject"><%= ( strip_and_cut(element.subject,150) ) %></div>
+    <%= link_to strip_and_cut(element.subject,150), posting_path(element), :class => "inline subject" %>
     <% end %>
     <div class="inline">
     <%= link_to strip_and_cut(element.content, 250), posting_path(element), :class => "link_to_text" %>
