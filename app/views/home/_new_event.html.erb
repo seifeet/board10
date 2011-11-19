@@ -1,3 +1,7 @@
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Event" %>
+</div>
+
 <div class="clearfix">
 <%= form_for @posting_form, :remote => true do |f| %>
   <% if @posting_form.errors.any? %>
