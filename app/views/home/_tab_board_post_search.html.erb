@@ -1,0 +1,13 @@
+<div class="clearfix">
+<%= form_tag home_path, :method => :get, :id => "tab_board_post_search", :remote => true do %>
+<%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker" %>
+<%= text_field_tag :search, params[:search], :class => "board_post_search" %>
+<%= hidden_field_tag 'board', @board.id.to_s %>
+<%= submit_tag "Search board", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
+<% end %>
+<script type="text/javascript">
+$(function() {
+    $( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+</div>

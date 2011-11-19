@@ -44,8 +44,8 @@ class Posting < ActiveRecord::Base
     end
   end
   
-  def self.search_board_postings(board, search, date)
-    if !current_user.member?(board)
+  def self.search_board_postings(user, board, search, date)
+    if !user.member?(board)
       if search && !search.blank? && date && !date.blank?
         tmp = search.sub(' ', '%')
         date_start = Date.parse(date)

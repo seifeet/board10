@@ -106,13 +106,16 @@ class HomeController < ApplicationController
       @postings = paginate_school_postings @school if !@school.nil?
     elsif !params[:board].nil?
       @board = Board.find_board(params[:board])
-      # show all postings of the board if current_user is a member
-      if !@board.nil? && params[:act] != 'invite' && current_user.member?( @board )
-        @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-      # show only public postings if current_user is not a member
-      elsif !@board.nil? && params[:act] != 'invite' && !current_user.member?( @board )
-        @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+      if !@board.nil? && params[:act] != 'invite'
+        @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
       end
+      # show all postings of the board if current_user is a member
+      #if !@board.nil? && params[:act] != 'invite' && current_user.member?( @board )
+      #  @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+      # show only public postings if current_user is not a member
+      #elsif !@board.nil? && params[:act] != 'invite' && !current_user.member?( @board )
+      #  @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+      #end
     end
     
     if @postings.nil? || @postings.empty?

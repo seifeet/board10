@@ -16,8 +16,11 @@ elsif params[:act] == 'school_search'
   end
 elsif params[:act] == 'board_search'
   if @postings.nil? && !params[:search].nil?
-  @postings = Board.search(params[:search])
-end
+    @postings = Board.search(params[:search])
+  end
+elsif params[:act] != 'invite' && params[:board]
+  @board = Board.find_board(params[:board]) if @board.nil?
+  @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date])
 end
 
 if !@postings.nil? && !@postings.empty?

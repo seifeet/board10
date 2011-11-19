@@ -158,6 +158,7 @@
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
     $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
     $("#user_boards").html("<%= escape_javascript(render 'home/user_boards' ) %>");
+    $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
     $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
     
