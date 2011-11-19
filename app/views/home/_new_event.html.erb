@@ -28,10 +28,9 @@
       <%= check_box :th, "Th" %>Th<%= check_box :fr, "Fr" %>Fr<%= check_box :sa, "Sa" %>Sa
       <%= check_box :su, "Su" %>Su<br />
     <%= f.radio_button 'repeat', '3', :checked => false %><%= f.label :monthly , "Monthly" %>
-      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepickerM" %> or
-      <%= check_box :me, "Me" %>Month End<br />
+      <%= select_day 1 %> or <%= check_box :me, "Me" %>Month End<br />
     <%= f.radio_button 'repeat', '4', :checked => false %><%= f.label :yearly , "Yearly" %>
-      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepickerY" %> or
+      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepicker" %> or
       <%= check_box :me, "Me" %>Month End of <%= select_month 1 %><br />
     <div class="clearfix">
         <% if !@reply %>
@@ -65,7 +64,6 @@
 </div>
 <script type="text/javascript">
 $(function() {
-    $( "#datepickerM" ).datepicker({dateFormat: 'yy-mm-dd'});
-    $( "#datepickerY" ).datepicker({dateFormat: 'yy-mm-dd'});
+    $( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
 });
 </script>
