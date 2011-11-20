@@ -96,6 +96,8 @@ class HomeController < ApplicationController
     
     # FORM FOR POSITNGS
     @posting_form = Posting.new
+    # FORM FOR EVENT
+    @new_event = Posting.new
     # Autorefresh form
     @autorefresh = Posting.new
 

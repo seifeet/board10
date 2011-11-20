@@ -3,12 +3,12 @@
 </div>
 
 <div class="clearfix">
-<%= form_for @posting_form, :remote => true do |f| %>
-  <% if @posting_form.errors.any? %>
+<%= form_for @new_event, :remote => true do |f| %>
+  <% if @new_event.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@posting_form.errors.count, "error") %> prohibited this posting from being saved:</h2>
+      <h2><%= pluralize(@new_event.errors.count, "error") %> prohibited this posting from being saved:</h2>
       <ul>
-      <% @posting_form.errors.full_messages.each do |msg| %>
+      <% @new_event.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

@@ -15,13 +15,11 @@
 	<% elsif params[:act] == 'write' %>
 	<%= render 'tab_write_message' %>
 	<% elsif params[:act] == 'invite' %>
-	<div id="tab_invite_search">
-	<%= render 'home/tab_invite_search' %>
-	</div>
+	<div id="tab_invite_search"><%= render 'home/tab_invite_search' %></div>
 	<% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
-	<div class="action_tab">
-	<%= render 'home/new_board_form' %>
-	</div>
+	<div class="action_tab"><%= render 'home/new_board_form' %></div>
+	<% elsif params[:act] == 'add_event' %>
+	<div id="tab_new_event"><%= render 'home/new_event' %></div>
 	<% elsif params[:act] == 'messages' %>
 	<% #nothing 
 	%>
