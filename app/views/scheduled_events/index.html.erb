@@ -1,0 +1,55 @@
+<h1>Listing scheduled_events</h1>
+
+<table>
+  <tr>
+    <th>Next event date</th>
+    <th>Next event time</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Repeat</th>
+    <th>Mo</th>
+    <th>Tu</th>
+    <th>We</th>
+    <th>Th</th>
+    <th>Fr</th>
+    <th>Sa</th>
+    <th>Su</th>
+    <th>Month end</th>
+    <th>Month</th>
+    <th>Month day</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scheduled_events.each do |scheduled_event| %>
+  <tr>
+    <td><%= scheduled_event.next_event_date %></td>
+    <td><%= scheduled_event.next_event_time %></td>
+    <td><%= scheduled_event.start_date %></td>
+    <td><%= scheduled_event.end_date %></td>
+    <td><%= scheduled_event.start_time %></td>
+    <td><%= scheduled_event.end_time %></td>
+    <td><%= scheduled_event.repeat %></td>
+    <td><%= scheduled_event.mo %></td>
+    <td><%= scheduled_event.tu %></td>
+    <td><%= scheduled_event.we %></td>
+    <td><%= scheduled_event.th %></td>
+    <td><%= scheduled_event.fr %></td>
+    <td><%= scheduled_event.sa %></td>
+    <td><%= scheduled_event.su %></td>
+    <td><%= scheduled_event.month_end %></td>
+    <td><%= scheduled_event.month %></td>
+    <td><%= scheduled_event.month_day %></td>
+    <td><%= link_to 'Show', scheduled_event %></td>
+    <td><%= link_to 'Edit', edit_scheduled_event_path(scheduled_event) %></td>
+    <td><%= link_to 'Destroy', scheduled_event, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scheduled event', new_scheduled_event_path %>

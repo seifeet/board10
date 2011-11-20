@@ -16,26 +16,28 @@
   <% end %>
     <%= hidden_field_tag 'from_posting', @from_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
-    
-    <b>From:</b><%= select_date Date.today, :prefix => :start_date %><br />
-    <b>To:</b><%= select_date Date.today, :prefix => :end_date %><br />
-    <b>From:</b><%= select_time Time.now, :prefix => :start_time %>
-    <b>To:</b><%= select_time Time.now, :prefix => :end_time %><br />
-    
-    <%= f.radio_button 'repeat', '0', :checked => false %><%= f.label :daily , "Daily" %><br />
-    <%= f.radio_button 'repeat', '1', :checked => true %><%= f.label :weekly , "Weekly" %>
-      <%= check_box :mo, "Mo" %>Mo<%= check_box :tu, "Tu" %>Tu<%= check_box :we, "We" %>We
-      <%= check_box :th, "Th" %>Th<%= check_box :fr, "Fr" %>Fr<%= check_box :sa, "Sa" %>Sa
-      <%= check_box :su, "Su" %>Su<br />
-    <%= f.radio_button 'repeat', '2', :checked => false %><%= f.label :biweekly , "Biweekly" %>
-      <%= check_box :mo, "Mo" %>Mo<%= check_box :tu, "Tu" %>Tu<%= check_box :we, "We" %>We
-      <%= check_box :th, "Th" %>Th<%= check_box :fr, "Fr" %>Fr<%= check_box :sa, "Sa" %>Sa
-      <%= check_box :su, "Su" %>Su<br />
-    <%= f.radio_button 'repeat', '3', :checked => false %><%= f.label :monthly , "Monthly" %>
-      <%= select_day 1 %> or <%= check_box :me, "Me" %>Month End<br />
-    <%= f.radio_button 'repeat', '4', :checked => false %><%= f.label :yearly , "Yearly" %>
-      <%= text_field_tag :date, params[:date], :size => 8, :id => "datepicker" %> or
-      <%= check_box :me, "Me" %>Month End of <%= select_month 1 %><br />
+    <%= f.fields_for :scheduled_event do |builder| %>
+      <%= builder.label :start_date %><%= builder.date_select :start_date %><br />
+      <%= builder.label :end_date %><%= builder.date_select :end_date %><br />
+      <%= builder.label :start_time %><%= builder.time_select :start_time %>
+      <%= builder.label :end_time %><%= builder.time_select :end_time %><br />
+      <%= builder.radio_button 'repeat', '0', :checked => false %><%= builder.label :daily , "Daily" %><br />
+      <%= builder.radio_button 'repeat', '1', :checked => true %><%= builder.label :weekly , "Weekly" %> or
+      <%= builder.radio_button 'repeat', '2', :checked => false %><%= builder.label :biweekly , "Biweekly" %><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= builder.label :mo %><%= builder.check_box :mo %>
+      <%= builder.label :tu %><%= builder.check_box :tu %>
+      <%= builder.label :we %><%= builder.check_box :we %>
+      <%= builder.label :th %><%= builder.check_box :th %>
+      <%= builder.label :fr %><%= builder.check_box :fr %>
+      <%= builder.label :sa %><%= builder.check_box :sa %>
+      <%= builder.label :su %><%= builder.check_box :su %><br />
+      <%= builder.radio_button 'repeat', '3', :checked => false %><%= builder.label :monthly , "Monthly" %> or
+      <%= builder.radio_button 'repeat', '4', :checked => false %><%= builder.label :yearly , "Yearly" %> in <%= select_month 1 %><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day 1 %><br />
+    <% end %>
+
     <div class="clearfix">
         <% if !@reply %>
         <%= f.label :subject %><br />

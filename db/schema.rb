@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106101231) do
+ActiveRecord::Schema.define(:version => 20111120104804) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -50,22 +50,46 @@ ActiveRecord::Schema.define(:version => 20111106101231) do
   end
 
   create_table "postings", :force => true do |t|
-    t.integer  "board_id",                       :null => false
-    t.boolean  "active_board", :default => true
-    t.integer  "user_id",                        :null => false
-    t.boolean  "active_user",  :default => true
-    t.integer  "visibility",   :default => 0
+    t.integer  "board_id",                             :null => false
+    t.boolean  "active_board",       :default => true
+    t.integer  "user_id",                              :null => false
+    t.boolean  "active_user",        :default => true
+    t.integer  "visibility",         :default => 0
     t.string   "subject"
-    t.text     "content",                        :null => false
+    t.text     "content",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access_level", :default => 0
-    t.integer  "view_count",   :default => 0
+    t.integer  "access_level",       :default => 0
+    t.integer  "view_count",         :default => 0
+    t.integer  "scheduled_event_id"
   end
 
   add_index "postings", ["board_id"], :name => "index_postings_on_board_id"
   add_index "postings", ["created_at"], :name => "index_postings_on_created_at"
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
+
+  create_table "scheduled_events", :force => true do |t|
+    t.integer  "posting_id",      :null => false
+    t.date     "next_event_date", :null => false
+    t.time     "next_event_time", :null => false
+    t.date     "start_date",      :null => false
+    t.date     "end_date",        :null => false
+    t.time     "start_time",      :null => false
+    t.time     "end_time",        :null => false
+    t.integer  "repeat",          :null => false
+    t.boolean  "mo"
+    t.boolean  "tu"
+    t.boolean  "we"
+    t.boolean  "th"
+    t.boolean  "fr"
+    t.boolean  "sa"
+    t.boolean  "su"
+    t.boolean  "month_end"
+    t.integer  "month"
+    t.integer  "month_day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "schools", :force => true do |t|
     t.string   "state",      :limit => 2,   :null => false

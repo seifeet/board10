@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :user_schools, :foreign_key => "user_id"
   has_many :schools, :through => :user_schools
   has_many :votes, :foreign_key => "user_id", :dependent => :destroy
+  has_many :scheduled_events, :through => :boards
   
   before_save :encrypt_password, :if => :should_validate_password?
   

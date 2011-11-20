@@ -1,0 +1,56 @@
+<%= form_for(@scheduled_event) do |f| %>
+  <% if @scheduled_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scheduled_event.errors.count, "error") %> prohibited this scheduled_event from being saved:</h2>
+
+      <ul>
+      <% @scheduled_event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :next_event_date %><%= f.date_select :next_event_date %>
+  </div>
+  <div class="field">
+    <%= f.label :next_event_time %><%= f.time_select :next_event_time %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><%= f.time_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><%= f.time_select :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :repeat %><%= f.number_field :repeat %>
+  </div>
+  <div class="field">
+    <%= f.label :mo %><%= f.check_box :mo %>
+    <%= f.label :tu %><%= f.check_box :tu %>
+    <%= f.label :we %><%= f.check_box :we %>
+    <%= f.label :th %><%= f.check_box :th %>
+    <%= f.label :fr %><%= f.check_box :fr %>
+    <%= f.label :sa %><%= f.check_box :sa %>
+    <%= f.label :su %><%= f.check_box :su %>
+  </div>
+  <div class="field">
+    <%= f.label :month_end %><%= f.check_box :month_end %>
+  </div>
+  <div class="field">
+    <%= f.label :month %><%= f.number_field :month %>
+  </div>
+  <div class="field">
+    <%= f.label :month_day %><%= f.number_field :month_day %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

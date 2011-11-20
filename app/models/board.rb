@@ -5,7 +5,8 @@ class Board < ActiveRecord::Base
   
   has_many :members, :foreign_key => "board_id", :dependent => :destroy
   has_many :postings, :dependent => :destroy
-  
+  has_many :scheduled_events, :through => :postings
+
   validates :title, :presence => true
   validates :description, :presence => true
   

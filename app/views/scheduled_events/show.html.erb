@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Next event date:</b>
+  <%= @scheduled_event.next_event_date %>
+</p>
+
+<p>
+  <b>Next event time:</b>
+  <%= @scheduled_event.next_event_time %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @scheduled_event.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @scheduled_event.end_date %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @scheduled_event.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @scheduled_event.end_time %>
+</p>
+
+<p>
+  <b>Repeat:</b>
+  <%= @scheduled_event.repeat %>
+</p>
+
+<p>
+  <b>Mo:</b>
+  <%= @scheduled_event.mo %>
+</p>
+
+<p>
+  <b>Tu:</b>
+  <%= @scheduled_event.tu %>
+</p>
+
+<p>
+  <b>We:</b>
+  <%= @scheduled_event.we %>
+</p>
+
+<p>
+  <b>Th:</b>
+  <%= @scheduled_event.th %>
+</p>
+
+<p>
+  <b>Fr:</b>
+  <%= @scheduled_event.fr %>
+</p>
+
+<p>
+  <b>Sa:</b>
+  <%= @scheduled_event.sa %>
+</p>
+
+<p>
+  <b>Su:</b>
+  <%= @scheduled_event.su %>
+</p>
+
+<p>
+  <b>Month end:</b>
+  <%= @scheduled_event.month_end %>
+</p>
+
+<p>
+  <b>Month:</b>
+  <%= @scheduled_event.month %>
+</p>
+
+<p>
+  <b>Month day:</b>
+  <%= @scheduled_event.month_day %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduled_event_path(@scheduled_event) %> |
+<%= link_to 'Back', scheduled_events_path %>

@@ -3,12 +3,16 @@ class Posting < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :board
+  has_one :scheduled_event, :foreign_key => "posting_id", :dependent => :destroy
+
+  accepts_nested_attributes_for :scheduled_event
 
   validates :content, :presence => true
   validates :user_id, :presence => true
   validates :board_id, :presence => true
 
   default_scope :order => 'postings.created_at DESC'
+  scope :scheduled_events, where("scheduled_event_id is not null")
   
   # **************** abstract methods: ****************
   def class_type

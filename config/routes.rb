@@ -1,5 +1,7 @@
 Board10::Application.routes.draw do
   
+  resources :scheduled_events
+
   match '/home', :to => 'home#index'
   get "home/index"
   root :to => 'home#index'

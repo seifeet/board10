@@ -97,7 +97,10 @@ class HomeController < ApplicationController
     # FORM FOR POSITNGS
     @posting_form = Posting.new
     # FORM FOR EVENT
-    @new_event = Posting.new
+    if params[:act] == 'add_event'
+      @new_event = Posting.new
+      @new_event.build_scheduled_event
+    end
     # Autorefresh form
     @autorefresh = Posting.new
 
