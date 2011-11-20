@@ -29,6 +29,7 @@
         <% end %>
     </div>
     <div class="clearfix">
+      <% if current_user.member?(@board) %>
         <% if @board.access == Posting::PUBLIC %>
         <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
         <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
@@ -36,6 +37,10 @@
             <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
             <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
         <% end %>
+      <% else %>
+        <%= # Public should be the default for non-member
+          f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+      <% end %>
     </div>
     <div class="actions">
         <%= f.submit 'Add Post', :class => "button_neutral", :disable_with => "Adding..." %>
