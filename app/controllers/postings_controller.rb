@@ -184,86 +184,16 @@ class PostingsController < ApplicationController
   def prepare_event posting
     posting.scheduled_event.month = params[:date][:month]
     posting.scheduled_event.month_day = params[:date][:day]
-    if validate_event(posting.scheduled_event)
-      set_next_event(posting.scheduled_event)
+    errors = posting.scheduled_event.validate_event
+    if errors && !errors.blank?
+      flash.now[:error] = errors.html_safe
+      return false
+    else
+      posting.scheduled_event.next_event = posting.scheduled_event.get_next_event
       return true
     end
-    false
   end
-  
-  def set_next_event event
-    event.next_event = event.start_time
-    case event.repeat
-    when ScheduledEvent::Repeat::DAILY
-      
-    when ScheduledEvent::Repeat::WEEKLY
 
-    when ScheduledEvent::Repeat::BIWEEKLY
-
-    when ScheduledEvent::Repeat::MONTHLY
-
-    when ScheduledEvent::Repeat::YEARLY
-
-    else
-
-    end
-  end
-  
-  def validate_event event
-    valid = true
-    
-    unless event.start_date && event.end_date && event.start_time && event.end_time && event.repeat
-      flash.now[:error] = "Event start date can not be blank" unless event.start_date
-      flash.now[:error] = "Event end date can not be blank" unless event.end_date
-      flash.now[:error] = "Event start time can not be blank" unless event.start_time
-      flash.now[:error] = "Event end time can not be blank" unless event.end_time
-      flash.now[:error] = "Please select type of event: daily, weekly, etc." unless event.repeat
-      valid = false
-    end
-    unless event.end_date > event.start_date
-      flash.now[:error] = "Event start date can not be after event end date"
-      valid = false
-    end
-    unless event.end_time > event.start_time
-      flash.now[:error] = "Event start time can not be after event end time"
-      valid = false
-    end
-    #logger.debug "event.repeat #{event.repeat}"
-    #logger.debug "event.mo #{event.mo} event.tu #{event.tu} event.we #{event.we} event.th #{event.th} event.fr #{event.fr} event.sa #{event.sa} event.su #{event.su}"
-    #logger.debug "event.month #{event.month} event.month_day #{event.month_day} event.month_end #{event.month_end}"
-    case event.repeat
-    when ScheduledEvent::Repeat::DAILY
-    when ScheduledEvent::Repeat::WEEKLY
-      unless event.mo || event.tu || event.we || event.th || event.fr || event.sa || event.su
-        flash.now[:error] = "At least one of the weekdays must be specifaied for a weekly event."
-        valid = false
-      end
-    when ScheduledEvent::Repeat::BIWEEKLY
-      unless event.mo || event.tu || event.we || event.th || event.fr || event.sa || event.su
-        flash.now[:error] = "At least one of the weekdays must be specifaied for a biweekly event."
-        valid = false
-      end
-    when ScheduledEvent::Repeat::MONTHLY
-      if event.month_end.nil? && event.month_day.nil? #params[:date][:day] 
-        flash.now[:error] = "For monthly event a month day or the month end has to be specified."
-        valid = false
-      end
-    when ScheduledEvent::Repeat::YEARLY
-      if event.month.nil?
-        flash.now[:error] = "For yearly event month can't be blank."
-        valid = false
-      end
-      if event.month_end.nil? && event.month_day.nil? #params[:date][:day] 
-        flash.now[:error] = "For yearly event a month day or the month end has to be specified."
-        valid = false
-      end
-    else
-      flash.now[:error] = "Unknown event type."
-      valid = false
-    end
-    valid
-  end
-  
   def owner_user
     @posting = current_user.postings.find_by_id(params[:id])
     redirect_to user_path(params[:id]) if @posting.nil?
