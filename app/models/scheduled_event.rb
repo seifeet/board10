@@ -2,7 +2,7 @@ class ScheduledEvent < ActiveRecord::Base
   attr_accessible :start_date, :end_date, :start_time, :end_time, :repeat, :mo,
                   :tu, :we, :th, :fr, :sa, :su, :month, :month_day, :month_end
   
-  belongs_to :posting
+  belongs_to :posting, :class_name => "Posting"
   
   class Repeat
     DAILY = 0
