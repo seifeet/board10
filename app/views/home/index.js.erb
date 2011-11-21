@@ -136,8 +136,10 @@
     <% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
-        <% if !params[:subact].nil? && params[:subact] == 'cancel' %>
+        <% if !params[:subact].nil? && params[:subact] == 'cancel' && params[:act] == 'edit_board' %>
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
+        <% elsif !params[:subact].nil? && params[:subact] == 'cancel' && params[:act] == 'new_board' %>
+        $("#title_top_action").html("");
         <% else %>
         $("#title_top_action").html("<%= escape_javascript(render 'new_board_form') %>");
         <% end %>

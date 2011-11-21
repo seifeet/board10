@@ -13,6 +13,7 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_next_event
+    logger.debug "-----------------#{start_date}---------------------"
     case repeat
     when ScheduledEvent::Repeat::DAILY
       
@@ -23,8 +24,6 @@ class ScheduledEvent < ActiveRecord::Base
     when ScheduledEvent::Repeat::MONTHLY
 
     when ScheduledEvent::Repeat::YEARLY
-
-    else
 
     end
     start_date
