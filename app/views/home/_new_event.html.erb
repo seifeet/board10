@@ -2,6 +2,12 @@
 <%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Event" %>
 </div>
 
+<% 
+if @new_event.nil?
+  @new_event = Posting.new
+  @new_event.build_scheduled_event
+end 
+%>
 <div class="clearfix">
 <%= form_for @new_event, :remote => true do |f| %>
   <% if @new_event.errors.any? %>
@@ -21,8 +27,8 @@
       <%= builder.label :end_date %><%= builder.date_select :end_date %><br />
       <%= builder.label :start_time %><%= builder.time_select :start_time %>
       <%= builder.label :end_time %><%= builder.time_select :end_time %><br />
-      <%= builder.radio_button 'repeat', '0', :checked => false %><%= builder.label :daily , "Daily" %><br />
-      <%= builder.radio_button 'repeat', '1', :checked => true %><%= builder.label :weekly , "Weekly" %> or
+      <%= builder.radio_button 'repeat', '0', :checked => true %><%= builder.label :daily , "Daily" %><br />
+      <%= builder.radio_button 'repeat', '1', :checked => false %><%= builder.label :weekly , "Weekly" %> or
       <%= builder.radio_button 'repeat', '2', :checked => false %><%= builder.label :biweekly , "Biweekly" %><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <%= builder.label :mo %><%= builder.check_box :mo %>

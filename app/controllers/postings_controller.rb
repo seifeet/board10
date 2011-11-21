@@ -59,22 +59,46 @@ class PostingsController < ApplicationController
     school = School.find_school(params[:school_id]) unless params[:school_id].nil?
 
     empty_err = false
+    posting_saved = false
 
-    # create a new posting
+    # create a new posting or event
     if params[:content] != 'auto_refresh' && ( board.access == Posting::PUBLIC || current_user.member?(board) )
-    @posting = Posting.new(params[:posting])
-    @posting.board_id = board.id
-    @posting.user_id = current_user.id
-    @posting.content = params[:editor] if params[:posting][:content].nil?
-    empty_err = true if @posting.content.nil? || @posting.content.empty?
-    elsif # no saving for autorefresh
-    no_save = true
-    # remeber the latest current posting in case we will not find any new posts
-    last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+      # create a new posting
+      @posting = Posting.new(params[:posting])
+      @posting.board_id = board.id
+      @posting.user_id = current_user.id
+      @posting.content = params[:editor] if params[:posting][:content].nil?
+      if @posting.content.nil? || @posting.content.empty?
+        empty_err = true
+        flash.now[:error] = 'Content can not be bank'
+      else # save posting and event
+        # if it is an event
+        if !params[:posting][:scheduled_event_attributes].nil?
+          # prepare fields of the event 
+          if prepare_event(@posting)
+            @posting.transaction do
+              # first we save the posting to get the id
+              @posting.save
+              # then we save the event to get its id
+              @posting.scheduled_event.save
+              # we set the id on posting as an indicator that posting is an event
+              @posting.scheduled_event_id = @posting.scheduled_event.id
+              # fainaly save the posting
+              posting_saved = @posting.save
+            end
+          end
+        else
+          posting_saved = @posting.save
+        end
+      end
+    else # no saving for autorefresh
+      no_save = true
+      # remeber the latest current posting in case we will not find any new posts
+      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
     end
 
     respond_to do |format|
-      if no_save || ( !empty_err && @posting.save )
+      if no_save || ( !empty_err && posting_saved )
         # only get other posts before and after if it comes from home page
         # params[:from_posting] && params[:auto_posting] are used for refresh functionality
         if !params[:from_posting].nil? || !params[:auto_posting].nil?
@@ -114,13 +138,12 @@ class PostingsController < ApplicationController
         format.json { render :json => @posting, status: :created, location: @posting }
       else
         @errors = true
-        flash.now[:error] = ( empty_err ? 'Content is empty.' : 'Unable to save your post.' )
         format.html { redirect_to session[:return_to], notice: ( empty_err ? 'Content is empty.' : 'Unable to save your post.' ) }
         format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
     end
-  rescue ActiveRecord::RecordNotFound
+    rescue ActiveRecord::RecordNotFound
     page_not_found
     end
 
@@ -157,6 +180,19 @@ class PostingsController < ApplicationController
   end
 
   private
+  
+  def prepare_event posting
+    posting.scheduled_event.month = params[:date][:month]
+    posting.scheduled_event.month_day = params[:date][:day]
+    errors = posting.scheduled_event.validate_event
+    if errors && !errors.blank?
+      flash.now[:error] = errors.html_safe
+      return false
+    else
+      posting.scheduled_event.next_event = posting.scheduled_event.get_next_event
+      return true
+    end
+  end
 
   def owner_user
     @posting = current_user.postings.find_by_id(params[:id])
