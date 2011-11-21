@@ -1,4 +1,4 @@
-<% if ( params[:act].nil? && !params[:board].nil? ) || (!params[:board].nil? && params[:subact] != 'cancel') %>
+<% if ( params[:act].nil? && !params[:board].nil? ) || (!params[:board].nil? && params[:subact] == 'cancel') %>
 	<div class="action_tab">
 	<%= render 'home/tab_board_post_search' %>
 	</div>

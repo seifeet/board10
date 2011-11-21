@@ -86,6 +86,8 @@ class PostingsController < ApplicationController
               # fainaly save the posting
               posting_saved = @posting.save
             end
+          else
+            flash.now[:error] = 'Unable to create this event'
           end
         else
           posting_saved = @posting.save
@@ -189,8 +191,9 @@ class PostingsController < ApplicationController
       flash.now[:error] = errors.html_safe
       return false
     else
-      posting.scheduled_event.next_event = posting.scheduled_event.get_next_event
-      return true
+      posting.scheduled_event.next_event = 
+        posting.scheduled_event.get_next_event(posting.scheduled_event.start_date)
+      return (posting.scheduled_event.next_event ? true : false)
     end
   end
 

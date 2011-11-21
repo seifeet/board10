@@ -12,21 +12,54 @@ class ScheduledEvent < ActiveRecord::Base
     YEARLY = 4
   end
   
-  def get_next_event
-    logger.debug "-----------------#{start_date}---------------------"
-    case repeat
-    when ScheduledEvent::Repeat::DAILY
-      
-    when ScheduledEvent::Repeat::WEEKLY
-
-    when ScheduledEvent::Repeat::BIWEEKLY
-
-    when ScheduledEvent::Repeat::MONTHLY
-
-    when ScheduledEvent::Repeat::YEARLY
-
+  def get_next_event start
+    logger.debug "START-----------------#{start_date}---------------------"
+    logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
+    return nil unless start >= start_date && start <= end_date
+    next_event = find_next_date start
+    logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
+    next_event
+  end
+  
+  def find_next_date start
+    if repeat == ScheduledEvent::Repeat::DAILY
+      next_date = start + 1.day
+    elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
+      # find the first day of the week after the start
+      next_date = find_next_date_on_this_week(start)
+      # if next_date == start then we have to advance to the next week
+      next_date = find_next_date_on_this_week(start.next_week) if next_date == start
+    elsif repeat == ScheduledEvent::Repeat::MONTHLY
+      # find the day of the month after the start
+      #next_date = find_next_date_on_this_month
+      #next_date = find_next_date_on_next_month unless next_date
+    elsif repeat == ScheduledEvent::Repeat::YEARLY
+      # find the day of the year after the start
+      #next_date = find_next_date_on_this_year
+      #next_date = find_next_date_on_next_year unless next_date
     end
-    start_date
+    next_date
+  end
+  
+  # this method will return start if next event on this week doesn't exist
+  def find_next_date_on_this_week start
+    next_date = start
+    if mo && (1 - start.wday) > 0
+      next_date = start + (1 - start.wday).day
+    elsif tu && (2 - start.wday) > 0
+      next_date = start + (2 - start.wday).day
+    elsif we && (3 - start.wday) > 0
+      next_date = start + (3 - start.wday).day
+    elsif th && (4 - start.wday) > 0
+      next_date = start + (4 - start.wday).day
+    elsif fr && (5 - start.wday) > 0
+      next_date = start + (5 - start.wday).day
+    elsif sa && (6 - start.wday) > 0
+      next_date = start + (6 - start.wday).day
+    elsif su && (7 - start.wday) > 0
+      next_date = start + (7 - start.wday).day
+    end
+    next_date
   end
   
   def validate_event
