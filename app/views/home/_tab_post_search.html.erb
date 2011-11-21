@@ -6,7 +6,7 @@
 
 <%= form_tag home_path, :method => :get, :id => "tab_posts_search", :remote => true do %>
 <%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker" %>
-<%= text_field_tag :search, params[:search], :class => "posts_school_search" %>
+<%= text_field_tag :search, params[:search], :class => "input_field_large" %>
 <%= hidden_field_tag 'act', 'post_search' %>
 <%= submit_tag "Search posts", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>

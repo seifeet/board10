@@ -41,7 +41,7 @@
     <div class="clearfix">
         <% if !@reply %>
         <%= f.label :subject %><br />
-        <%= f.text_field :subject, :class => "posting_subject" %> 
+        <%= f.text_field :subject, :class => "input_field_large" %> 
         <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
         <b>Reply:</b>
         <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
@@ -49,9 +49,9 @@
     </div>
     <div class="clearfix">
         <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, "", :rows => 10, :class => "posting_editor" %>
+        <%= text_area_tag :editor, "", :rows => 10, :class => "input_field_large" %>
         <% else %>
-        <%= f.text_area :content, :value => params[:posting_content], :rows => 10, :class => "posting_editor" %>
+        <%= f.text_area :content, :value => params[:posting_content], :rows => 10, :class => "input_field_large" %>
         <% end %>
     </div>
     <div class="clearfix">

@@ -40,7 +40,7 @@ the following conditions:
 
 */
 (function($) {
-    function toggleLabel() {
+    $.toggleLabel = function() {
         var input = $(this);
         setTimeout(function() {
             var def = input.attr('title');
@@ -65,19 +65,22 @@ the following conditions:
         }
     };
 
-    $('.togglelabel > input, .togglelabel > textarea').live('keydown', toggleLabel);
-    $('.togglelabel > input, .togglelabel > textarea').live('paste', toggleLabel);
-    $('.togglelabel > select').live('change', toggleLabel);
+    $('.togglelabel > input, .togglelabel > textarea').live('keydown', function() {
+        $(this).prev('label').css('visibility', 'hidden');
+    });
+    $('.togglelabel > input, .togglelabel > textarea').live('paste', $.toggleLabel);
+    $('.togglelabel > input#datepicker').live('change', $.toggleLabel);
 
     $('.togglelabel > input, .togglelabel > textarea').live('focusin', function() {
         $(this).prev('label').css('color', '#ccc');
     });
     $('.togglelabel > input, .togglelabel > textarea').live('focusout', function() {
+        $.toggleLabel.call(this);
         $(this).prev('label').css('color', '#999');
     });
 
     $(function() {
-        $('.togglelabel > input, .togglelabel > textarea').each(function() { toggleLabel.call(this); });
+        $('.togglelabel > input, .togglelabel > textarea').each(function() { $.toggleLabel.call(this); });
     });
 
 })(jQuery);

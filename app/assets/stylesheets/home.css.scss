@@ -324,7 +324,6 @@ a.secondary_menu_button.selected,
     
     color: white;
 }
-
 .background_write{
     position:relative;
     color:white;
@@ -350,20 +349,4 @@ a.secondary_menu_button.selected,
     margin:5px;
     padding:5px;
     @include rounded-corners(15px);
-}
-.board_post_search,
-.boards_search_boards,
-.boards_create_new,
-.posts_school_search,
-.users_find_people,
-.schools_school_search,
-.invite_find_people,
-.posting_subject,
-.posting_editor{
-    position:relative;
-    width: 85%;
-    margin: 2px auto;
-    background: $bglighten50; 
-    border: 3px solid $backgrnd;
-    padding: 5px;
 }

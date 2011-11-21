@@ -404,3 +404,23 @@ a.link_to_text{
     float: right;
     padding: 5px;
 }
+.nested_label{
+    position:absolute;
+    padding: 10px 5px 5px 5px;
+    color: #999;
+    float: left;
+}
+.input_field_large{
+    width: 85%;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}
+.input_field_small{
+    width: 100px;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}

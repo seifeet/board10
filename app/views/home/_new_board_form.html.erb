@@ -20,11 +20,11 @@
   </div>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title, :class => "boards_create_new" %>
+    <%= f.text_field :title, :class => "input_field_large" %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 3, :class => "boards_create_new" %>
+    <%= f.text_area :description, :rows => 3, :class => "input_field_large" %>
   </div>
   <% if current_user.schools.count > 0 %>
   <div class="field">

@@ -10,7 +10,6 @@ class HomeController < ApplicationController
     store_location
     
     paginate = true
-
     @user = current_user
     i = 1
     begin
@@ -133,7 +132,7 @@ class HomeController < ApplicationController
     
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name;
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.js

@@ -3,7 +3,7 @@
 <%= link_to "Close", home_path + "?act=invite&board=#{params[:board]}&subact=cancel", :title => "Close Find People" %>
 </div>
 <%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
-<%= text_field_tag :search, params[:search], :class => "invite_find_people" %>
+<%= text_field_tag :search, params[:search], :class => "input_field_large" %>
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
