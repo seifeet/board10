@@ -13,11 +13,11 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_next_event start
-    logger.debug "START-----------------#{start_date}---------------------"
-    logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
+    #logger.debug "START-----------------#{start_date}---------------------"
+    #logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
     return nil unless start >= start_date && start <= end_date
     next_event = find_next_date start
-    logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
+    #logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
     next_event
   end
   
@@ -30,13 +30,30 @@ class ScheduledEvent < ActiveRecord::Base
       # if next_date == start then we have to advance to the next week
       next_date = find_next_date_on_this_week(start.next_week) if next_date == start
     elsif repeat == ScheduledEvent::Repeat::MONTHLY
-      # find the day of the month after the start
-      #next_date = find_next_date_on_this_month
-      #next_date = find_next_date_on_next_month unless next_date
+      next_date = find_next_date_for_monthly(start)
     elsif repeat == ScheduledEvent::Repeat::YEARLY
       # find the day of the year after the start
-      #next_date = find_next_date_on_this_year
-      #next_date = find_next_date_on_next_year unless next_date
+      next_date = find_next_date_for_yearly(start)
+    end
+    next_date
+  end
+  
+  # this method will return the next event after the start
+  def find_next_date_for_monthly start
+    next_date = Date.new(start.year, start.month, ( month_end ? start.end_of_month.day : month_day ))
+    unless next_date.future?
+      next_date = next_date + 1.month
+      next_date = next_date.end_of_month if month_end
+    end
+    next_date
+  end
+  
+  # this method will return the next event after the start
+  def find_next_date_for_yearly start
+    next_date = Date.new(start.year, month, ( month_end ? start.end_of_month.day : month_day ))
+    unless next_date.future?
+      next_date = next_date + 1.year
+      next_date = next_date.end_of_month if month_end
     end
     next_date
   end
