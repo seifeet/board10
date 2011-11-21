@@ -19,7 +19,7 @@
 	<% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
 	<div class="action_tab"><%= render 'home/new_board_form' %></div>
 	<% elsif params[:act] == 'add_event' && params[:subact] != 'cancel' %>
-	<div id="tab_new_event"><%= render 'home/new_event' %></div>
+	<div id="tab_new_event"><%= render 'home/tab_new_event' %></div>
 	<% elsif params[:act] == 'messages' %>
 	<% #nothing 
 	%>

@@ -1,7 +1,3 @@
-<div class="close_button clearfix clickable">
-<%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Event" %>
-</div>
-
 <% 
 if @new_event.nil?
   @new_event = Posting.new
@@ -55,9 +51,9 @@ end
     </div>
     <div class="clearfix">
         <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, "", :rows => 10, :class => "input_field_large" %>
+        <%= text_area_tag :editor, params[:editor], :rows => 10, :class => "input_field_large" %>
         <% else %>
-        <%= f.text_area :content, :value => params[:posting_content], :rows => 10, :class => "input_field_large" %>
+        <%= f.text_area :content, :value => params[:content], :rows => 10, :class => "input_field_large" %>
         <% end %>
     </div>
     <div class="clearfix">

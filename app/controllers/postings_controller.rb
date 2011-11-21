@@ -96,6 +96,8 @@ class PostingsController < ApplicationController
       # remeber the latest current posting in case we will not find any new posts
       last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
     end
+    
+    params[:content] = params[:posting][:content] if params[:posting][:content]
 
     respond_to do |format|
       if no_save || ( !empty_err && posting_saved )
@@ -175,6 +177,7 @@ class PostingsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_back_or postings_url }
+      format.js
       format.json { head :ok }
     end
   end

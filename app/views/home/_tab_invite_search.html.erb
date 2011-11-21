@@ -1,6 +1,6 @@
 <div class="clearfix">
 <div class="close_button clearfix clickable">
-<%= link_to "Close", home_path + "?act=invite&board=#{params[:board]}&subact=cancel", :title => "Close Find People" %>
+<%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Find People", :disable_with => "Closing..." %>
 </div>
 <%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <%= text_field_tag :search, params[:search], :class => "input_field_large" %>
