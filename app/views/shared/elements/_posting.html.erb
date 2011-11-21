@@ -1,3 +1,6 @@
+<% if element.scheduled_event_id %>
+<div class="event">
+<% end %>
 <div class="float_right hidable">
     <% if !read_only && current_user && current_user.id == element.user_id %>
     <div class="action_btns">
@@ -78,3 +81,6 @@
 <div class="float_right">
    <%= render 'votes/vote_btn', :element => element %>
 </div>
+<% if element.scheduled_event_id %>
+</div> <!-- event -->
+<% end %>

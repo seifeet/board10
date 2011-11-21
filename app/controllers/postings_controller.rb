@@ -86,8 +86,6 @@ class PostingsController < ApplicationController
               # fainaly save the posting
               posting_saved = @posting.save
             end
-          else
-            flash.now[:error] = 'Unable to create this event'
           end
         else
           posting_saved = @posting.save
