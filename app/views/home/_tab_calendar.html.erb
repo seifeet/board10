@@ -1,16 +1,22 @@
 <div class="clearfix">
-<div class="close_button clearfix clickable">
-<%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Calendar", :disable_with => "Closing..." %>
-</div>
 <% 
 @date = params[:month] ? Date.parse(params[:month]) : Date.today
-@posting = @postings.scheduled_events.first unless @posting
-@events = @posting.get_future_events_for_month @date
+@events = Array.new
+if @posting
+  @events = @posting.get_future_events_for_month @date
+else
+  @postings.scheduled_events.each do |posting|
+  	@events += posting.get_future_events_for_month @date
+  end
+end
 %>
-<h2 id="month">
-  <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m") %>
+<div class="close_button clearfix clickable">
+<%= link_to "Close", home_path + "?board=#{params[:board]||=@posting.board_id}", :title => "Close Calendar", :disable_with => "Closing..." %>
+</div>
+<h2 id="month" align="center">
+  <!-- %= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m") % -->
   <%= @date.strftime("%B %Y") %>
-  <%= link_to ">", :month => (@date.beginning_of_month+1).strftime("%Y-%m") %>
+  <!-- %= link_to ">", :month => (@date.beginning_of_month+1).strftime("%Y-%m") % -->
 </h2>
 <div id="calendar">
 <%= calendar_for @events, :year => @date.year, :month => @date.month do |calendar| %>
