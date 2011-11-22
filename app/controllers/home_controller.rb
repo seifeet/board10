@@ -110,23 +110,21 @@ class HomeController < ApplicationController
       @school = School.find_school(params[:school])
       @postings = paginate_school_postings @school if !@school.nil?
     elsif !params[:board].nil?
+      @date = ( params[:date] ? Date.parse(params[:date]) : Date.today )
       @board = Board.find_board(params[:board])
       if !@board.nil? && params[:act] != 'invite'
         @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-      end
-      if params[:act] == 'calendar'
-      @date = ( params[:date] ? Date.parse(params[:date]) : Date.today )
-      @events = Array.new
-      if @postings && !@postings.empty?
-        board_events = @postings.scheduled_events
-      end
-      if board_events
-        board_events.each do |posting|
-          if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
-            @events += future_events
+        @events = Array.new
+        if @postings && !@postings.empty?
+          board_events = @board.postings.scheduled_events
+        end
+        if board_events
+          board_events.each do |posting|
+            if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
+              @events += future_events
+            end
           end
         end
-      end
       end
       # show all postings of the board if current_user is a member
       #if !@board.nil? && params[:act] != 'invite' && current_user.member?( @board )

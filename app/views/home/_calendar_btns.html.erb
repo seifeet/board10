@@ -1,0 +1,12 @@
+<% if !params[:board].nil? %>
+<% board = ( @board.nil? ? Board.find_board(params[:board]) : @board ) %>
+<% if board && current_user.owner?(board) %>
+    <% if params[:act] == 'add_event' %>
+    <div class="sub_menu_button clickable selected">
+    <% else %>
+    <div class="sub_menu_button clickable">
+    <% end %>
+    <%= link_to 'ADD EVENT', home_path+"?board=#{params[:board]}&act=add_event", :title => "Add a new event to your calendar", :disable_with => "Loading..." %>
+    </div>
+<% end %>
+<% end %>

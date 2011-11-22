@@ -1,30 +1,34 @@
 <% return nil unless @board || @posting  %>
 <div class="clearfix">
+<% @date = Date.today unless @date %>
 <% @events = @posting.get_future_events_for_month(@date) if @posting %>
-<% board_id = (@board.id ||= @posting.board_id) %>
+<% board_id = (@board && @board.id ? @board.id : @posting.board_id) %>
+<% if @posting %>
 <div class="close_button clearfix clickable">
 <%= link_to "Close", home_path + "?board=#{board_id}", :title => "Close Calendar", :disable_with => "Closing..." %>
 </div>
-<h2 id="month" align="center">
-  <div class="clickable">
-  <%= link_to "<", {:act => "calendar", :board => board_id, :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :title => "Previous year", :disable_with => "<" %>
+<% end %>
+<%= render 'home/calendar_btns' %>
+<div class="calendar_sub_title">
+  <div class="heading clickable">
+  <%= link_to "<", {:board => board_id, :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :title => "Previous year", :disable_with => "<" %>
   <%= @date.strftime("%Y") %>
-  <%= link_to ">", {:act => "calendar", :board => board_id, :date => ((@date + 1.year).end_of_month).strftime("%Y-%m-%d")}, :title => "Next year", :disable_with => ">" %>
+  <%= link_to ">", {:board => board_id, :date => ((@date + 1.year).end_of_month).strftime("%Y-%m-%d")}, :title => "Next year", :disable_with => ">" %>
   </div>
-  <div class="clickable">
-  <%= link_to "<", {:act => "calendar", :board => board_id, :date => ((@date - 1.month).end_of_month).strftime("%Y-%m-%d")}, :title => "Previous month", :disable_with => "<" %>
+  <div class="heading clickable">
+  <%= link_to "<", {:board => board_id, :date => ((@date - 1.month).end_of_month).strftime("%Y-%m-%d")}, :title => "Previous month", :disable_with => "<" %>
   <%= @date.strftime("%B") %>
-  <%= link_to ">", {:act => "calendar", :board => board_id, :date => ((@date + 1.month).end_of_month).strftime("%Y-%m-%d")}, :title => "Next month", :disable_with => ">" %>
+  <%= link_to ">", {:board => board_id, :date => ((@date + 1.month).end_of_month).strftime("%Y-%m-%d")}, :title => "Next month", :disable_with => ">" %>
   </div>
-</h2>
+</div>
 <div id="calendar">
 <%= calendar_for @events, :year => @date.year, :month => @date.month do |calendar| %>
   <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
   <% calendar.day(:day_method => :next_event) do |date, events| %>
-    <div class="clickable">
-    <%= link_to date.day, :act => "calendar", :board => board_id, :date => (date+1).strftime("%Y-%m-%d") %>
-    <% for event in events %>
-    <font size="2" color="green"><b>x<%= events.count %></b></font>
+    <div class="cal_link clickable">
+    <%= link_to date.day, :board => board_id, :date => (date+1).strftime("%Y-%m-%d") %>
+    <% if events.any? %> 
+    <font size="2" color="red"><b>x<%= events.count %></b></font>
     <% end %>
     </div>
   <% end %>

@@ -145,19 +145,16 @@
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_new_event') %>");
         document.title = "Add Event";
-    <% elsif params[:act] == 'calendar' %>
-        $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
-    	$(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
-        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_calendar') %>");
-        document.title = "Event Calendar";
     <% end %>
     
 <% elsif !params[:board].nil? %>
     $("#title_top_action").html("");
+    <% if params[:date].nil? %>
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
+    $("#user_boards").html("<%= escape_javascript(render 'home/user_boards' ) %>");
+    <% end %>
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
     $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
-    $("#user_boards").html("<%= escape_javascript(render 'home/user_boards' ) %>");
     $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
     $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
