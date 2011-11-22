@@ -36,10 +36,10 @@ class Posting < ActiveRecord::Base
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
       date_start = Date.parse(date)
-      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start)
+      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start.end_of_day)
     elsif date && !date.blank?
       date_start = Date.parse(date)
-      unscoped.where("visibility = 1 and created_at <= ?", date_start)
+      unscoped.where("visibility = 1 and created_at <= ?", date_start.end_of_day)
     elsif search && !search.blank?
       tmp = search.sub(' ', '%')
       unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
@@ -53,10 +53,10 @@ class Posting < ActiveRecord::Base
       if search && !search.blank? && date && !date.blank?
         tmp = search.sub(' ', '%')
         date_start = Date.parse(date)
-        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start)
+        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
       elsif date && !date.blank?
         date_start = Date.parse(date)
-        unscoped.where("visibility = 1 and board_id = ? and created_at <= ?", board.id, date_start)
+        unscoped.where("visibility = 1 and board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
       elsif search && !search.blank?
         tmp = search.sub(' ', '%')
         unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
@@ -67,10 +67,10 @@ class Posting < ActiveRecord::Base
       if search && !search.blank? && date && !date.blank?
         tmp = search.sub(' ', '%')
         date_start = Date.parse(date)
-        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start)
+        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
       elsif date && !date.blank?
         date_start = Date.parse(date)
-        unscoped.where("board_id = ? and created_at <= ?", board.id, date_start)
+        unscoped.where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
       elsif search && !search.blank?
         tmp = search.sub(' ', '%')
         unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")

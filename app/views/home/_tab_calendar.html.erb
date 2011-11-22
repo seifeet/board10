@@ -26,7 +26,7 @@
   <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
   <% calendar.day(:day_method => :next_event) do |date, events| %>
     <div class="cal_link clickable">
-    <%= link_to date.day, :board => board_id, :date => (date+1).strftime("%Y-%m-%d") %>
+    <%= link_to date.day, :board => board_id, :date => (date).strftime("%Y-%m-%d") %>
     <% if events.any? %> 
     <font size="2" color="red"><b>x<%= events.count %></b></font>
     <% end %>
