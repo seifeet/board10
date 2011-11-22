@@ -7,14 +7,23 @@
 <%= form_tag home_path, :method => :get, :id => "tab_schools_search", :remote => true do %>
 <%= hidden_field_tag 'act', 'school_search' %>
 <% states = State.all %>
-<%= select_tag 'state', options_from_collection_for_select(states, :last, :first, params[:state] ||= current_user.state ) %>
-<% @cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
-<% if @cities.count > 0 %>
-<%= text_field_tag :city, params[:city] ||= current_user.city, :class => "input_field_large" %>
-<% else %>
-<%= text_field_tag :city, params[:city], :class => "input_field_large" %>
-<% end %>
-<%= text_field_tag :search, params[:search], :class => "input_field_large" %>
+<div class="field">
+    <%= label_tag :state %><br />
+    <%= select_tag 'state', options_from_collection_for_select(states, :last, :first, params[:state] ||= current_user.state ) %>
+</div>
+<div class="field">
+    <%= label_tag :city %><br />
+    <% @cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
+    <% if @cities.count > 0 %>
+    <%= text_field_tag :city, params[:city] ||= current_user.city %>
+    <% else %>
+    <%= text_field_tag :city, params[:city] %>
+    <% end %>
+</div>
+<div class="field">
+    <%= label_tag :search, "Search Criteria" %><br />
+    <%= text_field_tag :search, params[:search] %>
+</div>
 <%= submit_tag "Search schools", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
 </div>

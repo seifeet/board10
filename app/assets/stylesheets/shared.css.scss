@@ -410,6 +410,9 @@ a.link_to_text{
     color: #999;
     float: left;
 }
+
+.field input,
+.field textarea,
 .input_field_large{
     width: 85%;
     margin: 2px auto;
@@ -417,6 +420,15 @@ a.link_to_text{
     border: 3px solid $backgrnd;
     padding: 5px;
 }
+.field select,
+.input_field_medium{
+    width: 65%;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}
+.field #datepicker,
 .input_field_small{
     width: 100px;
     margin: 2px auto;

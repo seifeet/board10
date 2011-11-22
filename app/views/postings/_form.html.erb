@@ -12,9 +12,8 @@
 </div>
 <% end %>
 <div class="field">
-    <%= f.label :subject %>
-    <br />
-    <%= f.text_field :subject, :class => "input_field_large" %>
+    <%= f.label :subject %><br />
+    <%= f.text_field :subject %>
 </div>
 <div class="field">
     <% if @board %>
@@ -31,7 +30,7 @@
     <% end %>
 </div>
 <div class="field">
-    <%= f.text_area :content, :rows => 7, :class => "input_field_large" %>
+    <%= f.text_area :content, :rows => 7 %>
 </div>
 <div class="actions">
     <%= f.submit 'Save', :class => "edit_button" %>

@@ -33,13 +33,13 @@
     <div class="inline">
     <%= f.label :content %>
     <% if current_user.member?(@board) %>
-	    <% if !@board.nil? && @board.access == Posting::PUBLIC %>
-	    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility, Posting::PUBLIC %>
-	    <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
-	    <% elsif !@board.nil? && @board.access == Posting::PRIVATE %>
-	        <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-	        <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
-	    <% end %>
+        <% if !@board.nil? && @board.access == Posting::PUBLIC %>
+        <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility, Posting::PUBLIC %>
+        <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+        <% elsif !@board.nil? && @board.access == Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+        <% end %>
     <% else %>
         <%= # Public should be the default for non-member
           f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>

@@ -20,11 +20,11 @@
   </div>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title, :class => "input_field_large" %>
+    <%= f.text_field :title %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 3, :class => "input_field_large" %>
+    <%= f.text_area :description, :rows => 3 %>
   </div>
   <% if current_user.schools.count > 0 %>
   <div class="field">
@@ -34,13 +34,13 @@
   <% else %>
   <br />If you want to connect this board to a school. You have to add that school to your profile.
   <% end %>
-  <div class="field">
+  <div class="clearfix">
   <% if params[:act] == 'new_board' || ( params[:act] == 'edit_board' && @new_board.access == Posting::PUBLIC ) %>
     <%= f.radio_button 'access_level', '1', :checked => true %><%= f.label :access_level , Board::PUBLIC %>
     <%= f.radio_button 'access_level', '0', :checked => false %><%= f.label :access_level , Board::PRIVATE %><br />
   <% else  %>
-  	<%= f.radio_button 'access_level', '1', :checked => false %><%= f.label :access_level , Board::PUBLIC %>
-    <%= f.radio_button 'access_level', '0', :checked => true %><%= f.label :access_level , Board::PRIVATE %><br />
+      <%= f.radio_button 'access_level', '1', :checked => false %><%= f.label :access_level , Board::PUBLIC %>
+      <%= f.radio_button 'access_level', '0', :checked => true %><%= f.label :access_level , Board::PRIVATE %><br />
   <% end %>
   </div>
   <br />

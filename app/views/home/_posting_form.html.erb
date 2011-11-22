@@ -12,20 +12,20 @@
   <% end %>
     <%= hidden_field_tag 'from_posting', @from_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
-    <div class="clearfix">
+    <div class="field clearfix">
         <% if !@reply %>
         <%= f.label :subject %><br />
-        <%= f.text_field :subject, :class => "input_field_large" %> 
+        <%= f.text_field :subject %> 
         <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
         <b>Reply:</b>
         <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
         <% end %>
     </div>
-    <div class="clearfix">
+    <div class="field clearfix">
         <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, "", :rows => 10, :class => "input_field_large" %>
+        <%= text_area_tag :editor, "", :rows => 10 %>
         <% else %>
-        <%= f.text_area :content, :value => params[:posting_content], :rows => 10, :class => "input_field_large" %>
+        <%= f.text_area :content, :value => params[:posting_content], :rows => 10 %>
         <% end %>
     </div>
     <div class="clearfix">
