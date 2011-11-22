@@ -35,10 +35,10 @@ class Posting < ActiveRecord::Base
   def self.search(search, date)
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
-      date_start = Date.parse(date)
+      date_start = valid_date_or_today(date)
       unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start.end_of_day)
     elsif date && !date.blank?
-      date_start = Date.parse(date)
+      date_start = valid_date_or_today(date)
       unscoped.where("visibility = 1 and created_at <= ?", date_start.end_of_day)
     elsif search && !search.blank?
       tmp = search.sub(' ', '%')
@@ -52,10 +52,10 @@ class Posting < ActiveRecord::Base
     if !user.member?(board)
       if search && !search.blank? && date && !date.blank?
         tmp = search.sub(' ', '%')
-        date_start = Date.parse(date)
+        date_start = valid_date_or_today(date)
         unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
       elsif date && !date.blank?
-        date_start = Date.parse(date)
+        date_start = valid_date_or_today(date)
         unscoped.where("visibility = 1 and board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
       elsif search && !search.blank?
         tmp = search.sub(' ', '%')
@@ -66,10 +66,10 @@ class Posting < ActiveRecord::Base
     else
       if search && !search.blank? && date && !date.blank?
         tmp = search.sub(' ', '%')
-        date_start = Date.parse(date)
+        date_start = valid_date_or_today(date)
         unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
       elsif date && !date.blank?
-        date_start = Date.parse(date)
+        date_start = valid_date_or_today(date)
         unscoped.where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
       elsif search && !search.blank?
         tmp = search.sub(' ', '%')
@@ -125,4 +125,20 @@ class Posting < ActiveRecord::Base
     GROUP_STATUS = { true => "Active", false => "Inactive" }
     USER_STATUS = { true => "Active", false => "Inactive" }
     VISIBILITY = { 0 => "Private", 1 => "Public" }
+    
+  def self.valid_date_or_today date
+    begin
+    date = Date.parse(date)
+    rescue ArgumentError
+    Date.today
+    end
+  end
+    
+  def valid_date_or_today date
+    begin
+    date = Date.parse(date)
+    rescue ArgumentError
+    Date.today
+    end
+  end
 end

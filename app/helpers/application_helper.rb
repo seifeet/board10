@@ -23,6 +23,15 @@ module ApplicationHelper
   def max_num_schools
     9
   end
+  
+  def valid_date_or_today date
+    return Date.today unless date
+    begin
+    date = Date.parse(date)
+    rescue ArgumentError
+    Date.today
+    end
+  end
 
   def avatar_for(user, options = { :size => 50 })
     #gravatar_image_tag(user.email.downcase, :alt => user.full_name,

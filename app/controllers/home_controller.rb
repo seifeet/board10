@@ -110,7 +110,7 @@ class HomeController < ApplicationController
       @school = School.find_school(params[:school])
       @postings = paginate_school_postings @school if !@school.nil?
     elsif !params[:board].nil?
-      @date = ( params[:date] ? Date.parse(params[:date]) : Date.today )
+      @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
       if !@board.nil? && params[:act] != 'invite'
         @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')

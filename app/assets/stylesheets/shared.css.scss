@@ -469,8 +469,9 @@ a.link_to_text{
   font-size: 16px;
 }
 
-#calendar .notmonth {
-  color: #CCC;
+#calendar .notmonth a{
+  color: black;
+  opacity:0.4;
 }
 
 #calendar .heading {
@@ -480,7 +481,8 @@ a.link_to_text{
   text-align: center;
 }
 
-#calendar #month a, #calendar #month a:hover {
+.heading a,
+.heading a:hover {
   text-decoration: none;
   padding: 0 10px;
   color: #999;
@@ -507,6 +509,23 @@ a.link_to_text{
 .cal_link a{
   text-decoration:none;
   font-size:small;
-  font-weight: bold;
   color:$backgrnd;
+}
+.cal_curr_link a{
+  text-decoration:none;
+  font-size:small;
+  font-weight:bold;
+  color:$bgdarken10;
+}
+.cal_today_link a{
+  text-decoration:none;
+  font-size:small;
+  font-weight:bold;
+  color:blue;
+}
+.event_count{
+  float:right;
+  font-size:x-small;
+  color:red;
+  font-weight:bold;
 }
