@@ -12,6 +12,12 @@ class ScheduledEvent < ActiveRecord::Base
     YEARLY = 4
   end
   
+  def get_next_scheduled_event start
+    new_event = dup
+    new_event.next_event = get_next_event start
+    new_event
+  end
+  
   def get_next_event start
     #logger.debug "START-----------------#{start_date}---------------------"
     #logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"

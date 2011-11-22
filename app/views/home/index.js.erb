@@ -144,6 +144,10 @@
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_new_event') %>");
+        document.title = "Add Event";
+    <% elsif params[:act] == 'calendar' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_calendar') %>");
+        document.title = "Event Calendar";
     <% end %>
     
 <% elsif !params[:board].nil? %>

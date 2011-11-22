@@ -80,6 +80,21 @@ class Posting < ActiveRecord::Base
     end
   end
   
+  def next_event
+    return nil unless scheduled_event_id
+    scheduled_event.next_event
+  end
+  
+  def get_event_dates_for_month date # object of type Date (eg: Date.today)
+    array = Array.new
+    30.times do
+      next_scheduled_event = scheduled_event.get_next_scheduled_event(date)
+      date = next_scheduled_event.next_event
+      array.push next_scheduled_event
+    end
+    array
+  end
+  
   def add_vote
     update_attribute(:view_count, view_count+1)
     self.view_count
