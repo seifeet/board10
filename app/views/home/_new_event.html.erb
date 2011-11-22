@@ -19,10 +19,10 @@ end
     <%= hidden_field_tag 'from_posting', @from_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
     <%= f.fields_for :scheduled_event do |builder| %>
-      <%= builder.label :start_date %><%= builder.date_select :start_date %><br />
-      <%= builder.label :end_date %><%= builder.date_select :end_date %><br />
-      <%= builder.label :start_time %><%= builder.time_select :start_time %>
-      <%= builder.label :end_time %><%= builder.time_select :end_time %><br />
+      <%= builder.label :start_date %> <%= builder.date_select :start_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :end_date %> <%= builder.date_select :end_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :from %> <%= builder.time_select :start_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true } %>
+      <%= builder.label :to %> <%= builder.time_select :end_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true} %><br />
       <%= builder.radio_button 'repeat', '0', :checked => true %><%= builder.label :daily , "Daily" %><br />
       <%= builder.radio_button 'repeat', '1', :checked => false %><%= builder.label :weekly , "Weekly" %> or
       <%= builder.radio_button 'repeat', '2', :checked => false %><%= builder.label :biweekly , "Biweekly" %><br />
@@ -35,15 +35,15 @@ end
       <%= builder.label :sa %><%= builder.check_box :sa %>
       <%= builder.label :su %><%= builder.check_box :su %><br />
       <%= builder.radio_button 'repeat', '3', :checked => false %><%= builder.label :monthly , "Monthly" %> or
-      <%= builder.radio_button 'repeat', '4', :checked => false %><%= builder.label :yearly , "Yearly" %> in <%= select_month 1 %><br />
+      <%= builder.radio_button 'repeat', '4', :checked => false %><%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day 1 %><br />
+      <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
     <% end %>
 
     <div class="field clearfix">
         <% if !@reply %>
         <%= f.label :subject %><br />
-        <%= f.text_field :subject%> 
+        <%= f.text_field :subject, :prompt => {:hour => true} %> 
         <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
         <b>Reply:</b>
         <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
