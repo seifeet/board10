@@ -5,8 +5,13 @@
 if @posting
   @events = @posting.get_future_events_for_month @date
 else
-  @postings.scheduled_events.each do |posting|
-  	@events += posting.get_future_events_for_month @date
+  board_events = @postings.scheduled_events
+  if board_events
+  	board_events.each do |posting|
+      if future_events = posting.get_future_events_for_month(@date)
+        @events += future_events
+  	  end
+    end
   end
 end
 %>

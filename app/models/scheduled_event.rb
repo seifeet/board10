@@ -12,9 +12,17 @@ class ScheduledEvent < ActiveRecord::Base
     YEARLY = 4
   end
   
+  def self.find_event event_id
+    self.find(event_id)
+    rescue ActiveRecord::RecordNotFound
+     nil
+  end
+  
   def get_next_scheduled_event start
+    event = get_next_event start
+    return nil unless event
     new_event = dup
-    new_event.next_event = get_next_event start
+    new_event.next_event = event
     new_event
   end
   
@@ -28,6 +36,7 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def find_next_date start
+    next_date = nil
     if repeat == ScheduledEvent::Repeat::DAILY
       next_date = start + 1.day
     elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
