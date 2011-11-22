@@ -19,6 +19,7 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_next_scheduled_event start
+    start = start_date if start < start_date
     event = get_next_event start
     return nil unless event
     new_event = dup
@@ -29,7 +30,7 @@ class ScheduledEvent < ActiveRecord::Base
   def get_next_event start
     #logger.debug "START-----------------#{start_date}---------------------"
     #logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
-    return nil unless start >= start_date && start <= end_date
+    return nil unless start <= end_date # end start >= start_date 
     next_event = find_next_date start
     #logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
     next_event
