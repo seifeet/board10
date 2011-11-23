@@ -102,8 +102,8 @@ class ScheduledEvent < ActiveRecord::Base
     errors += "Event start time can not be blank<br />" unless start_time
     errors += "Event end time can not be blank<br />" unless end_time
     errors += "Please select type of event: daily, weekly, etc.<br />" unless repeat
-    errors += "Event start date can not be after event end date<br />" unless end_date > start_date
-    errors += "Event start time can not be after event end time<br />" unless end_time > start_time
+    errors += "Event start date can not be after event end date<br />" unless end_date >= start_date
+    errors += "Event start time can not be after or the same as event end time<br />" unless end_time > start_time
     
     case repeat
     when ScheduledEvent::Repeat::DAILY
