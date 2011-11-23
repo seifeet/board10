@@ -13,6 +13,8 @@ class Posting < ActiveRecord::Base
 
   default_scope :order => 'postings.created_at DESC'
   scope :scheduled_events, where("scheduled_event_id is not null")
+  scope :public, where(:visibility => 1)
+  scope :private, where(:visibility => 0)
   
   # **************** abstract methods: ****************
   def class_type
@@ -48,35 +50,20 @@ class Posting < ActiveRecord::Base
     end
   end
   
+  def self.search_board_events(user, board, search, date)
+    date_start = valid_date_or_today(date)
+    if !user.member?(board)
+      self.scheduled_events.public.board_search(user, board, search, date).where("created_at >= ?", date_start.beginning_of_day)
+    else
+      self.scheduled_events.board_search(user, board, search, date).where("created_at >= ?", date_start.beginning_of_day)
+    end
+  end
+  
   def self.search_board_postings(user, board, search, date)
     if !user.member?(board)
-      if search && !search.blank? && date && !date.blank?
-        tmp = search.sub(' ', '%')
-        date_start = valid_date_or_today(date)
-        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
-      elsif date && !date.blank?
-        date_start = valid_date_or_today(date)
-        unscoped.where("visibility = 1 and board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
-      elsif search && !search.blank?
-        tmp = search.sub(' ', '%')
-        unscoped.where("visibility = 1 and board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
-      else
-        unscoped.where("visibility = 1 and board_id = ?", board.id) # the same as all, but does not perform the actual query
-      end
+      self.public.board_search(user, board, search, date)
     else
-      if search && !search.blank? && date && !date.blank?
-        tmp = search.sub(' ', '%')
-        date_start = valid_date_or_today(date)
-        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
-      elsif date && !date.blank?
-        date_start = valid_date_or_today(date)
-        unscoped.where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
-      elsif search && !search.blank?
-        tmp = search.sub(' ', '%')
-        unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
-      else
-        unscoped.where(:board_id => board.id) # the same as all, but does not perform the actual query
-      end
+      self.board_search(user, board, search, date)
     end
   end
   
@@ -125,7 +112,23 @@ class Posting < ActiveRecord::Base
     GROUP_STATUS = { true => "Active", false => "Inactive" }
     USER_STATUS = { true => "Active", false => "Inactive" }
     VISIBILITY = { 0 => "Private", 1 => "Public" }
-    
+  
+  def self.board_search(user, board, search, date)
+    if search && !search.blank? && date && !date.blank?
+      tmp = search.sub(' ', '%')
+      date_start = valid_date_or_today(date)
+      unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
+    elsif date && !date.blank?
+      date_start = valid_date_or_today(date)
+      unscoped.where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
+    elsif search && !search.blank?
+      tmp = search.sub(' ', '%')
+      unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
+    else
+      unscoped.where("board_id = ?", board.id) # the same as all, but does not perform the actual query
+    end
+  end
+  
   def self.valid_date_or_today date
     begin
     date = Date.parse(date)

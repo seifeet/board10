@@ -114,6 +114,10 @@ class HomeController < ApplicationController
       @board = Board.find_board(params[:board])
       if !@board.nil? && params[:act] != 'invite'
         @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        if params[:subact] == 'events_only'
+          #@events = @posting.get_future_events_for_month(@date)
+          #@postings = Posting.search_board_events(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        end
         @events = Array.new
         if @postings && !@postings.empty?
           board_events = @board.postings.scheduled_events

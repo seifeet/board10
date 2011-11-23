@@ -34,7 +34,9 @@
     <% end %>
     <%= link_to date.day, :board => board_id, :date => (date).strftime("%Y-%m-%d") %>
     <% if events.any? %> 
-    <div class="event_count">x<%= events.count %></div>
+    <div class="event_count clickable">
+    	<%= link_to "x"+events.count.to_s, :board => board_id, :date => (date).strftime("%Y-%m-%d"), :subact => "events_only" %>
+    </div>
     <% end %>
     </div>
   <% end %>
