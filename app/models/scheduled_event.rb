@@ -17,35 +17,56 @@ class ScheduledEvent < ActiveRecord::Base
     if repeat == ScheduledEvent::Repeat::DAILY
       if start_date == end_date
         desc = "Event on #{start_date.strftime("%m/%d/%Y")}:<br />"
-        desc += "From " + start_time.getlocal.strftime("%I:%M%p") + 
-           " to " + end_time.getlocal.strftime("%I:%M%p")
       else
         desc = "Daily Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
-        desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
-           " to " + end_time.getlocal.strftime("%I:%M%p")
       end
+      desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p")
     elsif repeat == ScheduledEvent::Repeat::WEEKLY
-      desc = "Weekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
-      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
-           " to " + end_time.getlocal.strftime("%I:%M%p") + " on " + week_days
-    elsif repeat == ScheduledEvent::Repeat::BIWEEKLY
-      desc = "Biweekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
-      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
-           " to " + end_time.getlocal.strftime("%I:%M%p") + " on " + week_days
-    elsif repeat == ScheduledEvent::Repeat::MONTHLY
-      desc = "Monthly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
-      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
-           " to " + end_time.getlocal.strftime("%I:%M%p")
-      if month_end
-        desc += " on every month end"
+      if start_date == end_date
+        desc = "This week event on " + week_days + "<br />"
+        desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p")
       else
+        desc = "Weekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+        desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p") + " on " + week_days
+      end
+      
+    elsif repeat == ScheduledEvent::Repeat::BIWEEKLY
+      if start_date == end_date
+        desc = "This week event on " + week_days + "<br />"
+        desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p")
+      else
+        desc = "Biweekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+        desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p") + " on " + week_days
+      end
+    elsif repeat == ScheduledEvent::Repeat::MONTHLY
+      if start_date == end_date
+        desc = "Event on #{start_date.strftime("%m/%d/%Y")}:<br />"
+      else
+        desc = "Monthly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      end
+      desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p")
+      if start_date != end_date && month_end
+        desc += " on every month end"
+      elsif start_date != end_date
         desc += " on " + month_day.ordinalize + " every month"
       end
     elsif repeat == ScheduledEvent::Repeat::YEARLY
-      desc = "Yearly Event  (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
-      if month_end
-        desc += " every month end"
+      if start_date == end_date
+        desc = "Event on #{start_date.strftime("%m/%d/%Y")}:<br />"
       else
+        desc = "Yearly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      end
+      desc += "From " + start_time.strftime("%I:%M%p") +
+           " to " + end_time.strftime("%I:%M%p")
+      if month_end && start_date != end_date
+        desc += " every month end"
+      elsif start_date != end_date
         desc += " on " + Date::MONTHNAMES[month] + " " + month_day.ordinalize + " every year"
       end
     end
@@ -90,7 +111,9 @@ class ScheduledEvent < ActiveRecord::Base
   
   def find_next_date start
     next_date = nil
-    if repeat == ScheduledEvent::Repeat::DAILY
+    if start_date == end_date
+      next_date = start_date
+    elsif repeat == ScheduledEvent::Repeat::DAILY
       next_date = start + 1.day
     elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
       # find the first day of the week after the start
@@ -129,7 +152,9 @@ class ScheduledEvent < ActiveRecord::Base
   # this method will return start if next event on this week doesn't exist
   def find_next_date_on_this_week start
     next_date = start
-    if mo && (1 - start.wday) > 0
+    if start_date == end_date
+      next_date = start_date
+    elsif mo && (1 - start.wday) > 0
       next_date = start + (1 - start.wday).day
     elsif tu && (2 - start.wday) > 0
       next_date = start + (2 - start.wday).day
@@ -155,7 +180,7 @@ class ScheduledEvent < ActiveRecord::Base
     errors += "Event end time can not be blank<br />" unless end_time
     errors += "Please select type of event: daily, weekly, etc.<br />" unless repeat
     errors += "Event start date can not be after event end date<br />" unless end_date >= start_date
-    errors += "Event start time can not be after or the same as event end time<br />" unless end_time > start_time
+    #errors += "Event start time can not be after or the same as event end time<br />" unless end_time > start_time
     
     case repeat
     when ScheduledEvent::Repeat::DAILY

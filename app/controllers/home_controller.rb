@@ -100,6 +100,11 @@ class HomeController < ApplicationController
     if params[:act] == 'add_event'
       @new_event = Posting.new
       @new_event.build_scheduled_event
+    elsif params[:act] == 'edit_event'
+      edit_event = Posting.find_posting(params[:id])
+      if edit_event && current_user.id == edit_event.user_id
+        @new_event = edit_event
+      end
     end
     # Autorefresh form
     @autorefresh = Posting.new

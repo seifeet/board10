@@ -34,6 +34,12 @@ class Posting < ActiveRecord::Base
   end
   # **************** end of abstract methods ****************
   
+  def self.find_posting posting_id
+    self.find(posting_id)
+    rescue ActiveRecord::RecordNotFound
+     nil
+  end
+  
   def self.search(search, date)
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
@@ -71,10 +77,14 @@ class Posting < ActiveRecord::Base
     return nil if scheduled_event_id.nil?
     return nil unless event = ScheduledEvent.find_event(scheduled_event_id)
     events = Array.new
+    if event.start_date == event.end_date
+      events.push event
+      return events
+    end
     current_month = start.month
     while start.month == current_month do
       next_scheduled_event = event.get_next_scheduled_event(start)
-      break unless next_scheduled_event && next_scheduled_event.next_event != start
+      break unless next_scheduled_event && next_scheduled_event.next_event > start
       start = next_scheduled_event.next_event
       events.push next_scheduled_event
     end

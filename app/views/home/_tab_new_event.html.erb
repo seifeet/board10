@@ -1,4 +1,4 @@
-<% if !params[:act].nil? && params[:act] == 'add_event' && !current_user.nil? %>
+<% if !params[:act].nil? && ( params[:act] == 'add_event' || params[:act] == 'edit_event' ) && !current_user.nil? %>
 <% if !params[:subact].nil? %>
 <script type="text/javascript">
   $(function() {

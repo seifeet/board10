@@ -142,11 +142,15 @@
         <% else %>
           document.title = "Edit Board";
         <% end %>
-    <% elsif params[:act] == 'add_event' %>
+    <% elsif params[:act] == 'add_event' || params[:act] == 'edit_event' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_new_event') %>");
+        <% if params[:act] == 'add_event' %>
         document.title = "Add Event";
+        <% else %>
+        document.title = "Edit Event";
+        <% end %>
     <% end %>
     
 <% elsif !params[:board].nil? %>

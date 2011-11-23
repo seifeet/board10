@@ -1,0 +1,6 @@
+<% if session[:return_to] =~ /\/home?/ %>
+<% if @posting && @posting.scheduled_event_id %>
+$("#user_postings").html("<%= escape_javascript(render 'shared/elements/element', :element => @posting, :read_only => true) %>");
+$('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
+<% end %>
+<% end %>

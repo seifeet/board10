@@ -86,6 +86,7 @@ class PostingsController < ApplicationController
               # fainaly save the posting
               posting_saved = @posting.save
             end
+            params[:act] = 'edit_event' # sign to home page to add EDIT EVENT button
           end
         else
           posting_saved = @posting.save
@@ -156,7 +157,9 @@ class PostingsController < ApplicationController
 
     respond_to do |format|
       if @posting.update_attributes(params[:posting])
-        format.html { redirect_to session[:return_to], notice: 'Your posting was updated.' }
+        params[:act] = 'edit_event' # sign to home page to add EDIT EVENT button
+        format.html { redirect_to session[:return_to], notice: "Your #{@posting.scheduled_event_id ? 'event' : 'post'} was updated." }
+        format.js
         format.json { head :ok }
       else
         format.html { render action: "edit" }
