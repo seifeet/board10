@@ -64,6 +64,12 @@
 </div>
 
 <div class="posting_right_column clearfix">
+	<% if element.scheduled_event_id %>
+	<% if event = ScheduledEvent.find_event(element.scheduled_event_id) %>
+	  <%= link_to event.description.html_safe, posting_path(element), :class => "inline subject" %>
+	<% end %>
+	<% end %>
+	
 	<% if !element.subject.nil? && !element.subject.empty? %>
     <%= link_to strip_and_cut(element.subject,150), posting_path(element), :class => "inline subject" %>
     <% end %>

@@ -12,6 +12,58 @@ class ScheduledEvent < ActiveRecord::Base
     YEARLY = 4
   end
   
+  def description
+    desc = ""
+    if repeat == ScheduledEvent::Repeat::DAILY
+      if start_date == end_date
+        desc = "Event on #{start_date.strftime("%m/%d/%Y")}:<br />"
+        desc += "From " + start_time.getlocal.strftime("%I:%M%p") + 
+           " to " + end_time.getlocal.strftime("%I:%M%p")
+      else
+        desc = "Daily Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+        desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
+           " to " + end_time.getlocal.strftime("%I:%M%p")
+      end
+    elsif repeat == ScheduledEvent::Repeat::WEEKLY
+      desc = "Weekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
+           " to " + end_time.getlocal.strftime("%I:%M%p") + " on " + week_days
+    elsif repeat == ScheduledEvent::Repeat::BIWEEKLY
+      desc = "Biweekly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
+           " to " + end_time.getlocal.strftime("%I:%M%p") + " on " + week_days
+    elsif repeat == ScheduledEvent::Repeat::MONTHLY
+      desc = "Monthly Event (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      desc += "From " + start_time.getlocal.strftime("%I:%M%p") +
+           " to " + end_time.getlocal.strftime("%I:%M%p")
+      if month_end
+        desc += " on every month end"
+      else
+        desc += " on " + month_day.ordinalize + " every month"
+      end
+    elsif repeat == ScheduledEvent::Repeat::YEARLY
+      desc = "Yearly Event  (#{start_date.strftime("%m/%d/%Y")} - #{end_date.strftime("%m/%d/%Y")}):<br />"
+      if month_end
+        desc += " every month end"
+      else
+        desc += " on " + Date::MONTHNAMES[month] + " " + month_day.ordinalize + " every year"
+      end
+    end
+    desc
+  end
+  
+  def week_days
+    days =""
+    days += "Monday " if mo
+    days += "Tuesday " if tu
+    days += "Wednesday " if we
+    days += "Thursday " if th
+    days += "Friday " if fr
+    days += "Saturday " if sa
+    days += "Sunday " if su
+    days
+  end
+  
   def self.find_event event_id
     self.find(event_id)
     rescue ActiveRecord::RecordNotFound
