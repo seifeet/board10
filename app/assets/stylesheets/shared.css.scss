@@ -389,25 +389,34 @@ a.link_to_text{
         @include rounded-corners(20px, #313130);
     }
 }
-
-.flash_error{
-    color: red;
-    width: auto;
+/******************************************************************/
+/********************** Begin Info Messages ***********************/
+/******************************************************************/
+.flash_info, .flash_success, .flash_warning, .flash_error, .flash_validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:5px 5px 5px 5px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
 }
-
-.flash_msg{
-    color: green;
-    padding: 3px 3px 3px 3px;
+.flash_info {
+    color: #00529B;
+    background-color: #BDE5F8;
 }
-.flash_bckgrd_msg{
-  z-index:30;
-  background:white;
-  width:auto;
-  color:green;
-  border:2px solid green;
-  padding: 3px 3px 3px 3px;
-  @include rounded-corners(20px, green);
+.flash_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
 }
+.flash_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.flash_error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    z-index:2;
+}
+/******************* End Info Messages ********************************/
 .more_links{
     float: right;
     padding: 5px;
@@ -433,7 +442,7 @@ a.link_to_text{
 .field input,
 .field textarea,
 .input_field_large{
-    width: 85%;
+    width: 95%;
     margin: 2px auto;
     background: $bglighten50; 
     border: 3px solid $backgrnd;
