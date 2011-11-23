@@ -24,9 +24,10 @@ if(history && history.pushState ) {
         
         /* do not remove this function anymore
          * (withot it a new page will not reload after history events (e.g. Back)) */
+        /*
         $(window).bind("popstate", function() {
             $.getScript(location.href);
-        });
+        });*/
 
         $("#users_search").submit(function() {
             $(".loading").html("<img src='../../assets/loading.gif' alt='Loading' />");

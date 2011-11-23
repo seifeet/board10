@@ -7,7 +7,7 @@ $('#user_postings .generic_container').prepend("<%= escape_javascript(render 'ho
 $('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% end %>
-<% if @posting.scheduled_event_id %>
+<% if @posting && @posting.scheduled_event_id %>
 $('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
 <% end %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");

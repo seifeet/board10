@@ -97,7 +97,7 @@ class PostingsController < ApplicationController
       last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
     end
     
-    params[:content] = params[:posting][:content] if params[:posting][:content]
+    #params[:content] = params[:posting][:content] if params[:posting][:content]
 
     respond_to do |format|
       if no_save || ( !empty_err && posting_saved )

@@ -1,0 +1,531 @@
+$header-backgrnd: #709423;
+$backgrnd:       #336633;
+$general-bkground: #99b299;
+$bgdarken70:    darken($backgrnd, 70%);
+$bgdarken40:    darken($backgrnd, 40%);
+$bgdarken20:    darken($backgrnd, 20%);
+$bgdarken10:    darken($backgrnd, 10%);
+$bglighten20:  lighten($backgrnd, 20%);
+$bglighten50:  lighten($backgrnd, 50%);
+
+$font-color: $bgdarken70;
+
+$btn-confirm: #996600;
+$btn-reject: #A62F00; //#0F4DA8;
+$btn-font-size: 16px;
+
+//$footer-height: 0;
+//$right-side-bar: 150px;
+
+@mixin rounded-corners($radius: 1em, $shadow: #666){
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    box-shadow: 1px 1px 2px $shadow;
+    -moz-box-shadow: 1px 1px 2px $shadow;
+    -webkit-box-shadow: 1px 1px 2px $shadow;
+    outline: 0;
+    -webkit-appearance: none;
+    
+    &:focus {
+        border-color: #2c8e57;
+    }
+}
+
+@mixin bkground-image($from: $backgrnd, $to: #709423 ){
+    background-color: $to; 
+    /* fallback image */
+    //background-image: url(images/fallback-gradient.png); 
+    /* Safari 4+, Chrome 1-9 */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+    /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+    background-image: -webkit-linear-gradient(left, $from, $to);
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(left, $from, $to);
+    /* IE 10+ */
+    background-image: -ms-linear-gradient(left, $from, $to);
+    /* Opera 11.10+ */
+    background-image: -o-linear-gradient(left, $from, $to);
+
+    //background-image: -linear-gradient(left, $from, $to);
+    //@include main-shadow;
+}
+
+@mixin action-button($bk_color){
+    color: $bk_color;
+    font-weight: bold;
+    background: transparent;
+    border: 1px solid transparent; //$bk_color;
+    margin: 5px;
+    //@include rounded-corners(5px);
+
+    &:hover {
+        color: $bglighten50;
+        background-color: transparent; //$bk_color;
+        cursor: pointer;
+        border: 1px solid transparent; //$bk_color;
+    }
+}
+
+@mixin main-button($color: $bgdarken40){
+    margin: 5px 5px 5px 0;
+    padding: 5px 5px 5px 0;
+    border: 0 solid transparent;
+    background: transparent;
+    display: inline-block;
+    text-align:center;
+    color: $color;
+    text-decoration:none;
+    font-weight: bold;
+    line-height:.5em;
+    &:hover{
+        @include main-hover;
+    }
+}
+@mixin main-shadow($clr: $bgdarken20, $depth: 5px){
+  -moz-box-shadow: $depth $depth $depth $clr;
+  -webkit-box-shadow: $depth $depth $depth $clr;
+  -o-box-shadow: $depth $depth $depth $clr;
+  box-shadow: $depth $depth $depth $clr;
+}
+@mixin main-hover(){
+    color: black;
+    cursor: pointer;
+    //background-color: #ffb770;
+}
+/*********************** logo ***********************************/
+.loading{
+    padding:3em;
+}
+.logo_link a{
+    float:right;
+    font-style: italic;
+    color:white;
+    font-size:large;
+    text-decoration:none;
+    margin: 5px 25px 0 0;
+}
+.logo_nav{
+    width:30%;
+    float:right;
+    margin: 15px 25px 0 0;
+}
+#logo a{
+  text-decoration:none;
+}
+
+.logo_nav a{
+    float:right;
+    font-style: italic;
+    color: $bgdarken10;
+    font-size: small;
+    text-decoration:none;
+    margin: 5px 25px 0 0;
+    
+    &:hover {
+        color: white;
+    }
+}
+
+/*********************** shared folder ***********************************/
+#_title_nav{
+    float:right;
+    width:20%;
+    background:transparent;
+    font-weight:normal;
+    font-size:small;
+    color:$bgdarken70;
+}
+#_title{
+    font-weight: bold;
+}
+#_desc{
+}
+
+// _sub_title_action will be depricated:
+._sub_title_action {
+    margin: auto;
+    padding: 5px 5px 5px 5px;
+    text-align:left;
+    font-weight: bold;
+  font-size: $btn-font-size;
+    color:$bgdarken40;
+  //background:$bglighten20;
+}
+// _sub_title_action will be depricated:
+._sub_title_action a {
+  margin: auto;
+  text-decoration: underline;
+    overflow:visible;
+  cursor: pointer;
+  font-size: $btn-font-size;
+  color:$bgdarken40;
+  
+    &:hover {
+        color: $bglighten20;
+        font-weight: bold;
+    }
+}
+
+.generic_container{
+    float:left;
+    width: 99%;
+    margin: 2px auto;
+    border: 3px solid $backgrnd;
+    border-radius: 5px;
+    padding:1px;
+    color: $bgdarken70;
+}
+.small_container{
+    float:left;
+    width: 99%;
+    margin: 1px auto;
+    border: 1px solid $backgrnd;
+    @include rounded-corners(5px);
+    padding:1px;
+    color: $bgdarken70;
+}
+.small_container div.small_element:hover{
+    background:$bglighten50;
+} 
+.small_element{
+    width: 99%;
+    margin: 1px auto;
+    @include bkground-image;
+    border:1px solid $backgrnd;
+    padding:2px;
+    @include rounded-corners(5px);
+}
+.school_element,
+.posting_element,
+.user_element,
+.board_element,
+.member_element{
+    width: auto;
+    margin: 2px auto;
+    background:$bglighten50;
+    border:3px solid $backgrnd;
+    padding:1px;
+    border-radius: 5px;
+}
+.generic_container div.posting_element:hover,
+.generic_container div.user_element:hover,
+.generic_container div.board_element:hover,
+.generic_container div.member_element:hover{
+    background: white; //#A6B299;
+}
+
+.hidable {
+}
+
+.edit_button,
+.edit_button a{
+    @include main-button( $btn-confirm );
+}
+
+.delete_button,
+.delete_button a{
+    @include main-button( $btn-reject );
+}
+
+a.link_delete_button {
+    text-decoration: none;
+    color: red;
+    
+    &:hover {
+        color: black;
+    }
+}
+
+.button_confirm{
+    @include action-button($btn-confirm);
+}
+.button_reject{
+  @include action-button($btn-reject);
+}
+
+.button_neutral,
+.close_button a,
+.action_button a{
+    @include main-button( $bgdarken10 );
+}
+
+.clickable a{
+    &:hover{
+      cursor: pointer;
+    }
+}
+
+a.link_to_text{
+    color:#000;
+    display: block;
+    width: 99%;
+    background-color: transparent;
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.posting_element {
+}
+    
+.posting_element .subject{
+    color:#A62F00;
+    font-weight: bold;
+}
+
+.posting_left_column
+{
+    float: left;
+    width: 180px;
+    margin: 0;
+    padding: 1em;
+}
+
+.posting_right_column
+{
+    margin-left: 220px; 
+    border-left: 1px solid gray;
+    padding: 1em;
+    height: 5em;
+}
+
+.action_btns{
+  width:85px;
+}
+.action_btn{
+  float:right;
+  width:40px;
+  height:1em;
+}
+
+.clearBoth { clear:both; }
+.inline{ float: left; margin: 2px; width: 99%; }
+.inline_right{ float: right; margin: 2px; width: 99%; }
+.float_left{ float: left !important; }
+.float_right{ float: right !important; }
+
+/*********************** clearfix ***********************************/
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+/*********************** buttons ***********************************/
+.signin_container .text_big{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: $btn-font-size;
+    background-color: #fff;
+    width:99%;
+}
+
+.signin_container .button_with_img, a.button_with_img {
+    display: block;
+    padding-top:10px; // make wider top
+    padding-bottom:10px; // and bottom
+    margin-top:10px;
+    text-decoration: none;
+    text-align:center;
+    font-weight: normal;
+    font-size: $btn-font-size;
+    color: #fff;
+    background-image:url('../../assets/knopkibolwie.png');
+    width:100%;
+    cursor: pointer;
+}
+
+.signin_container .button_green, a.button_green {
+    border-color: #2c8e57;
+    background-color: #2c8e57;
+    background-position: 0 -150px;
+    width:100%;
+    margin-top:15px;
+    @include rounded-corners(20px, #019245);
+    &:hover {
+        background-position: 0 -200px;
+        border-color: #306302;
+        @include rounded-corners(20px, #78b494);
+    }
+    
+    &:active {
+        @include rounded-corners(20px, #019245);
+    }
+}
+
+.signin_container .button_grey, a.button_grey {
+    border-color: #303030;
+    background-color: #303030;
+    background-position: 0 0px;
+    width:100%;
+    @include rounded-corners(20px, #313130);
+    
+    &:hover {
+        background-position: 0 -50px;
+        border-color: #306302;
+        @include rounded-corners(20px, #6f6f6f);
+    }
+    
+    &:active {
+        @include rounded-corners(20px, #313130);
+    }
+}
+
+.flash_error{
+    color: red;
+    width: auto;
+}
+
+.flash_msg{
+    color: green;
+    padding: 3px 3px 3px 3px;
+}
+.flash_bckgrd_msg{
+  z-index:30;
+  background:white;
+  width:auto;
+  color:green;
+  border:2px solid green;
+  padding: 3px 3px 3px 3px;
+  @include rounded-corners(20px, green);
+}
+.more_links{
+    float: right;
+    padding: 5px;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.now_loading, .live_pagination{
+    float: right;
+    padding: 5px;
+    float: right;
+    padding: 5px;
+}
+.nested_label{
+    position:absolute;
+    padding: 10px 5px 5px 5px;
+    color: #999;
+    float: left;
+}
+
+.field input,
+.field textarea,
+.input_field_large{
+    width: 85%;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}
+.field select,
+.input_field_medium{
+    width: 65%;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}
+.field #datepicker,
+.input_field_small{
+    width: 100px;
+    margin: 2px auto;
+    background: $bglighten50; 
+    border: 3px solid $backgrnd;
+    padding: 5px;
+}
+
+.event{
+  background:yellow;
+}
+/******************** calendar ******************************************/
+#calendar table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#calendar td,
+#calendar th {
+  //font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  //font-size: 10px;
+  padding: 4px;
+  border: 3px solid $backgrnd;
+}
+
+#calendar th {
+  background: #DDD;
+  color: #666;
+  text-align: center;
+  width: 14.2857142857143%;
+}
+
+#calendar td {
+  background: #FFF;
+  color: #777;
+  height: 20px;
+  vertical-align: top;
+  font-size: 16px;
+}
+
+#calendar .notmonth a{
+  color: black;
+  opacity:0.4;
+}
+
+#calendar .heading {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.heading a,
+.heading a:hover {
+  text-decoration: none;
+  padding: 0 10px;
+  color: #999;
+}
+
+#calendar .today {
+  background-color: #D7F2FF;
+}
+
+#calendar ul {
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+}
+
+#calendar li {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  text-align: center;
+}
+
+.cal_link a{
+  text-decoration:none;
+  font-size:small;
+  color:$backgrnd;
+}
+.cal_curr_link a{
+  text-decoration:none;
+  font-size:small;
+  font-weight:bold;
+  color:$bgdarken10;
+}
+.cal_today_link a{
+  text-decoration:none;
+  font-size:small;
+  font-weight:bold;
+  color:blue;
+}
+.event_count a{
+  float:right;
+  font-size:x-small;
+  color:red;
+  font-weight:bold;
+}

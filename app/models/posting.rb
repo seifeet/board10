@@ -13,8 +13,8 @@ class Posting < ActiveRecord::Base
 
   default_scope :order => 'postings.created_at DESC'
   scope :scheduled_events, where("scheduled_event_id is not null")
-  scope :public, where(:visibility => 1)
-  scope :private, where(:visibility => 0)
+  scope :public_posts, where(:visibility => 1)
+  scope :private_posts, where(:visibility => 0)
   
   # **************** abstract methods: ****************
   def class_type
@@ -53,7 +53,7 @@ class Posting < ActiveRecord::Base
   def self.search_board_events(user, board, search, date)
     date_start = valid_date_or_today(date)
     if !user.member?(board)
-      self.scheduled_events.public.board_search(user, board, search, date).where("created_at >= ?", date_start.beginning_of_day)
+      self.scheduled_events.public_posts.board_search(user, board, search, date).where("created_at >= ?", date_start.beginning_of_day)
     else
       self.scheduled_events.board_search(user, board, search, date).where("created_at >= ?", date_start.beginning_of_day)
     end
@@ -61,7 +61,7 @@ class Posting < ActiveRecord::Base
   
   def self.search_board_postings(user, board, search, date)
     if !user.member?(board)
-      self.public.board_search(user, board, search, date)
+      self.public_posts.board_search(user, board, search, date)
     else
       self.board_search(user, board, search, date)
     end
