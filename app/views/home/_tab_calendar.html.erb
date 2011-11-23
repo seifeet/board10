@@ -1,7 +1,7 @@
 <% return nil unless @board || @posting  %>
 <div class="clearfix">
 <% @date = Date.today unless @date %>
-<% @events = @posting.get_future_events_for_month(@date) if @posting %>
+<% @events = @posting.get_future_events_for_month(@date) if @posting && @events.nil? %>
 <% board_id = (@board && @board.id ? @board.id : @posting.board_id) %>
 <% if @posting %>
 <div class="close_button clearfix clickable">
@@ -32,10 +32,14 @@
     <% else %>
     <div class="cal_link clickable">
     <% end %>
-    <%= link_to date.day, :board => board_id, :date => (date).strftime("%Y-%m-%d") %>
-    <% if events.any? %> 
+    <%= link_to date.day, {:board => board_id, :date => (date).strftime("%Y-%m-%d")}, :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
+    <% if events.any? && @date.month == date.month %>
+    <% if date == @date && params[:subact] == "events_only" %>
+    <div class="curr_event_count clickable">
+    <% else %>
     <div class="event_count clickable">
-    	<%= link_to "x"+events.count.to_s, :board => board_id, :date => (date).strftime("%Y-%m-%d"), :subact => "events_only" %>
+    <% end %>
+    	<%= link_to "x"+events.count.to_s, {:board => board_id, :date => (date).strftime("%Y-%m-%d"), :subact => "events_only"}, :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
     </div>
     <% end %>
     </div>

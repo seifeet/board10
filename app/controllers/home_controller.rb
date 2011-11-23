@@ -113,30 +113,31 @@ class HomeController < ApplicationController
       @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
       if !@board.nil? && params[:act] != 'invite'
-        @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-        if params[:subact] == 'events_only'
-          #@events = @posting.get_future_events_for_month(@date)
-          #@postings = Posting.search_board_events(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+        if params[:subact] != 'events_only'
+          @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
         end
         @events = Array.new
-        if @postings && !@postings.empty?
+        if @board.postings && @board.postings.any?
           board_events = @board.postings.scheduled_events
         end
         if board_events
           board_events.each do |posting|
             if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
               @events += future_events
+              if params[:subact] == 'events_only' && params[:search].nil?
+                day_events = Array.new
+                for event in @events
+                  if event.next_event == @date
+                    day_events.push Posting.find(event.posting_id)
+                  end
+                end
+                @postings = day_events.paginate(:page => params[:page], :per_page => per_page, :total_etries => day_events.size )
+                paginate = false
+              end
             end
           end
         end
       end
-      # show all postings of the board if current_user is a member
-      #if !@board.nil? && params[:act] != 'invite' && current_user.member?( @board )
-      #  @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-      # show only public postings if current_user is not a member
-      #elsif !@board.nil? && params[:act] != 'invite' && !current_user.member?( @board )
-      #  @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
-      #end
     end
     
     if @postings.nil? || @postings.empty?

@@ -59,7 +59,9 @@
         document.title = "School Search";
     
     <% elsif params[:act] == 'board_search' && !params[:search].nil? %>
+        <% if false %>
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
+        <% end %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
         $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
         document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Boards") %>";
@@ -149,12 +151,12 @@
     
 <% elsif !params[:board].nil? %>
     $("#title_top_action").html("");
-    <% if params[:date].nil? %>
+    <% if params[:date].nil? && params[:search].nil? %>    
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
     $("#user_boards").html("<%= escape_javascript(render 'home/user_boards' ) %>");
-    <% end %>
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
     $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+    <% end %>
     $("#title_top_action").html("<%= escape_javascript(render 'home/tab_board_post_search') %>");
     $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "Board | <%= escape_javascript("#{current_user.full_name}") %>";
