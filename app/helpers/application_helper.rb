@@ -9,19 +9,19 @@ module ApplicationHelper
   end
   
   def per_page
-    5
+    20
   end
   
   def per_page_search
-    25
+    20
   end
     
   def max_num_boards
-    9
+    8
   end
       
   def max_num_schools
-    9
+    8
   end
   
   def valid_date_or_today date
