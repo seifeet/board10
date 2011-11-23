@@ -113,8 +113,8 @@ class BoardsController < ApplicationController
     @failures = false
     
     if params[:board][:title] && params[:board][:description] && (params[:board][:title].blank? || params[:board][:description].blank?)
-      flash.now[:failure] = "Title can't be blank" if params[:board][:title] && params[:board][:title].blank?
-      flash.now[:failure] = "Description can't be blank" if params[:board][:description] && params[:board][:description].blank?
+      flash.now[:error] = "Title can't be blank" if params[:board][:title] && params[:board][:title].blank?
+      flash.now[:error] = "Description can't be blank" if params[:board][:description] && params[:board][:description].blank?
       @failures = true
     end
 

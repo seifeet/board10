@@ -1,9 +1,9 @@
 <% if flash.count == 0 && !notice.nil? %>
-<div class="flash_msg">
+<div class="flash_info">
  <%= notice %>
 </div>
 <% elsif flash.count > 0 %>
- <%= render 'shared/flash_msg', :msg => 'msg' %>
+ <%= render 'shared/flash_msg', :msg => 'info' %>
 <% else %>
  <br class="clearBoth" /> &nbsp;
 <% end %>

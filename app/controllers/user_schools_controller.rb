@@ -91,7 +91,7 @@ class UserSchoolsController < ApplicationController
     @user_school = UserSchool.find(params[:id])
     @user_school.destroy
     
-    flash.now[:notice] = "School was removed."
+    flash.now[:info] = "School was removed."
     
     respond_to do |format|
       format.html { redirect_to home_path }
