@@ -1,10 +1,16 @@
-<%= render 'shared/flash_msg', :msg => "bckgrd_msg" %>
+<% content_for :head_css do %>
+<%= stylesheet_link_tag 'password_resets' %>
+<% end %>
+
+<div id="password_reset_content">
+<%= render 'shared/flash_msg', :msg => "link" %>
 <%= form_tag password_resets_path, :method => :post do %>
   <div class="field">
-    <%= label_tag :email %>
+    <%= label_tag :email %><br />
     <%= text_field_tag :email, params[:email] %>
   </div>
   <div class="actions"><%= submit_tag "Reset Password" %></div>
 <% end %>
+</div>
 
 

@@ -1,6 +1,6 @@
 <%= notice %>
 
-<div id='user_content'>
+<div id='user_content' class="clearfix">
 <%= link_to 'Back', :back, :class => "button_neutral" %>
 <div id="members">
 Member in boards:
@@ -10,10 +10,10 @@ Member in boards:
 <div class="user_sub_title">
 <%= @postings_title %>
 </div> <!-- close user_sub_title -->
-		
+
 <div id="user_postings">
 <%= render 'postings' %>
 </div> <!-- close user_postings -->
-</div> <!-- close main_part -->
+</div> <!-- close user_content -->
 
 
