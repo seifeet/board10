@@ -1,4 +1,5 @@
 <% if !params[:school].nil? || params[:act] == 'schools' || params[:act] == 'school_search' %>
+    <% if params[:act] == 'schools' || params[:act] == 'school_search' %>
     <% if params[:act] == 'school_search' %>
     <div class="sub_menu_button clickable selected">
     <% else %>
@@ -6,6 +7,16 @@
     <% end %>
     <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
     </div>
+    <% elsif params[:school] || params[:date] %>
+    <% if params[:subact] == 'calendar' || params[:date] %> 
+    <div class="sub_menu_button clickable selected"> 
+    <% else %> 
+    <div class="sub_menu_button clickable"> 
+    <% end %>
+    <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :title => "View event calendar for this school", :disable_with => "Loading..." %>
+    </div>
+    <% end %>
+    
 <% elsif params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' %>
     <% if params[:act] == 'board_search' %>
     <div class="sub_menu_button clickable selected">

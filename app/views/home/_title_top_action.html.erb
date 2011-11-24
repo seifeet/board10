@@ -1,7 +1,10 @@
-<% if ( params[:act].nil? && !params[:board].nil? ) || (!params[:board].nil? && params[:subact] == 'cancel') %>
-	<div class="action_tab">
-	<%= render 'home/tab_board_post_search' %>
-	</div>
+<% if params[:act].nil? %>
+    <% if params[:board] %>
+	<div class="action_tab"><%= render 'home/tab_board_post_search' %></div>
+	<% elsif params[:school] && ( params[:subact] == 'calendar' || params[:date] ) %>
+	<div class="action_tab"><%= render 'home/tab_calendar' %></div>
+	<% end %>
+
 <% elsif !params[:act].nil? %>
 
 	<% if params[:act] == 'school_search' && params[:subact] != 'cancel' %>

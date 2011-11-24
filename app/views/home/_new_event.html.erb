@@ -23,9 +23,12 @@ end
       <%= builder.label :end_date %> <%= builder.date_select :end_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
       <%= builder.label :from %> <%= builder.time_select :start_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true } %>
       <%= builder.label :to %> <%= builder.time_select :end_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true} %><br />
-      <%= builder.radio_button 'repeat', '0', :checked => true %><%= builder.label :daily , "Daily" %><br />
-      <%= builder.radio_button 'repeat', '1', :checked => false %><%= builder.label :weekly , "Weekly" %> or
-      <%= builder.radio_button 'repeat', '2', :checked => false %><%= builder.label :biweekly , "Biweekly" %><br />
+      <%= builder.radio_button 'repeat', '0', :checked => ( @new_event && @new_event.scheduled_event.repeat == 0 ? true : true ) %>
+        <%= builder.label :daily , "Daily" %><br />
+      <%= builder.radio_button 'repeat', '1', :checked => ( @new_event && @new_event.scheduled_event.repeat == 1 ? true : false ) %>
+        <%= builder.label :weekly , "Weekly" %> or
+      <%= builder.radio_button 'repeat', '2', :checked => ( @new_event && @new_event.scheduled_event.repeat == 2 ? true : false ) %>
+        <%= builder.label :biweekly , "Biweekly" %><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <%= builder.label :mo %><%= builder.check_box :mo %>
       <%= builder.label :tu %><%= builder.check_box :tu %>
@@ -34,20 +37,17 @@ end
       <%= builder.label :fr %><%= builder.check_box :fr %>
       <%= builder.label :sa %><%= builder.check_box :sa %>
       <%= builder.label :su %><%= builder.check_box :su %><br />
-      <%= builder.radio_button 'repeat', '3', :checked => false %><%= builder.label :monthly , "Monthly" %> or
-      <%= builder.radio_button 'repeat', '4', :checked => false %><%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
+      <%= builder.radio_button 'repeat', '3', :checked => ( @new_event && @new_event.scheduled_event.repeat == 3 ? true : false ) %>
+        <%= builder.label :monthly , "Monthly" %> or
+      <%= builder.radio_button 'repeat', '4', :checked => ( @new_event && @new_event.scheduled_event.repeat == 4 ? true : false ) %>
+        <%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
     <% end %>
 
     <div class="field clearfix">
-        <% if !@reply %>
         <%= f.label :subject %><br />
         <%= f.text_field :subject, :prompt => {:hour => true} %> 
-        <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
-        <b>Reply:</b>
-        <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
-        <% end %>
     </div>
     <div class="field clearfix">
         <% if !params[:subact].nil? %>
@@ -57,9 +57,15 @@ end
         <% end %>
     </div>
     <div class="clearfix">
-        <% if @board.access == Posting::PUBLIC %>
-        <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-        <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+    	<% if @new_event && @new_event.access == Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+        <% elsif @new_event && @new_event.access == Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+    	<% elsif @board.access == Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+            <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
         <% elsif @board.access == Posting::PRIVATE %>
             <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
             <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>

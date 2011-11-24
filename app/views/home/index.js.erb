@@ -170,6 +170,9 @@
     $("#title").html("<%= escape_javascript( render 'title' ) %>");
     $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
     $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+    <% if params[:subact] == 'calendar' || params[:subact] == 'events_only' %>
+    	$("#title_top_action").html("<%= escape_javascript(render 'home/tab_calendar') %>");
+    <% end %>
     $("#user_schools").html("<%= escape_javascript(render 'home/user_schools' ) %>");
     $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
     document.title = "School | <%= escape_javascript("#{current_user.full_name}") %>";

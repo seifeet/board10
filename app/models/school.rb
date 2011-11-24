@@ -1,6 +1,7 @@
 class School < ActiveRecord::Base
   has_many :users, :foreign_key => "school_id", :class_name => "User"
   has_many :boards, :foreign_key => "school_id", :class_name => "Board"
+  has_many :postings, :through => :boards
   has_many :scheduled_events, :through => :boards
   
   validates :state, :presence => true, :length   => { :maximum => 2 }

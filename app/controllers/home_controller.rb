@@ -112,8 +112,16 @@ class HomeController < ApplicationController
     # show all postings for the school.
     # postings will be filtered according to membership of the current_user
     if !params[:school].nil?
+      @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
-      @postings = paginate_school_postings @school if !@school.nil?
+      if params[:subact] != 'events_only'
+        @postings = paginate_school_postings @school if !@school.nil?
+      end
+      if params[:subact] == 'calendar' || params[:subact] == 'events_only'
+        @events = Array.new
+        school_events = @school.postings.public_posts.scheduled_events
+        set_events_and_posts school_events
+      end
     elsif !params[:board].nil?
       @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
@@ -123,24 +131,14 @@ class HomeController < ApplicationController
         end
         @events = Array.new
         if @board.postings && @board.postings.any?
-          board_events = @board.postings.scheduled_events
+          if current_user.member?(@board)
+            board_events = @board.postings.scheduled_events
+          else
+            board_events = @board.postings.public_posts.scheduled_events
+          end
         end
         if board_events
-          board_events.each do |posting|
-            if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
-              @events += future_events
-              if params[:subact] == 'events_only' && params[:search].nil?
-                day_events = Array.new
-                for event in @events
-                  if event.next_event == @date
-                    day_events.push Posting.find(event.posting_id)
-                  end
-                end
-                @postings = day_events.paginate(:page => params[:page], :per_page => per_page, :total_etries => day_events.size )
-                paginate = false
-              end
-            end
-          end
+          set_events_and_posts board_events
         end
       end
     end
@@ -164,6 +162,24 @@ class HomeController < ApplicationController
   end
 
   private
+  
+  def set_events_and_posts events
+    events.each do |posting|
+      if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
+        @events += future_events
+        if params[:subact] == 'events_only' && params[:search].nil?
+          day_events = Array.new
+          for event in @events
+            if event.next_event == @date
+              day_events.push Posting.find(event.posting_id)
+            end
+          end
+          @postings = day_events.paginate(:page => params[:page], :per_page => per_page, :total_etries => day_events.size )
+          paginate = false
+        end
+      end
+    end
+  end
   
   def paginate_board_postings
     require 'will_paginate/array'

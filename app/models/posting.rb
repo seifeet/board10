@@ -44,15 +44,15 @@ class Posting < ActiveRecord::Base
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
       date_start = valid_date_or_today(date)
-      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start.end_of_day)
+      where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", "%#{tmp}%", date_start.end_of_day)
     elsif date && !date.blank?
       date_start = valid_date_or_today(date)
-      unscoped.where("visibility = 1 and created_at <= ?", date_start.end_of_day)
+      where("visibility = 1 and created_at <= ?", date_start.end_of_day)
     elsif search && !search.blank?
       tmp = search.sub(' ', '%')
-      unscoped.where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
+      where("visibility = 1 and CONCAT( subject, ' ', content ) LIKE ?", "%#{tmp}%")
     else
-      unscoped.where(:visibility => 1) # the same as all, but does not perform the actual query
+      where(:visibility => 1) # the same as all, but does not perform the actual query
     end
   end
   
@@ -80,13 +80,16 @@ class Posting < ActiveRecord::Base
     current_month = start.month
     while current_month == start.month do
       next_scheduled_event = event.get_next_scheduled_event(start)
-      break if next_scheduled_event.nil?
-      if next_scheduled_event.next_event == start
-        start += 1.day
+      if next_scheduled_event
+        if next_scheduled_event.next_event == start
+          start += 1.day
+        else
+          start = next_scheduled_event.next_event
+        end
+        events.push next_scheduled_event
       else
-        start = next_scheduled_event.next_event
+        start += 1.day
       end
-      events.push next_scheduled_event
     end
     events
   end
@@ -127,15 +130,15 @@ class Posting < ActiveRecord::Base
     if search && !search.blank? && date && !date.blank?
       tmp = search.sub(' ', '%')
       date_start = valid_date_or_today(date)
-      unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
+      where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ? and created_at <= ?", board.id, "%#{tmp}%", date_start.end_of_day)
     elsif date && !date.blank?
       date_start = valid_date_or_today(date)
-      unscoped.where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
+      where("board_id = ? and created_at <= ?", board.id, date_start.end_of_day)
     elsif search && !search.blank?
       tmp = search.sub(' ', '%')
-      unscoped.where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
+      where("board_id = ? and CONCAT( subject, ' ', content ) LIKE ?", board.id, "%#{tmp}%")
     else
-      unscoped.where("board_id = ?", board.id) # the same as all, but does not perform the actual query
+      where("board_id = ?", board.id) # the same as all, but does not perform the actual query
     end
   end
   

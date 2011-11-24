@@ -57,7 +57,6 @@ module PostingsHelper
     all_postings = []
     current_user.schools.each do |school|
       all_postings += get_school_postings school, from
-      logger.debug "----------------- GEETING SCHOOLS #{all_postings.count} _________________________"
     end
     if !all_postings.nil? && !all_postings.empty?
       all_postings.sort_by!{|posting|[posting.id]}.reverse!
