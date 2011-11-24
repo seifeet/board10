@@ -77,15 +77,15 @@ class Posting < ActiveRecord::Base
     return nil if scheduled_event_id.nil?
     return nil unless event = ScheduledEvent.find_event(scheduled_event_id)
     events = Array.new
-    if event.start_date == event.end_date
-      events.push event
-      return events
-    end
     current_month = start.month
-    while start.month == current_month do
+    while current_month == start.month do
       next_scheduled_event = event.get_next_scheduled_event(start)
-      break unless next_scheduled_event && next_scheduled_event.next_event > start
-      start = next_scheduled_event.next_event
+      break if next_scheduled_event.nil?
+      if next_scheduled_event.next_event == start
+        start += 1.day
+      else
+        start = next_scheduled_event.next_event
+      end
       events.push next_scheduled_event
     end
     events

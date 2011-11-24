@@ -92,28 +92,30 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_next_scheduled_event start
-    start = start_date if start < start_date
-    event = get_next_event start
-    return nil unless event
+    event_date = get_next_event start
+    return nil if event_date.nil?
     new_event = dup
-    new_event.next_event = event
+    new_event.next_event = event_date
     new_event
   end
   
   def get_next_event start
     #logger.debug "START-----------------#{start_date}---------------------"
     #logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
-    return nil unless start <= end_date # end start >= start_date 
+    return start_date if start == start_date && repeat == ScheduledEvent::Repeat::DAILY
     next_event = find_next_date start
+    return nil if next_event && next_event > end_date
     #logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
     next_event
   end
   
   def find_next_date start
+    # let's dial with the end boundaries
+    return nil if start > end_date
     next_date = nil
-    if start_date == end_date
-      next_date = start_date
-    elsif repeat == ScheduledEvent::Repeat::DAILY
+    # let's dial with the start boundaries
+    start = start_date if start < start_date
+    if repeat == ScheduledEvent::Repeat::DAILY
       next_date = start + 1.day
     elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
       # find the first day of the week after the start
@@ -152,9 +154,7 @@ class ScheduledEvent < ActiveRecord::Base
   # this method will return start if next event on this week doesn't exist
   def find_next_date_on_this_week start
     next_date = start
-    if start_date == end_date
-      next_date = start_date
-    elsif mo && (1 - start.wday) > 0
+    if mo && (1 - start.wday) > 0
       next_date = start + (1 - start.wday).day
     elsif tu && (2 - start.wday) > 0
       next_date = start + (2 - start.wday).day
