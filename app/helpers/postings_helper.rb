@@ -33,6 +33,16 @@ module PostingsHelper
     all_postings
   end
   
+  def school_postings_on_date school, date
+    all_postings = []
+    all_postings = get_school_postings_on_date school, date
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+  
   def get_school_postings school, from = nil
     all_postings = []
     school.boards.each do |board|
@@ -48,6 +58,18 @@ module PostingsHelper
         else
         all_postings += board.postings.where('visibility = 1 and id > ?', from)
         end
+      end
+    end
+    all_postings
+  end
+  
+  def get_school_postings_on_date school, date
+    all_postings = []
+    school.boards.each do |board|
+      if current_user.member?(board)
+        all_postings += board.postings.where('created_at <= ?', date.end_of_day)
+      else # current_user is not a member
+        all_postings += board.postings.where('visibility = 1 and created_at <= ?', date.end_of_day)
       end
     end
     all_postings

@@ -115,7 +115,11 @@ class HomeController < ApplicationController
       @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
       if params[:subact] != 'events_only'
-        @postings = paginate_school_postings @school if !@school.nil?
+        if @school && params[:date]
+          @postings = paginate_school_postings_on_date(@school, @date)
+        elsif @school
+          @postings = paginate_school_postings @school
+        end 
       end
       if params[:subact] == 'calendar' || params[:subact] == 'events_only'
         @events = Array.new
@@ -186,6 +190,14 @@ class HomeController < ApplicationController
     all_postings = board_postings
     if !all_postings.nil? && !all_postings.empty?
       all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+    end
+  end
+  
+  def paginate_school_postings_on_date(school, date)
+    require 'will_paginate/array'
+    all_postings = school_postings_on_date(school, date)
+    if !all_postings.nil? && !all_postings.empty?
+     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end
   end
   
