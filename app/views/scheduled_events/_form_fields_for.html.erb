@@ -1,0 +1,23 @@
+    <%= f.fields_for :scheduled_event do |builder| %>
+      <%= builder.label :start_date %> <%= builder.date_select :start_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :end_date %> <%= builder.date_select :end_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :from %> <%= builder.time_select :start_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true } %>
+      <%= builder.label :to %> <%= builder.time_select :end_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true} %><br />
+      <%= builder.radio_button 'repeat', '0', :checked => ( @new_event && @new_event.scheduled_event.repeat == 0 ? true : true ) %>
+        <%= builder.label :daily , "Daily" %><br />
+      <%= builder.radio_button 'repeat', '1', :checked => ( @new_event && @new_event.scheduled_event.repeat == 1 ? true : false ) %>
+        <%= builder.label :weekly , "Weekly" %> on
+      <%= builder.check_box :mo %><%= builder.label :mo %>
+      <%= builder.check_box :tu %><%= builder.label :tu %>
+      <%= builder.check_box :we %><%= builder.label :we %>
+      <%= builder.check_box :th %><%= builder.label :th %>
+      <%= builder.check_box :fr %><%= builder.label :fr %>
+      <%= builder.check_box :sa %><%= builder.label :sa %>
+      <%= builder.check_box :su %><%= builder.label :su %><br />
+      <%= builder.radio_button 'repeat', '3', :checked => ( @new_event && @new_event.scheduled_event.repeat == 3 ? true : false ) %>
+        <%= builder.label :monthly , "Monthly" %> or 
+      <%= builder.radio_button 'repeat', '4', :checked => ( @new_event && @new_event.scheduled_event.repeat == 4 ? true : false ) %>
+        <%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        On <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
+    <% end %>

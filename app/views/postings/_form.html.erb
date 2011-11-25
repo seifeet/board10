@@ -11,6 +11,9 @@
     </ul>
 </div>
 <% end %>
+<% if @posting.scheduled_event_id %>
+<%= render 'scheduled_events/form_fields_for', :f => f %>
+<% end %>
 <div class="field">
     <%= f.label :subject %><br />
     <%= f.text_field :subject %>
