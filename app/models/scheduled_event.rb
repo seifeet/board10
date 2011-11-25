@@ -92,7 +92,14 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_first_event_date start
-    return nil if start.nil? || start > end_date || start.beginning_of_month < start_date.beginning_of_month
+    return nil if start.nil? || start > end_date 
+    if ( repeat == ScheduledEvent::Repeat::MONTHLY ||
+       repeat == ScheduledEvent::Repeat::YEARLY ) &&
+       start.beginning_of_month < start_date.beginning_of_month
+      return nil
+    elsif start < start_date
+      return nil
+    end
     if new_record?
       # correct start_date if it is in the past:
       today = Date.today
