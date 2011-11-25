@@ -4,7 +4,7 @@
 <%= select_tag 'state', options_from_collection_for_select(states, :last, :first, current_user.state ), { :include_blank => true } %>
 
 <% cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
-<% if cities.count > 0 %>
+<% if cities.any? %>
 <%= text_field_tag :city, params[:city] ||= current_user.city %>
 <% else %>
 <%= text_field_tag :city, params[:city] %>

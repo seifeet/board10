@@ -9,7 +9,7 @@
       <li><%= link_to "Boards", boards_path %></li>
       <li><%= link_to "Members", members_path %></li>
       <li><%= link_to "Messages", messages_path %>
-        <% if current_user.recieved.unread.count > 0 %>
+        <% if current_user.recieved.unread.any? %>
         <font color="red"><b><%= current_user.recieved.unread.count %> new</b></font>
         <% end %>
       </li>

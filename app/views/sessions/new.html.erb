@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag 'sessions' %>
 <% end %>
 
-<% if @level_ups && @level_ups.count > 0 %>
+<% if @level_ups && @level_ups.any? %>
 <div id="signin_top10">
    <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
 </div>

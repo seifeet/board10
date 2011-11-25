@@ -1,4 +1,4 @@
-<% if flash.count > 0 %>
+<% if flash.any? %>
 <% flash.each do |key, value| %>
 <div class="flash_<%= key %> clearfix">
 <div class="inline"><%= value %></div>

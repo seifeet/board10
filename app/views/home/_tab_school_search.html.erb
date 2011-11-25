@@ -14,7 +14,7 @@
 <div class="field">
     <%= label_tag :city %><br />
     <% @cities = School.where('state = ? and city = ?', current_user.state, current_user.city) %>
-    <% if @cities.count > 0 %>
+    <% if @cities.any? %>
     <%= text_field_tag :city, params[:city] ||= current_user.city %>
     <% else %>
     <%= text_field_tag :city, params[:city] %>

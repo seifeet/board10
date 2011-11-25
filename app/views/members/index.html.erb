@@ -3,7 +3,7 @@
     <%= will_paginate @users, :container => false, :total_entries => @users.count %>
 </div>
 <% @users.each do |u| %>
-  <% if u.members.count > 0 %>
+  <% if u.members.any? %>
   <hr /><h3><%= link_to u.full_name, user_path(u) %> is a member in the boards:</h3>
   <%= render 'shared/containers/container', :container => u.members %>
   <% end %>

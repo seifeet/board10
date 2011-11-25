@@ -5,7 +5,7 @@
 	  end
   end
   
-  if !@search_results.nil? && @search_results.count > 0
+  if !@search_results.nil? && @search_results.any?
   	@board = Board.find_board(params[:board]) if @board.nil?
   	if !@board.nil?
 %>

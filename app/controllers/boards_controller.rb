@@ -139,7 +139,7 @@ class BoardsController < ApplicationController
   def destroy
     @board = Board.find(params[:id])
     
-    if ( @board.postings.count > 0 )
+    if @board.postings.any?
       @board.toggle!(:active)
       delete_postings @board
     else

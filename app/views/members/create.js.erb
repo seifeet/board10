@@ -10,7 +10,7 @@ $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>"
 	$("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
 	<% end %>
 <% end %>
-<% if flash.count > 0 || !notice.nil? %>
+<% if flash.any? || !notice.nil? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% end %>
 <% end %>

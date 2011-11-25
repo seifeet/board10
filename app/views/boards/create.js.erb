@@ -1,5 +1,5 @@
 <% if session[:return_to] =~ /\/home?/ %>
-<% if flash.count > 0 %>
+<% if flash.any? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% else %>
 $("#title_top_action").html("");

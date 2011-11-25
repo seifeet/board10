@@ -1,5 +1,5 @@
 <% if !current_user.nil? %>
-<% if current_user.recieved.unread.count > 0 %>
+<% if current_user.recieved.unread.any? %>
 <%= link_to "Incoming... (#{current_user.recieved.unread.count} new)", home_path + '?act=messages' %>
 <% else %>
 <%= link_to "Messages", home_path + '?act=messages' %>
