@@ -203,6 +203,7 @@ class PostingsController < ApplicationController
       flash.now[:error] = errors.html_safe
       return false
     else
+      logger.debug "posting.scheduled_event.start_date-----------------------#{posting.scheduled_event.start_date}------------------------------------"
       posting.scheduled_event.next_event = 
         posting.scheduled_event.get_first_event_date(posting.scheduled_event.start_date)
       return (posting.scheduled_event.next_event ? true : false)

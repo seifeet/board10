@@ -96,7 +96,7 @@ class HomeController < ApplicationController
         @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
       end
       
-    else params[:school].nil? && params[:board].nil?
+    elsif params[:school].nil? && params[:board].nil?
       logger.debug "-------------------------params[:school].nil? && params[:board].nil?--------------------------------"
       # default to postings from all user's boards:
       # postings will be filtered according to membership of the current_user

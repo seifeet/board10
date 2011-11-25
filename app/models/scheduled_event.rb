@@ -96,8 +96,7 @@ class ScheduledEvent < ActiveRecord::Base
     if new_record?
       # correct start_date if it is in the past:
       today = Date.today
-      start_date = today if start_date < today
-      start = start_date
+      start_date = today if start < today
     end
     if repeat == ScheduledEvent::Repeat::DAILY
       next_event = start

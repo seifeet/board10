@@ -26,23 +26,20 @@ end
       <%= builder.radio_button 'repeat', '0', :checked => ( @new_event && @new_event.scheduled_event.repeat == 0 ? true : true ) %>
         <%= builder.label :daily , "Daily" %><br />
       <%= builder.radio_button 'repeat', '1', :checked => ( @new_event && @new_event.scheduled_event.repeat == 1 ? true : false ) %>
-        <%= builder.label :weekly , "Weekly" %> or
-      <%= builder.radio_button 'repeat', '2', :checked => ( @new_event && @new_event.scheduled_event.repeat == 2 ? true : false ) %>
-        <%= builder.label :biweekly , "Biweekly" %><br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= builder.label :mo %><%= builder.check_box :mo %>
-      <%= builder.label :tu %><%= builder.check_box :tu %>
-      <%= builder.label :we %><%= builder.check_box :we %>
-      <%= builder.label :th %><%= builder.check_box :th %>
-      <%= builder.label :fr %><%= builder.check_box :fr %>
-      <%= builder.label :sa %><%= builder.check_box :sa %>
-      <%= builder.label :su %><%= builder.check_box :su %><br />
+        <%= builder.label :weekly , "Weekly" %> on
+      <%= builder.check_box :mo %><%= builder.label :mo %>
+      <%= builder.check_box :tu %><%= builder.label :tu %>
+      <%= builder.check_box :we %><%= builder.label :we %>
+      <%= builder.check_box :th %><%= builder.label :th %>
+      <%= builder.check_box :fr %><%= builder.label :fr %>
+      <%= builder.check_box :sa %><%= builder.label :sa %>
+      <%= builder.check_box :su %><%= builder.label :su %><br />
       <%= builder.radio_button 'repeat', '3', :checked => ( @new_event && @new_event.scheduled_event.repeat == 3 ? true : false ) %>
-        <%= builder.label :monthly , "Monthly" %> or
+        <%= builder.label :monthly , "Monthly" %> or 
       <%= builder.radio_button 'repeat', '4', :checked => ( @new_event && @new_event.scheduled_event.repeat == 4 ? true : false ) %>
         <%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        On <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
     <% end %>
 
     <div class="field clearfix">
