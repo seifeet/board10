@@ -1,6 +1,8 @@
 <% if session[:return_to] =~ /\/home?/ %>
-<% if @posting && @posting.scheduled_event_id %>
+<% if !@errors && @posting && @posting.scheduled_event_id %>
+$('.generic_container .note').remove();
 $("#user_postings").html("<%= escape_javascript(render 'shared/elements/element', :element => @posting, :read_only => true) %>");
 $('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
 <% end %>
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% end %>

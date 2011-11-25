@@ -91,85 +91,109 @@ class ScheduledEvent < ActiveRecord::Base
      nil
   end
   
-  def get_next_scheduled_event start
-    event_date = get_next_event start
-    return nil if event_date.nil?
-    new_event = dup
-    new_event.next_event = event_date
-    new_event
-  end
-  
-  def get_next_event start
-    #logger.debug "START-----------------#{start_date}---------------------"
-    #logger.debug "NEXT BEFORE-----------------#{next_event}---------------------"
-    return start_date if start == start_date && repeat == ScheduledEvent::Repeat::DAILY
-    next_event = find_next_date start
-    return nil if next_event && next_event > end_date
-    #logger.debug "NEXT AFTER-----------------#{next_event}---------------------"
+  def get_first_event_date start
+    return nil if start.nil? || start > end_date || start.beginning_of_month < start_date.beginning_of_month
+    if new_record?
+      # correct start_date if it is in the past:
+      today = Date.today
+      start_date = today if start_date < today
+      start = start_date
+    end
+    if repeat == ScheduledEvent::Repeat::DAILY
+      next_event = start
+    elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
+      next_event = next_week_date start
+    elsif repeat == ScheduledEvent::Repeat::MONTHLY
+      next_event = find_next_date_for_monthly(start)
+    elsif repeat == ScheduledEvent::Repeat::YEARLY
+      next_event = find_next_date_for_yearly(start)
+    end
     next_event
   end
   
-  def find_next_date start
-    # let's dial with the end boundaries
-    return nil if start > end_date
-    next_date = nil
-    # let's dial with the start boundaries
-    start = start_date if start < start_date
-    if repeat == ScheduledEvent::Repeat::DAILY
-      next_date = start + 1.day
-    elsif repeat == ScheduledEvent::Repeat::WEEKLY || repeat == ScheduledEvent::Repeat::BIWEEKLY
-      # find the first day of the week after the start
-      next_date = find_next_date_on_this_week(start)
-      # if next_date == start then we have to advance to the next week
-      next_date = find_next_date_on_this_week(start.next_week) if next_date == start
-    elsif repeat == ScheduledEvent::Repeat::MONTHLY
-      next_date = find_next_date_for_monthly(start)
-    elsif repeat == ScheduledEvent::Repeat::YEARLY
-      # find the day of the year after the start
-      next_date = find_next_date_for_yearly(start)
+  def get_next_event_date start
+    get_first_event_date(start+1.day)
+  end
+  
+  def next_week_date start
+    wday = start.wday
+    while !wdays[wday] do
+      wday = ( wday == 6 ? 0 : wday + 1 )
+      start += 1.day
+    end 
+    start
+  end
+
+  def wday_match? start
+    wdays[start.wday]
+  end
+    
+  def wdays
+    @wdays_hash ||= {0 => su, 1 => mo, 2 => tu, 3 => we, 4 => th, 5 => fr, 6 => sa}
+  end
+  
+  def future_month_events start
+    return nil if start.nil? || start > end_date
+    current_month = start.month
+    # get_first_event_date will return nil if we are after end_date
+    curr_event = get_first_event_date start
+    events = []
+    if repeat == Repeat::MONTHLY || repeat == Repeat::YEARLY
+      events.push clone_scheduled_event(curr_event) if curr_event
+      return events
     end
-    next_date
+    if curr_event && curr_event.month == current_month
+      events.push clone_scheduled_event(curr_event)
+    end
+    curr_event = start if curr_event.nil?
+    while current_month == curr_event.month do
+      tmp_date = get_next_event_date(curr_event)
+      if tmp_date && tmp_date != curr_event
+        events.push clone_scheduled_event(tmp_date)
+        curr_event = tmp_date
+      else
+        curr_event += 1.day
+      end
+    end
+    events
+  end
+  
+  def clone_scheduled_event next_date
+    return nil if next_date.nil?
+    new_event = dup
+    new_event.next_event = next_date
+    new_event
   end
   
   # this method will return the next event after the start
   def find_next_date_for_monthly start
-    next_date = Date.new(start.year, start.month, ( month_end ? start.end_of_month.day : month_day ))
-    unless next_date.future?
-      next_date = next_date + 1.month
-      next_date = next_date.end_of_month if month_end
+    if month_end || (start.month == 2 && month_day > 28) || month_day > 30
+      next_date = start.end_of_month
+    else
+      next_date = Date.new(start.year, start.month, month_day)
     end
-    next_date
+    return next_date if next_date <= end_date
+    #next_date = next_date + 1.month
+    #next_date = next_date.end_of_month if month_end
+    nil
   end
   
   # this method will return the next event after the start
   def find_next_date_for_yearly start
-    next_date = Date.new(start.year, month, ( month_end ? start.end_of_month.day : month_day ))
-    unless next_date.future?
-      next_date = next_date + 1.year
-      next_date = next_date.end_of_month if month_end
+    if (month == start.month && month_end) || 
+      (month == start.month && start.month == 2 && month_day > 28) ||
+      (month == start.month && month_day > 30)
+      return start.end_of_month
+    elsif month == start.month
+      next_date = Date.new(start.year, month, month_day)
     end
-    next_date
-  end
-  
-  # this method will return start if next event on this week doesn't exist
-  def find_next_date_on_this_week start
-    next_date = start
-    if mo && (1 - start.wday) > 0
-      next_date = start + (1 - start.wday).day
-    elsif tu && (2 - start.wday) > 0
-      next_date = start + (2 - start.wday).day
-    elsif we && (3 - start.wday) > 0
-      next_date = start + (3 - start.wday).day
-    elsif th && (4 - start.wday) > 0
-      next_date = start + (4 - start.wday).day
-    elsif fr && (5 - start.wday) > 0
-      next_date = start + (5 - start.wday).day
-    elsif sa && (6 - start.wday) > 0
-      next_date = start + (6 - start.wday).day
-    elsif su && (7 - start.wday) > 0
-      next_date = start + (7 - start.wday).day
-    end
-    next_date
+    return next_date if next_date && next_date <= end_date
+    #unless next_date.future?
+    #  next_date = next_date + 1.year
+    #  next_date = next_date.end_of_month if month_end
+    #end
+    #next_date
+    nil
   end
   
   def validate_event
@@ -179,7 +203,7 @@ class ScheduledEvent < ActiveRecord::Base
     errors += "Event start time can not be blank<br />" unless start_time
     errors += "Event end time can not be blank<br />" unless end_time
     errors += "Please select type of event: daily, weekly, etc.<br />" unless repeat
-    errors += "Event start date can not be after event end date<br />" unless end_date >= start_date
+    errors += "Event start date #{start_date} can not be after event end date #{end_date}<br />" unless end_date >= start_date
     #errors += "Event start time can not be after or the same as event end time<br />" unless end_time > start_time
     
     case repeat
@@ -197,7 +221,7 @@ class ScheduledEvent < ActiveRecord::Base
         errors += "For monthly event a month day or the month end has to be specified.<br />"
       end
     when ScheduledEvent::Repeat::YEARLY
-      if month.nil?
+      if month_end.nil? && month.nil?
         errors += "For yearly event month can't be blank.<br />"
       end
       if month_end.nil? && month_day.nil? #params[:date][:day] 

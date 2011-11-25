@@ -154,15 +154,23 @@ class PostingsController < ApplicationController
   # PUT /postings/1.json
   def update
     @posting = Posting.find(params[:id])
-
+    if !params[:posting][:scheduled_event_attributes].nil?
+      event = ScheduledEvent.new(params[:posting][:scheduled_event_attributes])
+      params[:act] = 'edit_event' # sign to home page to add EDIT EVENT button
+      errors = event.validate_event
+      if errors && !errors.blank?
+        @errors = true
+        flash.now[:error] = errors.html_safe
+      end
+    end
     respond_to do |format|
-      if @posting.update_attributes(params[:posting])
-        params[:act] = 'edit_event' # sign to home page to add EDIT EVENT button
+      if !@errors && @posting.update_attributes(params[:posting])
         format.html { redirect_to session[:return_to], notice: "Your #{@posting.scheduled_event_id ? 'event' : 'post'} was updated." }
         format.js
         format.json { head :ok }
       else
         format.html { render action: "edit" }
+        format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
     end
@@ -196,7 +204,7 @@ class PostingsController < ApplicationController
       return false
     else
       posting.scheduled_event.next_event = 
-        posting.scheduled_event.get_next_event(posting.scheduled_event.start_date)
+        posting.scheduled_event.get_first_event_date(posting.scheduled_event.start_date)
       return (posting.scheduled_event.next_event ? true : false)
     end
   end

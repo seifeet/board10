@@ -76,22 +76,7 @@ class Posting < ActiveRecord::Base
   def get_future_events_for_month start # object of type Date (eg: Date.today)
     return nil if scheduled_event_id.nil?
     return nil unless event = ScheduledEvent.find_event(scheduled_event_id)
-    events = Array.new
-    current_month = start.month
-    while current_month == start.month do
-      next_scheduled_event = event.get_next_scheduled_event(start)
-      if next_scheduled_event
-        if next_scheduled_event.next_event == start
-          start += 1.day
-        else
-          start = next_scheduled_event.next_event
-        end
-        events.push next_scheduled_event
-      else
-        start += 1.day
-      end
-    end
-    events
+    event.future_month_events start
   end
   
   def add_vote

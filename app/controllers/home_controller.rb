@@ -20,6 +20,7 @@ class HomeController < ApplicationController
     # ACTIONS
     if !params[:act].nil?
       if params[:act] == 'boards'
+        logger.debug "-----------------params[:act] == 'boards'----------------------------------------"
         # show all postings for all user's boards.
         # postings will be filtered according to membership of the current_user
         @postings_title = "From all my boards:"
@@ -27,6 +28,7 @@ class HomeController < ApplicationController
         paginate = false
 
       elsif params[:act] == 'schools'
+        logger.debug "-----------------params[:act] == 'schools'----------------------------------------"
         # show all postings for all user's schools.
         # postings will be filtered according to membership of the current_user
         @postings_title = "From all my schools:"
@@ -34,10 +36,12 @@ class HomeController < ApplicationController
         paginate = false
         
       elsif params[:act] == 'users' || params[:act] == 'user_search'
+        logger.debug "-------------------params[:act] == 'users' || params[:act] == 'user_search'--------------------------------------"
         @postings_title = "Search for users:"
         @postings = User.search(params[:search])
 
       elsif params[:act] == 'school_search'
+        logger.debug "--------------------params[:act] == 'school_search'-------------------------------------"
         @postings_title = "Search results for schools:"
         if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
           @postings = School.search(params[:search], current_user.state, current_user.city )
@@ -46,16 +50,19 @@ class HomeController < ApplicationController
         end
 
       elsif params[:act] == 'board_search'
+        logger.debug "---------------------params[:act] == 'board_search'------------------------------------"
         @postings_title = "Search results for boards:"
         @postings = Board.search(params[:search])
         
       elsif params[:act] == 'new_board'
+        logger.debug "---------------------params[:act] == 'new_board'------------------------------------"
         @new_board = Board.new
         @postings_title = "Create New Board:"
         @postings = paginate_board_postings
         paginate = false
         
       elsif params[:act] == 'edit_board'
+        logger.debug "---------------------params[:act] == 'edit_board'------------------------------------"
         @new_board = Board.find_board(params[:board])
         @new_board = nil unless current_user.owner?( @new_board )
         @postings_title = "Edit Board:"
@@ -63,6 +70,7 @@ class HomeController < ApplicationController
         #paginate = false
 
       elsif params[:act] == 'post_search' || params[:act] == 'posts'
+        logger.debug "----------------------params[:act] == 'post_search' || params[:act] == 'posts'-----------------------------------"
         if !params[:search].nil? && !params[:search].empty? && !params[:date].nil? && !params[:date].empty?
           @postings_title = "Search Results for \"#{params[:search]}\" on \"#{params[:date]}\":"
         elsif !params[:date].nil? && !params[:date].empty?
@@ -75,9 +83,11 @@ class HomeController < ApplicationController
         @postings = Posting.search(params[:search],params[:date])
 
       elsif params[:act] == 'invite' || params[:act] == 'users'
+        logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
 
       elsif params[:act] == 'messages'
+        logger.debug "-----------------------params[:act] == 'messages'----------------------------------"
         @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
         @postings_title = 'Messages'
       end
@@ -87,6 +97,7 @@ class HomeController < ApplicationController
       end
       
     else params[:school].nil? && params[:board].nil?
+      logger.debug "-------------------------params[:school].nil? && params[:board].nil?--------------------------------"
       # default to postings from all user's boards:
       # postings will be filtered according to membership of the current_user
       @postings_title = "From all my boards:"
@@ -98,9 +109,11 @@ class HomeController < ApplicationController
     @posting_form = Posting.new
     # FORM FOR EVENT
     if params[:act] == 'add_event'
+      logger.debug "---------------------------params[:act] == 'add_event'------------------------------"
       @new_event = Posting.new
       @new_event.build_scheduled_event
     elsif params[:act] == 'edit_event'
+      logger.debug "---------------------------params[:act] == 'edit_event'------------------------------"
       edit_event = Posting.find_posting(params[:id])
       if edit_event && current_user.id == edit_event.user_id
         @new_event = edit_event
@@ -112,6 +125,7 @@ class HomeController < ApplicationController
     # show all postings for the school.
     # postings will be filtered according to membership of the current_user
     if !params[:school].nil?
+      logger.debug "-------------------------!params[:school].nil?--------------------------------"
       @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
       if params[:subact] != 'events_only'
@@ -127,9 +141,10 @@ class HomeController < ApplicationController
         set_events_and_posts school_events
       end
     elsif !params[:board].nil?
+      logger.debug "------------------------!params[:board].nil?---------------------------------"
       @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
-      if !@board.nil? && params[:act] != 'invite'
+      if !@board.nil? && params[:act] != 'invite' && params[:act] != 'edit_event'
         if params[:subact] != 'events_only'
           @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
         end
@@ -156,7 +171,9 @@ class HomeController < ApplicationController
     end
     
     # logger.debug "\n\n After postings \n\n\n"
-    @title = @user.full_name;
+    @title = @user.full_name
+    
+    logger.debug "-----------------END OF CONTROLLER----------------------------------------"
     
     respond_to do |format|
       format.html # index.html.erb

@@ -1,6 +1,6 @@
 <% return nil unless @board || @posting || @school  %>
 <div class="clearfix">
-<% @date = Date.today unless @date %>
+<% @date = @posting.scheduled_event.start_date unless @date %>
 <% @events = @posting.get_future_events_for_month(@date) if @posting && @events.nil? %>
 <% if @board || @posting %>
 <% board_id = (@board && @board.id ? @board.id : @posting.board_id) %>
