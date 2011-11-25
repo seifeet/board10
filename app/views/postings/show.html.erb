@@ -7,7 +7,9 @@ end
 <p id="notice"><%= notice %></p>
 
 <div id="posting_show_content">
-
+<% if current_user %>	  	
+<%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>	  	
+<% end %>
 <% if current_user && current_user.id == @posting.user_id %>
 <div class="float_right">
     <%= link_to 'Edit', edit_posting_path(@posting), :class => "edit_button" %>
@@ -95,11 +97,14 @@ end
 <% end %>
 
 <% if current_user && current_user.id != @posting.user_id %>
-<%= render 'reply_form' %>
+<%= render 'postings/reply_form' %>
 <% end %>
 
-<% if current_user %>	  	
-<%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>	  	
+<% if @postings && @postings.any? %>
+<p><b>Full reply chain:</b><br />
+<div id="board_postings">
+<%= render 'shared/containers/small_container', :container => @postings, :action => '' %>
+</div>
 <% end %>
 
 <%= link_to 'All Posts', postings_path, :class => "button_neutral" %>

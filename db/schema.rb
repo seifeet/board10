@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111120104804) do
+ActiveRecord::Schema.define(:version => 20111125220425) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(:version => 20111120104804) do
     t.integer  "access_level",       :default => 0
     t.integer  "view_count",         :default => 0
     t.integer  "scheduled_event_id"
+    t.integer  "original_posting"
   end
 
   add_index "postings", ["board_id"], :name => "index_postings_on_board_id"
   add_index "postings", ["created_at"], :name => "index_postings_on_created_at"
+  add_index "postings", ["original_posting"], :name => "index_postings_on_original_posting"
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
 
   create_table "scheduled_events", :force => true do |t|

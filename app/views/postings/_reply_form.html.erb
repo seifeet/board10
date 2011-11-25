@@ -10,22 +10,31 @@
     </div>
   <% end %>
   <%= hidden_field_tag 'board_id', @board.id %>
+  <% if @posting.original_posting %>
+  <%= f.hidden_field :original_posting, :value => @posting.original_posting %>
+  <% else %>
+  <%= f.hidden_field :original_posting, :value => @posting.id %>
+  <% end %>
   <div class="field">
     <b>Reply:</b>
     <% if !@user.nil? || @user = User.find_user(@posting.user_id) %>
     <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name} (#{strip_and_cut(@posting.content, 45)})", :size => 40 %>
     <% end %>
   </div>
-  <div class="field">
     <%= f.label :content %>
-    <% if @board.access == Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
-    <% elsif @board.access == Posting::PRIVATE %>
-        <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-        <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+    <% if current_user.member?(@board) %>
+	    <% if @posting.access == Posting::PUBLIC %>
+	    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+	    <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+	    <% elsif @posting.access == Posting::PRIVATE %>
+	        <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
+	        <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+	    <% end %>
+    <% else %>
+    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility, Posting::PUBLIC %>
     <% end %>
     <br />
+  <div class="field">
     <%= f.text_area :content, :rows => 5, :cols => 40 %>
   </div>
   <%= f.submit 'Reply', :class => "edit_button" %>

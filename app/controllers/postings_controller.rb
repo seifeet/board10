@@ -1,5 +1,6 @@
 class PostingsController < ApplicationController
   include PostingsHelper
+  include ApplicationHelper
   # allow authenticated users to do only the following actions
   #G before_filter :authenticate, :only => [:index] #, :edit, :update, :destroy]
   before_filter :authenticate, :only => [:create]
@@ -26,6 +27,15 @@ class PostingsController < ApplicationController
   def show
     @posting_form = Posting.new
     @posting = Posting.find(params[:id])
+    
+    if @posting.original_posting
+      @board = Board.find_board(@posting.board_id)
+      if @board && current_user.member?( @board.id )
+        @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
+      elsif @board
+        @postings = @board.postings.where(:visibility => 1, :original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
+      end
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -60,9 +70,17 @@ class PostingsController < ApplicationController
 
     empty_err = false
     posting_saved = false
+    @public_reply = false
+    
+    # in replies original_posting will be populated with the id of the first post in that chain
+    if params[:content] != 'auto_refresh' && params[:posting][:original_posting]
+      original_posting = Posting.find_posting(params[:posting][:original_posting])
+      @public_reply = true if original_posting.access == Posting::PUBLIC
+    end
 
     # create a new posting or event
-    if params[:content] != 'auto_refresh' && ( board.access == Posting::PUBLIC || current_user.member?(board) )
+    if params[:content] != 'auto_refresh' && 
+      ( @public_reply || board.access == Posting::PUBLIC || current_user.member?(board) )
       # create a new posting
       @posting = Posting.new(params[:posting])
       @posting.board_id = board.id

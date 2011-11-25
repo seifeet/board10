@@ -1,5 +1,6 @@
 class Posting < ActiveRecord::Base
-  attr_accessible :subject, :content, :access_level, :visibility, :scheduled_event_attributes
+  attr_accessible :subject, :content, :access_level, :visibility, 
+                  :scheduled_event_attributes, :original_posting
 
   belongs_to :user
   belongs_to :board
