@@ -1,5 +1,5 @@
 <% from_user = User.find_user( element.from_user )%>
-<div class="float_right hidable">
+<div class="float_right">
 <%= button_to 'x', element, :class => "button_reject", confirm: "Do you want to remove this message?", method: :delete, :remote => true %>
 <%= render 'messages/confirm_reject', :message => element, :from => from_user %>
 </div>

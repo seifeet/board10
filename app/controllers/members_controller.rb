@@ -47,26 +47,39 @@ class MembersController < ApplicationController
     board = Board.find_board(params[:member][:board_id])
     @action = 'join'
     if ( !user.nil? && !board.nil? )
+      logger.debug "----------------Member.new-------------------------------------"
       @member = Member.new(params[:member])
       @member.user_id = user.id
       if params[:commit] == Member::Commit::FOLLOW
+        logger.debug "----------------Adding a follower #{user.full_name}-------------------------------------"
         @member.user_id = current_user.id # follower could be only the current user
         @member.member_type = Member::MemberType::FOLLOWER
         # follower? is true if a user is a follower, member or owner
         if !current_user.follower?(board)
+        logger.debug "----------------Saving follower #{user.full_name}-------------------------------------"
         @action = 'follow'
         @member.save
         flash.now[:success] = "Board \"#{board.title}\" was linked to your profile."
+        else
+        flash.now[:warning] = "Your profile already linked to \"#{board.title}\"."
         end
       else
-        if !user.member?(board) 
+        logger.debug "----------------Adding a member #{user.full_name}-------------------------------------"
+        if !user.member?(board)
+          logger.debug "----------------User #{user.full_name} is not a member-------------------------------------"
           follower = user.follower?(board)
           if follower
+          logger.debug "----------------Updating follower #{user.full_name} to become a member-------------------------------------"
           follower.update_attribute(:member_type, Member::MemberType::MEMBER)
+          else
+          logger.debug "----------------Saving #{user.full_name} as a member-------------------------------------"
+          @member.member_type = Member::MemberType::MEMBER
+          @member.save
           end
-        elsif
-        @member.member_type = Member::MemberType::MEMBER
-        @member.save
+        else
+          logger.debug "----------------Saving a follower #{user.full_name}-------------------------------------"
+          @member.member_type = Member::MemberType::MEMBER
+          @member.save
         end
         flash.now[:success] = "#{user.full_name} was added to your Board \"#{board.title}\"."
       end

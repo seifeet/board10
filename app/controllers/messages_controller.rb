@@ -67,15 +67,20 @@ class MessagesController < ApplicationController
         valid = true
       end
     end
+    
+    params[:act] = 'board_search'
+    params[:search] = params[:message][:search] if !params[:message][:search].nil?
 
-    # it does not flash messages for some reason.... :(
     respond_to do |format|
       if valid && @message.save
         msg = 'Your request to join the board was sent!'
+        flash.now[:success] = msg
       else
         msg = 'Unable to send your request.'
+        flash.now[:error] = msg
       end
       format.html { redirect_to home_path, notice: msg }
+      format.js
       format.json { render json: @message }
     end
     rescue ActiveRecord::RecordNotFound

@@ -14,7 +14,7 @@
 <div class="posting_right_column clearfix">
 <% if admin? %>
 <%= link_to 'Edit', edit_board_path(element), :class => "edit_button" %>
-<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete, :class => "delete_button" %>
+<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete, :disable_with => "Deleting...", :class => "delete_button" %>
 <% end %>
 <div class="inline"><%= strip_and_cut(element.description, 300) %></div>
 
@@ -24,13 +24,19 @@
 <% end %>
 <% if user %>
 	<div class="inline">Owner: <%= user.full_name %></div>
-	<% if element.active? && !current_user.member?(element) %>
+	<% # not a good thing, but I have to do that for the sake of simplicity
+	message_subj = "Join request for board \"#{element.title}\"" 
+	%>
+	<% if element.active? && !current_user.member?(element) && !user.recieved.join_requests.unread.where("from_user = ? and subject = ?", current_user.id, message_subj).any? %>
 	<div class="inline_right">
 	<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
 	  <%= f.hidden_field :to_user, :value => owner.user_id %>
 	  <%= f.hidden_field :board_id, :value => element.id %>
+	  <% if params[:search] %>
+	  <%= f.hidden_field :search, :value => params[:search] %>
+	  <% end %>
 	  <%= f.text_area :content, :rows => 3, :cols => 33, :value => "Hi!\nI would like to join your board.\nThank you!" %>
-	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
+	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :disable_with => "Sending...", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
 	<% end %>
 	</div>
 	<% end %>
@@ -40,7 +46,10 @@
 	  <%= f.hidden_field :board_id %>
 	  <%= f.hidden_field :user_id, :value => current_user.id %>
 	  <%= f.hidden_field :search, :value => params[:search] %>
-	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :title => "Follow will allow you to recieve only public posts from this boad. You do not need owner's permission to follow a board, but you will not be able to post on the followed board." %>
+	  <% if params[:search] %>
+	  <%= f.hidden_field :search, :value => params[:search] %>
+	  <% end %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this boad. You do not need owner's permission to follow a board, but you will not be able to post on the followed board." %>
 	<% end %>
 	</div>
 	<% end %>
