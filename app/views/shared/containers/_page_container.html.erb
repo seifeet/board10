@@ -4,9 +4,11 @@
 <div class="apple_pagination clearfix clickable">
     <%= will_paginate page_container, :container => false , :total_entries => page_container.count %>
 </div>
+<% class_type = page_container.first.class_type %>
 <script type="text/javascript">
     $(window).ready(function() {
-        $.bottomlessPagination();
+        $.bottomlessPagination({element:".<%= class_type+'_element' %>", 
+          objName:"<%= class_type+'s' %>"});
         $.toggleContextMenu($(".posting_element"));
         //$.autoRefresh();
     });

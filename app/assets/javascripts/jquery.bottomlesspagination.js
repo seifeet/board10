@@ -6,6 +6,7 @@
         ajaxLoaderPath:'../../assets/loading.gif',
         results:'#user_postings .generic_container',
         objName:'posts',
+        element:'.posting_element',
         callback:null
     },callerSettings||{});
     
@@ -59,7 +60,7 @@
     $.fn.addrows = function(data) {
         if(typeof settings.href !== 'undefined' && settings.href.length) {
             curr_page = getPageNumber(settings.href);
-            $(data).find('.posting_element').each(function(index) {
+            $(data).find(settings.element).each(function(index) {
                 $(settings.results).append($(this));
                 $.toggleContextMenu($(this));
             }); 

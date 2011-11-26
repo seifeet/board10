@@ -4,15 +4,15 @@
     </div>
     <div id="_desc"><%= element.description %></div>
 </div>
-<% if request.fullpath =~ /\/home?/ %>
-<div class="logo_link logo_messages clickable">
-<% else %>
-<div class="logo_link logo_messages">
-<% end %>
-    <%= render 'home/check_new_msg' %>
-</div>
 <div class="logo_nav clearfix">
     <%= link_to "Sign out", signout_path, :method => :delete %>
+    <% if request.fullpath =~ /\/home?/ %>
+	<div class="logo_link logo_messages clickable">
+	<% else %>
+	<div class="logo_link logo_messages">
+	<% end %>
+	    <%= render 'home/check_new_msg' %>
+	</div>
     <%= link_to 'Settings', edit_link %>
     <%= link_to 'Home', home_path %>
 </div>

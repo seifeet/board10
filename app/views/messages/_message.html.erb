@@ -7,6 +7,6 @@
     <td><%= link_to @user.full_name, @user %></td>
     <td><%= link_to strip_and_cut(@message.subject, 70), @message %></td>
     <% end %>
-    <td><%= render 'messages/cofirm_reject' %></td>
+    <td><%= render 'messages/confirm_reject' %></td>
     <td><%= button_to 'Del', @message, :class => "button_reject", confirm: "Do you want to remove this message?", method: :delete, :remote => true %></td>
 </tr>

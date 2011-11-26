@@ -104,7 +104,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+        format.html { redirect_to @member, notice: "Member was successfully updated." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
