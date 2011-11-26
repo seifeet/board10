@@ -1,4 +1,9 @@
 class ScheduledEventsController < ApplicationController
+  include PostingsHelper
+  include ApplicationHelper
+  before_filter :authenticate, :only => [:create]
+  before_filter :owner_user, :only => [:update, :destroy]
+  before_filter :admin_user, :only => [:index, :new, :edit, :show]
   # GET /scheduled_events
   # GET /scheduled_events.json
   def index

@@ -96,6 +96,10 @@ end
 </p>
 <% end %>
 
+<% if @posting.scheduled_event_id %>
+It is an event and we need to add the details...<br />
+<% end %>
+
 <% if current_user && current_user.id != @posting.user_id %>
 <%= render 'postings/reply_form' %>
 <% end %>

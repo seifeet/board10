@@ -18,7 +18,10 @@
 </div>
 <% end %>
 
-<% unless request.fullpath =~ /\/signin|\/signup|\/sessions|\/users|\/postings|\/boards/ %>
+<% 
+#unless request.fullpath =~ /\/signin|\/signup|\/sessions|\/users|\/postings|\/boards/ 
+unless request.fullpath =~ /\/signin/
+%>
 <%= render 'layouts/logo' %>
 <% end %>
 

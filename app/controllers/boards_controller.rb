@@ -4,9 +4,8 @@ class BoardsController < ApplicationController
   #G before_filter :authenticate, :only => [:index, :show] #, :edit, :update]
   #G before_filter :correct_board, :only => [:edit, :update] #, :destroy]
   #G before_filter :correct_owner, :only => [:destroy]
-  before_filter :authenticate, :only => [:index, :show]
+  before_filter :authenticate, :only => [:index, :show, :create, :new]
   before_filter :correct_owner, :only => [:destroy, :edit, :update]
-  
   # GET /boards
   # GET /boards.json
   def index

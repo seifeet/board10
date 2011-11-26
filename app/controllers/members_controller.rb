@@ -1,11 +1,13 @@
 class MembersController < ApplicationController
+  include ApplicationHelper
   include MembersHelper
-  before_filter :authenticate, :only => [:index]
+  before_filter :authenticate, :only => [:create]
   before_filter :correct_member, :only => [:destroy]
+  before_filter :admin_user, :only => [:index, :new, :edit, :show, :update]
   # GET /members
   # GET /members.json
   def index
-    @users = User.paginate(:page => params[:page], :per_page => 50).order('created_at DESC')
+    @users = User.paginate(:page => params[:page], :per_page => per_page).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

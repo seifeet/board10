@@ -1,4 +1,10 @@
 class MessagesController < ApplicationController
+  include ApplicationHelper
+  include MessagesHelper
+  before_filter :authenticate, :only => [:create]
+  before_filter :message_owner, :only => [:destroy, :show, :update]
+  before_filter :admin_user, :only => [:index, :new, :edit]
+
   # GET /messages
   # GET /messages.json
   def index
@@ -112,10 +118,13 @@ class MessagesController < ApplicationController
   # DELETE /messages/1.json
   def destroy
     @message = Message.find(params[:id])
-    @message.destroy
+    user = User.find_user(@message.to_user)
+    
+    @message.destroy if ( user && current_user.id == user.id ) || admin?
 
     respond_to do |format|
       format.html { redirect_back_or home_path }
+      format.js
       format.json { head :ok }
     end
   end

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   include HomeHelper
   include PostingsHelper
   include ApplicationHelper
-  before_filter :only_current_user
+  before_filter :only_current_user, :only => [:index]
   
   def index
     return nil if current_user.nil?

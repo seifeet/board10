@@ -1,5 +1,9 @@
 class UserSchoolsController < ApplicationController
   include ApplicationHelper
+  include UserSchoolsHelper
+  before_filter :authenticate, :only => [:create]
+  before_filter :user_school, :only => [:destroy]
+  before_filter :admin_user, :only => [:index, :new, :edit, :show, :update]
   # GET /user_schools
   # GET /user_schools.json
   def index

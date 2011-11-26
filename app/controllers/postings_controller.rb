@@ -3,7 +3,7 @@ class PostingsController < ApplicationController
   include ApplicationHelper
   # allow authenticated users to do only the following actions
   #G before_filter :authenticate, :only => [:index] #, :edit, :update, :destroy]
-  before_filter :authenticate, :only => [:create]
+  before_filter :authenticate, :only => [:create, :new]
   # only owner of this posting can delete it
   before_filter :owner_user, :only => [:edit, :update, :destroy]
   # GET /postings
