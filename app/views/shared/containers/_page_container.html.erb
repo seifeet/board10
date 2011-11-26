@@ -8,8 +8,8 @@
 <script type="text/javascript">
     $(window).ready(function() {
         $.bottomlessPagination({element:".<%= class_type+'_element' %>", 
-          objName:"<%= class_type+'s' %>"});
-        $.toggleContextMenu($(".posting_element"));
+          objName:"<%= (class_type == 'posting' ? 'post' : class_type )+'s' %>"});
+        $.toggleContextMenu($(".<%= class_type+'_element' %>"));
         //$.autoRefresh();
     });
 </script>
