@@ -30,7 +30,7 @@ class PostingsController < ApplicationController
     
     if @posting.original_posting
       @board = Board.find_board(@posting.board_id)
-      if @board && current_user.member?( @board.id )
+      if @board && current_user && current_user.member?( @board.id )
         @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
       elsif @board
         @postings = @board.postings.where(:visibility => 1, :original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
