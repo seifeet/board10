@@ -1,0 +1,26 @@
+<% return nil if current_user.nil? %>
+<%
+# This part is needed if we call a method in a controller other then HomeController
+# For example, if we add a new school to the profile we call UserSchoolsController and
+# passing hidden arguments to it. After completion the controller copy passed arguments
+# and pass them back, so we can refresh the results of the search.
+if @postings.nil?
+	if params[:act] == 'invite'
+	  @board = Board.find_board(params[:board]) if @board.nil?
+	  @postings = User.search(params[:search])
+	elsif params[:act] == 'board_search'
+	  if @postings.nil? && !params[:search].nil?
+	    @postings = Board.search(params[:search])
+	  end
+	elsif params[:act] != 'invite' && params[:board]
+	  @board = Board.find_board(params[:board]) if @board.nil?
+	  @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date])
+	end
+	
+	if !@postings.nil? && !@postings.empty?
+	  @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
+	end
+end
+%>
+
+<%= render 'shared/containers/page_container', :page_container => @postings %>

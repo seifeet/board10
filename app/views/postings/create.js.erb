@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if session[:return_to] =~ /\/home?/ || session[:return_to] =~ /\/boards\// %>
 <% if !@errors %>
 <% if @postings && !@postings.empty? %>
 $('.generic_container .note').remove();
@@ -11,11 +11,5 @@ $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 $('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
 <% end %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
-<% elsif session[:return_to] =~ /\/boards\// %>
-<% if @postings && !@postings.empty? %>
-$('.generic_container .note').remove();
-$('#board_postings .generic_container').prepend("<%= escape_javascript(render 'home/add_postings', :postings => @postings)%>");
-<% end %>
-$('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% end %>
 $(".loading").html("");

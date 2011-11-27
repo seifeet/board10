@@ -1,0 +1,15 @@
+<div id="menu_buttons">
+<% unless current_user.nil? %>
+
+<div id="main_menu">
+<!-- FIRST LEVEL BUTTONS -->
+<%= render 'boards/title_main_menu' %>
+</div> <!-- end of main_menu div -->
+
+<!-- OPTIONAL BUTTONS -->
+<div id="optional_buttons">
+<%= render 'boards/board_details' %>
+</div>
+
+<% end %>
+</div>

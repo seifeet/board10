@@ -1,16 +1,41 @@
-<div id="board_content" class="clearfix">
-<p id="notice"><%= notice %></p>
-<%= link_to 'Home', home_path + "?board=#{@board.id}", :class => "button_neutral" %>
-
-<%= render 'board_details' %>
-
-<% if @board.active? && ( @board.access == Posting::PUBLIC || current_user.member?( @board.id ) ) %>
-<% @reply = false %>
-<%= render 'posting_form' %>
-<% end %>
-
-<div id="board_postings">
-<%= render 'boards/postings' %>
+<div id="user_title_nav">
+<div id="whatsNew">
+  <!-- div class="background_write">What's new?</div -->
+  <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
+</div>
 </div>
 
+<div id="title">
+<%= render 'boards/title' %>
 </div>
+
+<div id="right_side_and_main">
+
+<div id='main_part'>
+
+<div class="home_sub_title clearfix">
+<!-- %= render 'home/home_sub_title' % -->
+</div>
+
+<div class="sub_title_nav clearfix">
+<!-- %= render 'home/sub_title_nav' % -->
+</div>
+
+<div id="user_postings" class="clearfix">
+<%= render 'boards/board_postings' %>
+</div> <!-- close user_postings -->
+
+</div> <!-- close main_part -->
+
+<div id="right_side_act">
+
+<div class="info_note">
+<%= render "home/info" %>
+</div>
+<div id="title_top_action" >
+<%= render 'boards/title_top_action' %>
+</div>
+
+</div><!-- end of right_side_act -->
+
+</div><!-- right_side_and_main -->

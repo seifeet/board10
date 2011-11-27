@@ -1,13 +1,14 @@
+<div class="clearfix">
+<div class="close_button clearfix clickable">
+<%= link_to "Close", board_path(@board), :title => "Close Find People", :disable_with => "Closing..." %>
+</div>
 <%= form_tag board_path(@board), :method => :get, :id => "tab_invite_search", :remote => true do %>
-<div class="float_left">
-<%= text_field_tag :search, params[:search], :size => 30 %>
+<div class="field">
+    <%= label_tag :search, "Search Criteria" %><br />
+    <%= text_field_tag :search, params[:search] %>
 </div>
 <%= hidden_field_tag 'act', 'invite' %>
-<div class="float_left">
-<%= submit_tag "Find people", :name => nil, :class => 'button_neutral' %>
-</div>
+<%= submit_tag "Find people", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
-
-<div id="action_tab" class="clearfix">
-<%= render 'boards/tab_invite_results' %>
 </div>
+

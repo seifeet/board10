@@ -168,25 +168,25 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     margin-left: 250px;
     width: 200px;
 }
-.school_menu_button{ // main SCHOOLS button
+.first_menu_button{ // main SCHOOLS button
     position:relative;
     top: 0;
     left: 50px;
 }
 
-.board_menu_button{ // main BOARDS button
+.second_menu_button{ // main BOARDS button
     position:relative;
     top: 100px;
     left: -10px;
 }
 
-.post_menu_button{ // main POSTS button
+.third_menu_button{ // main POSTS button
     position:relative;
     top: 140px;
     left: -25px;
 }
 
-.user_menu_button{ // main USERS button
+.fourth_menu_button{ // main USERS button
     position:relative;
     top: 140px;
     left: -30px;
@@ -254,10 +254,10 @@ a.secondary_menu_button.selected,
     color: black;
 }
 
-.school_menu_button a,
-.board_menu_button a,
-.post_menu_button a,
-.user_menu_button a,
+.first_menu_button a,
+.second_menu_button a,
+.third_menu_button a,
+.fourth_menu_button a,
 .menu_button a{
     @include menu-btn;
     
@@ -270,10 +270,10 @@ a.secondary_menu_button.selected,
     color:white;
 }
 
-.school_menu_button.selected a,
-.board_menu_button.selected a,
-.post_menu_button.selected a,
-.user_menu_button.selected a,
+.first_menu_button.selected a,
+.second_menu_button.selected a,
+.third_menu_button.selected a,
+.fourth_menu_button.selected a,
 .menu_button.selected a{
     @include menu-btn;
     
@@ -296,9 +296,9 @@ a.secondary_menu_button.selected,
   right:3em;
 }
 .search_posts_menu_button,
-.search_board_menu_button,
-.new_board_menu_button,
-.search_school_menu_button{
+.search_second_menu_button,
+.new_second_menu_button,
+.search_first_menu_button{
     position:relative;
     float:left;
     top:0.8em;
@@ -306,9 +306,9 @@ a.secondary_menu_button.selected,
 }
 
 .search_posts_menu_button.selected a,
-.search_school_menu_button.selected a,
-.new_board_menu_button.selected a,
-.search_board_menu_button.selected a{
+.search_first_menu_button.selected a,
+.new_second_menu_button.selected a,
+.search_second_menu_button.selected a{
     @include menu-btn(45px, 2px, 100px, 4em);
     
     &:hover {
@@ -322,9 +322,9 @@ a.secondary_menu_button.selected,
 }
 
 .search_posts_menu_button a,
-.search_school_menu_button a,
-.new_board_menu_button a,
-.search_board_menu_button a{
+.search_first_menu_button a,
+.new_second_menu_button a,
+.search_second_menu_button a{
     @include menu-btn(45px, 2px, 100px, 4em);
     
     &:hover {

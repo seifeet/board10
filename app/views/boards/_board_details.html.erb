@@ -1,8 +1,3 @@
-
-<% if @board.active? && current_user.owner?(@board.id) %>
-<%= link_to 'Edit Board', edit_board_path(@board), :class => "edit_button" %>
-<%= link_to 'Delete Board', @board, confirm: 'Are you sure?', method: :delete, :class => "delete_button" %>
-<% end %>
 <h2 align="center"><strong><%= @board.title %></strong></h2>
 <% if @board.school_id %>
 <% school = School.find_school(@board.school_id) %>
@@ -12,21 +7,3 @@
 <% end %>
 <p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, views_str) %></b>
 <br /><%= @board.description %><br />
-
-<div id="members">
-<%= render 'shared/containers/small_container', :container => @members, :action => 'ban' %>
-</div>
-
-<div id="action_area">
-<% if @board.active? %>
-<% if current_user.owner?( @board.id ) %>
-<!-- %= render 'grp_invite' % -->
-<%= render 'boards/tab_invite_search' %>
-<% elsif current_user.member?( @board.id ) %>
-<%= render 'grp_leave' %>
-<% else %>
-<%= render 'grp_join' %>
-<% end %>
-</div>
-
-<% end %>
