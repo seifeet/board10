@@ -361,3 +361,7 @@ a.secondary_menu_button.selected,
     padding:5px;
     @include rounded-corners(15px);
 }
+.note a{
+  text-decoration:none;
+  color:red;
+}

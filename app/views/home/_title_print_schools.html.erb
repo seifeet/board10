@@ -90,6 +90,13 @@
     </div>
 <%
         end # end of if all_boards.count > max_num_boards
+    else
+%>
+    <div class="note">
+    	When you select a school this area contains only your boards that linked to that school.<br />
+    	<%= link_to 'My boards...', home_path+'?act=boards', :title => "Open Boards Menu", :disable_with => "Loading..." %>
+    </div>
+<%
     end # end of !all_boards.empty?
 %>
 </div>

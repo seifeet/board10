@@ -34,7 +34,10 @@
      search for your school and click <b>Add</b> near the school's name in the search results.
      </p>
    <% elsif params[:act] == 'schools' && !current_user.schools.unscoped.empty? %>
-     <p>Please select a school from the list of schools that linked to your profile.</p>
+     <p>This place is empty because schools that linked to your profile do not have any posts yet.
+     	You can wait for posts from others, or you can create your own board for this school.<br />
+     	<b>So what are you waiting for..?</b> 
+     </p>
    <% elsif params[:school].nil? && @school.nil? && !@board.nil? %>
      <% if current_user.member?(@board) %>
      <p>This board does not have any posts yet. Click on <b>WRITE</b> and type in your first post.<br />
@@ -44,10 +47,12 @@
      <p>This board does not have any public posts yet.</p>
      <% end %>
   <% elsif params[:board].nil? && !@school.nil? && @board.nil? %>
-     <p>This school does not have any posts yet, so you have several options.
+     <p>This school does not have any posts yet, so you have several options.<br />
      One of them is to wait until other people create new boards and link them to this school.<br />
      Another is to link some of your existing boards to this school.<br />
-     And one more option is to create a new board for this school.</p>
+     And one more option is to create a new board for this school.<br />
+     <b>So go ahead and be the first one!</b>
+     </p>
   <% else %>
      <p align="center">No results found</p>
    <% end %>
