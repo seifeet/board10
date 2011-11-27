@@ -1,4 +1,7 @@
 module ApplicationHelper
+  def views_str
+    'UP'
+  end
   
   def days_back
     1

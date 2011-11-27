@@ -4,6 +4,9 @@
     </div>
     <div id="_desc"><%= element.description %></div>
 </div>
+<% 
+#unless request.fullpath =~ /\/signin|\/signup|\/sessions|\/users|\/postings|\/boards/ 
+%>
 <div class="logo_nav clearfix">
     <%= link_to "Sign out", signout_path, :method => :delete %>
     <% if request.fullpath =~ /\/home?/ %>
@@ -16,3 +19,7 @@
     <%= link_to 'Settings', edit_link %>
     <%= link_to 'Home', home_path %>
 </div>
+<% 
+#end 
+%>
+

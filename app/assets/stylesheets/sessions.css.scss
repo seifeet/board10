@@ -1,3 +1,6 @@
+$backgrnd:       #336633;
+$bglighten50:  lighten($backgrnd, 50%);
+
 /*********************** image background ***********************************/
 html {
     background: url('../../assets/iris.gif') no-repeat center center fixed;
@@ -16,14 +19,31 @@ body {
 }
 
 .signin_container{
-    position: relative;
-    top: 85px;
-    width: 27em;
-    margin: auto;
-    padding: 15px 15px 15px 15px;
+    //position: relative;
+  top: 85px;
+  width: 27em;
+  margin: auto;
+  padding: 15px 15px 15px 15px;
 }
 
 #signin_top10{
   float:right;
-  width:27em;
+  width: 30%;
+  //margin: 25px;
+  padding:35px;
+}
+
+#about_us{
+  opacity:0;
+  float:left;
+  //position:relative;
+  width: 27%;
+  margin:30px 30px 30px 30px;
+  background: $bglighten50; 
+  border:3px solid $backgrnd;
+  padding:30px;
+  border-radius: 25px;
+  &:hover{
+    opacity:1;
+  }
 }

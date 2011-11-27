@@ -75,6 +75,7 @@ class UsersController < ApplicationController
       if @user.save
         sign_in @user
         # UserMailer.registration_confirmation(@user).deliver
+        flash.now[:success] = "Welcome, " + @user.full_name + '!'
         format.html { redirect_to home_path, notice: "Welcome, " + @user.full_name + '!'}
         format.json { render json: @user, status: :created, location: @user }
       else

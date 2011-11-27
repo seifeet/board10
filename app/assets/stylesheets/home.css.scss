@@ -355,8 +355,8 @@ a.secondary_menu_button.selected,
     white-space: nowrap;
 }
 .note{
-    border:2px solid $bgdarken40;
-    background:$backgrnd;
+    border:3px solid $bgdarken10;
+    background:$bglighten50;
     margin:5px;
     padding:5px;
     @include rounded-corners(15px);

@@ -32,7 +32,9 @@
     <%= f.select(:school_id, current_user.schools.collect{|s| [s.name, s.id]}, { :include_blank => true } )  %>
   </div>
   <% else %>
-  <br />If you want to connect this board to a school. You have to add that school to your profile.
+  <div class="note">
+  If you want to connect this board to a school. You have to add that school to your profile.
+  </div>
   <% end %>
   <div class="clearfix">
   <% if params[:act] == 'new_board' || ( params[:act] == 'edit_board' && @new_board.access == Posting::PUBLIC ) %>

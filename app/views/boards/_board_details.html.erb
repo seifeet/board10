@@ -10,7 +10,7 @@
 <p align="center"><b>Linked to <%= school.name %></b></p>
 <% end %>
 <% end %>
-<p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, 'view') %></b>
+<p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, views_str) %></b>
 <br /><%= @board.description %><br />
 
 <div id="members">

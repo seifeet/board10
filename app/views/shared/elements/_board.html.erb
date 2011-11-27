@@ -4,7 +4,7 @@
 <div class="inline"><i><font color="red"><%= element.access %></font></i></div>
 <% end %>
 <div class="inline">
-(<%= pluralize(element.view_count, 'view') + ', ' + pluralize(element.postings.count, 'post') %>)
+(<%= pluralize(element.view_count, views_str) + ', ' + pluralize(element.postings.count, 'post') %>)
 </div>
 <% if !element.active? %>
 <div class="inline"><i>(This board is inactive)</i></div>
@@ -49,7 +49,7 @@
 	  <% if params[:search] %>
 	  <%= f.hidden_field :search, :value => params[:search] %>
 	  <% end %>
-	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this boad. You do not need owner's permission to follow a board, but you will not be able to post on the followed board." %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
 	<% end %>
 	</div>
 	<% end %>

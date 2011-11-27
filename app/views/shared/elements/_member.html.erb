@@ -4,7 +4,7 @@
 <div class="inline">Board: <%= link_to board.title, board %></div>
 <div class="inline"><%= board.status unless ( board.active ) %></div>
 <div class="inline">
-	(<%= pluralize(board.view_count, 'view') + ', ' + pluralize(board.postings.count, 'post') %>)
+	(<%= pluralize(board.view_count, views_str) + ', ' + pluralize(board.postings.count, 'post') %>)
 </div>
 <br class="clearBoth" />
 <div class="inline"><%= strip_and_cut( board.description ) %></div>

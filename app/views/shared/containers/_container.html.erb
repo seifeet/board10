@@ -6,32 +6,40 @@
 <% else %>
 <div class="note">
 <% if params[:act] != 'messages' && params[:act] != 'invite' %>
-   <% if current_user.schools.empty? && current_user.boards.empty? %>
+   <% if current_user.schools.unscoped.empty? && current_user.boards.unscoped.empty? %>
      <p>This place is empty because your profile has not been linked to any schools or boards yet.</p>
    <% end %>
-   <% if params[:act] == 'boards' && current_user.boards.empty? %>
-     <p>In order to become a member of a board please click on BOARDS -> JOIN.
-        Then search for a board of your interest and click Join. 
+   <% if params[:act] == 'boards' && current_user.boards.unscoped.empty? %>
+     <p>In order to become a member of a board please click on <b>BOARDS -> JOIN</b>.
+        Then search for a board of your interest and click <b>Join</b>. 
         That will send your request to join the board to the board's owner. 
         You will become a member of the board as soon as the owner confirms your request.</p>
-        <p>You can also create your own board by clicking BOARDS -> NEW.
-        Then fill up the board's title and description and click Create Board button.<br />
-        <b>Note:</b> You can choose an access level for your board as Private or Public.<br />
+        <p>You can also create your own board by clicking <b>BOARDS -> NEW</b>.
+        Then fill up the board's title and description and click <b>Create Board</b> button.<br />
+        <b>Note:</b> You can choose an access level for your board as <b>Private</b> or <b>Public</b>.<br />
         All the posts in a Private Board are private by default,
         but you can make an exception by marking your post as Public.
         Similarly, all the posts in a Public Board are public by default,
         but you can make an exception by marking your post as Private.</p>
-   <% elsif params[:act] == 'boards' && !current_user.boards.empty? %>
-     <p>This place is empty because your boards do not have any posts yet.</p>
+   <% elsif params[:act] == 'boards' && !current_user.boards.unscoped.empty? %>
+     <p>This place is empty because your boards do not have any posts yet.<br />
+     	<b>BOARDS</b> button retrieves all the latest posts from all the boards linked to your profile.<br /><br />
+        In order to join or follow a board of your interest, please click on <b>JOIN</b> button then
+        search for boards of your interest and click <b>Join</b> or <b>Follow</b> button near the board's name in the search results.
+     </p>
    <% elsif params[:act] == 'schools' && current_user.schools.empty? %>
-     <p>This place is empty because your profile has not been linked to any schools yet.</p>
-   <% elsif params[:act] == 'schools' && !current_user.schools.empty? %>
+     <p>This place is empty because your profile has not been linked to any schools yet.<br />
+     <b>SCHOOLS</b> button retrieves all the latest posts from all the schools linked to your profile.<br /><br />
+     In order to add a school of your interest, please click on <b>ADD</b> button then
+     search for your school and click <b>Add</b> near the school's name in the search results.
+     </p>
+   <% elsif params[:act] == 'schools' && !current_user.schools.unscoped.empty? %>
      <p>Please select a school from the list of schools that linked to your profile.</p>
    <% elsif params[:school].nil? && @school.nil? && !@board.nil? %>
      <% if current_user.member?(@board) %>
-     <p>This board does not have any posts yet. Click on WRITE and type in your first post.<br />
-     You can also invite people to your board by clicking on INVITE and searching for people on this website.<br />
-     Your invitation will be sent once you click on the Invite button near the person's name in the search results.</p>
+     <p>This board does not have any posts yet. Click on <b>WRITE</b> and type in your first post.<br />
+     You can also invite people to your board by clicking on <b>INVITE</b> and searching for people on this website.<br />
+     Your invitation will be sent once you click on the <b>Invite</b> button near the person's name in the search results.</p>
      <% else %>
      <p>This board does not have any public posts yet.</p>
      <% end %>
@@ -40,6 +48,8 @@
      One of them is to wait until other people create new boards and link them to this school.<br />
      Another is to link some of your existing boards to this school.<br />
      And one more option is to create a new board for this school.</p>
+  <% else %>
+     <p align="center">No results found</p>
    <% end %>
 <% end %>
 </div>

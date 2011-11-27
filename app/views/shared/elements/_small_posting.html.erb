@@ -47,7 +47,7 @@
     <%= link_to strip_and_cut(element.content, 300), posting_path(element), :class => "link_to_text" %>
     </div>
     <% unless element.view_count == 0 %>
-    <div class="inline">(<%= pluralize( element.view_count, 'view')  %>)</div>
+    <div class="inline">(<%= pluralize( element.view_count, views_str)  %>)</div>
     <% end %>
     <% if element.access == Posting::PRIVATE %>
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
