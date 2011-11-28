@@ -1,0 +1,12 @@
+<% return nil unless @board %>
+<div class="clearfix">
+<%= form_tag home_path, :method => :get, :id => "tab_board_post_search", :remote => true do %>
+<%= render 'schools/tab_calendar' %>
+<div class="field">
+<%= label_tag :search, "Search Criteria" %><br />
+<%= text_field_tag :search, params[:search] %>
+</div>
+<%= hidden_field_tag 'act', 'post_search' %>
+<%= submit_tag "Search board", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
+<% end %>
+</div>

@@ -1,0 +1,22 @@
+<!-- SECOND LEVEL SERVICE BUTTONS -->
+<div id="second_level_btns">
+<!-- %= render 'home/second_level_btns' % -->
+</div> <!-- end of second_level_btns -->
+<!-- END OF SECOND LEVEL SERVICE BUTTONS -->
+
+<!-- FIRST LEVEL SERVICE BUTTONS -->
+<% if params[:act] == 'calendar' %>
+<div class="first_menu_button selected">
+<% else %>
+<div class="first_menu_button">
+<% end %>
+<%= link_to 'CALENDAR', school_path(@school)+'?act=calendar', :title => "Show event calendar", :disable_with => "Loading..." %>
+</div>
+
+<% if params[:act] == 'add_school' %>
+<div class="second_menu_button selected">
+<% else %>
+<div class="second_menu_button">
+<% end %>
+<%= link_to 'ADD', school_path(@school)+'?act=add_school', :title => "Add school to your profile", :disable_with => "Loading..." %>
+</div>

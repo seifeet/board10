@@ -1,0 +1,7 @@
+<% if current_user.has_school?(@school.id) %>
+<b>This school is already linked to your profile.</b>
+<% else %>
+Linking a school to your profile will allow you to recieve public posts from the boards that linked to that school.<br />
+Whould you like to add this school to your profile?<br /><br /> 
+<%= render 'user_schools/btn_add_school', :school => @school %>
+<% end %>

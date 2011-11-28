@@ -1,0 +1,3 @@
+<% return nil if current_user.nil? %>
+
+<%= render 'shared/containers/page_container', :page_container => @postings %>

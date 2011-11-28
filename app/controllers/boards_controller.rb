@@ -116,7 +116,7 @@ class BoardsController < ApplicationController
     end
     
     # logger.debug "\n\n After postings \n\n\n"
-    @title = @user.full_name
+    @title = @board.title
     
     @members = @board.members.order('created_at ASC')
     

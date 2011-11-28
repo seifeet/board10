@@ -1,0 +1,9 @@
+<% if !params[:act].nil? %>
+
+	<% if params[:act] == 'add_school' %>
+	<div class="tab_add_school"><%= render 'schools/tab_add_school' %></div>
+	<% elsif params[:act] == 'calendar' %>
+	<div class="action_tab"><%= render 'schools/tab_board_post_search' %></div>
+	<% end %>
+
+<% end %>

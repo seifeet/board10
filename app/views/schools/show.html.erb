@@ -1,8 +1,45 @@
-<div id="school_content">
-<p id="notice"><%= notice %></p>
-<%= link_to @school.name, @school.url, :confirm => "You will be redirected to the #{@school.name} website\n(#{@school.url}).\nAre you sure?" %>
-<br />
-<%= @school.location %>
-<br />
-<%= link_to 'Back', :back, :class => "button_neutral" %>
+<div id="user_title_nav">
+<div id="whatsNew">
+  <!-- div class="background_write">What's new?</div -->
+  <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
 </div>
+<div id="school_boards">
+  <%= render 'schools/school_boards' %>
+</div>
+</div>
+
+<div id="title">
+<%= render 'schools/title' %>
+</div>
+
+<div id="right_side_and_main">
+
+<div id='main_part'>
+
+<div class="home_sub_title clearfix">
+<%= render 'home/home_sub_title' %>
+</div>
+
+<div class="sub_title_nav clearfix">
+<!-- %= render 'home/sub_title_nav' % -->
+</div>
+
+<div id="user_postings" class="clearfix">
+<%= render 'schools/school_postings' %>
+</div> <!-- close user_postings -->
+
+</div> <!-- close main_part -->
+
+<div id="right_side_act">
+
+<div class="info_note">
+<%= render "home/info" %>
+</div>
+<div id="title_top_action" >
+<%= render 'schools/title_top_action' %>
+</div>
+
+</div><!-- end of right_side_act -->
+
+</div><!-- right_side_and_main -->
+

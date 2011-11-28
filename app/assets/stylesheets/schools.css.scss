@@ -2,12 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#school_content{
-    position:relative;
-    width: 20%;
-    margin: 2px auto;
-    background:$bglighten50; 
-    border:3px solid $backgrnd;
-    padding:30px;
-    border-radius: 25px;
+#school_boards{
+  float:right;
+  width:80%;
+  background-color: $backgrnd;
+  margin: 0.5em;
+  padding: 1em 1em;
+  @include rounded-corners(20px);
+  border:2px solid $bgdarken20;
 }

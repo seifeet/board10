@@ -360,6 +360,7 @@ a.secondary_menu_button.selected,
     background:$bglighten50;
     margin:5px;
     padding:5px;
+    color:$bgdarken40;
     @include rounded-corners(15px);
 }
 .note a{

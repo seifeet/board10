@@ -1,0 +1,32 @@
+<% if !params[:page].nil? %>
+    $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
+
+<% elsif params[:act] == 'cancel' %>
+    $("#title_top_action").html("");
+    $("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
+
+<% elsif !params[:act].nil? %>
+        
+    <% if params[:act] == 'messages' %>
+        $("#title_top_action").html("");
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");
+        $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
+        document.title = "My Messages";
+        
+    <% elsif params[:act] == 'add_school' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'schools/tab_add_school') %>");
+        $("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
+        document.title = "Add school";
+
+    <% elsif params[:act] == 'calendar' %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");
+    	$("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'schools/tab_board_post_search') %>");
+        document.title = "School Calendar";
+    <% end %>
+
+<% end %>
+
+$(".logo_messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+$(".loading").html("");

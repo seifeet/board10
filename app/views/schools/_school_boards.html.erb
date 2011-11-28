@@ -1,0 +1,8 @@
+<div class="background_write_2">School Boards</div>
+<%
+  if params[:school_id]
+  	@school = School.find_board(params[:school_id])
+    @school_boards = @school.boards.order('created_at ASC') if @school
+  end
+%>
+<%= render 'shared/containers/small_container', :container => @school_boards, :action => '' %>
