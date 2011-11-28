@@ -17,7 +17,11 @@
 	    <%= render 'home/check_new_msg' %>
 	</div>
     <%= link_to 'Settings', edit_link %>
+    <% if request.fullpath =~ /\/home?/ %>
+    <%= link_to "<font color=white>Home</font>".html_safe, home_path %>
+    <% else %>
     <%= link_to 'Home', home_path %>
+    <% end %>
     <%= link_to 'Boardten team', board_path(10), :confirm => 'Our board has to be number 10!' %>
 </div>
 <% 
