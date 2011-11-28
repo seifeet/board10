@@ -53,7 +53,7 @@ class BoardsController < ApplicationController
         end
         @postings = Posting.search(params[:search],params[:date])
 
-      elsif params[:act] == 'invite'
+      elsif params[:act] == 'invite' && current_user.owner?( @board )
         logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
         @postings_title = "Search people:"

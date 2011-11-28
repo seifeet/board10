@@ -5,7 +5,7 @@
 # passing hidden arguments to it. After completion the controller copy passed arguments
 # and pass them back, so we can refresh the results of the search.
 if @postings.nil?
-	if params[:act] == 'invite'
+	if params[:act] == 'invite' && current_user.owner?( @board )
 	  @board = Board.find_board(params[:board]) if @board.nil?
 	  @postings = User.search(params[:search])
 	elsif params[:act] == 'board_search'

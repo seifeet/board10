@@ -3,9 +3,11 @@
   <!-- div class="background_write">What's new?</div -->
   <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
 </div>
+<% if current_user.member?( @board ) %>
 <div id="members">
   <%= render 'boards/members' %>
 </div>
+<% end %>
 </div>
 
 <div id="title">

@@ -10,10 +10,12 @@ $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>"
 	$("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
 	<% end %>
 <% end %>
+<% elsif session[:return_to] =~ /\/boards\// %>
+$("#title_top_action").html("");
+<% end %>
+
 <% if flash.any? || !notice.nil? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% end %>
-<% end %>
-
 $(".logo_messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");
 $(".loading").html("");

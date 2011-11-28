@@ -47,6 +47,16 @@
         $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_invite_search') %>");
         $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
         document.title = "Invite people";
+    
+    <% elsif params[:act] == 'join' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_join') %>");
+        $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
+        document.title = "Join board";
+    
+    <% elsif params[:act] == 'follow' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_follow') %>");
+        $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
+        document.title = "Follow board";
         
     <% elsif params[:act] == 'write' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");

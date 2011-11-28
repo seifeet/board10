@@ -8,6 +8,10 @@
 	<div class="action_tab"><%= render 'home/new_board_form' %></div>
 	<% elsif ( params[:act] == 'add_event' || params[:act] == 'edit_event' ) && params[:subact] != 'cancel' %>
 	<div id="tab_new_event"><%= render 'home/tab_new_event' %></div>
+	<% elsif params[:act] == 'join' %>
+	<div class="tab_join"><%= render 'boards/tab_join' %></div>
+	<% elsif params[:act] == 'follow' %>
+	<div class="tab_follow"><%= render 'boards/tab_follow' %></div>
 	<% elsif params[:act] == 'calendar' %>
 	<div class="action_tab"><%= render 'boards/tab_board_post_search' %></div>
 	<% end %>

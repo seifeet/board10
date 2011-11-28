@@ -1,6 +1,9 @@
 <% if session[:return_to] =~ /\/home?/ %>
 $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
+<% elsif session[:return_to] =~ /\/boards\// %>
+$("#title_top_action").html("");
+<% end %>
+
 <% if flash.any? || !notice.nil? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
-<% end %>
 <% end %>

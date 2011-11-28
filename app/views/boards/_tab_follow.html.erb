@@ -1,0 +1,22 @@
+<% if @board.active? %>
+<% if current_user.follower?(@board) %>
+   <b>This board is already linked to your profile.</b>
+<% else %>
+    <% if @board.access == Posting::PRIVATE %>
+    This is a public board. However, the members of the board also can post private messages that you will not be able to see. You do not need owner's permission to follow the board.
+    <% else %>
+    This is a private board. Follow will allow you to recieve only public posts. You do not need owner's permission to follow the board, but you will not be able to post on it.
+    <% end %>
+    <br /><br />Please press the <b>Follow</b> button bellow to confirm:<br />
+	<div class="inline">
+	<%= form_for current_user.members.build(:board_id => @board.id), :class => "submitable", :remote => true do |f| %>
+	  <%= f.hidden_field :board_id %>
+	  <%= f.hidden_field :user_id, :value => current_user.id %>
+	  <%= f.hidden_field :search, :value => params[:search] %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing...", :title => "Follow this board" %>
+	<% end %>
+	</div>
+<% end %>
+<% else %>
+   <b>This board is inactive.</b>
+<% end %>

@@ -21,6 +21,31 @@
 <% end %>
 <%= link_to 'WRITE', board_path(@board)+'?act=write', :title => "Post on your board", :disable_with => "Loading..." %>
 </div>
+<% 
+   elsif @board.active? # show JOIN buttons
+   	@join = true
+%>
+<% if params[:act] == 'join' %>
+<div class="second_menu_button selected">
+<% else %>
+<div class="second_menu_button">
+<% end %>
+<%= link_to 'JOIN', board_path(@board)+'?act=join',
+    :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board.", 
+    :disable_with => "Loading..." %>
+</div>
+<% if params[:act] == 'follow' %>
+<div class="third_menu_button selected">
+<% else %>
+<div class="third_menu_button">
+<% end %>
+<%= link_to 'FOLLOW', board_path(@board)+'?act=follow', 
+    :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards.",
+    :disable_with => "Loading..." %>
+</div>
+<% end %>
+
+<% if current_user.owner?(@board) %>
 <% if params[:act] == 'invite' %>
 <div class="third_menu_button selected">
 <% else %>
@@ -28,15 +53,33 @@
 <% end %>
 <%= link_to 'INVITE', board_path(@board)+'?act=invite', :title => "Invite to your board", :disable_with => "Loading..." %>
 </div>
-<% end %>
-
-<% if current_user.owner?(@board) %>
 <% if params[:act] == 'edit_board' %>
 <div class="fourth_menu_button selected">
 <% else %>
 <div class="fourth_menu_button">
 <% end %>
 <%= link_to 'EDIT', board_path(@board)+'?act=edit_board', :title => "Edit your board", :disable_with => "Loading..." %>
+</div>
+<% 
+  elsif @board.active? && !@join && !current_user.member?(@board) # show JOIN buttons if the were not show in the previous step
+%>
+<% if params[:act] == 'join' %>
+<div class="third_menu_button selected">
+<% else %>
+<div class="third_menu_button">
+<% end %>
+<%= link_to 'JOIN', board_path(@board)+'?act=join',
+:title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board.",
+:disable_with => "Loading..." %>
+</div>
+<% if params[:act] == 'follow' %>
+<div class="fourth_menu_button selected">
+<% else %>
+<div class="fourth_menu_button">
+<% end %>
+<%= link_to 'FOLLOW', board_path(@board)+'?act=follow', 
+    :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards.", 
+    :disable_with => "Loading..." %>
 </div>
 
 <% end %>
