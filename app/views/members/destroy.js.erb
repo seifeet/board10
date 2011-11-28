@@ -3,6 +3,8 @@ $("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user =
 	<% if current_user.boards.count <= max_num_boards %>
 	$("#title_print_boards").html("<%= escape_javascript( render 'home/title_print_boards' ) %>");
 	<% end %>
+<% elsif session[:return_to] =~ /\/boards\// %>
+$("#members").html("<%= escape_javascript( render 'boards/members' ) %>");
 <% end %>
 
 $(".loading").html("");

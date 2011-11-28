@@ -22,5 +22,8 @@ if @postings.nil?
 	end
 end
 %>
-
+<% if !@messages.nil? %>
+<%= render 'home/messages' %>
+<% else %>
 <%= render 'shared/containers/page_container', :page_container => @postings %>
+<% end %>

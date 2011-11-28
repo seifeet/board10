@@ -132,6 +132,7 @@ class MembersController < ApplicationController
   # DELETE /members/1.json
   def destroy
     @member = Member.find(params[:id])
+    params[:board_id] = @member.board if @member
     @member.destroy
 
     respond_to do |format|

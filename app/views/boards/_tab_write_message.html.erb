@@ -24,7 +24,7 @@
 </script>
 <% end %>
 <div class="close_button clearfix clickable">
-    <%= link_to "Close", board_path(@board), :title => "Close Messages", :disable_with => "Closing..." %>
+    <%= link_to "Close", board_path(@board)+"?act=cancel", :title => "Close Messages", :disable_with => "Closing..." %>
     <% if !params[:subact].nil? %>
         <% if params[:subact] == 'advanced' %>
         <%= link_to "Simple", board_path(@board) + "?act=write&subact=simple", :title => "Switch to simple editing", :disable_with => "Loading..." %>

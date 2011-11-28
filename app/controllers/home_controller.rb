@@ -17,7 +17,9 @@ class HomeController < ApplicationController
     #    Time.now.utc - (i*hours_back).hours, Time.now.utc - (i*days_back).days).limit(10)
     #  i += 1
     #end while @level_ups.count < 10 && i < 30
-    @level_ups = Vote.level_ups.limit(20)
+    
+    # let's make it less often for now
+    @level_ups = Vote.level_ups.limit(20) if params[:act] == 'boards'
     
     # ACTIONS
     if !params[:act].nil?

@@ -1,0 +1,8 @@
+<div class="background_write_2">Members</div>
+<%
+  if params[:board_id]
+  	@board = Board.find_board(params[:board_id])
+    @members = @board.members.order('created_at ASC') if @board
+  end
+%>
+<%= render 'shared/containers/small_container', :container => @members, :action => 'ban' %>

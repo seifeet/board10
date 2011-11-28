@@ -21,9 +21,6 @@
 <% end %>
 <%= link_to 'WRITE', board_path(@board)+'?act=write', :title => "Post on your board", :disable_with => "Loading..." %>
 </div>
-<% end %>
-
-<% if current_user.owner?(@board) %>
 <% if params[:act] == 'invite' %>
 <div class="third_menu_button selected">
 <% else %>
@@ -31,7 +28,9 @@
 <% end %>
 <%= link_to 'INVITE', board_path(@board)+'?act=invite', :title => "Invite to your board", :disable_with => "Loading..." %>
 </div>
+<% end %>
 
+<% if current_user.owner?(@board) %>
 <% if params[:act] == 'edit_board' %>
 <div class="fourth_menu_button selected">
 <% else %>

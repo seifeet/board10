@@ -1,4 +1,6 @@
-<% if !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
+<% if !params[:act].nil? && params[:act] == 'messages' %>
+Messages
+<% elsif !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
 <div class="board_title float_left">
 <%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
 </div>
@@ -12,8 +14,7 @@
 <div class="autorefresh_link float_right refreshable">
 <%= render 'home/autorefresh_link', :element => @school %>
 </div>
-<% elsif !params[:act].nil? && params[:act] == 'messages' %>
-Messages
+
 <% else %>
 <div class="float_left clickable">
 <%= @postings_title %>

@@ -1,4 +1,4 @@
-<h2><strong><%= @board.title %></strong></h2>
+<h2><strong><%= @board.title %></strong></h2> 
 Owner: <%= @board.owner.full_name %>
 <% if @board.school_id %>
 <% school = School.find_school(@board.school_id) %>
@@ -8,3 +8,21 @@ Owner: <%= @board.owner.full_name %>
 <% end %>
 <p><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, views_str) %></b>
 <br /><%= @board.description %><br />
+<div class="inline_right">
+<% if @board.active? && current_user.owner?(@board) %>
+<%= button_to 'Delete Board', current_user.boards.find_board(@board.id),
+     confirm: "Do you want to delete Board \"#{@board.title}\"?", 
+     :class => "button_reject", :disable_with => 'Deleting...',
+     method: :delete, :remote => true,
+     :title => "Delete Board \"#{@board.title}\"" %>
+<% elsif @board.active? && current_user.follower?(@board) %>
+<%= button_to 'Leave Board', current_user.members.find_by_board_id(@board.id),
+     confirm: "Do you want to leave this Board \"#{@board.title}\"?", 
+     :class => "button_reject", :disable_with => 'Deleting...',
+     method: :delete, :remote => true,
+     :title => "Leave Board \"#{@board.title}\"" %>
+<%= render 'votes/vote_btn', :element => @board %>
+<% else %>
+<%= render 'votes/vote_btn', :element => @board %>
+<% end %>
+</div>

@@ -1,9 +1,11 @@
 <% user = User.find_user(element.user_id) %>
 <% return nil if user.nil? %>
-<div class="inline"><%= link_to user.full_name, user %></div>
 
+<% owner = user.owner?(@board) %>
+<% member = user.member?(@board) unless owner %>
 <% if @board.active? %>
-<div class="inline">
+<div class="link_with_btn">
+<div class="link_btn">
 <% if action == 'invite' %>
 	<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
 	  <%= f.hidden_field :board_id, :value => @board.id %>
@@ -12,17 +14,31 @@
 	  <%= f.submit "#{Message::Commit::INVITE}", :class => "button_confirm" %>
 	<% end %>
 <% elsif action == 'ban' %>
-	<% if user.owner?(@board)%>
-	Owner
-	<% elsif user.member?(@board) %>
-	<%= form_for @board.members.find_by_user_id(user.id), :html => { :method => :delete } do |f| %>
-	  <%= f.submit "Ban #{user.full_name}", :class => "button_reject" %>
-	<% end %>
-	<% else %>
-	Follower
+	<% if member %>
+	<%= button_to 'x', @board.members.find_by_user_id(user.id),
+         confirm: "Do you want to ban #{user.full_name}?", 
+         :class => "button_reject", :disable_with => 'x...',
+         method: :delete, :remote => true,
+         :title => "Ban #{user.full_name}" %>
 	<% end %>
 
 <% end %>
 </div>
+<% if owner %>
+<div class="inline"><%= link_to user.full_name, user %> (Owenr)</div>
+<% elsif member %>
+<div class="inline"><%= link_to user.full_name, user %> (Member)</div>
+<% else %>
+<div class="inline"><%= link_to user.full_name, user %> (Follower)</div>
+<% end %>
+</div>
+<% else %>
+<% if owner %>
+<div class="inline"><%= link_to user.full_name, user %> (Owenr)</div>
+<% elsif member %>
+<div class="inline"><%= link_to user.full_name, user %> (Member)</div>
+<% else %>
+<div class="inline"><%= link_to user.full_name, user %> (Follower)</div>
+<% end %>
 <% end %>
 <br class="clearBoth" />

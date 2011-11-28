@@ -1,7 +1,7 @@
 <% if !current_user.nil? %>
 <% if current_user.recieved.unread.any? %>
-<%= link_to "<font color=red>Incoming... (#{current_user.recieved.unread.count} new)</font>".html_safe, home_path + '?act=messages' %>
+<%= link_to "<font color=red>Incoming... (#{current_user.recieved.unread.count} new)</font>".html_safe, :act => 'messages' %>
 <% else %>
-<%= link_to "Messages", home_path + '?act=messages' %>
+<%= link_to "Messages", {:act => 'messages'} %>
 <% end %>
 <% end %>

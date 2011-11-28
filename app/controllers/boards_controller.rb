@@ -33,11 +33,8 @@ class BoardsController < ApplicationController
     
     # ACTIONS
     if !params[:act].nil?
-      if params[:act] == 'board_search'
-        logger.debug "---------------------params[:act] == 'board_search'------------------------------------"
-        @postings_title = "Search results for boards:"
-        @postings = Board.search(params[:search])
-        
+      if params[:act] ==  'cancel'
+        # don't do anything
       elsif params[:act] == 'edit_board'
         logger.debug "---------------------params[:act] == 'edit_board'------------------------------------"
         @new_board = @board if current_user.owner?( @board )
@@ -59,6 +56,7 @@ class BoardsController < ApplicationController
       elsif params[:act] == 'invite'
         logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
+        @postings_title = "Search people:"
 
       elsif params[:act] == 'messages'
         logger.debug "-----------------------params[:act] == 'messages'----------------------------------"
@@ -71,23 +69,7 @@ class BoardsController < ApplicationController
       end
     end
     
-    if !params[:school].nil?
-      logger.debug "-------------------------!params[:school].nil?--------------------------------"
-      @date = valid_date_or_today(params[:date])
-      @school = School.find_school(params[:school])
-      if params[:subact] != 'events_only'
-        if @school && params[:date]
-          @postings = paginate_school_postings_on_date(@school, @date)
-        elsif @school
-          @postings = paginate_school_postings @school
-        end 
-      end
-      #if params[:subact] == 'calendar' || params[:subact] == 'events_only'
-        @events = Array.new
-        school_events = @school.postings.public_posts.scheduled_events
-        set_events_and_posts school_events
-      #end
-    elsif @postings.nil? && @messages.nil?
+    if @postings.nil? && @messages.nil?
       logger.debug "------------------------@postings.nil? && @messages.nil?---------------------------------"
       @date = valid_date_or_today(params[:date])
       if !@board.nil? && params[:act] != 'invite' && params[:act] != 'edit_event'
@@ -107,6 +89,9 @@ class BoardsController < ApplicationController
         end
       end
     end
+    
+    # Autorefresh form
+    @autorefresh = Posting.new
     
     # FORM FOR POSITNGS
     @posting_form = Posting.new
@@ -244,15 +229,7 @@ class BoardsController < ApplicationController
   end
 
   private
-  
-  def paginate_school_postings school
-    require 'will_paginate/array'
-    all_postings = school_postings school
-    if !all_postings.nil? && !all_postings.empty?
-     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
-    end
-  end
-  
+ 
   def set_events_and_posts events
     events.each do |posting|
       if future_events = posting.get_future_events_for_month(@date.beginning_of_month)

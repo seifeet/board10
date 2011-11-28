@@ -18,7 +18,7 @@
 <%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
   <%= f.hidden_field :board_id, :value => @board.id %>
   <%= f.hidden_field :to_user, :value => element.id %>
-  <%= f.text_area :content, :rows => 4, :cols => 33, :value => "Hi!\nI would like to invite you to my board.\nThank you!" %>
+  <%= f.text_area :content, :rows => 4, :cols => 33, :value => "Hi!\nI would like to invite you to this board.\nThank you!" %>
   <%= f.submit "#{Message::Commit::INVITE}", :class => "button_confirm" %>
 <% end %>	
 </div>

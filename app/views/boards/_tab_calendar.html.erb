@@ -8,9 +8,9 @@
 <% if @posting || @school %>
 <div class="close_button clearfix clickable">
 <% if board_id %>
-<%= link_to "Close", board_path(@board)+"?board=#{board_id}", :title => "Close Calendar", :disable_with => "Closing..." %>
+<%= link_to "Close", board_path(board_id)+"?board=#{board_id}", :title => "Close Calendar", :disable_with => "Closing..." %>
 <% else %>
-<%= link_to "Close", board_path(@board)+"?school=#{@school.id}", :title => "Close Calendar", :disable_with => "Closing..." %>
+<%= link_to "Close", board_path(board_id)+"?school=#{@school.id}", :title => "Close Calendar", :disable_with => "Closing..." %>
 <% end %>
 </div>
 <% end %>
