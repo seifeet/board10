@@ -5,35 +5,40 @@
 <!-- END OF SECOND LEVEL SERVICE BUTTONS -->
 
 <!-- FIRST LEVEL SERVICE BUTTONS -->
-<% if params[:act] == 'edit_board' %>
+<% if params[:act] == 'calendar' %>
 <div class="first_menu_button selected">
 <% else %>
 <div class="first_menu_button">
 <% end %>
-<%= link_to 'EDIT', board_path(@board)+'?act=edit_board', :title => "Edit your board", :disable_with => "Loading..." %>
+<%= link_to 'CALENDAR', board_path(@board)+'?act=calendar', :title => "Show event calendar", :disable_with => "Loading..." %>
 </div>
 
-<% if params[:act] == 'invite' %>
+<% if @board.access == Posting::PUBLIC || current_user.member?(@board) %>
+<% if params[:act] == 'write' %>
 <div class="second_menu_button selected">
 <% else %>
 <div class="second_menu_button">
 <% end %>
-<%= link_to 'INVITE', board_path(@board)+'?act=invite', :title => "Invite to your board", :disable_with => "Loading..." %>
+<%= link_to 'WRITE', board_path(@board)+'?act=write', :title => "Post on your board", :disable_with => "Loading..." %>
 </div>
+<% end %>
 
-<% if params[:act] == 'write' %>
+<% if current_user.owner?(@board) %>
+<% if params[:act] == 'invite' %>
 <div class="third_menu_button selected">
 <% else %>
 <div class="third_menu_button">
 <% end %>
-<%= link_to 'WRITE', board_path(@board)+'?act=write', :title => "Post on your board", :disable_with => "Loading..." %>
+<%= link_to 'INVITE', board_path(@board)+'?act=invite', :title => "Invite to your board", :disable_with => "Loading..." %>
 </div>
 
-<% if params[:act] == 'empty' %>
+<% if params[:act] == 'edit_board' %>
 <div class="fourth_menu_button selected">
 <% else %>
 <div class="fourth_menu_button">
 <% end %>
-<%= link_to 'CALENDAR', board_path(@board)+'?act=calendar', :title => "Show event calendar", :disable_with => "Loading..." %>
+<%= link_to 'EDIT', board_path(@board)+'?act=edit_board', :title => "Edit your board", :disable_with => "Loading..." %>
 </div>
+
+<% end %>
 <!-- END OF FIRST LEVEL SERVICE BUTTONS -->

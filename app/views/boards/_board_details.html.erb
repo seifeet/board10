@@ -1,9 +1,10 @@
-<h2 align="center"><strong><%= @board.title %></strong></h2>
+<h2><strong><%= @board.title %></strong></h2>
+Owner: <%= @board.owner.full_name %>
 <% if @board.school_id %>
 <% school = School.find_school(@board.school_id) %>
 <% if school %>
-<p align="center"><b>Linked to <%= school.name %></b></p>
+<p><b>Linked to <%= school.name %></b></p>
 <% end %>
 <% end %>
-<p align="center"><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, views_str) %></b>
+<p><b><%= @board.status %> <%= @board.access %> Board, <%= pluralize(@board.view_count, views_str) %></b>
 <br /><%= @board.description %><br />

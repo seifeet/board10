@@ -40,8 +40,7 @@ class BoardsController < ApplicationController
         
       elsif params[:act] == 'edit_board'
         logger.debug "---------------------params[:act] == 'edit_board'------------------------------------"
-        @new_board = Board.find_board(params[:board])
-        @new_board = nil unless current_user.owner?( @new_board )
+        @new_board = @board if current_user.owner?( @board )
         @postings_title = "Edit Board:"
 
       elsif params[:act] == 'post_search'
@@ -118,7 +117,7 @@ class BoardsController < ApplicationController
       @new_event.build_scheduled_event
     elsif params[:act] == 'edit_event'
       logger.debug "---------------------------params[:act] == 'edit_event'------------------------------"
-      edit_event = Posting.find_posting(params[:id])
+      edit_event = Posting.find_posting(params[:event_id])
       if edit_event && current_user.id == edit_event.user_id
         @new_event = edit_event
       end

@@ -8,7 +8,13 @@ $('#from_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% end %>
 <% if @posting && @posting.scheduled_event_id %>
+
+<% if session[:return_to] =~ /\/home?/ %>
 $('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
+<% elsif session[:return_to] =~ /\/boards\// %>
+$('#title_top_action').html("<%= escape_javascript(render 'boards/tab_calendar', :posting => @posting)%>");
+<% end %>
+
 <% end %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% end %>

@@ -8,7 +8,7 @@ class School < ActiveRecord::Base
   validates :city, :presence => true, :length   => { :maximum => 150 }
   validates :name, :presence => true
   
-  default_scope :order => 'name ASC'
+  #default_scope :order => 'name ASC'
   
   def self.find_school school_id
     self.find(school_id)

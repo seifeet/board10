@@ -1,0 +1,11 @@
+<% if params[:act] == 'edit_event' && @posting %>
+	<% if current_user && current_user.owner?(@posting.board_id) %>
+    <div class="sub_menu_button clickable">
+    <%= link_to 'EDIT EVENT', board_path(@posting.board_id)+"?board=#{@posting.board_id}&act=edit_event&event_id=#{@posting.id}", :title => "Edit your event", :disable_with => "Loading..." %>
+	</div>
+	<% end %>
+<% elsif @board && current_user && current_user.owner?(@board) %>
+    <div class="sub_menu_button clickable">
+    <%= link_to 'ADD EVENT', board_path(@board.id)+"?board=#{@board.id}&act=add_event", :title => "Add a new event to your calendar", :disable_with => "Loading..." %>
+    </div>
+<% end %>

@@ -100,6 +100,13 @@ class Board < ActiveRecord::Base
     members.create!(:user_id => user.id, :member_type => Member::MemberType::MEMBER)
   end
   
+  def owner
+    owner = members.find_by_member_type(Member::MemberType::OWNER)
+    owner.user
+    rescue ActiveRecord::RecordNotFound
+    nil
+  end
+  
   def owner?(user_id)
     members.find_by_user_id_and_member_type(user_id,Member::MemberType::OWNER)
     rescue ActiveRecord::RecordNotFound
