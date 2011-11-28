@@ -1,19 +1,46 @@
-<%= notice %>
-
-<div id='user_content' class="clearfix">
-<%= link_to 'Back', :back, :class => "button_neutral" %>
-<div id="members">
-Member in boards:
-<%= render 'shared/containers/small_container', :container => @user.boards, :action => 'ban' %>
+<div id="user_title_nav">
+<div id="whatsNew">
+  <!-- div class="background_write">What's new?</div -->
+  <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
+</div>
+<div id="member_boards">
+  <%= render 'users/user_boards' %>
+</div>
 </div>
 
-<div class="user_sub_title">
-<%= @postings_title %>
-</div> <!-- close user_sub_title -->
+<div id="title">
+<!-- %= render 'users/title' % -->
+</div>
 
-<div id="user_postings">
-<%= render 'postings' %>
+<div id="right_side_and_main">
+
+<div id='main_part'>
+
+<div class="home_sub_title clearfix">
+<%= render 'home/home_sub_title' %>
+</div>
+
+<div class="sub_title_nav clearfix">
+<!-- %= render 'home/sub_title_nav' % -->
+</div>
+
+<div id="user_postings" class="clearfix">
+<%= render 'users/postings' %>
 </div> <!-- close user_postings -->
-</div> <!-- close user_content -->
+
+</div> <!-- close main_part -->
+
+<div id="right_side_act">
+
+<div class="info_note">
+<%= render "home/info" %>
+</div>
+<div id="title_top_action" >
+<!-- %= render 'users/title_top_action' % -->
+</div>
+
+</div><!-- end of right_side_act -->
+
+</div><!-- right_side_and_main -->
 
 

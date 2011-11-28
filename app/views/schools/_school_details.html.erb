@@ -1,4 +1,7 @@
+<div id="school_details">
 <%= link_to @school.name, @school.url, :confirm => "You will be redirected to the #{@school.name} website as we found it on name.com.\nThe URL of the website: #{@school.url}.\nAre you sure?" %>
 <br />
-<%= @school.location %>
-<br />
+<%= link_to @school.location, @school.url, :confirm => "You will be redirected to the #{@school.name} website as we found it on name.com.\nThe URL of the website: #{@school.url}.\nAre you sure?" %>
+</div>
+
+ 

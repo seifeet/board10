@@ -23,15 +23,17 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     store_location
+    
+    @level_ups = Vote.level_ups.limit(20)
 
     @user = User.find_user(params[:id])
     raise ActiveRecord::RecordNotFound if ( @user.nil? )
 
     if current_user.id == @user.id
-      @postings_title = "Recent Posts:"
+      @postings_title = "Recent posts:"
       @postings = @user.postings.paginate(:page => params[:page], :per_page => per_page )
     else
-      @postings_title = @user.first_name + "'s Public Posts:"
+      @postings_title = @user.first_name + "'s public posts:"
       @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page )
     end
     

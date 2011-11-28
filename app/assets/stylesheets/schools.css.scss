@@ -4,10 +4,20 @@
 
 #school_boards{
   float:right;
-  width:80%;
+  width:85%;
   background-color: $backgrnd;
   margin: 0.5em;
   padding: 1em 1em;
   @include rounded-corners(20px);
   border:2px solid $bgdarken20;
+}
+
+#school_details{
+  font-size:xx-large;
+}
+
+#school_details a{
+  font-size:xx-large;
+  text-decoration:none;
+  color:white;
 }

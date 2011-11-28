@@ -4,7 +4,12 @@
 <% elsif params[:act] == 'cancel' %>
     $("#title_top_action").html("");
     $("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
-
+    
+<% elsif params[:subact] == 'events_only' %>
+    $("#title_top_action").html("<%= escape_javascript(render 'schools/tab_calendar') %>");
+    $("#user_postings").html("<%= escape_javascript(render 'schools/school_postings') %>");
+    document.title = "School Events";
+    
 <% elsif !params[:act].nil? %>
         
     <% if params[:act] == 'messages' %>
@@ -21,10 +26,15 @@
     <% elsif params[:act] == 'calendar' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");
     	$("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
-        $("#title_top_action").html("<%= escape_javascript(render 'schools/tab_board_post_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'schools/tab_calendar') %>");
+        $("#user_postings").html("<%= escape_javascript(render 'schools/school_postings') %>");
         document.title = "School Calendar";
     <% end %>
 
+<% else %>
+   $("#title_top_action").html("");
+   $("#main_menu").html("<%= escape_javascript(render 'schools/title_main_menu') %>");
+   $("#user_postings").html("<%= escape_javascript(render 'schools/school_postings') %>");
 <% end %>
 
 $(".logo_messages").html("<%= escape_javascript( render 'home/check_new_msg' ) %>");

@@ -8,6 +8,9 @@
     <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
     </div>
     <% elsif params[:school] || params[:date] %>
+    <div class="sub_menu_button">
+    <%= link_to 'SHOW', school_path(params[:school]), :title => "Show this school", :disable_with => "Loading..." %>
+    </div>
     <% if params[:subact] == 'calendar' || params[:date] %> 
     <div class="sub_menu_button clickable selected"> 
     <% else %> 

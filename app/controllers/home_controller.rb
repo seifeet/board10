@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     #end while @level_ups.count < 10 && i < 30
     
     # let's make it less often for now
-    @level_ups = Vote.level_ups.limit(20) if params[:act] == 'boards'
+    @level_ups = Vote.level_ups.limit(10)
     
     # ACTIONS
     if !params[:act].nil?

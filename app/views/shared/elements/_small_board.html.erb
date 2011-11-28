@@ -8,8 +8,11 @@
 <% user = User.find_user(owner.user_id) %>
 <% end %>
 <% if user %>
-	<div class="inline">(<%= user.full_name %>)</div>
-	<% if element.active? && !current_user.member?(element) %>
+	<div class="inline">(Owner: <%= user.full_name %>)</div>
+	<% # not a good thing, but I have to do that for the sake of simplicity
+	message_subj = "Join request for board \"#{element.title}\"" 
+	%>
+	<% if element.active? && !current_user.member?(element) && !user.recieved.join_requests.unread.where("from_user = ? and subject = ?", current_user.id, message_subj).any? %>
 	<div class="inline_right">
 	<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
 	  <%= f.hidden_field :to_user, :value => owner.user_id %>
