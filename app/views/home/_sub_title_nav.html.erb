@@ -1,6 +1,6 @@
 <% if !params[:school].nil? || params[:act] == 'schools' || params[:act] == 'school_search' %>
     <% if params[:act] == 'schools' || params[:act] == 'school_search' %>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'school_search') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'school_search' && params[:subact] != 'cancel') %>">
     <%= link_to 'ADD', home_path+"?act=school_search", :class => 'tips', :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
     </div>
     <% elsif params[:school] || params[:date] %>
@@ -13,10 +13,10 @@
     <% end %>
     
 <% elsif params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' %>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'board_search') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'board_search' && params[:subact] != 'cancel') %>">
     <%= link_to 'JOIN', home_path+"?act=board_search", :class => 'tips', :title => "Search for boards and add them to your profile", :disable_with => "Loading..." %>
     </div>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'new_board') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'new_board' && params[:subact] != 'cancel') %>">
     <%= link_to 'NEW', home_path+"?act=new_board", :class => 'tips', :title => "Create a new board", :disable_with => "Loading..." %>
     </div>
 
@@ -49,11 +49,11 @@
     <% end %>
     
 <% elsif params[:act] == 'posts' || params[:act] == 'post_search' %>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'post_search') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'post_search' && params[:subact] != 'cancel') %>">
     <%= link_to 'FIND', home_path+"?act=post_search", :title => "Find posts", :class => 'tips', :disable_with => "Loading..." %>
     </div>
 <% elsif params[:act] == 'users' || params[:act] == 'user_search' %>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'user_search') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'user_search' && params[:subact] != 'cancel') %>">
     <%= link_to 'FIND', home_path+"?act=user_search", :title => "Find users", :class => 'tips', :disable_with => "Loading..." %>
     </div>
 <% 

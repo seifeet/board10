@@ -63,6 +63,16 @@ module ApplicationHelper
     #                                        :class => 'gravatar',
     #                                        :gravatar => options)
   end
+  
+  def output_with_html str, num = 0
+    tags = %w(a acronym b strong i em li ul ol h1 h2 h3 h4 h5 h6 blockquote br cite sub sup ins p)
+    text = sanitize(str, :tags => tags, :attributes => %w(href title))
+    if num != 0
+      truncate(text, :length => num)
+    end
+    text
+  end
+  
   def logo
     image_tag("logo.png", :alt => "Site Logo", :class => "round")
   end

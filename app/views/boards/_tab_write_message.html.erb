@@ -24,7 +24,7 @@
 </script>
 <% end %>
 <div class="close_button clearfix clickable">
-    <%= link_to "Close", board_path(@board)+"?act=cancel", :class => 'tips', :title => "Close Messages", :disable_with => "Closing..." %>
+    <%= link_to "Close", board_path(@board)+"?act=cancel", :class => 'tips', :title => "Close Messages", :disable_with => "Close" %>
     <% if !params[:subact].nil? %>
         <% if params[:subact] == 'advanced' %>
         <%= link_to "Simple", board_path(@board) + "?act=write&subact=simple", :class => 'tips', :title => "Switch to simple editing", :disable_with => "Loading..." %>
@@ -32,7 +32,7 @@
         <%= link_to "Advanced", board_path(@board) + "?act=write&subact=advanced", :class => 'tips', :title => "Switch to advanced editing", :disable_with => "Loading..." %>
         <% end %>
     <% else %>
-    <%= link_to "WYSIWYG Editor", board_path(@board) + "?act=write&subact=editor", :class => 'tips', :title => "Turn on post editing", :disable_with => "Loading..." %>
+    <%= link_to "Editor", board_path(@board) + "?act=write&subact=editor", :class => 'tips', :title => "Turn on rich editor", :disable_with => "Loading..." %>
     <% end %>
 </div>
 <div id="action_tab" class="clearfix">

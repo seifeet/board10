@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     @level_ups = Vote.level_ups.limit(10)
     
     # ACTIONS
-    if !params[:act].nil?
+    if !params[:act].nil? && params[:act] != 'cancel' 
       if params[:act] == 'boards'
         logger.debug "-----------------params[:act] == 'boards'----------------------------------------"
         # show all postings for all user's boards.

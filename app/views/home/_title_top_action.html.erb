@@ -1,27 +1,29 @@
-<% if params[:act].nil? %>
+<% if params[:act] == 'cancel' || params[:subact] == 'cancel' %>
+
+<% elsif params[:act].nil? %>
     <% if params[:board] %>
 	<div class="action_tab"><%= render 'home/tab_board_post_search' %></div>
 	<% elsif params[:school] && ( params[:subact] == 'calendar' || params[:date] ) %>
 	<div class="action_tab"><%= render 'home/tab_calendar' %></div>
 	<% end %>
 
-<% elsif !params[:act].nil? %>
+<% elsif !params[:act].nil? && params[:act] != 'cancel' && params[:subact] != 'cancel' %>
 
-	<% if params[:act] == 'school_search' && params[:subact] != 'cancel' %>
+	<% if params[:act] == 'school_search' %>
 	<div id="tab_school_search"><%= render 'home/tab_school_search' %></div>
-	<% elsif params[:act] == 'board_search' && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'board_search' %>
 	<div id="tab_board_search"><%= render 'home/tab_board_search' %></div>
-	<% elsif params[:act] == 'post_search' && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'post_search' %>
 	<div id="tab_post_search"><%= render 'home/tab_post_search' %></div>
-	<% elsif params[:act] == 'user_search' && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'user_search' %>
 	<div id="tab_user_search"><%= render 'home/tab_user_search' %></div>
-	<% elsif params[:act] == 'write' && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'write' %>
 	<%= render 'tab_write_message' %>
-	<% elsif params[:act] == 'invite' && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'invite' %>
 	<div id="tab_invite_search"><%= render 'home/tab_invite_search' %></div>
 	<% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
 	<div class="action_tab"><%= render 'home/new_board_form' %></div>
-	<% elsif ( params[:act] == 'add_event' || params[:act] == 'edit_event' ) && params[:subact] != 'cancel' %>
+	<% elsif params[:act] == 'add_event' || params[:act] == 'edit_event' %>
 	<div id="tab_new_event"><%= render 'home/tab_new_event' %></div>
 	<% elsif params[:act] == 'messages' %>
 	<% #nothing 

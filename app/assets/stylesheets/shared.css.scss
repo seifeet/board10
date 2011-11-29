@@ -256,9 +256,12 @@ a.link_delete_button {
 }
 
 .button_neutral,
-.close_button a,
 .action_button a{
     @include main-button( $bgdarken10 );
+}
+.close_button a{
+  float:right;
+  @include main-button( $bgdarken10 );
 }
 
 .clickable a{

@@ -28,6 +28,11 @@ end
 <% end %>
 </div>
 
+<% if @posting.scheduled_event_id %>
+<%= @posting.scheduled_event.description.html_safe %>
+<br />
+<% end %>
+
 <div class="posting_left_column clearfix">
     <% if !@posting.subject.nil? && !@posting.subject.empty? %>
     <div class="inline subject"><%= ( strip_and_cut(@posting.subject,120) ) %></div>
@@ -78,7 +83,7 @@ end
 <% max_content = 300 %>
 <div class="posting_right_column clearfix">
 	<div class="inline">
-    <%= strip_and_cut( @posting.content, max_content ) %>
+    <%= output_with_html( @posting.content, max_content ) %>
     </div>
     <% unless @posting.view_count == 0 %>
     <div class="inline"><%= pluralize( @posting.view_count, 'UP')  %></div>
@@ -92,12 +97,8 @@ end
 
 <% if @posting.content.length > max_content %>
 <p><b>Full content:</b><br />
-<%= @posting.content %>
+<%= output_with_html( @posting.content ) %>
 </p>
-<% end %>
-
-<% if @posting.scheduled_event_id %>
-It is an event and we need to add the details...<br />
 <% end %>
 
 <% if current_user && current_user.id != @posting.user_id %>
