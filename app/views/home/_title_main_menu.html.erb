@@ -6,35 +6,19 @@
 
 
 <!-- FIRST LEVEL SERVICE BUTTONS -->
-<% if params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
-<div class="first_menu_button selected">
-<% else %>
-<div class="first_menu_button">
-<% end %>
+<div class="first_menu_button <%= selected_if(params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil?) %>">
 <%= link_to 'SCHOOLS', home_path+'?act=schools', :title => "Open Schools Menu", :disable_with => "Loading..." %>
 </div>
 
-<% if params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
-<div class="second_menu_button selected">
-<% else %>
-<div class="second_menu_button">
-<% end %>
+<div class="second_menu_button <%= selected_if(params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil?) %>">
 <%= link_to 'BOARDS', home_path+'?act=boards', :title => "Open Boards Menu", :disable_with => "Loading..." %>
 </div>
 
-<% if params[:act] == 'posts' || params[:act] == 'post_search' %>
-<div class="third_menu_button selected">
-<% else %>
-<div class="third_menu_button">
-<% end %>
+<div class="third_menu_button <%= selected_if(params[:act] == 'posts' || params[:act] == 'post_search') %>">
 <%= link_to 'POSTS', home_path+'?act=posts', :title => "Open Posts Menu", :disable_with => "Loading..." %>
 </div>
 
-<% if params[:act] == 'users' || params[:act] == 'user_search' %>
-<div class="fourth_menu_button selected">
-<% else %>
-<div class="fourth_menu_button">
-<% end %>
+<div class="fourth_menu_button <%= selected_if(params[:act] == 'users' || params[:act] == 'user_search') %>">
 <%= link_to 'USERS', home_path+'?act=users', :title => "Open Users Menu", :disable_with => "Loading..." %>
 </div>
 <!-- END OF FIRST LEVEL SERVICE BUTTONS -->

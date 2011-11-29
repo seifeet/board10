@@ -13,13 +13,9 @@
     boards = ( all_boards.count > max_num_boards ?
     all_boards[0..max_num_boards-1] : all_boards )
     boards.each do |board|
-      if board.id.to_s == params[:board]
-          @current_board = board
+      @current_board = board if board.id.to_s == params[:board]
 %>
-<div class="link_with_btn secondary_menu_button selected">
-<%    else %>
-<div class="link_with_btn secondary_menu_button">
-<%    end %>
+    <div class="link_with_btn secondary_menu_button <%= selected_if(board.id.to_s == params[:board]) %>">
 	<div class="link_btn">
 	<% if owner = current_user.owner?(board) %>
 	<%= button_to 'x', current_user.boards.find_board(board.id),

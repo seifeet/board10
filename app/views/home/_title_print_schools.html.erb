@@ -19,13 +19,9 @@
     <div class="background_write">My Schools</div>
 <%
     schools.each do |school|
-       if school.id.to_s == params[:school]
-          @current_school = school 
+      @current_school = school if school.id.to_s == params[:school]
 %>
-    <div class="link_with_btn secondary_menu_button selected clearfix">
-<%     else %>
-    <div class="link_with_btn secondary_menu_button clearfix">
-<%     end %>
+    <div class="link_with_btn secondary_menu_button <%= selected_if(school.id.to_s == params[:school]) %> clearfix">
     <div class="link_btn">
     <%= button_to 'x', current_user.user_schools.find_by_school_id(school.id),
       :class => "button_reject", :disable_with => 'Deleting...',
@@ -64,7 +60,7 @@
 %>
     <div class="link_with_btn secondary_menu_button clearfix" >
     	<div class="link_btn">
-        <% if current_user.owner?(board) %>
+        <% if owner = current_user.owner?(board) %>
         <%= button_to 'x', current_user.boards.find_board(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject", :disable_with => 'Deleting...',
@@ -78,7 +74,7 @@
          :title => "Unlink Board \"#{board.title}\"" %>
         <% end %>
         </div>
-        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :title => "#{board_desc(board)}", :disable_with => "Loading..." %>
+        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :title => "#{board_desc(board, owner)}", :disable_with => "Loading..." %>
     </div>
 <%
         end # end of @current_school do-loop

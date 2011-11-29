@@ -15,8 +15,8 @@
       :title => "Unlink School \"#{school.name}\"" %>
      </div> 
      <%= link_to "#{strip_and_cut(school.name, 33)}", home_path + '?school=' + school.id.to_s,
-      :class => "secondary_menu_button #{ (school.id.to_s == params[:school] ) ? 'selected' : ''}", 
-      :title => "School: #{school.name}", :disable_with => "Loading..." %>
+      :class => "secondary_menu_button #{selected_if(school.id.to_s == params[:school])}", 
+      :title => "#{school_desc(school)}", :disable_with => "Loading..." %>
      </div>  
   <% end %>
 <% end %>

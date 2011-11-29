@@ -1,34 +1,18 @@
 <% if params[:act] == 'schools' || params[:act] == 'school_search' || !params[:school].nil? %>
-<% if params[:act] == 'school_search' %>
-<div class="search_first_menu_button selected">
-<% else %>
-<div class="search_first_menu_button">
-<% end %>
+<div class="search_first_menu_button <%= selected_if(params[:act] == 'school_search') %>">
 <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
 </div>
 
 <% elsif params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' || !params[:board].nil? %>
-<% if params[:act] == 'board_search' %>
-<div class="search_second_menu_button selected">
-<% else %>
-<div class="search_second_menu_button">
-<% end %>
+<div class="search_second_menu_button <%= selected_if(params[:act] == 'board_search') %>">
 <%= link_to 'JOIN', home_path+"?act=board_search", :title => "Search for boards and add them to your profile", :disable_with => "Loading..." %>
 </div>
-<% if params[:act] == 'new_board' %>
-<div class="new_second_menu_button selected">
-<% else %>
-<div class="new_second_menu_button">
-<% end %>
+<div class="new_second_menu_button <%= selected_if(params[:act] == 'new_board') %>">
 <%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new board", :disable_with => "Loading..." %>
 </div>
 
 <% elsif params[:act] == 'posts' || params[:act] == 'post_search' %>
-<% if params[:act] == 'post_search' %>
-<div class="search_posts_menu_button selected">
-<% else %>
-<div class="search_posts_menu_button">
-<% end %>
+<div class="search_posts_menu_button <%= selected_if(params[:act] == 'post_search') %>">
 <%= link_to 'SEARCH', home_path+"?act=post_search", :title => "Search posts", :disable_with => "Loading..." %>
 </div>
 <% end %>

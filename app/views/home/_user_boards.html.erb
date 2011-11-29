@@ -9,7 +9,7 @@
         <% if board.active? %>
         <div class="link_with_btn clickable">
         <div class="link_btn">
-        <% if current_user.owner?(board) %>
+        <% if owner = current_user.owner?(board) %>
         <%= button_to 'x', current_user.boards.find_board(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject", :disable_with => 'x...',
@@ -25,8 +25,8 @@
         </div>
          <%= link_to "#{strip_and_cut(board.title,33)}",
          home_path + '?board=' + board.id.to_s,
-         :class => "secondary_menu_button #{ (board.id.to_s == params[:board] ) ? 'selected' : ''}",
-         :title => "Board: #{board.title}", :disable_with => "Loading..." %>
+         :class => "secondary_menu_button #{selected_if(board.id.to_s == params[:board])}",
+         :title => "#{board_desc(board, owner)}", :disable_with => "Loading..." %>
         </div>
         <% end %>     
     <% end %>

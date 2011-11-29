@@ -31,7 +31,7 @@ module ApplicationHelper
     (escape_javascript(school.name) + '<br />' + escape_javascript(school.location)).html_safe if school
   end
   
-  def board_desc board, owner = nil
+  def board_desc board, owner
     if board
       str = escape_javascript(board.title)
       if owner && owner.user_id == current_user.id
@@ -43,6 +43,10 @@ module ApplicationHelper
       end
       str.html_safe
     end
+  end
+  
+  def selected_if condition
+    condition ? ' selected ' : ''
   end
   
   def valid_date_or_today date
