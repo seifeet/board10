@@ -33,7 +33,7 @@
       method: :delete, :remote => true,
       :title => "Unlink #{school.name} from your profile" %>
     </div> 
-    <%= link_to "#{strip_and_cut(school.name, 30)}", home_path + "?school=" + school.id.to_s , :title => "School: #{school.name}", :disable_with => "Loading..." %>
+    <%= link_to "#{strip_and_cut(school.name, 30)}", home_path + "?school=" + school.id.to_s , :title => "#{school_desc(school)}", :disable_with => "Loading..." %>
     </div>
 <%   
     end # end of do loop
@@ -78,7 +78,7 @@
          :title => "Unlink Board \"#{board.title}\"" %>
         <% end %>
         </div>
-        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :title => "Board: #{board.title}", :disable_with => "Loading..." %>
+        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :title => "#{board_desc(board)}", :disable_with => "Loading..." %>
     </div>
 <%
         end # end of @current_school do-loop

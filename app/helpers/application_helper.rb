@@ -27,6 +27,24 @@ module ApplicationHelper
     8
   end
   
+  def school_desc school
+    (escape_javascript(school.name) + '<br />' + escape_javascript(school.location)).html_safe if school
+  end
+  
+  def board_desc board, owner = nil
+    if board
+      str = escape_javascript(board.title)
+      if owner && owner.user_id == current_user.id
+        str += '<br />You are the owner of this board.'
+      else
+        owner_user = board.owner
+        str += '<br />Owner: ' + escape_javascript(owner_user.full_name)
+        str += "<br />You are " + ( current_user.member?(board) ? 'a member in' : 'following' ) + " this board."
+      end
+      str.html_safe
+    end
+  end
+  
   def valid_date_or_today date
     return Date.today unless date
     begin
