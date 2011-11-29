@@ -12,6 +12,9 @@ class Vote < ActiveRecord::Base
   default_scope :order => 'created_at DESC'
   scope :level_ups, where(:level_up => true)
   
+  UP = 1
+  ZERO = 0
+  
   def class_type
     'vote'
   end
