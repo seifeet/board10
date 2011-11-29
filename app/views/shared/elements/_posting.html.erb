@@ -35,14 +35,15 @@
     </div>
         
     <% unless element.created_at.nil? %>
-        <div class="inline"><%= element.created_at.getlocal.strftime("%m/%d/%Y %I:%M%p") %><br />
-            <i>(<%= (time_ago_in_words(element.created_at)+" ago") %>)</i></div>
+        <div class="inline tips" title="<%= (time_ago_in_words(element.created_at)+" ago") %>">
+        	<%= element.created_at.getlocal.strftime("%m/%d/%Y %I:%M%p") %><br />
+        </div>
     <% end %>
   
     <div class="inline clickable">
         <% if element.board %>
           <% if current_user && session[:return_to] =~ /\/home?/ %>
-        <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text", :disable_with => "Loading..." %></b>
+        <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "link_to_text", :disable_with => "Loading board..." %></b>
           <% else %>
         <b><%= strip_and_cut(element.board.title,30) %></b>
           <% end %>
@@ -55,7 +56,7 @@
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
     	<% if current_user && session[:return_to] =~ /\/home?/ %>
-        <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text", :disable_with => "Loading..." %></b>
+        <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "link_to_text", :disable_with => "Loading school..." %></b>
         <% else %>
         <b><%= strip_and_cut(school.name,30) %></b>
         <% end %>

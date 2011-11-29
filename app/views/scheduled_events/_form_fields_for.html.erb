@@ -1,12 +1,16 @@
     <%= f.fields_for :scheduled_event do |builder| %>
-      <%= builder.label :start_date %> <%= builder.date_select :start_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
-      <%= builder.label :end_date %> <%= builder.date_select :end_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
-      <%= builder.label :from %> <%= builder.time_select :start_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true } %>
-      <%= builder.label :to %> <%= builder.time_select :end_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true} %><br />
+      <%= builder.label :start_date, :class => 'tips', :title => "On what date are you planning to start?" %>
+      <%= builder.date_select :start_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :end_date, :class => 'tips', :title => "On what date are you planning to stop your events?" %>
+      <%= builder.date_select :end_date, :start_year => Date.today.year, :add_month_numbers => true, :end_year => Time.now.year + 10 %><br />
+      <%= builder.label :from, :class => 'tips', :title => "At what time your event starts?" %> 
+      <%= builder.time_select :start_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true } %>
+      <%= builder.label :to, :class => 'tips', :title => "At what time your event ends?" %> 
+      <%= builder.time_select :end_time, {:default => Time.now.getlocal, :minute_step => 5, :ampm => true} %><br />
       <%= builder.radio_button 'repeat', '0', :checked => ( @new_event && @new_event.scheduled_event.repeat == 0 ? true : true ) %>
-        <%= builder.label :daily , "Daily" %><br />
+        <%= builder.label :daily , "Daily", :class => 'tips', :title => "Is it a daily event?" %><br />
       <%= builder.radio_button 'repeat', '1', :checked => ( @new_event && @new_event.scheduled_event.repeat == 1 ? true : false ) %>
-        <%= builder.label :weekly , "Weekly" %> on
+        <%= builder.label :weekly , "Weekly", :class => 'tips', :title => "For weekly events please specify week days." %> on
       <%= builder.check_box :mo %><%= builder.label :mo %>
       <%= builder.check_box :tu %><%= builder.label :tu %>
       <%= builder.check_box :we %><%= builder.label :we %>
@@ -15,9 +19,10 @@
       <%= builder.check_box :sa %><%= builder.label :sa %>
       <%= builder.check_box :su %><%= builder.label :su %><br />
       <%= builder.radio_button 'repeat', '3', :checked => ( @new_event && @new_event.scheduled_event.repeat == 3 ? true : false ) %>
-        <%= builder.label :monthly , "Monthly" %> or 
+        <%= builder.label :monthly , "Monthly", :class => 'tips', :title => "For monthly event you have two options: event on the month end or on a particular day of the month." %> or 
       <%= builder.radio_button 'repeat', '4', :checked => ( @new_event && @new_event.scheduled_event.repeat == 4 ? true : false ) %>
-        <%= builder.label :yearly , "Yearly" %> in <%= select_month Date.today %><br />
+        <%= builder.label :yearly , "Yearly", :class => 'tips', :title => "For yearly events please specify the month in the year and whether it is on the month end or on some particular day." %> in <%= select_month Date.today %><br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        On <%= builder.label :month_end %>? <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
+        On <%= builder.label :month_end, :class => 'tips', :title => "Is your event on a month end?" %>?
+        <%= builder.check_box :month_end %> or select a day <%= select_day Date.today %><br />
     <% end %>
