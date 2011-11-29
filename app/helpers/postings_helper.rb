@@ -1,4 +1,12 @@
 module PostingsHelper
+  def title_for_public_post
+    'Public post or event will be visible for everyone'
+  end
+  
+  def title_for_private_post
+    'Private post or event will be visible only for members of the board'
+  end
+  
   def board_postings from = nil
     all_postings = []
     current_user.boards.each do |board|

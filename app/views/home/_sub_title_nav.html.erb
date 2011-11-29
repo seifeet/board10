@@ -1,23 +1,23 @@
 <% if !params[:school].nil? || params[:act] == 'schools' || params[:act] == 'school_search' %>
     <% if params[:act] == 'schools' || params[:act] == 'school_search' %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'school_search') %>">
-    <%= link_to 'ADD', home_path+"?act=school_search", :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
+    <%= link_to 'ADD', home_path+"?act=school_search", :class => 'tips', :title => "Search for schools and add them to your profile", :disable_with => "Loading..." %>
     </div>
     <% elsif params[:school] || params[:date] %>
     <div class="sub_menu_button">
-    <%= link_to 'SHOW', school_path(params[:school]), :title => "Show this school", :disable_with => "Loading..." %>
+    <%= link_to 'SHOW', school_path(params[:school]), :class => 'tips', :title => "Show this school", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:subact] == 'calendar' || params[:date]) %>"> 
-    <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :title => "View event calendar for this school", :disable_with => "Loading..." %>
+    <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :class => 'tips', :title => "View event calendar for this school", :disable_with => "Loading..." %>
     </div>
     <% end %>
     
 <% elsif params[:act] == 'boards' || params[:act] == 'new_board' || params[:act] == 'board_search' %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'board_search') %>">
-    <%= link_to 'JOIN', home_path+"?act=board_search", :title => "Search for boards and add them to your profile", :disable_with => "Loading..." %>
+    <%= link_to 'JOIN', home_path+"?act=board_search", :class => 'tips', :title => "Search for boards and add them to your profile", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'new_board') %>">
-    <%= link_to 'NEW', home_path+"?act=new_board", :title => "Create a new board", :disable_with => "Loading..." %>
+    <%= link_to 'NEW', home_path+"?act=new_board", :class => 'tips', :title => "Create a new board", :disable_with => "Loading..." %>
     </div>
 
 <% elsif !params[:board].nil? %>
@@ -25,36 +25,36 @@
     
     <% if !board.nil? %>
     <div class="sub_menu_button">
-    <%= link_to 'SHOW', board, :title => "Show this board", :disable_with => "Loading..." %>
+    <%= link_to 'SHOW', board, :class => 'tips', :title => "Show this board", :disable_with => "Loading..." %>
     </div>
     
     <% if board.access == Posting::PUBLIC || current_user.member?(board) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'write') %>">
-    <%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :title => "Post on this board", :disable_with => "Loading..." %>
+    <%= link_to 'WRITE', home_path+"?board=#{params[:board]}&act=write", :class => 'tips', :title => "Post on this board", :disable_with => "Loading..." %>
     </div>
     <% end %>
     
     <% if current_user.owner?(board) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'invite') %>">
-    <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :title => "Invite people to your board", :disable_with => "Loading..." %>
+    <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :class => 'tips', :title => "Invite people to your board", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'edit_board') %>">
-    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :title => "Edit your Board", :disable_with => "Loading..." %>
+    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :class => 'tips', :title => "Edit your Board", :disable_with => "Loading..." %>
     </div>
     <% end %>
 
     <div class="sub_menu_button clickable <%= selected_if(!params[:act]) %>"> 
-    <%= link_to 'CALENDAR', home_path+"?board=#{params[:board]}", :title => "View event calendar for this board", :disable_with => "Loading..." %>
+    <%= link_to 'CALENDAR', home_path+"?board=#{params[:board]}", :class => 'tips', :title => "View event calendar for this board", :disable_with => "Loading..." %>
     </div>
     <% end %>
     
 <% elsif params[:act] == 'posts' || params[:act] == 'post_search' %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'post_search') %>">
-    <%= link_to 'FIND', home_path+"?act=post_search", :title => "Find posts", :disable_with => "Loading..." %>
+    <%= link_to 'FIND', home_path+"?act=post_search", :title => "Find posts", :class => 'tips', :disable_with => "Loading..." %>
     </div>
 <% elsif params[:act] == 'users' || params[:act] == 'user_search' %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'user_search') %>">
-    <%= link_to 'FIND', home_path+"?act=user_search", :title => "Find users", :disable_with => "Loading..." %>
+    <%= link_to 'FIND', home_path+"?act=user_search", :title => "Find users", :class => 'tips', :disable_with => "Loading..." %>
     </div>
 <% 
 end # end of "if !params[:school].nil? || ..."

@@ -32,17 +32,17 @@ end
     </div>
     <div class="clearfix">
     	<% if @new_event && @new_event.access == Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => true, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => false, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
         <% elsif @new_event && @new_event.access == Posting::PRIVATE %>
-            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => false, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility, Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => true, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility ,Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
     	<% elsif @board.access == Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => true, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => false, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
         <% elsif @board.access == Posting::PRIVATE %>
-            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
+            <%= f.radio_button 'visibility', '1', :checked => false, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility, Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => true, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility ,Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
         <% end %>
     </div>
     <div class="actions">

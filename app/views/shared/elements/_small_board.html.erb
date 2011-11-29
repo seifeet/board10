@@ -18,7 +18,7 @@
 	  <%= f.hidden_field :to_user, :value => owner.user_id %>
 	  <%= f.hidden_field :board_id, :value => element.id %>
 	  <%= f.text_field :content, :size => 40, :value => "Hi! I would like to join your board. Thank you!" %>
-	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
+	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm tips", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
 	<% end %>
 	</div>
 	<% end %>
@@ -29,7 +29,7 @@
 	  <%= f.hidden_field :board_id %>
 	  <%= f.hidden_field :user_id, :value => current_user.id %>
 	  <%= f.hidden_field :search, :value => params[:search] %>
-	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral tips", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
 	<% end %>
 	</div>
 	<% end %>

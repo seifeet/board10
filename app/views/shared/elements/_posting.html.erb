@@ -7,11 +7,11 @@
     <div class="action_btn">
     <%= button_to 'x', element, confirm: 'Are you sure?',
         :remote => true, :disable_with => 'x...',
-        method: :delete, :class => "delete_button",
+        method: :delete, :class => "delete_button tips",
         :title => 'Delete post'
     %>
     </div>
-    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
+    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button tips", :title => "Edit post", :disable_with => "edit" %>
     </div>
     <% elsif current_user && current_user.id != element.user_id %>
     <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>

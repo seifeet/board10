@@ -17,7 +17,7 @@
 	<% if member %>
 	<%= button_to 'x', @board.members.find_by_user_id(user.id),
          confirm: "Do you want to ban #{user.full_name}?", 
-         :class => "button_reject", :disable_with => 'x...',
+         :class => "button_reject tips", :disable_with => 'x...',
          method: :delete, :remote => true,
          :title => "Ban #{user.full_name}" %>
 	<% end %>

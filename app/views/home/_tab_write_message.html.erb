@@ -24,15 +24,15 @@
 </script>
 <% end %>
 <div class="close_button clearfix clickable">
-    <%= link_to "Close", home_path + "?board=#{params[:board]}", :title => "Close Messages", :disable_with => "Closing..." %>
+    <%= link_to "Close", home_path + "?board=#{params[:board]}", :class => 'tips', :title => "Close Messages", :disable_with => "Closing..." %>
     <% if !params[:subact].nil? %>
         <% if params[:subact] == 'advanced' %>
-        <%= link_to "Simple", home_path + "?act=write&subact=simple&board=#{params[:board]}", :title => "Switch to simple editing", :disable_with => "Loading..." %>
+        <%= link_to "Simple", home_path + "?act=write&subact=simple&board=#{params[:board]}", :class => 'tips', :title => "Switch to simple editing", :disable_with => "Loading..." %>
         <% else %>
-        <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :title => "Switch to advanced editing", :disable_with => "Loading..." %>
+        <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :class => 'tips', :title => "Switch to advanced editing", :disable_with => "Loading..." %>
         <% end %>
     <% else %>
-    <%= link_to "WYSIWYG Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :title => "Turn on post editing", :disable_with => "Loading..." %>
+    <%= link_to "WYSIWYG Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :class => 'tips', :title => "Turn on post editing", :disable_with => "Loading..." %>
     <% end %>
 </div>
 <div id="action_tab" class="clearfix">

@@ -6,9 +6,9 @@
 
 <!-- FIRST LEVEL SERVICE BUTTONS -->
 <div class="first_menu_button <%= selected_if(params[:act] == 'calendar') %>">
-<%= link_to 'CALENDAR', school_path(@school)+'?act=calendar', :title => "Show event calendar", :disable_with => "Loading..." %>
+<%= link_to 'CALENDAR', school_path(@school)+'?act=calendar', :class => 'tips', :title => "Show event calendar", :disable_with => "Loading..." %>
 </div>
 
 <div class="second_menu_button <%= selected_if(params[:act] == 'add_school') %>">
-<%= link_to 'ADD', school_path(@school)+'?act=add_school', :title => "Add school to your profile", :disable_with => "Loading..." %>
+<%= link_to 'ADD', school_path(@school)+'?act=add_school', :class => 'tips', :title => "Add school to your profile", :disable_with => "Loading..." %>
 </div>

@@ -2,7 +2,7 @@
 <% if admin?  %>
 <%= link_to 'Edit', edit_user_path(element), :class => "edit_button" %>
 <%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete,
-	:title => "Delete #{element.full_name}", :class => "delete_button" %>
+	:title => "Delete #{element.full_name}", :class => "delete_button tips" %>
 <% end %>
 </div>
 

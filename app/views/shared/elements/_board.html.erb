@@ -36,7 +36,7 @@
 	  <%= f.hidden_field :search, :value => params[:search] %>
 	  <% end %>
 	  <%= f.text_area :content, :rows => 3, :cols => 33, :value => "Hi!\nI would like to join your board.\nThank you!" %>
-	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm", :disable_with => "Sending...", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
+	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm tips", :disable_with => "Sending...", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
 	<% end %>
 	</div>
 	<% end %>
@@ -49,7 +49,7 @@
 	  <% if params[:search] %>
 	  <%= f.hidden_field :search, :value => params[:search] %>
 	  <% end %>
-	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
+	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral tips", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
 	<% end %>
 	</div>
 	<% end %>

@@ -115,7 +115,7 @@ if(history && history.pushState ) {
 
 $(function() {
 	
-	$(".first_menu_button a, .second_menu_button a, .third_menu_button a, .fourth_menu_button a, .link_with_btn a, .sub_menu_button a, :input").tipTip();
+	$(".tips").tipTip();
 
     $("#new_posting").live("ajax:complete", function(event, xhr, status) {
         $('#editor').val('');
