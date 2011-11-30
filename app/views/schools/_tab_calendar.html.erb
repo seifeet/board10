@@ -25,7 +25,9 @@ Board Calendar
   <div class="heading"><%= @date.strftime("%B %Y") %></div>
   <% else %>
   <div class="heading clickable">
-  <% if board_id %>
+  <% if date.future? %>
+  <%= date.day %>
+  <% elsif board_id %>
   <%= link_to "<", {:board => board_id, :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>
   <% else %>
   <%= link_to "<", {:school => @school.id, :act => "calendar", :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>

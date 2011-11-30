@@ -51,6 +51,10 @@ class HomeController < ApplicationController
           @postings = School.search(params[:search], current_user.state, current_user.city )
         elsif !params[:state].nil? && ( !params[:search].nil? || !params[:city].nil? )
           @postings = School.search(params[:search], params[:state], params[:city] )
+        else
+          state = current_user.state if current_user.state
+          city = current_user.city if current_user.city
+          @postings = School.search('', (state ? state : 'AL') , (city ? city : ''))
         end
 
       elsif params[:act] == 'board_search'

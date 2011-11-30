@@ -55,6 +55,7 @@
         $("#title_top_action").html("<%= escape_javascript(render 'tab_school_search') %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#user_schools").html("<%= escape_javascript(render 'home/user_schools' ) %>");
+        $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
         document.title = "School Search";
     
     <% elsif params[:act] == 'board_search' && !params[:search].nil? %>

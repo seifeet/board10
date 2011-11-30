@@ -123,7 +123,7 @@ class MessagesController < ApplicationController
     @message.destroy if ( user && current_user.id == user.id ) || admin?
 
     respond_to do |format|
-      format.html { redirect_back_or home_path }
+      format.html { redirect_to home_path+"?act=messages" }
       format.js
       format.json { head :ok }
     end
