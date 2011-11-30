@@ -7,24 +7,9 @@
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>
         <% if board.active? %>
-        <div class="link_with_btn clickable">
-        <div class="link_btn">
+        <div class="clickable">
         <% member = current_user.members.find_by_board_id(board.id) %>
-        <% if member.member_type == Member::MemberType::OWNER %>
-        <%= button_to 'x', current_user.boards.find_board(board.id),
-         confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "button_reject tips", :disable_with => 'x...',
-         method: :delete, :remote => true,
-         :title => "Delete Board \"#{board.title}\"" %>
-        <% else %>
-        <%= button_to 'x', member,
-         confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "button_reject tips", :disable_with => 'x...',
-         method: :delete, :remote => true,
-         :title => "Unlink Board \"#{board.title}\"" %>
-        <% end %>
-        </div>
-         <%= link_to "#{strip_and_cut(board.title,33)}",
+        <%= link_to "#{strip_and_cut(board.title,33)}",
          home_path + '?board=' + board.id.to_s,
          :class => "secondary_menu_button #{selected_if(board.id.to_s == params[:board])} tips",
          :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>

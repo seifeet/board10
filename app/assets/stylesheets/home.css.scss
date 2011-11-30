@@ -196,7 +196,10 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     float: right;
     margin:5px;
 }
-
+/*********************** link_btn & link_with_btn ***********************/
+// these two classes are used to style link and a button on its right side.
+// Inside link_with_btn put both divs - the link and the button.
+// The button itself goes inside link_btn div (inside link_with_btn div)
 .link_btn{
   float:right;
   width:20px;
@@ -206,9 +209,10 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 .link_with_btn{
   padding:2px;
 }
+/*********************** end of link_btn & link_with_btn ***********************/
 .secondary_menu_button{
     position:relative;
-    margin:2px;
+    margin:3px;
     //font-style:italic;
     font-weight: bold;
 }

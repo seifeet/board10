@@ -15,30 +15,15 @@
     boards.each do |board|
       @current_board = board if board.id.to_s == params[:board]
 %>
-    <div class="link_with_btn secondary_menu_button <%= selected_if(board.id.to_s == params[:board]) %>">
-	<div class="link_btn">
-	<% member = current_user.members.find_by_board_id(board.id) %>
-	<% if member.member_type == Member::MemberType::OWNER %>
-	<%= button_to 'x', current_user.boards.find(board.id),
-		confirm: "Do you want to remove Board \"#{board.title}\"?", 
-        :class => "button_reject tips", :disable_with => 'Deleting...',
-        method: :delete, :remote => true,
-        :title => "Delete Board \"#{board.title}\"" %>
-    <% else %>
-    <%= button_to 'x', member,
-        confirm: "Do you want to remove Board \"#{board.title}\"?", 
-        :class => "button_reject tips", :disable_with => 'Deleting...',
-        method: :delete, :remote => true,
-        :title => "Unlink Board \"#{board.title}\"" %>
-    <% end %>
-    </div>
+    <div class="secondary_menu_button <%= selected_if(board.id.to_s == params[:board]) %>">
+    <% member = current_user.members.find_by_board_id(board.id) %>
     <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}", :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
 </div>
 <%
     end # end of @current_school do-loop
     if all_boards.count > max_num_boards
 %>
-<div class="link_with_btn secondary_menu_button">
+<div class="secondary_menu_button">
     <%= link_to "MORE", home_path+"?act=boards&subact=nav",{:confirm => "Your other boards are listed on the right bar."} %>
 </div>
 <%

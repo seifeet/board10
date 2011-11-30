@@ -20,11 +20,11 @@ module ApplicationHelper
   end
     
   def max_num_boards
-    8
+    10
   end
       
   def max_num_schools
-    8
+    10
   end
   
   def school_desc school

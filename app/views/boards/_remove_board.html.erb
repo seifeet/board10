@@ -1,0 +1,13 @@
+<% if member.member_type == Member::MemberType::OWNER %>
+<%= button_to 'Remove', current_user.boards.find(board.id),
+	confirm: "Do you want to remove Board \"#{board.title}\"?", 
+    :class => "button_neutral tips", :disable_with => 'Removing...',
+    method: :delete, :remote => true,
+    :title => "Delete Board \"#{board.title}\"" %>
+<% else %>
+<%= button_to 'Remove', member,
+    confirm: "Do you want to remove Board \"#{board.title}\"?", 
+    :class => "button_neutral tips", :disable_with => 'Removing...',
+    method: :delete, :remote => true,
+    :title => "Unlink Board \"#{board.title}\"" %>
+<% end %>

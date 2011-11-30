@@ -1,0 +1,18 @@
+<br /><br /><br />
+<% 
+member = current_user.members.find_by_board_id(@board.id)
+  if member
+  	if member.member_type == Member::MemberType::OWNER
+%>
+You are the owner of this board. After clicking on <b>Remove</b> your board will become
+inactive and will not accept any new posts. It will also disappear from your feeds and profile.
+<%  elsif member.member_type == Member::MemberType::MEMBER %>
+You are a member in this board. After clicking on <b>Remove</b> this board will be unlinked from your profile.
+		<% if @board.access == Posting::PRIVATE %>
+		You also will not be able to write on this board and see its private posts.
+		<% end %>
+<%  else %>
+You are following this board. After clicking on <b>Remove</b> this board will be unlinked from your profile.
+<%  end %>
+<%= render 'boards/remove_board', :board => @board, :member => member %>
+<% end %>

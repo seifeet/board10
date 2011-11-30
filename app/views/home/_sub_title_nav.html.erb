@@ -27,6 +27,12 @@
     <div class="sub_menu_button">
     <%= link_to 'SHOW', board, :class => 'tips', :title => "Show this board", :disable_with => "Loading..." %>
     </div>
+    <% member = current_user.members.find_by_board_id(board.id) %>
+    <% if member %>
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'remove_board') %>">
+    <%= link_to 'REMOVE', home_path+"?board=#{params[:board]}&act=remove_board", :class => 'tips', :title => "Remove your board", :disable_with => "Loading..." %>
+    </div>
+    <% end %>
     
     <% if board.access == Posting::PUBLIC || current_user.member?(board) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'write') %>">
@@ -34,12 +40,12 @@
     </div>
     <% end %>
     
-    <% if current_user.owner?(board) %>
+    <% if member && member.member_type == Member::MemberType::OWNER %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'invite') %>">
     <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :class => 'tips', :title => "Invite people to your board", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'edit_board') %>">
-    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :class => 'tips', :title => "Edit your Board", :disable_with => "Loading..." %>
+    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :class => 'tips', :title => "Edit or remove your board", :disable_with => "Loading..." %>
     </div>
     <% end %>
 

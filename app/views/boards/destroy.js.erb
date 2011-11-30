@@ -1,8 +1,16 @@
 <% if session[:return_to] =~ /\/home?/ %>
 $("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
-	<% if current_user.boards.count <= max_num_boards %>
+$("#title_top_action").html("");
+$(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+	<% 
+	#if current_user.boards.count <= max_num_boards 
+	%>
 	$("#title_print_boards").html("<%= escape_javascript( render 'home/title_print_boards' ) %>");
-	<% end %>
+	<% 
+	#end
+	%>
 <% end %>
-
+<% if flash.any? %>
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+<% end %>
 $(".loading").html("");
