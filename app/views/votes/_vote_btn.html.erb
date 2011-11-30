@@ -5,21 +5,21 @@
 <div class="voting">
 <% if curr_vote && curr_vote.vote %>
 	<%= button_to '__', curr_vote, :remote => true, :disable_with => '__',
-	    method: :delete, :class => "togglable button_reject tips", :title => 'Take your vote back'
+	    method: :delete, :class => "togglable button_reject", :title => 'Take your vote back'
 	%>
 	<%= form_for build_vote, :remote => true do |f| %>
 	  <%= f.hidden_field :obj_type, :value => obj_type %>
 	  <%= f.hidden_field :obj_id, :value => element.id %>
-	  <%= f.submit "10!", :class => "togglable button_confirm tips", :disable_with => "10!", :hidden => true, :title => 'Vote Up!' %>
+	  <%= f.submit "10!", :class => "togglable button_confirm", :disable_with => "10!", :hidden => true, :title => 'Vote Up!' %>
 	<% end %>
 <% else %>
-    <%= button_to '__', ( curr_vote ? curr_vote : build_vote ), :remote => true, :class => "togglable button_reject tips",
+    <%= button_to '__', ( curr_vote ? curr_vote : build_vote ), :remote => true, :class => "togglable button_reject",
 	    method: :delete, :hidden => true, :disable_with => '__', :title => 'Take your vote back'
 	%>
 	<%= form_for build_vote, :remote => true do |f| %>
 	  <%= f.hidden_field :obj_type, :value => obj_type %>
 	  <%= f.hidden_field :obj_id, :value => element.id %>
-	  <%= f.submit "10!", :class => "togglable button_confirm tips", :disable_with => "10!", :title => 'Vote Up!' %>
+	  <%= f.submit "10!", :class => "togglable button_confirm", :disable_with => "10!", :title => 'Vote Up!' %>
 	<% end %>
 <% end %>
 </div>

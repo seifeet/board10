@@ -60,21 +60,22 @@
 %>
     <div class="link_with_btn secondary_menu_button clearfix" >
     	<div class="link_btn">
-        <% if owner = current_user.owner?(board) %>
-        <%= button_to 'x', current_user.boards.find_board(board.id),
+    	<% member = current_user.members.find_by_board_id(board.id) %>
+        <% if member.member_type == Member::MemberType::OWNER %>
+        <%= button_to 'x', current_user.boards.find(board.id),
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject tips", :disable_with => 'Deleting...',
          method: :delete, :remote => true,
          :title => "Delete Board \"#{board.title}\"" %>
         <% else %>
-        <%= button_to 'X', current_user.members.find_by_board_id(board.id),
+        <%= button_to 'x', member,
          confirm: "Do you want to remove Board \"#{board.title}\"?", 
          :class => "button_reject tips", :disable_with => 'Deleting...',
          method: :delete, :remote => true,
          :title => "Unlink Board \"#{board.title}\"" %>
         <% end %>
         </div>
-        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :class => 'tips', :title => "#{board_desc(board, owner)}", :disable_with => "Loading..." %>
+        <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
     </div>
 <%
         end # end of @current_school do-loop

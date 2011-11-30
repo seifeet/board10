@@ -31,15 +31,15 @@ module ApplicationHelper
     (escape_javascript(school.name) + '<br />' + escape_javascript(school.location)).html_safe if school
   end
   
-  def board_desc board, owner
+  def board_desc board, current_user_as_member
     if board
       str = escape_javascript(board.title)
-      if owner && owner.user_id == current_user.id
+      if current_user_as_member.member_type == Member::MemberType::OWNER
         str += '<br />You are the owner of this board.'
       else
         owner_user = board.owner
         str += '<br />Owner: ' + escape_javascript(owner_user.full_name)
-        str += "<br />You are " + ( current_user.member?(board) ? 'a member in' : 'following' ) + " this board."
+        str += "<br />You are " + ( current_user_as_member.member_type == Member::MemberType::MEMBER ? 'a member in' : 'following' ) + " this board."
       end
       str.html_safe
     end
