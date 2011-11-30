@@ -5,15 +5,15 @@
     </div>
     <% elsif params[:school] || params[:date] %>
     <div class="sub_menu_button">
-    <%= link_to 'SHOW', school_path(params[:school]), :class => 'tips', :title => "Show this school", :disable_with => "Loading..." %>
+    <%= link_to 'VISIT', school_path(params[:school]), :class => 'tips', :title => "Visit school page", :disable_with => "Loading..." %>
     </div>
     <% if current_user.has_school?(@school) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'remove_school') %>">
-    <%= link_to 'REMOVE', home_path+"?school=#{params[:school]}&act=remove_school", :class => 'tips', :title => "Unlink school", :disable_with => "Loading..." %>
+    <%= link_to 'REMOVE', home_path+"?school=#{params[:school]}&act=remove_school", :class => 'tips', :title => "Unlink this school from your profile", :disable_with => "Loading..." %>
     </div>
     <% end %>
     <div class="sub_menu_button clickable <%= selected_if(params[:subact] == 'calendar' || params[:date]) %>"> 
-    <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :class => 'tips', :title => "View event calendar for this school", :disable_with => "Loading..." %>
+    <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :class => 'tips', :title => "View event calendar for this school.<br />With calendar you can also browse posts and events by date.", :disable_with => "Loading..." %>
     </div>
     <% end %>
     
@@ -30,7 +30,7 @@
     
     <% if !board.nil? %>
     <div class="sub_menu_button">
-    <%= link_to 'SHOW', board, :class => 'tips', :title => "Show this board", :disable_with => "Loading..." %>
+    <%= link_to 'VISIT', board, :class => 'tips', :title => "Visit board page", :disable_with => "Loading..." %>
     </div>
     <% member = current_user.members.find_by_board_id(board.id) %>
     <% if member %>
@@ -50,12 +50,12 @@
     <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :class => 'tips', :title => "Invite people to your board", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'edit_board') %>">
-    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :class => 'tips', :title => "Edit or remove your board", :disable_with => "Loading..." %>
+    <%= link_to 'EDIT', home_path+"?board=#{params[:board]}&act=edit_board", :class => 'tips', :title => "Edit your board", :disable_with => "Loading..." %>
     </div>
     <% end %>
 
     <div class="sub_menu_button clickable <%= selected_if(!params[:act]) %>"> 
-    <%= link_to 'CALENDAR', home_path+"?board=#{params[:board]}", :class => 'tips', :title => "View event calendar for this board", :disable_with => "Loading..." %>
+    <%= link_to 'CALENDAR', home_path+"?board=#{params[:board]}", :class => 'tips', :title => "View event calendar for this board.<br />With calendar you can also browse posts and events by date.", :disable_with => "Loading..." %>
     </div>
     <% end %>
     

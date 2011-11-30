@@ -42,20 +42,22 @@
 <div class="background_write clearfix tips" title="Your boards that linked to <%= @current_school.name %>"><%= strip_and_cut(@current_school.name, 15) %></div>
 
 <%
-    all_boards = @current_school.boards.where(:active => true)
-    if !all_boards.empty?
+    all_boards = current_user.boards.where(:active => true, :school_id => @current_school.id)
+    if all_boards.any?
 %>
 
 <%
         boards = ( all_boards.count > max_num_boards ? 
                     all_boards[0..max_num_boards - 1] : all_boards )
         boards.each do |board|
+          member = current_user.members.find_by_board_id(board.id)
+          if member
 %>
     <div class="secondary_menu_button clearfix" >
-    	<% member = current_user.members.find_by_board_id(board.id) %>
         <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
     </div>
 <%
+          end
         end # end of @current_school do-loop
  
         if all_boards.count > max_num_boards
