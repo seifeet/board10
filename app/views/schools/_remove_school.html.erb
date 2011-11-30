@@ -1,0 +1,6 @@
+<%= button_to 'Remove', current_user.user_schools.find_by_school_id(school.id),
+    :class => "button_reject tips", :disable_with => 'Deleting...',
+    confirm: "Do you want to unlink \"#{school.name}\" from your profile?", 
+    method: :delete, :remote => true,
+    :title => "Unlink #{school.name} from your profile" 
+%>

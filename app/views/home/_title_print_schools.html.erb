@@ -21,14 +21,7 @@
     schools.each do |school|
       @current_school = school if school.id.to_s == params[:school]
 %>
-    <div class="link_with_btn secondary_menu_button <%= selected_if(school.id.to_s == params[:school]) %> clearfix">
-    <div class="link_btn">
-    <%= button_to 'x', current_user.user_schools.find_by_school_id(school.id),
-      :class => "button_reject tips", :disable_with => 'Deleting...',
-      confirm: "Do you want to unlink \"#{school.name}\" from your profile?", 
-      method: :delete, :remote => true,
-      :title => "Unlink #{school.name} from your profile" %>
-    </div> 
+    <div class="secondary_menu_button <%= selected_if(school.id.to_s == params[:school]) %> clearfix">
     <%= link_to "#{strip_and_cut(school.name, 30)}", home_path + "?school=" + school.id.to_s , :class => 'tips', :title => "#{school_desc(school)}", :disable_with => "Loading..." %>
     </div>
 <%   
@@ -36,7 +29,7 @@
 %>
 
 <%   if current_user.schools.count > max_num_schools %>
-    <div class="link_with_btn secondary_menu_button clearfix">
+    <div class="secondary_menu_button clearfix">
      <%= link_to "MORE", home_path+"?act=schools&subact=nav", :confirm => "Your other schools are listed on the right bar." %>
     </div>
 <% end %>
@@ -58,23 +51,8 @@
                     all_boards[0..max_num_boards - 1] : all_boards )
         boards.each do |board|
 %>
-    <div class="link_with_btn secondary_menu_button clearfix" >
-    	<div class="link_btn">
+    <div class="secondary_menu_button clearfix" >
     	<% member = current_user.members.find_by_board_id(board.id) %>
-        <% if member.member_type == Member::MemberType::OWNER %>
-        <%= button_to 'x', current_user.boards.find(board.id),
-         confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "button_reject tips", :disable_with => 'Deleting...',
-         method: :delete, :remote => true,
-         :title => "Delete Board \"#{board.title}\"" %>
-        <% else %>
-        <%= button_to 'x', member,
-         confirm: "Do you want to remove Board \"#{board.title}\"?", 
-         :class => "button_reject tips", :disable_with => 'Deleting...',
-         method: :delete, :remote => true,
-         :title => "Unlink Board \"#{board.title}\"" %>
-        <% end %>
-        </div>
         <%= link_to "#{strip_and_cut(board.title, 30)}", {:board => board.id }, :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
     </div>
 <%
@@ -82,7 +60,7 @@
  
         if all_boards.count > max_num_boards
 %>
-    <div class="link_with_btn secondary_menu_button clearfix">
+    <div class="secondary_menu_button clearfix">
         <%= link_to "MORE", home_path+"?boards=on",{:confirm => "Your other boards are listed on the right bar."} %>
     </div>
 <%

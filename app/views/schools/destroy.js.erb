@@ -1,6 +1,14 @@
 <% if session[:return_to] =~ /\/home?/ %>
-$("#navigation").html("<%= escape_javascript(render 'home/navigation' ) %>");
+$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
+$("#title_top_action").html("");
+$(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
+	<% if current_user.schools.count <= max_num_schools %>
+	$("#title_print_schools").html("<%= escape_javascript( render 'home/title_print_schools' ) %>");
+	<% end %>
 <% end %>
 
+<% if flash.any? || !notice.nil? %>
+$(".info_note").html("<%= escape_javascript(render 'home/info') %>");
+<% end %>
 $(".loading").html("");
 $(".tips").tipTip();

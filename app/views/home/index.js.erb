@@ -128,6 +128,12 @@
         $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_remove_board') %>");
         document.title = "Remove Board";
+        
+    <% elsif params[:act] == 'remove_school' %>
+        $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");
+        $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_remove_school') %>");
+        document.title = "Remove School";
           
     <% elsif params[:act] == 'add_event' || params[:act] == 'edit_event' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title' ) %>");

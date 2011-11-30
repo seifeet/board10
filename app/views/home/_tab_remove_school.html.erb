@@ -1,0 +1,4 @@
+<% return nil unless @school && current_user.has_school?(@school) %>
+<br /><br /><br />
+After clicking on <b>Remove</b> <%= @school.name %> will be unlinked from your profile.<br />
+<%= render 'schools/remove_school', :school => @school %>

@@ -7,6 +7,11 @@
     <div class="sub_menu_button">
     <%= link_to 'SHOW', school_path(params[:school]), :class => 'tips', :title => "Show this school", :disable_with => "Loading..." %>
     </div>
+    <% if current_user.has_school?(@school) %>
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'remove_school') %>">
+    <%= link_to 'REMOVE', home_path+"?school=#{params[:school]}&act=remove_school", :class => 'tips', :title => "Unlink school", :disable_with => "Loading..." %>
+    </div>
+    <% end %>
     <div class="sub_menu_button clickable <%= selected_if(params[:subact] == 'calendar' || params[:date]) %>"> 
     <%= link_to 'CALENDAR', home_path+"?school=#{params[:school]}&subact=calendar", :class => 'tips', :title => "View event calendar for this school", :disable_with => "Loading..." %>
     </div>

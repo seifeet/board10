@@ -5,14 +5,7 @@
 <% if !current_user.schools.empty? %>
   <% current_user.schools.each do |school| %>
      <!-- div class="nav_link clickable" -->
-     <div class="link_with_btn clickable">
-     <div class="link_btn">
-     <%= button_to 'x', current_user.user_schools.find_by_school_id(school.id),
-      :class => "button_reject tips", :disable_with => 'x...',
-      confirm: "Do you want to remove school \"#{school.name}\"?",
-      method: :delete, :remote => true,
-      :title => "Unlink School \"#{school.name}\"" %>
-     </div> 
+     <div class="clickable">
      <%= link_to "#{strip_and_cut(school.name, 33)}", home_path + '?school=' + school.id.to_s,
       :class => "secondary_menu_button #{selected_if(school.id.to_s == params[:school])} tips", 
       :title => "#{school_desc(school)}", :disable_with => "Loading..." %>
