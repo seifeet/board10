@@ -1,6 +1,6 @@
 <% if current_user.schools.empty? %>
 <div id="schools_area" class="clearfix">
-    <div class="background_write">My Schools</div>
+    <div class="background_write tips" title="Schools that linked to your profile">My Schools</div>
     <div class="note">
         <p>This area is empty because you currently don't have any schools linked to your profile.<br />
         In order to add a school of your interest please click on <b>SCHOOLS</b> and <b>ADD</b>.
@@ -16,7 +16,7 @@
                 current_user.schools )
 %>
 <div id="schools_area" class="clearfix" >
-    <div class="background_write">My Schools</div>
+    <div class="background_write tips" title="Schools that linked to your profile">My Schools</div>
 <%
     schools.each do |school|
       @current_school = school if school.id.to_s == params[:school]
@@ -39,7 +39,7 @@
      if !@current_school.nil?
 %>
 <div id="boards_area" class="clearfix" >
-<div class="background_write clearfix" ><%= strip_and_cut(@current_school.name, 15) %></div>
+<div class="background_write clearfix tips" title="Your boards that linked to <%= @current_school.name %>"><%= strip_and_cut(@current_school.name, 15) %></div>
 
 <%
     all_boards = @current_school.boards.where(:active => true)

@@ -12,11 +12,11 @@ module ApplicationHelper
   end
   
   def per_page
-    5
+    25
   end
   
   def per_page_search
-    5
+    25
   end
     
   def max_num_boards

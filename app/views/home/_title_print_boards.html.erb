@@ -1,5 +1,5 @@
 <div id="boards_area">
-<div class="background_write">My Boards</div>
+<div class="background_write tips" title="Boards that linked to your profile">My Boards</div>
 <% all_boards = current_user.boards.where(:active => true)
    if all_boards.empty? 
 %>

@@ -2,7 +2,7 @@
 <% if current_user.boards.count > max_num_boards %>
 
 <div id="all_user_boards" class="clearfix">
-<div class="background_write_2">All My Boards</div>
+<div class="background_write_2 tips" title="List of all boards that linked to your profile">All My Boards</div>
 <% user = current_user if user.nil? %>
 <% unless user.boards.empty? %>
     <% user.boards.each do |board| %>

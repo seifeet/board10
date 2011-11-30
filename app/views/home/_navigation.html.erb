@@ -1,7 +1,7 @@
 <% return nil if current_user.nil? %>
 
 <div id="user_title_nav">
-    <div id="whatsNew">
+    <div id="whatsNew" class="tips" title="Popular boards and posts.<br />After every ten votes UP your board or post will be placed here.">
         <!-- div class="background_write">What's new?</div -->
         <%= render 'shared/containers/small_container', :container => @level_ups, :action => '' %>
     </div>
