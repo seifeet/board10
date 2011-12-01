@@ -2,9 +2,16 @@
 <div id="schools_area" class="clearfix">
     <div class="background_write tips" title="Schools that linked to your profile">My Schools</div>
     <div class="note">
-        <p>This area is empty because you currently don't have any schools linked to your profile.<br />
-        In order to add a school of your interest please click on <b>SCHOOLS</b> and <b>ADD</b>.
-        Then search for your school and click <b>Add</b> near the school's name in the search results.</p>
+        <p>This area is empty because you don't have any schools yet.<br />
+        In order to add a school of your interest please click 
+        <%= link_to '<b>SCHOOLS</b>'.html_safe, home_path+'?act=schools', :class => 'tips', 
+        :title => "<b>SCHOOLS</b> button retrieves all the latest posts from all the schools that linked to your profile.", 
+        :disable_with => "SCHOOLS" %>
+        and
+        <%= link_to '<b>ADD</b>'.html_safe, home_path+"?act=school_search", :class => 'tips', 
+        :title => "Then search for your school and click <b>Add</b> near the school's name in the search results.",
+        :disable_with => "ADD" %>.
+        </p>
     </div>
 </div>
 

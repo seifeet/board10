@@ -6,9 +6,6 @@
 <% else %>
 <div class="note">
 <% if params[:act] != 'messages' && params[:act] != 'invite' %>
-   <% if current_user.schools.unscoped.empty? && current_user.boards.unscoped.empty? %>
-     <p>This place is empty because your profile has not been linked to any schools or boards yet.</p>
-   <% end %>
    <% if params[:act] == 'boards' && current_user.boards.unscoped.empty? %>
      <p>In order to become a member of a board please click on <b>BOARDS -> JOIN</b>.
         Then search for a board of your interest and click <b>Join</b>. 
@@ -53,9 +50,11 @@
      And one more option is to create a new board for this school.<br />
      <b>So go ahead and be the first one!</b>
      </p>
+  <% elsif current_user.schools.empty? && current_user.boards.empty? %>
+     <p>This place is empty because your profile has not been linked to any schools or boards yet.</p>
   <% else %>
      <!-- p align="center">No results found</p -->
-   <% end %>
+  <% end %>
 <% end %>
 </div>
 

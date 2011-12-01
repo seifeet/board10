@@ -25,9 +25,7 @@ Board Calendar
   <div class="heading"><%= @date.strftime("%B %Y") %></div>
   <% else %>
   <div class="heading clickable">
-  <% if date.future? %>
-  <%= date.day %>
-  <% elsif board_id %>
+  <% if board_id %>
   <%= link_to "<", {:board => board_id, :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>
   <% else %>
   <%= link_to "<", {:school => @school.id, :subact => "calendar", :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>
@@ -65,7 +63,9 @@ Board Calendar
     <% else %>
     <div class="cal_link clickable">
     <% end %>
-    <% if board_id %>
+    <% if date.future? %>
+    <%= date.day %>
+    <% elsif board_id %>
     <%= link_to date.day, {:board => board_id, :date => (date).strftime("%Y-%m-%d")}, :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
     <% else %>
     <%= link_to date.day, {:school => @school.id, :subact => "calendar", :date => (date).strftime("%Y-%m-%d")}, :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>

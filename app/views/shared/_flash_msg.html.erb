@@ -1,3 +1,9 @@
+<% 
+  if flash[:recaptcha_error] && !flash[:recaptcha_error].empty?
+  	flash.delete(:recaptcha_error)
+    flash.now[:error] = "Please try another challenge."
+  end
+%>
 <% if flash.any? %>
 <% flash.each do |key, value| %>
 <div class="flash_<%= key %> clearfix">

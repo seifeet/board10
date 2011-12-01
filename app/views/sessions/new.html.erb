@@ -15,7 +15,7 @@ One more thing! You are not along with your boards. You just became their owner.
 And the last note, but not least, is about your privacy. Our boards as well as posts on them can be public or private. You can create a public board, but you always have an option to post privately. In this case only members of your board will be able to see you private messages. The other way around with a private board and public posts works too! You are the boss after all.<br />
 We believe that now is the time to switch from a social network where you straggle to find connections and friends into a community network where community finds you and you become a part of it. It is time to upgrade!<br /><br />
 
-So, good luck!<br /><br />
+So, welcome aboard!<br /><br />
 
 Sincerely,<br />
 Boardten team
@@ -39,6 +39,11 @@ Boardten team
     <%= label_tag :remeber_me %>
     <%= link_to "forgotten password?", new_password_reset_path %>
   </div>
+  <% if @recaptcha %>
+  <div class="single_field">
+  	<%= recaptcha_tags %>
+  </div>
+  <% end %>
   <div class="single_field">
     <%= f.submit "Sign in", :class => "button_with_img button_green" %>
   </div>

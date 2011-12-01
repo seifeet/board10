@@ -9,15 +9,23 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:session][:email], 
-                             params[:session][:password])
+                               params[:session][:password])
     if !user.nil?
       sign_in user
       redirect_back_or home_path
     else
       @title = "Sign in"
+      @recaptcha = true
       flash.now[:error] = "Invalid email/password combination"
       render 'new'
     end
+    #if verify_recaptcha(:model => user, :message => "Verification code is wrong.")
+      
+      
+    #else
+    #  @title = "Sign in"
+    #  render 'new'
+    #end
   end
 
   def destroy

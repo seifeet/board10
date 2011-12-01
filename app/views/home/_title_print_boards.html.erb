@@ -4,10 +4,21 @@
    if all_boards.empty? 
 %>
     <div class="note">
-        <p>This area is empty because your profile has not been linked to any board yet.<br />
-         In order to link your profile please click on <b>BOARDS</b> then <b>JOIN</b>.
-        Then search for a board of your interest and click <b>Join</b> or <b>Follow</b>. 
-        To find out more about Join and Follow just place your mouse pointer over the buttons.</p>
+        <p>This area is empty because you don't have any boards yet.<br />
+        To create your own board click 
+        <%= link_to '<b>BOARDS</b>'.html_safe, home_path+'?act=boards', :class => 'tips', 
+        :title => "<b>BOARDS</b> button retrieves all the latest posts from all the boards that linked to your profile.".html_safe, 
+        :disable_with => "BOARDS" %>
+        then
+        <%= link_to '<b>NEW</b>'.html_safe, home_path+"?act=new_board", :class => 'tips', 
+        :title => "For a new board please fill out the title and description to tell others what your board is about. In addition you can link your board to a school from your profile. In this case your public posts and events will also show up under that school.",
+        :disable_with => "NEW" %>,
+        or you can
+        <%= link_to '<b>JOIN</b>'.html_safe, home_path+"?act=board_search", :class => 'tips',
+        :title => "While joining, search for a board of your interest and click <b>Join</b> or <b>Follow</b>. To find out more about Join and Follow place your mouse pointer over the buttons.",
+        :disable_with => "JOIN" %>
+        boards from others.<br />
+        </p>
     </div>
 <% else 
     boards = ( all_boards.count > max_num_boards ?
