@@ -4,7 +4,7 @@
 <% end %>
 <% end %>
 
-<div class="signin_container alpha60 clearfix">
+<div class="signun_container alpha60 clearfix">
 
 <%= form_for @user do |f| %>
 
@@ -57,6 +57,12 @@
     <% end %>
     <%= f.label :password_confirmation, 'Confirm Password', :class => "nested_label" %>
     <%= f.password_field :password_confirmation, :class => "text_big" %>
+</div>
+<div class="single_field">
+	<% if !check(@user, "challenge").nil? %>
+    <div class="flash_error"><%= check(@user, "challenge") %></div>
+    <% end %>
+  	<%= recaptcha_tags %>
 </div>
 <% end %>
 

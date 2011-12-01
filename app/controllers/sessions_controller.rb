@@ -8,24 +8,40 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:email], 
-                               params[:session][:password])
-    if !user.nil?
+    @recaptcha_test = true
+    if params[:recaptcha_challenge_field]
+      @failed_user = User.find_by_email(params[:session][:email])
+      if @failed_user
+        @recaptcha_test = verify_recaptcha(:model => @failed_user, 
+          :message => "Please try this challenge again.")
+      end
+    end
+
+    if @recaptcha_test
+      user = User.authenticate(params[:session][:email], params[:session][:password])
+    end
+
+    if @recaptcha_test && !user.nil?
+      # set login_attampts to zero
+      user.update_attribute(:login_attempts, 0)
       sign_in user
       redirect_back_or home_path
     else
       @title = "Sign in"
-      @recaptcha = true
-      flash.now[:error] = "Invalid email/password combination"
+      flash.now[:error] = "Invalid email/password combination" if @recaptcha_test
+      # - Try to find the user by email
+      @failed_user = User.find_by_email(params[:session][:email]) unless @failed_user
+      # - If exists, increments login_attampts
+      if @failed_user
+        @failed_user.update_attribute(:login_attempts, @failed_user.login_attempts+1)
+        # set @recaptcha = true to open recaptcha dialog
+        @recaptcha = true if @failed_user.login_attempts >= 5
+      else
+        flash.now[:error] = "Invalid email/password combination"
+      end
+
       render 'new'
     end
-    #if verify_recaptcha(:model => user, :message => "Verification code is wrong.")
-      
-      
-    #else
-    #  @title = "Sign in"
-    #  render 'new'
-    #end
   end
 
   def destroy

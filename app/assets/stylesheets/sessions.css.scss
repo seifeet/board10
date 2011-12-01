@@ -19,9 +19,17 @@ body {
 }
 
 .signin_container{
-    //position: relative;
+  position: relative;
   top: 85px;
   width: 27em;
+  margin: auto;
+  padding: 15px 15px 15px 15px;
+}
+
+.signun_container{
+  position: relative;
+  top: 10px;
+  width: 28em;
   margin: auto;
   padding: 15px 15px 15px 15px;
 }
