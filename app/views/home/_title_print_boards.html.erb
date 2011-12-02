@@ -29,7 +29,7 @@
     <div class="secondary_menu_button <%= selected_if(board.id.to_s == params[:board]) %>">
     <% member = current_user.members.find_by_board_id(board.id) %>
     <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}", :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
-</div>
+    </div>
 <%
     end # end of @current_school do-loop
     if all_boards.count > max_num_boards
