@@ -7,7 +7,7 @@
 <%= form_tag home_path, :method => :get, :id => "tab_posts_search", :remote => true do %>
 <div class="field">
 <%= label_tag :date %><br />
-<%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker", :class => "input_field_small" %>
+<%= text_field_tag :date, params[:date], :size => 10, :id => "datepicker", :class => "input_field_small tips", :title => "Date format is yyyy-mm-dd" %>
 </div>
 <div class="field">
     <%= label_tag :search, "Search Criteria" %><br />
