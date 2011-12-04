@@ -4,7 +4,6 @@ log/*.log
 *.log
 *.bak
 /tmp/
-my_temp/
 doc/
 *.swp
 *~

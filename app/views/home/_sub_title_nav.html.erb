@@ -6,7 +6,7 @@
     </div>
     <% elsif params[:school] || params[:date] %>
     <div class="sub_menu_button">
-    <%= link_to 'VISIT', school_path(params[:school]), :class => 'tips', :title => "Visit school page", :disable_with => "Loading..." %>
+    <%= link_to 'SHOW', school_path(params[:school]), :class => 'tips', :title => "Go to the school page", :disable_with => "Loading..." %>
     </div>
     <% if current_user.has_school?(@school) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'remove_school') %>">
@@ -31,12 +31,12 @@
     
     <% if !board.nil? %>
     <div class="sub_menu_button">
-    <%= link_to 'VISIT', board, :class => 'tips', :title => "Visit board page", :disable_with => "Loading..." %>
+    <%= link_to 'SHOW', board, :class => 'tips', :title => "Go to the board page", :disable_with => "Loading..." %>
     </div>
     <% member = current_user.members.find_by_board_id(board.id) %>
     <% if member %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'remove_board') %>">
-    <%= link_to 'REMOVE', home_path+"?board=#{params[:board]}&act=remove_board", :class => 'tips', :title => "Remove your board", :disable_with => "Loading..." %>
+    <%= link_to 'REMOVE', home_path+"?board=#{params[:board]}&act=remove_board", :class => 'tips', :title => "Remove this board", :disable_with => "Loading..." %>
     </div>
     <% end %>
     

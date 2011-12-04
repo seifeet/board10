@@ -20,7 +20,7 @@
 
 <% 
 #unless request.fullpath =~ /\/signin|\/signup|\/sessions|\/users|\/postings|\/boards/ 
-unless request.fullpath =~ /\/signin|\/signup|\/sessions|\/users/
+unless request.fullpath =~ /\/signin|\/signup|\/sessions/
 %>
 <%= render 'layouts/logo' %>
 <% end %>
