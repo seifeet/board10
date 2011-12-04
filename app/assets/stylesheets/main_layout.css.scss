@@ -26,13 +26,13 @@ body{
 #wide_line{
     float: left;   
     width: 100%;    
-    height: 4em; // controls height where context starts
+    height: 3em; // controls height where context starts
     @include bkground-image(#336633);
 }
 #wider_line{
     float:left;
     width:100%;
-    height: 20em;
+    height: 19.5em;
     /* MS */
     zoom:1;
     @include main-shadow;

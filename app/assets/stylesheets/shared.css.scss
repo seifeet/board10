@@ -75,7 +75,7 @@ $btn-font-size: 16px;
     font-weight: bold;
     background: transparent;
     border: 1px solid transparent; //$bk_color;
-    margin: 5px;
+    //margin: 5px;
     //@include rounded-corners(5px);
 
     &:hover {
@@ -182,7 +182,7 @@ $btn-font-size: 16px;
     float:left;
     width: 99%;
     margin: 2px auto;
-    border: 3px solid $backgrnd;
+    border: 1px solid $backgrnd;
     border-radius: 5px;
     padding:1px;
     color: $bgdarken70;
@@ -202,8 +202,9 @@ $btn-font-size: 16px;
 .small_element{
     width: 99%;
     margin: 1px auto;
-    @include bkground-image;
+    @include bkground-image($general-bkground);
     border:1px solid $backgrnd;
+    font-style:italic;
     padding:2px;
     @include rounded-corners(5px);
 }
@@ -214,8 +215,8 @@ $btn-font-size: 16px;
 .member_element{
     width: auto;
     margin: 2px auto;
-    background:$bglighten50;
-    border:3px solid $backgrnd;
+    background:white; //$bglighten50;
+    border:1px solid $backgrnd;
     padding:1px;
     border-radius: 5px;
 }
@@ -223,7 +224,7 @@ $btn-font-size: 16px;
 .generic_container div.user_element:hover,
 .generic_container div.board_element:hover,
 .generic_container div.member_element:hover{
-    background: white; //#A6B299;
+    background: $bglighten50; //#A6B299;
 }
 
 .hidable {
@@ -465,9 +466,9 @@ a.link_to_text{
 }
 
 .event{
-  @include bkground-top-image;
+  //@include bkground-top-image;
   &:hover {
-    background:white;
+    background:$bglighten50;
   }
 }
 /******************** calendar ******************************************/
@@ -481,7 +482,7 @@ a.link_to_text{
   //font-family: "Lucida Grande",arial,helvetica,sans-serif;
   //font-size: 10px;
   padding: 4px;
-  border: 3px solid $backgrnd;
+  border: 1px solid $backgrnd;
 }
 
 #calendar th {

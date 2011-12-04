@@ -1,24 +1,6 @@
 <% if element.scheduled_event_id %>
 <div class="event">
 <% end %>
-<div class="float_right hidable">
-    <% if !read_only && current_user && current_user.id == element.user_id %>
-    <div class="action_btns">
-    <div class="action_btn">
-    <%= button_to 'x', element, confirm: 'Are you sure?',
-        :remote => true, :disable_with => 'x...',
-        method: :delete, :class => "delete_button",
-        :title => 'Delete post'
-    %>
-    </div>
-    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
-    </div>
-    <% elsif current_user && current_user.id != element.user_id %>
-    <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
-    <% end %>
-</div>
-
-
 <div class="posting_left_column clearfix">
     <div class="inline">        
         <% if element.active_user %>
@@ -84,6 +66,22 @@
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
     <% end %>
     
+</div>
+<div class="float_right hidable">
+    <% if !read_only && current_user && current_user.id == element.user_id %>
+    <div class="action_btns">
+    <div class="action_btn">
+    <%= button_to 'x', element, confirm: 'Are you sure?',
+        :remote => true, :disable_with => 'x...',
+        method: :delete, :class => "delete_button",
+        :title => 'Delete post'
+    %>
+    </div>
+    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
+    </div>
+    <% elsif current_user && current_user.id != element.user_id %>
+    <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
+    <% end %>
 </div>
 <div class="float_right">
    <%= render 'votes/vote_btn', :element => element %>
