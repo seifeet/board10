@@ -11,30 +11,29 @@
     </ul>
 </div>
 <% end %>
-<% if @posting.scheduled_event_id %>
-<%= render 'scheduled_events/form_fields_for', :f => f %>
+<% if @posting.scheduled_event_id || params[:act] == 'event' %>
+<%= render 'scheduled_events/form_fields_for', :f => f, :posting => @posting %>
 <% end %>
+    <%= hidden_field_tag 'board_id', params[:board] %>
 <div class="field">
     <%= f.label :subject %><br />
     <%= f.text_field :subject %>
 </div>
 <div class="field">
+    <%= f.text_area :content, :rows => 10 %>
+</div>
+    <br />
     <% if @board %>
-    <% if @board.access == Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
-    <% elsif @board.access == Posting::PRIVATE %>
-    <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
-    <% end %>
+    <%= f.radio_button 'visibility', '1', :checked => (@board.access == Posting::PUBLIC), :class => 'tips', :title => title_for_public_post %>
+    <%= f.label :visibility ,Posting::PUBLIC, :class => 'tips', :title => title_for_public_post %>
+    <%= f.radio_button 'visibility', '0', :checked => (@board.access == Posting::PRIVATE), :class => 'tips', :title => title_for_private_post %>
+    <%= f.label :visibility, Posting::PRIVATE, :class => 'tips', :title => title_for_private_post %>
     <% else %>
-    <%= f.radio_button 'visibility', '1' %><%= f.label :visibility ,Posting::PUBLIC %>
-    <%= f.radio_button 'visibility', '0' %><%= f.label :visibility, Posting::PRIVATE %>
-    <% end %>
-</div>
-<div class="field">
-    <%= f.text_area :content, :rows => 7 %>
-</div>
+    <%= f.radio_button 'visibility', '1', :class => 'tips', :title => title_for_public_post %>
+    <%= f.label :visibility ,Posting::PUBLIC, :class => 'tips', :title => title_for_public_post %>
+    <%= f.radio_button 'visibility', '0', :class => 'tips', :title => title_for_private_post %>
+    <%= f.label :visibility, Posting::PRIVATE, :class => 'tips', :title => title_for_private_post %>
+    <% end %><br />
 <div class="actions">
     <%= f.submit 'Save', :class => "edit_button" %>
 </div>

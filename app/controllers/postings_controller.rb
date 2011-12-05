@@ -30,6 +30,7 @@ class PostingsController < ApplicationController
     
     if @posting.original_posting
       @board = Board.find_board(@posting.board_id)
+      @original_post = Posting.find(@posting.original_posting)
       if @board && current_user && current_user.member?( @board.id )
         @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
       elsif @board
@@ -44,13 +45,17 @@ class PostingsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     page_not_found
-    end
+  end
 
   # GET /postings/new
   # GET /postings/new.json
   def new
     @posting = Posting.new
-
+    
+    if params[:act] == 'event'
+      @posting.build_scheduled_event
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @posting }
@@ -85,7 +90,7 @@ class PostingsController < ApplicationController
       @posting = Posting.new(params[:posting])
       @posting.board_id = board.id
       @posting.user_id = current_user.id
-      @posting.content = params[:editor] if params[:posting][:content].nil?
+      #@posting.content = params[:editor] if params[:posting][:content].nil?
       if @posting.content.nil? || @posting.content.empty?
         empty_err = true
         flash.now[:error] = 'Content can not be bank'
@@ -166,7 +171,7 @@ class PostingsController < ApplicationController
     end
     rescue ActiveRecord::RecordNotFound
     page_not_found
-    end
+  end
 
   # PUT /postings/1
   # PUT /postings/1.json

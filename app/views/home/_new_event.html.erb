@@ -18,31 +18,25 @@ end
   <% end %>
     <%= hidden_field_tag 'from_posting', @from_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
-    <%= render 'scheduled_events/form_fields_for', :f => f %>
+    <%= render 'scheduled_events/form_fields_for', :f => f, :posting => @new_event %>
     <div class="field clearfix">
         <%= f.label :subject %><br />
         <%= f.text_field :subject, :prompt => {:hour => true} %> 
     </div>
     <div class="field clearfix">
-        <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, params[:editor], :rows => 10 %>
-        <% else %>
         <%= f.text_area :content, :value => params[:content], :rows => 10 %>
-        <% end %>
     </div>
     <div class="clearfix">
-    	<% if @new_event && @new_event.access == Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '1', :checked => true, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
-            <%= f.radio_button 'visibility', '0', :checked => false, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
-        <% elsif @new_event && @new_event.access == Posting::PRIVATE %>
-            <%= f.radio_button 'visibility', '1', :checked => false, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility, Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
-            <%= f.radio_button 'visibility', '0', :checked => true, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility ,Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
-    	<% elsif @board.access == Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '1', :checked => true, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
-            <%= f.radio_button 'visibility', '0', :checked => false, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
-        <% elsif @board.access == Posting::PRIVATE %>
-            <%= f.radio_button 'visibility', '1', :checked => false, :title => title_for_public_post, :class => 'tips' %><%= f.label :visibility, Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
-            <%= f.radio_button 'visibility', '0', :checked => true, :title => title_for_private_post, :class => 'tips' %><%= f.label :visibility ,Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
+    	<% if @new_event %>
+            <%= f.radio_button 'visibility', '1', :checked => (@new_event.access == Posting::PUBLIC), :title => title_for_public_post, :class => 'tips' %>
+            <%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => (@new_event.access == Posting::PRIVATE), :title => title_for_private_post, :class => 'tips' %>
+            <%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
+        <% else %>
+            <%= f.radio_button 'visibility', '1', :checked => (@board.access == Posting::PUBLIC), :title => title_for_public_post, :class => 'tips' %>
+            <%= f.label :visibility ,Posting::PUBLIC, :title => title_for_public_post, :class => 'tips' %>
+            <%= f.radio_button 'visibility', '0', :checked => (@board.access == Posting::PRIVATE), :title => title_for_private_post, :class => 'tips' %>
+            <%= f.label :visibility, Posting::PRIVATE, :title => title_for_private_post, :class => 'tips' %>
         <% end %>
     </div>
     <div class="actions">
@@ -50,8 +44,3 @@ end
     </div>
 <% end %>
 </div>
-<script type="text/javascript">
-$(function() {
-    $( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
-});
-</script>

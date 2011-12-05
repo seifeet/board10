@@ -1,45 +1,24 @@
 <div class="clearfix">
 <%= form_for @posting_form, :remote => true do |f| %>
-  <% if @posting_form.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@posting_form.errors.count, "error") %> prohibited this posting from being saved:</h2>
-      <ul>
-      <% @posting_form.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
     <%= hidden_field_tag 'from_posting', @from_posting %>
     <%= hidden_field_tag 'board_id', @board.id %>
     <div class="field clearfix">
-        <% if !@reply %>
         <%= f.label :subject %><br />
         <%= f.text_field :subject %> 
-        <% elsif ( @reply && !@user.nil? && !current_user?(@user) ) %>
-        <b>Reply:</b>
-        <%= f.hidden_field :subject, :value => "Reply to #{@user.full_name}", :size => 30 %>
-        <% end %>
     </div>
     <div class="field clearfix">
-        <% if !params[:subact].nil? %>
-        <%= text_area_tag :editor, "", :rows => 10 %>
-        <% else %>
         <%= f.text_area :content, :value => params[:posting_content], :rows => 10 %>
-        <% end %>
     </div>
     <div class="clearfix">
       <% if current_user.member?(@board) %>
-        <% if @board.access == Posting::PUBLIC %>
-        <%= f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
-        <%= f.radio_button 'visibility', '0', :checked => false %><%= f.label :visibility, Posting::PRIVATE %>
-        <% elsif @board.access == Posting::PRIVATE %>
-            <%= f.radio_button 'visibility', '1', :checked => false %><%= f.label :visibility, Posting::PUBLIC %>
-            <%= f.radio_button 'visibility', '0', :checked => true %><%= f.label :visibility ,Posting::PRIVATE %>
-        <% end %>
+        <%= f.radio_button 'visibility', '1', :checked => (@board.access == Posting::PUBLIC), :class => 'tips', :title => title_for_public_post %>
+        <%= f.label :visibility ,Posting::PUBLIC, :class => 'tips', :title => title_for_public_post %>
+        <%= f.radio_button 'visibility', '0', :checked => (@board.access == Posting::PRIVATE), :class => 'tips', :title => title_for_private_post %>
+        <%= f.label :visibility, Posting::PRIVATE, :class => 'tips', :title => title_for_private_post %>
       <% else %>
         <%= # Public should be the default for non-member
-          f.radio_button 'visibility', '1', :checked => true %><%= f.label :visibility ,Posting::PUBLIC %>
+          f.radio_button 'visibility', '1', :checked => true, :class => 'tips', :title => title_for_public_post %>
+          <%= f.label :visibility ,Posting::PUBLIC, :class => 'tips', :title => title_for_public_post %>
       <% end %>
     </div>
     <div class="actions">

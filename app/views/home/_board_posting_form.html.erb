@@ -3,7 +3,6 @@
  @board = Board.find_board(params[:board]) if @board.nil?
  if @board.active? && ( @board.access == Posting::PUBLIC || current_user.member?( @board.id ) )
  user = User.find_user(params[:id])
- @reply = false
  
  if @board.postings.nil? || @board.postings.empty?
    last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")

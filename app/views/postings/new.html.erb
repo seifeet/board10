@@ -1,5 +1,16 @@
-<h1>New Post</h1>
+<div id="posting_edit_content">
+<%
+board = Board.find_board(params[:board])
+if board.access == Posting::PUBLIC || current_user.member?(board)
+%>
+
+<h1>New <%= ( params[:act] == 'event' ? 'Event' : 'Post' ) %> for board "<%= board.title %>"</h1>
 <%= render 'form' %>
 <%= link_to 'Back', :back, :class => "button_neutral" %>
+<%= render 'postings/editor_js' %>
 
+<% else %>
+  <b>This board is private. You have to be a member of the board in order to post on it.</b>
+<% end %>
+</div>
 
