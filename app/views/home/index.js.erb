@@ -104,13 +104,13 @@
         document.title = "<%= escape_javascript("Search #{params[:search].to_s.titleize} in Users") %>";
         
     <% elsif params[:act] == 'invite' %>
-        $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'tab_invite_search', :controller_path => home_path) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         document.title = "Invite people";
         
     <% elsif params[:act] == 'write' %>
-        $("#title_top_action").html("<%= escape_javascript(render 'tab_write_message') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_write_message', :controller_path => home_path ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
         $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
         document.title = "Write to Board";

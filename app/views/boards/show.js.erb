@@ -44,7 +44,7 @@
     <% elsif params[:act] == 'invite' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");
         $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
-        $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_invite_search') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_invite_search', :controller_path => board_path(@board)) %>");
         $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
         document.title = "Invite people";
     
@@ -61,7 +61,7 @@
     <% elsif params[:act] == 'write' %>
         $(".home_sub_title").html("<%= escape_javascript(render 'home/home_sub_title') %>");
         $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
-        $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_write_message') %>");
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_write_message', :controller_path => board_path(@board)) %>");
         $("#user_postings").html("<%= escape_javascript(render 'boards/board_postings') %>");
         document.title = "Write to Board";
     

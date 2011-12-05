@@ -24,15 +24,15 @@
 </script>
 <% end %>
 <div class="close_button clearfix clickable">
-    <%= link_to "Close", home_path + "?board=#{params[:board]}&act=cancel", :class => 'tips', :title => "Close Messages", :disable_with => "Close" %>
+    <%= link_to "Close", controller_path + "?board=#{params[:board]}&act=cancel", :class => 'tips', :title => "Close Messages", :disable_with => "Close" %>
     <% if !params[:subact].nil? %>
         <% if params[:subact] == 'advanced' %>
-        <%= link_to "Simple", home_path + "?act=write&subact=simple&board=#{params[:board]}", :class => 'tips', :title => "Switch to simple editing", :disable_with => "Loading..." %>
+        <%= link_to "Simple", controller_path + "?act=write&subact=simple&board=#{params[:board]}", :class => 'tips', :title => "Switch to simple editing", :disable_with => "Loading..." %>
         <% else %>
-        <%= link_to "Advanced", home_path + "?act=write&subact=advanced&board=#{params[:board]}", :class => 'tips', :title => "Switch to advanced editing", :disable_with => "Loading..." %>
+        <%= link_to "Advanced", controller_path + "?act=write&subact=advanced&board=#{params[:board]}", :class => 'tips', :title => "Switch to advanced editing", :disable_with => "Loading..." %>
         <% end %>
     <% else %>
-    <%= link_to "Editor", home_path + "?act=write&subact=editor&board=#{params[:board]}", :class => 'tips', :title => "Turn on rich editor", :disable_with => "Loading..." %>
+    <%= link_to "Editor", controller_path + "?act=write&subact=editor&board=#{params[:board]}", :class => 'tips', :title => "Turn on rich editor", :disable_with => "Loading..." %>
     <% end %>
 </div>
 <div id="action_tab" class="clearfix">

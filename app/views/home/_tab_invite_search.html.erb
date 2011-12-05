@@ -1,8 +1,8 @@
 <div class="clearfix">
 <div class="close_button clearfix clickable">
-<%= link_to "Close", home_path + "?board=#{params[:board]}&act=cancel", :class => 'tips', :title => "Close Find People", :disable_with => "Close" %>
+<%= link_to "Close", controller_path + "?board=#{params[:board]}&act=cancel", :class => 'tips', :title => "Close Find People", :disable_with => "Close" %>
 </div>
-<%= form_tag home_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
+<%= form_tag controller_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <div class="field">
     <%= label_tag :search, "Search Criteria" %><br />
     <%= text_field_tag :search, params[:search] %>

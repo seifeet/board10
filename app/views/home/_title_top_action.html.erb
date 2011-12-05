@@ -18,9 +18,11 @@
 	<% elsif params[:act] == 'user_search' %>
 	<div id="tab_user_search"><%= render 'home/tab_user_search' %></div>
 	<% elsif params[:act] == 'write' %>
-	<%= render 'tab_write_message' %>
+	<%= render 'tab_write_message', :controller_path => home_path %>
 	<% elsif params[:act] == 'invite' %>
-	<div id="tab_invite_search"><%= render 'home/tab_invite_search' %></div>
+	<div id="tab_invite_search">
+		<%= render 'home/tab_invite_search', :controller_path => home_path %>
+	</div>
 	<% elsif params[:act] == 'new_board' || params[:act] == 'edit_board' %>
 	<div class="action_tab"><%= render 'home/new_board_form' %></div>
 	<% elsif params[:act] == 'remove_board' %>
