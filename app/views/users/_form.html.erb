@@ -4,8 +4,6 @@
 <% end %>
 <% end %>
 
-<div class="signup_container alpha60 clearfix">
-
 <%= form_for @user do |f| %>
 
 <%= render 'shared/flash_msg', :msg => "error" %>
@@ -68,17 +66,10 @@
 
 <div class="single_field">
 <% if current_user.nil? %>
-    <%= f.submit "Create User", :class => "button_with_img button_green" %>
+    <%= f.submit "Create User", :class => "button_with_img button_green", :disable_with => 'Processing...'  %>
 <% else %>
-    <%= f.submit "Update", :class => "button_with_img button_green" %>
-<% end %>
-</div>
-<div class="single_field white">
-<% if !current_user.nil? %>
-    <%= link_to 'Close Account',  current_user, confirm: 'Are you sure?', method: :delete, :class => 'tips', :title => "Close your account?" %>
+    <%= f.submit "Update", :class => "button_with_img button_green", :disable_with => 'Updating...' %>
 <% end %>
 </div>
 
 <% end %>
-</div>
-

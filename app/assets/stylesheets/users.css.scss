@@ -69,6 +69,16 @@
   border:2px solid $bgdarken20;
 }
 
+#settings_content{
+    position:relative;
+    width: 30%;
+    margin: 2px auto;
+    background:$bglighten50; 
+    border:3px solid $backgrnd;
+    padding:30px;
+    border-radius: 25px;
+}
+
 /*********************** errors ***********************************/
 
 #error_explanation {

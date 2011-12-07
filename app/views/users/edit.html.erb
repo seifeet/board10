@@ -1,2 +1,9 @@
-<%= render 'form' %>
+<div id="settings_content" class="signup_container clearfix">
+<div align="right">
 <%= link_to 'Back', :back, :class => "button_neutral" %>
+</div>
+<%= render 'form' %>
+<div align="right">
+<%= link_to 'Close Account',  current_user, confirm: 'Are you sure?', method: :delete, :class => 'button_neutral tips', :title => "Close your account?" %>
+</div>
+</div>
