@@ -19,14 +19,15 @@ body {
 }
 
 .signin_container{
-  position: relative;
-  top: 85px;
-  width: 27em;
-  margin: auto;
-  padding: 15px 15px 15px 15px;
+    float: left;
+    position: relative;
+    top: 85px;
+    width: 27em;
+    margin: auto;
+    padding: 15px 15px 15px 15px;
 }
 
-.signun_container{
+.signup_container{
   position: relative;
   top: 10px;
   width: 28em;
@@ -45,7 +46,7 @@ body {
   opacity:0;
   float:left;
   //position:relative;
-  width: 27%;
+  width: 33%;
   margin:30px 30px 30px 30px;
   background: $bglighten50; 
   border:3px solid $backgrnd;
@@ -53,5 +54,5 @@ body {
   border-radius: 25px;
   &:hover{
     opacity:1;
-  }
+  } 
 }

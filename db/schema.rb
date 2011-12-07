@@ -71,30 +71,27 @@ ActiveRecord::Schema.define(:version => 20111201171911) do
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
 
   create_table "scheduled_events", :force => true do |t|
-    t.integer  "posting_id",                    :null => false
-    t.date     "next_event",                    :null => false
-    t.date     "start_date",                    :null => false
-    t.date     "end_date",                      :null => false
-    t.time     "start_time",                    :null => false
-    t.time     "end_time",                      :null => false
-    t.integer  "repeat",                        :null => false
-    t.boolean  "mo",         :default => false
-    t.boolean  "tu",         :default => false
-    t.boolean  "we",         :default => false
-    t.boolean  "th",         :default => false
-    t.boolean  "fr",         :default => false
-    t.boolean  "sa",         :default => false
-    t.boolean  "su",         :default => false
+    t.integer  "posting_id",      :null => false
+    t.date     "next_event_date", :null => false
+    t.time     "next_event_time", :null => false
+    t.date     "start_date",      :null => false
+    t.date     "end_date",        :null => false
+    t.time     "start_time",      :null => false
+    t.time     "end_time",        :null => false
+    t.integer  "repeat",          :null => false
+    t.boolean  "mo"
+    t.boolean  "tu"
+    t.boolean  "we"
+    t.boolean  "th"
+    t.boolean  "fr"
+    t.boolean  "sa"
+    t.boolean  "su"
     t.boolean  "month_end"
     t.integer  "month"
     t.integer  "month_day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "scheduled_events", ["end_date"], :name => "index_scheduled_events_on_end_date"
-  add_index "scheduled_events", ["next_event"], :name => "index_scheduled_events_on_next_event"
-  add_index "scheduled_events", ["posting_id"], :name => "index_scheduled_events_on_posting_id"
 
   create_table "schools", :force => true do |t|
     t.string   "state",      :limit => 2,   :null => false
