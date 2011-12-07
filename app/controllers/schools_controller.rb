@@ -11,9 +11,9 @@ class SchoolsController < ApplicationController
     @title = 'Schools'
     store_location # store the page location for back functionality
     if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-      @schools = School.search(params[:search], current_user.state, current_user.city ).paginate(:page => params[:page], :per_page => 100)
+      @schools = School.search(params[:search], current_user.state, current_user.city ).paginate(:page => params[:page], :per_page => per_page)
     else
-      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => 100) 
+      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => per_page) 
     end
         
     respond_to do |format|

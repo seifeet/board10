@@ -20,8 +20,12 @@ class School < ActiveRecord::Base
     
     if search || state || city
       tmp = nil
-      tmp = search.sub(' ', '%') unless search.nil? 
-      where('state = ? and city like ? and CONCAT( name, \' \', name ) LIKE ?', "#{state}", "%#{city}%", "%#{tmp}%")
+      tmp = search.sub(' ', '%') unless search.nil?
+      if state && !state.blank?
+        where('state = ? and city like ? and CONCAT( name, \' \', name ) LIKE ?', "#{state}", "%#{city}%", "%#{tmp}%")
+      else
+        where('city like ? and CONCAT( name, \' \', name ) LIKE ?', "%#{city}%", "%#{tmp}%")
+      end
     else
       scoped # the same as all, but does not perform the actual query
     end

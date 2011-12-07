@@ -23,6 +23,7 @@ elsif object_type == 'school'
   end
 end 
 %>
-
+<% if !search_results.nil? && !search_results.empty? %>
 <%= render 'shared/containers/page_container', :page_container => search_results, :type => @type %>
+<% end %>
 </div>

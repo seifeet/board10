@@ -1,3 +1,14 @@
+<% if current_user.nil? %>
+<% content_for :head_css do %>
+<%= stylesheet_link_tag 'sessions' %>
+<% end %>
+<% end %>
+
 <div class="signup_container alpha60 clearfix">
+<% if @user %>
 <%= render 'form' %>
+<% else  %>
+<%= render 'shared/school_search', :search_path => new_user_path %>
+<% end %>
 </div>
+

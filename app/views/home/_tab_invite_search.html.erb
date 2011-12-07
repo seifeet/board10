@@ -11,5 +11,15 @@
 <%= hidden_field_tag 'board', params[:board] %>
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
 <% end %>
+<p><b>OR</b></p>
+Invite via email:<br />
+<%= form_tag controller_path, :method => :get, :id => "tab_invite_via_email", :remote => true do %>
+<div class="field">
+<%= text_area_tag :emails, params[:emails], :rows => 10 %>
+</div>
+<%= hidden_field_tag 'act', 'invite_via_email' %>
+<%= hidden_field_tag 'board', params[:board] %>
+<%= submit_tag "Send invitation", :name => nil, :class => 'button_neutral', :disable_with => "Sending..." %>
+<% end %>
 </div>
 

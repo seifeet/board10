@@ -93,6 +93,9 @@ class HomeController < ApplicationController
       elsif params[:act] == 'invite' || params[:act] == 'users'
         logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
+        
+      elsif params[:act] == 'invite_via_email'
+         @postings_title = "TO BE IMPLEMENTED"
 
       elsif params[:act] == 'messages'
         logger.debug "-----------------------params[:act] == 'messages'----------------------------------"

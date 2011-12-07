@@ -1,4 +1,4 @@
-<% unless current_user.has_school?(school.id) %>
+<% if current_user && !current_user.has_school?(school.id) %>
 <%= form_for current_user.user_schools.build(:school_id => school.id), :class => "submitable", :remote => true do |f| %>
   <%= f.hidden_field :school_id, :value => school.id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
@@ -7,4 +7,15 @@
   <%= f.hidden_field :search, :value => params[:search] %>
   <%= f.submit "Add", :class => "button_confirm" %>
 <% end %>
+
+<% elsif current_user.nil? %>
+<%= form_for :user, :method => :get, :url => new_user_path  do |f| %>
+  <%= f.hidden_field :school_id, :value => school.id %>
+  <%= f.hidden_field :city, :value => params[:city] %>
+  <%= f.hidden_field :state, :value => params[:state] %>
+  <%= f.hidden_field :search, :value => params[:search] %>
+  <%= f.submit "Add", :class => "button_confirm" %>
+<% end %>
+
+
 <% end %>

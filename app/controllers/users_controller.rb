@@ -52,10 +52,25 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    if params[:user] && params[:user][:school_id]
+      school = School.find_school(params[:user][:school_id]) 
+    end
+    
+    if school
+      @user = User.new
+      @user.country = 'United States'
+      @user.state = school.state
+      @user.city = school.city
+      params[:school_id] = school.id
+    else
+      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => per_page) 
+    end
+    
     @title = 'Sign Up'
+    
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @user }
     end
   end
@@ -71,13 +86,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    
+    school = School.find_school(params[:user][:school_id]) if params[:user][:school_id]
     @recaptcha = verify_recaptcha(:model => @user, :message => "Please try this challenge again.")
 
     respond_to do |format|
       if @recaptcha && @user.save
+        @user.has_school!(school) if school
         sign_in @user
-        # UserMailer.registration_confirmation(@user).deliver
+        UserMailer.registration_confirmation(@user).deliver
         flash.now[:success] = "Welcome, " + @user.full_name + '!'
         format.html { redirect_to home_path, notice: "Welcome, " + @user.full_name + '!'}
         format.json { render json: @user, status: :created, location: @user }
