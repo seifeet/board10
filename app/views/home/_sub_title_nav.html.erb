@@ -66,7 +66,7 @@
     </div>
 <% elsif params[:act] == 'users' || params[:act] == 'user_search' %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'user_search' && params[:subact] != 'cancel') %>">
-    <%= link_to 'FIND', home_path+"?act=user_search", :title => "Find users", :class => 'tips', :disable_with => "Loading..." %>
+    <%= link_to 'FIND', home_path+"?act=user_search", :title => "Find people", :class => 'tips', :disable_with => "Loading..." %>
     </div>
 <% 
 end # end of "if !params[:school].nil? || ..."

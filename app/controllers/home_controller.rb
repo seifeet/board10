@@ -41,7 +41,7 @@ class HomeController < ApplicationController
         
       elsif params[:act] == 'users' || params[:act] == 'user_search'
         logger.debug "-------------------params[:act] == 'users' || params[:act] == 'user_search'--------------------------------------"
-        @postings_title = "Search for users:"
+        @postings_title = "Search for people:"
         @postings = User.search(params[:search])
 
       elsif params[:act] == 'school_search'
