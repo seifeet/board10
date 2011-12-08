@@ -99,7 +99,9 @@ class HomeController < ApplicationController
         @email_results = validate_emails params[:emails]
         @email_errors = @email_results.has_value? 'x'
         if @email_results && !@email_results.empty? && !@email_errors
-          
+          if board = Board.find_board(params[:board])
+            current_user.send_invites(board, @email_results)
+          end
         end
 
       elsif params[:act] == 'messages'

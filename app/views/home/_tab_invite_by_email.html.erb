@@ -14,14 +14,14 @@
 <% else %>
     <% if @email_errors %>
 	    <p>Unable to recognize emails marked with <font color="red"><b>x</b></font> sign.<br />
-	    Please correct them and resumit your request.</p>
+	    Please correct them and submit your request again.</p>
 	    <p>
 		<% @email_results.each do |key, value| %>
 		<font color=<%= value == 'x' ? 'red' : 'green' %>><b> <%= value.html_safe %> </b></font><%= key %><br />
 		<% end %>
 	    </p>
     <% else %>
-    <p>You can invite up to 50 people using their email address:
+    <p>You can invite up to <%= current_user.emails_left %> people using their email address:
     <%= help_note "For those who already has an account with Boardten your invitation will be sent internaly and will not be counted toward this limit." %>
     </p>
     <% end %>
@@ -31,14 +31,9 @@
 	</div>
 	<%= hidden_field_tag 'act', 'invite_by_email' %>
 	<%= hidden_field_tag 'board', board_id %>
+	Please note that sending process may take several minutes.<br />
 	<%= submit_tag "Send invitation", :name => nil, :class => 'button_neutral', :disable_with => "Sending..." %>
 	<% end %>
 <% end %>
 </div>
-
-
-
-
-
-
 

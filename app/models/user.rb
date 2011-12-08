@@ -243,7 +243,38 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
   
+  def send_invites board, emails
+    emails.each do |email, value|
+      users = User.where(:email => email)
+      if users && users.any? && users.first.id != self.id
+        send_invite_internaly(users.first, board) 
+      elsif users.first.id != self.id
+        send_invite_by_email(board, email)
+      end
+    end
+  end
+  
   private
+    def send_invite_internaly to_user, board
+      message = Message.new
+      message.to_user = to_user.id
+      message.board_id = board.id
+      message.from_user = self.id
+      message.subject = "Invite request for board \"#{board.title}\""
+      message.content = "Hi!\n\nI would like to invite you to my board \"#{board.title}\".\n\nThank you!"
+      message.msg_type = Message::Type::INVITE
+      message.msg_state = Message::State::UNREAD
+      message.save!
+    end
+    
+    def send_invite_by_email board, email
+      invite = Invitation.new
+      if invite.create_record(board, email)
+        UserMailer.send_invite(invite, board, self).deliver
+        self.emails_left -= 1
+        save!
+      end
+    end
 
     def encrypt_password
       # if we omitted self and wrote 'password_digest = encrypt(password)'

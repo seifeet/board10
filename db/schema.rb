@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201171911) do
+ActiveRecord::Schema.define(:version => 20111208191134) do
 
   create_table "boards", :force => true do |t|
     t.string   "title",                          :null => false
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20111201171911) do
     t.datetime "updated_at"
     t.integer  "school_id"
   end
+
+  create_table "invitations", :force => true do |t|
+    t.string   "token_key",   :null => false
+    t.string   "token_value", :null => false
+    t.integer  "board_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["token_key"], :name => "index_invitations_on_token_key"
 
   create_table "members", :force => true do |t|
     t.integer  "user_id"
@@ -71,27 +81,30 @@ ActiveRecord::Schema.define(:version => 20111201171911) do
   add_index "postings", ["user_id"], :name => "index_postings_on_user_id"
 
   create_table "scheduled_events", :force => true do |t|
-    t.integer  "posting_id",      :null => false
-    t.date     "next_event_date", :null => false
-    t.time     "next_event_time", :null => false
-    t.date     "start_date",      :null => false
-    t.date     "end_date",        :null => false
-    t.time     "start_time",      :null => false
-    t.time     "end_time",        :null => false
-    t.integer  "repeat",          :null => false
-    t.boolean  "mo"
-    t.boolean  "tu"
-    t.boolean  "we"
-    t.boolean  "th"
-    t.boolean  "fr"
-    t.boolean  "sa"
-    t.boolean  "su"
+    t.integer  "posting_id",                    :null => false
+    t.date     "next_event",                    :null => false
+    t.date     "start_date",                    :null => false
+    t.date     "end_date",                      :null => false
+    t.time     "start_time",                    :null => false
+    t.time     "end_time",                      :null => false
+    t.integer  "repeat",                        :null => false
+    t.boolean  "mo",         :default => false
+    t.boolean  "tu",         :default => false
+    t.boolean  "we",         :default => false
+    t.boolean  "th",         :default => false
+    t.boolean  "fr",         :default => false
+    t.boolean  "sa",         :default => false
+    t.boolean  "su",         :default => false
     t.boolean  "month_end"
     t.integer  "month"
     t.integer  "month_day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "scheduled_events", ["end_date"], :name => "index_scheduled_events_on_end_date"
+  add_index "scheduled_events", ["next_event"], :name => "index_scheduled_events_on_next_event"
+  add_index "scheduled_events", ["posting_id"], :name => "index_scheduled_events_on_posting_id"
 
   create_table "schools", :force => true do |t|
     t.string   "state",      :limit => 2,   :null => false
@@ -136,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20111201171911) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "login_attempts",                        :default => 0
+    t.integer  "emails_left",                           :default => 50
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
