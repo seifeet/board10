@@ -1,0 +1,44 @@
+<% board_id = ( @board ? @board.id : params[:board] )%>
+<div class="clearfix">
+<div class="close_button clickable">
+<%= link_to "Close", controller_path + "?board=#{board_id}&act=cancel", :class => 'tips', :title => "Close Invite", :disable_with => "Close" %>
+</div>
+<div class="action_button clickable">
+<%= link_to "Find people", controller_path + "?board=#{board_id}&act=invite", :class => 'tips', :title => "Invite people using search", :disable_with => "Loading..." %>
+</div>
+<% if !@email_errors && !@email_results.empty? %>
+	<p>Invitations were sent for the following emails:</p>
+    <% @email_results.each do |key, value| %>
+    <font color='green'><b><%= value.html_safe %></b></font> <%= key %><br />
+	<% end %>
+<% else %>
+    <% if @email_errors %>
+	    <p>Unable to recognize emails marked with <font color="red"><b>x</b></font> sign.<br />
+	    Please correct them and resumit your request.</p>
+	    <p>
+		<% @email_results.each do |key, value| %>
+		<font color=<%= value == 'x' ? 'red' : 'green' %>><b> <%= value.html_safe %> </b></font><%= key %><br />
+		<% end %>
+	    </p>
+    <% else %>
+    <p>You can invite up to 50 people using their email address:
+    <%= help_note "For those who already has an account with Boardten your invitation will be sent internaly and will not be counted toward this limit." %>
+    </p>
+    <% end %>
+	<%= form_tag controller_path, :method => :get, :id => "tab_invite_by_email", :remote => true do %>
+	<div class="field">
+	<%= text_area_tag :emails, params[:emails], :rows => 10 %>
+	</div>
+	<%= hidden_field_tag 'act', 'invite_by_email' %>
+	<%= hidden_field_tag 'board', board_id %>
+	<%= submit_tag "Send invitation", :name => nil, :class => 'button_neutral', :disable_with => "Sending..." %>
+	<% end %>
+<% end %>
+</div>
+
+
+
+
+
+
+

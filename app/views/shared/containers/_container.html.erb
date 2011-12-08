@@ -50,8 +50,8 @@
      And one more option is to create a new board for this school.<br />
      <b>So go ahead and be the first one!</b>
      </p>
-  <% elsif current_user.schools.empty? && current_user.boards.empty? %>
-     <p>This place is empty because your profile has not been linked to any schools or boards yet.</p>
+  <% elsif current_user.boards.empty? %>
+     <p>This place is empty because your profile has not been linked to any schools or boards, or they do not have any posts yet.</p>
   <% else %>
      <!-- p align="center">No results found</p -->
   <% end %>

@@ -22,6 +22,10 @@ module ApplicationHelper
   def max_num_boards
     10
   end
+  
+  def help_note msg
+    ("<span class='help_note tips' title='" + msg + "'>note</span>").html_safe
+  end
       
   def max_num_schools
     10

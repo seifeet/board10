@@ -47,7 +47,10 @@
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_invite_search', :controller_path => board_path(@board)) %>");
         $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");
         document.title = "Invite people";
-    
+    <% elsif params[:act] == 'invite_by_email' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_invite_by_email', :controller_path => home_path) %>");
+        document.title = "Invite people by email";
+        
     <% elsif params[:act] == 'join' %>
         $("#title_top_action").html("<%= escape_javascript(render 'boards/tab_join') %>");
         $("#main_menu").html("<%= escape_javascript(render 'boards/title_main_menu') %>");

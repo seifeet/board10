@@ -109,6 +109,10 @@
         $("#main_menu").html("<%= escape_javascript(render 'home/title_main_menu') %>");
         document.title = "Invite people";
         
+    <% elsif params[:act] == 'invite_by_email' %>
+        $("#title_top_action").html("<%= escape_javascript(render 'home/tab_invite_by_email', :controller_path => home_path) %>");
+        document.title = "Invite people by email";
+        
     <% elsif params[:act] == 'write' %>
         $("#title_top_action").html("<%= escape_javascript(render 'home/tab_write_message', :controller_path => home_path ) %>");
         $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");

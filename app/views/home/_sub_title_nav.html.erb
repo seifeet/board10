@@ -47,7 +47,7 @@
     <% end %>
     
     <% if member && member.member_type == Member::MemberType::OWNER %>
-    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'invite') %>">
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'invite' || params[:act] == 'invite_by_email') %>">
     <%= link_to 'INVITE', home_path+"?board=#{params[:board]}&act=invite", :class => 'tips', :title => "Invite people to your board", :disable_with => "Loading..." %>
     </div>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'edit_board') %>">
