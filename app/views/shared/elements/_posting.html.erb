@@ -68,9 +68,11 @@
 </div>
 
 <div class="posting_actions">
+	<% if !read_only && current_user && current_user.id != element.user_id %>
 	<div class="action_btn float_right">
     <%= render 'votes/vote_btn', :element => element %>
     </div>
+    <% end %>
 	<% if !read_only && current_user && current_user.id == element.user_id %>
 	<div class="action_btn float_right">
 	<%= button_to 'delete', element, confirm: 'Are you sure?',
