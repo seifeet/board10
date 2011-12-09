@@ -248,7 +248,7 @@ class User < ActiveRecord::Base
       users = User.where(:email => email)
       if users && users.any? && users.first.id != self.id
         send_invite_internaly(users.first, board) 
-      elsif users.first.id != self.id
+      elsif users.nil? || users.empty?
         send_invite_by_email(board, email)
       end
     end
