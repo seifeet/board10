@@ -1,7 +1,17 @@
+<% owner = element.members.find_by_member_type(Member::MemberType::OWNER) %>
+<% if owner %>
+<% user = User.find_user(owner.user_id) %>
+<% end %>
+
 <div class="posting_left_column clearfix">
-<div class="inline"><%= link_to element.title, element %></div>
+<div class="inline">
+	<b><%= link_to "#{strip_and_cut(element.title,26)}", element, :class => "tips link_to_text", :title => "Board: #{element.title}" %></b>
+</div>
+<% if user %>
+<div class="inline"><%= link_to "Owner: " + strip_and_cut(user.full_name,18), user, :class => "tips link_to_text", :title => user.full_name %></div>
+<% end %>
 <% if element.access == Board::PRIVATE %>
-<div class="inline"><i><font color="red"><%= element.access %></font></i></div>
+<div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
 <% end %>
 <div class="inline">
 (<%= pluralize(element.view_count, views_str) + ', ' + pluralize(element.postings.count, 'post') %>)
@@ -12,41 +22,44 @@
 </div>
 
 <div class="posting_right_column clearfix">
-<% if admin? %>
-<%= link_to 'Edit', edit_board_path(element), :class => "edit_button" %>
-<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete, :disable_with => "Deleting...", :class => "delete_button" %>
-<% end %>
 <div class="inline"><%= strip_and_cut(element.description, 300) %></div>
 
-<% owner = element.members.find_by_member_type(Member::MemberType::OWNER) %>
-<% if owner %>
-<% user = User.find_user(owner.user_id) %>
-<% end %>
 <% if user %>
-	<div class="inline">Owner: <%= user.full_name %></div>
 	<% # not a good thing, but I have to do that for the sake of simplicity
 	message_subj = "Join request for board \"#{element.title}\"" 
 	%>
+<div class="posting_actions">	
 	<% if element.active? && !current_user.member?(element) && !user.recieved.join_requests.unread.where("from_user = ? and subject = ?", current_user.id, message_subj).any? %>
-	<div class="inline_right">
-	<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
-	  <%= f.hidden_field :to_user, :value => owner.user_id %>
-	  <%= f.hidden_field :board_id, :value => element.id %>
-	  <%= f.hidden_field :search, :value => params[:search] %>
-	  <%= f.text_area :content, :rows => 3, :cols => 33, :value => "Hi!\nI would like to join your board.\nThank you!" %>
-	  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm tips", :disable_with => "Sending...", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on that board." %>
-	<% end %>
-	</div>
+		<div class="action_btn inline">
+		<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
+		  <%= f.hidden_field :to_user, :value => owner.user_id %>
+		  <%= f.hidden_field :board_id, :value => element.id %>
+		  <%= f.hidden_field :search, :value => params[:search] %>
+		  <div class="field">
+		  <%= f.text_area :content, :rows => 4, :cols => 33, :value => "Hi!\nI would like to join your board.\nThank you!" %>
+		  </div>
+		  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_confirm tips", :disable_with => "Sending...", :title => "Join is a request to become a member of the board.\nAfter owner's confirmation your profile will be linked to the board. You will be able to see private posts and write on this board." %>
+		<% end %>
+		</div>
 	<% end %>
 	<% if element.active? && !current_user.follower?(element) %>
-	<div class="inline_right">
+	<div class="action_btn float_right">
 	<%= form_for current_user.members.build(:board_id => element.id), :class => "submitable", :remote => true do |f| %>
-	  <%= f.hidden_field :board_id %>
-	  <%= f.hidden_field :user_id, :value => current_user.id %>
-	  <%= f.hidden_field :search, :value => params[:search] %>
-	  <%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral tips", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
+	<%= f.hidden_field :board_id %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	<%= f.hidden_field :search, :value => params[:search] %>
+	<%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral tips", :disable_with => "Processing...", :title => "Follow will allow you to recieve only public posts from this board. You do not need owner's permission to follow a board, but you will not be able to post on the private boards." %>
 	<% end %>
 	</div>
-	<% end %>
 <% end %>
 </div>
+<% end %>
+
+</div>
+
+<% if admin? %>
+<div class="action_btn float_right">
+<%= link_to 'Edit', edit_board_path(element), :class => "edit_button" %>
+<%= link_to 'Delete', element, confirm: 'Are you sure?', method: :delete, :disable_with => "Deleting...", :class => "delete_button" %>
+</div>
+<% end %>

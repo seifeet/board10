@@ -5,7 +5,7 @@
   <%= f.hidden_field :city, :value => params[:city] %>
   <%= f.hidden_field :state, :value => params[:state] %>
   <%= f.hidden_field :search, :value => params[:search] %>
-  <%= f.submit "Add", :class => "button_confirm" %>
+  <%= f.submit "Add", :class => "button_confirm", :disable_with => "Add" %>
 <% end %>
 
 <% elsif current_user.nil? %>
@@ -14,7 +14,7 @@
   <%= f.hidden_field :city, :value => params[:city] %>
   <%= f.hidden_field :state, :value => params[:state] %>
   <%= f.hidden_field :search, :value => params[:search] %>
-  <%= f.submit "Add", :class => "button_confirm" %>
+  <%= f.submit "Add", :class => "button_confirm", :disable_with => "Add" %>
 <% end %>
 
 

@@ -1,3 +1,8 @@
-<div class="inline"><b><%= link_to element.school_name, element.url, :confirm => "You will be redirected to the #{element.name} website\n(#{element.url}).\nAre you sure?" %></b></div>
-<div class="inline"><%= element.location %></div>
+<div class="float_right">
 <%= render 'user_schools/btn_add_school', :school => element %>
+</div>
+<div class="float_left"><b><%= link_to element.school_name, element.url, :confirm => "You will be redirected to the #{element.name} website\n(#{element.url}).\nAre you sure?" %></b></div>
+<br />
+<div class="float_left"><%= element.location %></div>
+
+
