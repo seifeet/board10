@@ -57,6 +57,13 @@ class BoardsController < ApplicationController
         logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
         @postings_title = "Search people:"
+        
+      elsif params[:act] == 'invite_by_email' && current_user.owner?( @board )
+        @email_results = validate_emails params[:emails]
+        @email_errors = @email_results.has_value? 'x'
+        if @email_results && !@email_results.empty? && !@email_errors
+          
+        end
 
       elsif params[:act] == 'messages'
         logger.debug "-----------------------params[:act] == 'messages'----------------------------------"

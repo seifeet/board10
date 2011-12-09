@@ -6,6 +6,10 @@
 	<div id="tab_invite_search">
 		<%= render 'home/tab_invite_search', :controller_path => board_path(@board) %>
 	</div>
+	<% elsif params[:act] == 'invite_by_email' && params[:subact] != 'cancel' %>
+	<div id="tab_invite_search">
+		<%= render 'home/tab_invite_by_email', :controller_path => board_path(@board) %>
+	</div>
 	<% elsif params[:act] == 'edit_board' %>
 	<div class="action_tab"><%= render 'home/new_board_form' %></div>
 	<% elsif ( params[:act] == 'add_event' || params[:act] == 'edit_event' ) && params[:subact] != 'cancel' %>

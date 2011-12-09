@@ -580,3 +580,10 @@ a.link_to_text{
 .autorefresh_link{
   height:1em;
 }
+
+span.help_note.tips{
+  font-size:x-small;
+  color:red;
+  text-decoration:underline;
+  font-style: italic;
+}

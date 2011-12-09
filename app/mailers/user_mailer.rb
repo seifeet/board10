@@ -16,4 +16,14 @@ class UserMailer < ActionMailer::Base
     #attachments["laoding.gif"] = File.read("#{Rails.root}/public/images/loading.gif")
     mail(:to => "#{user.full_name} <#{user.email}>", :subject => "Boardten: Your Registeration Confirmation")
   end
+  
+  def send_invite(invite, board, user)
+    @invite = invite
+    @user = user
+    @board = board
+    # here we have to use bcc; otherwise it takes too long:
+    # mail(:to => recipient.email_address_with_name,
+    #      :bcc => ["bcc@example.com", "Order Watcher <watcher@example.com>"])
+    mail(:to => "#{@invite.token_key}", :subject => "#{@user.full_name} invites you to Boardten")
+  end
 end

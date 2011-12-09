@@ -1,7 +1,11 @@
 <div class="clearfix">
-<div class="close_button clearfix clickable">
+<div class="close_button clickable">
 <%= link_to "Close", controller_path + "?board=#{params[:board]}&act=cancel", :class => 'tips', :title => "Close Find People", :disable_with => "Close" %>
 </div>
+<div class="action_button clickable">
+<%= link_to "Invite by email", controller_path + "?board=#{params[:board]}&act=invite_by_email", :class => 'tips', :title => "Click here to invite people using their email address.", :disable_with => "Loading..." %>
+</div>
+<br />
 <%= form_tag controller_path, :method => :get, :id => "tab_invite_search", :remote => true do %>
 <div class="field">
     <%= label_tag :search, "Search Criteria" %><br />
@@ -10,16 +14,6 @@
 <%= hidden_field_tag 'act', 'invite' %>
 <%= hidden_field_tag 'board', params[:board] %>
 <%= submit_tag "Find people", :name => nil, :class => 'button_neutral', :disable_with => "Searching..." %>
-<% end %>
-<p><b>OR</b></p>
-Invite via email:<br />
-<%= form_tag controller_path, :method => :get, :id => "tab_invite_via_email", :remote => true do %>
-<div class="field">
-<%= text_area_tag :emails, params[:emails], :rows => 10 %>
-</div>
-<%= hidden_field_tag 'act', 'invite_via_email' %>
-<%= hidden_field_tag 'board', params[:board] %>
-<%= submit_tag "Send invitation", :name => nil, :class => 'button_neutral', :disable_with => "Sending..." %>
 <% end %>
 </div>
 

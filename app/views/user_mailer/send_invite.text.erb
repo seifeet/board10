@@ -1,0 +1,12 @@
+Hello!
+
+<%= @user.full_name %> invited you to join "<%= @board.title %>" board with Boardten network.
+
+Please signup using the following link:
+
+<%= new_user_url + "?act=" + @invite.token_value %>
+
+We hope that your enjoy our network.
+
+Sincerely,
+Boardten team

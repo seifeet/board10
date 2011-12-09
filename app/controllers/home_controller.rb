@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   include HomeHelper
   include PostingsHelper
+  include BoardsHelper
   include ApplicationHelper
   before_filter :only_current_user, :only => [:index]
   
@@ -94,8 +95,14 @@ class HomeController < ApplicationController
         logger.debug "----------------------params[:act] == 'invite' || params[:act] == 'users'-----------------------------------"
         @postings = User.search(params[:search])
         
-      elsif params[:act] == 'invite_via_email'
-         @postings_title = "TO BE IMPLEMENTED"
+      elsif params[:act] == 'invite_by_email'
+        @email_results = validate_emails params[:emails]
+        @email_errors = @email_results.has_value? 'x'
+        if @email_results && !@email_results.empty? && !@email_errors
+          if board = Board.find_board(params[:board])
+            current_user.send_invites(board, @email_results)
+          end
+        end
 
       elsif params[:act] == 'messages'
         logger.debug "-----------------------params[:act] == 'messages'----------------------------------"

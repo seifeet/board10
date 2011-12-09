@@ -30,7 +30,7 @@
 <% end %>
 
 <% if current_user.owner?(@board) %>
-<div class="third_menu_button <%= selected_if(params[:act] == 'invite') %>">
+<div class="third_menu_button <%= selected_if(params[:act] == 'invite' || params[:act] == 'invite_by_email') %>">
 <%= link_to 'INVITE', board_path(@board)+'?act=invite', :class => 'tips', 
 :title => "Invite to your board", :disable_with => "Loading..." %>
 </div>
