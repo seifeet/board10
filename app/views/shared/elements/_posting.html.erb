@@ -8,7 +8,7 @@
             posted by me
             <% elsif user = element.user %>
                 <% if current_user %>
-                <%= link_to "#{user.full_name}", user_path(element.user_id) %>
+                <b><%= link_to "#{user.full_name}", user_path(element.user_id), :class => "link_to_text" %></b>
                 <% else %>
                 <%= user.full_name %>
                 <% end %>
@@ -25,9 +25,9 @@
     <div class="inline clickable">
         <% if element.board %>
           <% if current_user && session[:return_to] =~ /\/home?/ %>
-        <b><%= link_to "#{strip_and_cut(element.board.title,30)}", home_path + "?board=#{element.board_id}", :class => "tips link_to_text", :title => "Board: #{element.board.title}", :disable_with => "Loading board..." %></b>
+        <b><%= link_to "#{strip_and_cut(element.board.title,26)}", home_path + "?board=#{element.board_id}", :class => "tips link_to_text", :title => "Board: #{element.board.title}", :disable_with => "Loading board..." %></b>
           <% else %>
-        <b><%= strip_and_cut(element.board.title,30) %></b>
+        <b><%= strip_and_cut(element.board.title,26) %></b>
           <% end %>
         <% else %>
         <i>(Board was removed)</i>
@@ -38,30 +38,12 @@
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
         <% if current_user && session[:return_to] =~ /\/home?/ %>
-        <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "tips link_to_text", :title => "#{school_desc(school)}", :disable_with => "Loading school..." %></b>
+        <b><%= link_to "#{strip_and_cut(school.name,26)}", home_path + "?school=#{school.id}", :class => "tips link_to_text", :title => "#{school_desc(school)}", :disable_with => "Loading school..." %></b>
         <% else %>
-        <b><%= strip_and_cut(school.name,30) %></b>
+        <b><%= strip_and_cut(school.name,26) %></b>
         <% end %>
     </div>
     <% end %>
-    <div class="inline">
-        <% if !read_only && current_user && current_user.id == element.user_id %>
-        <div class="action_btn float_left">
-        <%= button_to 'x', element, confirm: 'Are you sure?',
-            :remote => true, :disable_with => 'x...',
-            method: :delete, :class => "delete_button",
-            :title => 'Delete post'
-        %>
-        </div>
-        <div class="action_btn float_left">
-        <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
-        </div>
-        <% elsif current_user && current_user.id != element.user_id %>
-        <div class="action_btn float_left">
-        <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
-        </div>
-        <% end %>
-    </div>
 </div>
 
 <div class="posting_right_column clearfix">
@@ -83,10 +65,30 @@
     <% if element.access == Posting::PRIVATE %>
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
     <% end %>
-    <div class="action_btn float_right">
+</div>
+
+<div class="posting_actions">
+	<div class="action_btn float_right">
     <%= render 'votes/vote_btn', :element => element %>
     </div>
+	<% if !read_only && current_user && current_user.id == element.user_id %>
+	<div class="action_btn float_right">
+	<%= button_to 'delete', element, confirm: 'Are you sure?',
+            :remote => true, :disable_with => 'delete',
+            method: :delete, :class => "delete_button",
+            :title => 'Delete post'
+	%>
+	</div>
+	<div class="action_btn float_right">
+	<%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
+	</div>
+	<% elsif current_user && current_user.id != element.user_id %>
+	<div class="action_btn float_right">
+	<%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
+	</div>
+	<% end %>
 </div>
+
 <% if element.scheduled_event_id %>
 </div> <!-- event -->
 <% end %>

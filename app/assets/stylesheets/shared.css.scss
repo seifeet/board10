@@ -101,14 +101,30 @@ $btn-font-size: 16px;
         @include main-hover;
     }
 }
+@mixin small-button($color: $bgdarken40){
+    margin: 5px 5px 5px 0;
+    padding: 5px 5px 5px 0;
+    border: 0 solid transparent;
+    background: transparent;
+    display: inline-block;
+    text-align:center;
+    color: #808080;
+    text-decoration:none;
+    font-weight: bold;
+    font-size:x-small;
+    line-height:1.5em;
+    &:hover{
+        @include main-hover($color);
+    }
+}
 @mixin main-shadow($clr: $bgdarken20, $depth: 5px){
   -moz-box-shadow: $depth $depth $depth $clr;
   -webkit-box-shadow: $depth $depth $depth $clr;
   -o-box-shadow: $depth $depth $depth $clr;
   box-shadow: $depth $depth $depth $clr;
 }
-@mixin main-hover(){
-    color: black;
+@mixin main-hover($color: black){
+    color: $color;
     cursor: pointer;
     //background-color: #ffb770;
 }
@@ -232,12 +248,12 @@ $btn-font-size: 16px;
 
 .edit_button,
 .edit_button a{
-    @include main-button( $btn-confirm );
+    @include small-button( $btn-confirm );
 }
 
 .delete_button,
 .delete_button a{
-    @include main-button( $btn-reject );
+    @include small-button( $btn-reject );
 }
 
 a.link_delete_button {
@@ -293,27 +309,29 @@ a.link_to_text{
 .posting_left_column
 {
     float: left;
-    width: 180px;
+    width: 33%;
     margin: 0;
     padding: 1em;
 }
 
 .posting_right_column
 {
-    margin-left: 220px; 
+    margin-left: 36%; 
     border-left: 1px solid gray;
     padding: 1em;
     height: 5em;
 }
 
 .action_btn{
-  width:40px;
+  //width:40px;
 }
-
+.posting_actions{
+  float:bottom;
+}
 .thumb_btn {
     overflow:visible;
     background: url('../../assets/star_gold.png') no-repeat top;
-    width: 24px;
+    width: 40px;
     height: 24px;
     border:0px;
 }
@@ -321,7 +339,7 @@ a.link_to_text{
 .thumb_down_btn {
     overflow:visible;
     background: url('../../assets/star_minus.png') no-repeat top;
-    width: 24px;
+    width: 40px;
     height: 24px;
     border:0px;
 }
@@ -329,7 +347,7 @@ a.link_to_text{
 .thumb_up_btn {
     overflow:visible;
     background: url('../../assets/star_plus.png') no-repeat top;
-    width: 24px;
+    width: 40px;
     height: 24px;
     border:0px;
 }
