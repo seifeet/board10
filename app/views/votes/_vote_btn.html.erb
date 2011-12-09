@@ -19,7 +19,7 @@
       <%= f.submit "", :class => "togglable thumb_down_btn", :disable_with => "", :hidden => true, :title => 'You took your vote back' %>
     <% end %>
 <% else %>
-    <%= button_to '', ( curr_vote ? curr_vote : build_vote ), :remote => true, :class => "togglable thumb_up_btn",
+    <%= button_to '', curr_vote, :remote => true, :class => "togglable thumb_up_btn",
         method: :delete, :hidden => true, :disable_with => '', :title => 'You voted UP'
     %>
     <%= form_for build_vote, :remote => true do |f| %>

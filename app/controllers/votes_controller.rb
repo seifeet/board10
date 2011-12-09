@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
   include ApplicationHelper
-  before_filter :authenticate, :only => [:create, :update]
-  before_filter :admin_user, :only => [:destroy, :index, :new, :edit, :show]
+  before_filter :authenticate, :only => [:create, :destroy, :update]
+  before_filter :admin_user, :only => [:index, :new, :edit, :show]
   # POST /votes
   # POST /votes.json
   def create
