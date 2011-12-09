@@ -310,9 +310,17 @@ a.link_to_text{
   width:40px;
 }
 
+.thumb_btn {
+    overflow:visible;
+    background: url('../../assets/star_gold.png') no-repeat top;
+    width: 24px;
+    height: 24px;
+    border:0px;
+}
+
 .thumb_down_btn {
     overflow:visible;
-    background: url('../../assets/thumb.png') no-repeat top;
+    background: url('../../assets/star_minus.png') no-repeat top;
     width: 24px;
     height: 24px;
     border:0px;
@@ -320,7 +328,7 @@ a.link_to_text{
 
 .thumb_up_btn {
     overflow:visible;
-    background: url('../../assets/thumb_up.png') no-repeat top;
+    background: url('../../assets/star_plus.png') no-repeat top;
     width: 24px;
     height: 24px;
     border:0px;

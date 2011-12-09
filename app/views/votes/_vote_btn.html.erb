@@ -2,24 +2,30 @@
 <% obj_type = Vote.obj_type_by_class(element) %>
 <% curr_vote = current_user.votes.find_by_obj_type_and_obj_id(obj_type,element.id) %>
 <% build_vote = current_user.votes.build(:obj_type => obj_type, :obj_id => element.id) %>
-<div id="voting">
-<% if curr_vote && curr_vote.vote %>
-    <%= button_to '', curr_vote, :remote => true, :disable_with => '__',
-        method: :delete, :class => "togglable thumb_up_btn", :title => 'Take your vote back'
+<div class="voting">
+<% if curr_vote.nil? %>
+    <%= form_for build_vote, :remote => true do |f| %>
+      <%= f.hidden_field :obj_type, :value => obj_type %>
+      <%= f.hidden_field :obj_id, :value => element.id %>
+      <%= f.submit "", :class => "togglable thumb_btn", :disable_with => "", :title => 'Vote Up!' %>
+    <% end %>	
+<% elsif curr_vote.vote %>
+    <%= button_to '', curr_vote, :remote => true, :disable_with => '',
+        method: :delete, :class => "togglable thumb_up_btn", :title => 'You voted UP'
     %>
     <%= form_for build_vote, :remote => true do |f| %>
       <%= f.hidden_field :obj_type, :value => obj_type %>
       <%= f.hidden_field :obj_id, :value => element.id %>
-      <%= f.submit "", :class => "togglable thumb_down_btn", :disable_with => "10!", :hidden => true, :title => 'Vote Up!' %>
+      <%= f.submit "", :class => "togglable thumb_down_btn", :disable_with => "", :hidden => true, :title => 'You took your vote back' %>
     <% end %>
 <% else %>
     <%= button_to '', ( curr_vote ? curr_vote : build_vote ), :remote => true, :class => "togglable thumb_up_btn",
-        method: :delete, :hidden => true, :disable_with => '__', :title => 'Take your vote back'
+        method: :delete, :hidden => true, :disable_with => '', :title => 'You voted UP'
     %>
     <%= form_for build_vote, :remote => true do |f| %>
       <%= f.hidden_field :obj_type, :value => obj_type %>
       <%= f.hidden_field :obj_id, :value => element.id %>
-      <%= f.submit "", :class => "togglable thumb_down_btn", :disable_with => "10!", :title => 'Vote Up!' %>
+      <%= f.submit "", :class => "togglable thumb_down_btn", :disable_with => "", :title => 'You took your vote back' %>
     <% end %>
 <% end %>
 </div>
