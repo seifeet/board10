@@ -306,13 +306,24 @@ a.link_to_text{
     height: 5em;
 }
 
-.action_btns{
-  width:85px;
-}
 .action_btn{
-  float:right;
   width:40px;
-  height:1em;
+}
+
+.thumb_down_btn {
+    overflow:visible;
+    background: url('../../assets/thumb.png') no-repeat top;
+    width: 24px;
+    height: 24px;
+    border:0px;
+}
+
+.thumb_up_btn {
+    overflow:visible;
+    background: url('../../assets/thumb_up.png') no-repeat top;
+    width: 24px;
+    height: 24px;
+    border:0px;
 }
 
 .clearBoth { clear:both; }

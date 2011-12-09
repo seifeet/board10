@@ -134,7 +134,7 @@ $(function() {
     
     $('#whatsNew .small_container').jscroll({duration:20000});
     
-    $(".voting").live("ajax:complete", function(event, xhr, status) {
+    $("#voting").live("ajax:complete", function(event, xhr, status) {
         if ( status == "success" ){
           $(this).find(':input.togglable').toggleClass('hidden').slideToggle('slow');
           return false;

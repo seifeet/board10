@@ -18,7 +18,7 @@
         
     <% unless element.created_at.nil? %>
         <div class="inline tips" title="<%= (time_ago_in_words(element.created_at)+" ago") %>">
-        	<%= element.created_at.getlocal.strftime("%m/%d/%Y %I:%M%p") %><br />
+            <%= element.created_at.getlocal.strftime("%m/%d/%Y %I:%M%p") %><br />
         </div>
     <% end %>
   
@@ -37,23 +37,41 @@
     <% if element.board && !element.board.school_id.nil? %>
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
-    	<% if current_user && session[:return_to] =~ /\/home?/ %>
+        <% if current_user && session[:return_to] =~ /\/home?/ %>
         <b><%= link_to "#{strip_and_cut(school.name,30)}", home_path + "?school=#{school.id}", :class => "tips link_to_text", :title => "#{school_desc(school)}", :disable_with => "Loading school..." %></b>
         <% else %>
         <b><%= strip_and_cut(school.name,30) %></b>
         <% end %>
     </div>
     <% end %>
+    <div class="inline">
+        <% if !read_only && current_user && current_user.id == element.user_id %>
+        <div class="action_btn float_left">
+        <%= button_to 'x', element, confirm: 'Are you sure?',
+            :remote => true, :disable_with => 'x...',
+            method: :delete, :class => "delete_button",
+            :title => 'Delete post'
+        %>
+        </div>
+        <div class="action_btn float_left">
+        <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
+        </div>
+        <% elsif current_user && current_user.id != element.user_id %>
+        <div class="action_btn float_left">
+        <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
+        </div>
+        <% end %>
+    </div>
 </div>
 
 <div class="posting_right_column clearfix">
-	<% if element.scheduled_event_id %>
-	<% if event = ScheduledEvent.find_event(element.scheduled_event_id) %>
-	  <%= link_to event.description.html_safe, posting_path(element), :class => "inline subject" %>
-	<% end %>
-	<% end %>
-	
-	<% if !element.subject.nil? && !element.subject.empty? %>
+    <% if element.scheduled_event_id %>
+    <% if event = ScheduledEvent.find_event(element.scheduled_event_id) %>
+      <%= link_to event.description.html_safe, posting_path(element), :class => "inline subject" %>
+    <% end %>
+    <% end %>
+    
+    <% if !element.subject.nil? && !element.subject.empty? %>
     <%= link_to strip_and_cut(element.subject,150), posting_path(element), :class => "inline subject" %>
     <% end %>
     <div class="inline">
@@ -65,26 +83,9 @@
     <% if element.access == Posting::PRIVATE %>
     <div class="inline"><i><font color="#808080"><%= element.access %></font></i></div>
     <% end %>
-    
-</div>
-<div class="float_right hidable">
-    <% if !read_only && current_user && current_user.id == element.user_id %>
-    <div class="action_btns">
-    <div class="action_btn">
-    <%= button_to 'x', element, confirm: 'Are you sure?',
-        :remote => true, :disable_with => 'x...',
-        method: :delete, :class => "delete_button",
-        :title => 'Delete post'
-    %>
+    <div class="action_btn float_right">
+    <%= render 'votes/vote_btn', :element => element %>
     </div>
-    <%= link_to 'edit', edit_posting_path(element), :class => "edit_button", :title => "Edit post", :disable_with => "edit" %>
-    </div>
-    <% elsif current_user && current_user.id != element.user_id %>
-    <%= link_to 'reply', posting_path(element), :class => "button_neutral", :disable_with => "reply" %>
-    <% end %>
-</div>
-<div class="float_right">
-   <%= render 'votes/vote_btn', :element => element %>
 </div>
 <% if element.scheduled_event_id %>
 </div> <!-- event -->
