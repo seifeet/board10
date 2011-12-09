@@ -613,3 +613,8 @@ span.help_note.tips{
   text-decoration:underline;
   font-style: italic;
 }
+.togglable{
+  &:hover {
+    cursor: pointer;
+  }
+}
