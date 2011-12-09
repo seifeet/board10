@@ -56,3 +56,13 @@ body {
     opacity:1;
   } 
 }
+
+.more_links{
+    float: right;
+    padding: 5px;
+    font-weight: bold;
+    color:white;
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   include ApplicationHelper
   def new
+    redirect_to home_path if current_user
     @title = "Sign in"
     #@level_ups = Vote.level_ups.where('updated_at > ? and created_at > ?',
     #   Time.now.utc - hours_back.hours, Time.now.utc - days_back.days).limit(10)

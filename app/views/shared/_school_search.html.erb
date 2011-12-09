@@ -10,7 +10,7 @@
 <% end %>
 
 <div class="field togglelabel">
-<%= label_tag "city", :city, :class => "nested_label" %>
+<%= label_tag "city", :City, :class => "nested_label" %>
 <% if cities && cities.any? %>
 <%= text_field_tag :city, params[:city] ||= current_user.city %>
 <% else %>
@@ -19,7 +19,7 @@
 </div>
 
 <div class="field togglelabel">
-<%= label_tag "school", :school, :class => "nested_label" %>
+<%= label_tag "school", :School, :class => "nested_label" %>
 <%= text_field_tag :search, params[:search] %>
 </div>
 <%= submit_tag "Search schools", :name => nil, :class => "button_with_img button_green", :disable_with => 'Updating...' %>

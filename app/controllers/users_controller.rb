@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   include UsersHelper
   before_filter :authenticate, :only => [:index, :show] # :edit, :update,
   before_filter :correct_user, :only => [:edit, :update, :destroy]
+  before_filter :not_current_user, :only => [:new, :create]
   #before_filter :admin_user
 
   # GET /users
@@ -175,5 +176,9 @@ class UsersController < ApplicationController
 
     def delete_postings user
       user.delete_postings
+    end
+    
+    def not_current_user
+      redirect_to home_path if current_user && !current_user.admin?
     end
 end
