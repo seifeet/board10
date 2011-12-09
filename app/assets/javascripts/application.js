@@ -118,7 +118,7 @@ $(function() {
 	$(".tips").tipTip();
 
     $("#new_posting").live("ajax:complete", function(event, xhr, status) {
-        $('#editor').val('');
+        //$('#editor').val('');
         $('#posting_content').val('');
         return false;
     });

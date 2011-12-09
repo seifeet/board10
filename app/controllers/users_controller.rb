@@ -121,9 +121,9 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @recaptcha && @user.save
-        @user.has_school!(school) if school
-        @user.member!(board) if board
         sign_in @user
+        @user.has_school!(school.id) if school
+        @user.member!(board) if board
         @invite.destroy if @invite
         UserMailer.registration_confirmation(@user).deliver
         flash.now[:success] = "Welcome, " + @user.full_name + '!'
