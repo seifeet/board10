@@ -46,7 +46,11 @@ end
 </div>
 </p>
 <p><b>The originated post:</b><br />
+<% if @original_post %>
 <%= render 'postings/posting_details', :posting => @original_post %>
+<% else %>
+<p>The originated post was removed.</p> 
+<% end %>
 </p>
 <% end %>
 

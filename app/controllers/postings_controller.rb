@@ -26,11 +26,11 @@ class PostingsController < ApplicationController
   # GET /postings/1.json
   def show
     @posting_form = Posting.new
-    @posting = Posting.find(params[:id])
+    @posting = Posting.find_posting(params[:id])
     
-    if @posting.original_posting
+    if @posting && @posting.original_posting
       @board = Board.find_board(@posting.board_id)
-      @original_post = Posting.find(@posting.original_posting)
+      @original_post = Posting.find_posting(@posting.original_posting)
       if @board && current_user && current_user.member?( @board.id )
         @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
       elsif @board

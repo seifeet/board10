@@ -1,3 +1,4 @@
+<% return nil if posting.nil? %>
 <div class="posting_left_column clearfix">
     <% if !posting.subject.nil? && !posting.subject.empty? %>
     <div class="inline subject"><%= ( strip_and_cut(posting.subject,120) ) %></div>
