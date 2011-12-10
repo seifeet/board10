@@ -43,11 +43,21 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 }
 #all_user_schools,
 #all_user_boards{
-    background-color: $backgrnd;
+    background-color: transparent; //$backgrnd;
     margin-top: 0.5em;
     padding: 1em 1em;
-    @include rounded-corners(20px);
-    border:2px solid $bgdarken20;
+    //@include rounded-corners(20px);
+    //border:2px solid $bgdarken20;
+    & a{
+      text-decoration: none;
+      color:$backgrnd;
+    }
+    & a:hover{
+      color:black;
+    }
+    & a.selected{
+      color: black; // #ffb770;
+    }
 }
 
 #avalable_space{
@@ -158,18 +168,26 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     height:17em;
     color:white;
 }
+#boards_area,
 #schools_area{ // area to display list of schools
     position:absolute;
     margin: 0;
     padding: 0;
     width: 200px;
+    & .selected a{
+      color: #ffb770;
+    }
+    & a{
+      text-decoration: none;
+      color:$bglighten50;
+      &:hover{
+        color:black;
+      }
+    }
+    
 }
 #boards_area{ // area to display list of boards
-    position:absolute;
-    margin: 0;
-    padding: 0;
     margin-left: 250px;
-    width: 200px;
 }
 .first_menu_button{ // main SCHOOLS button
     position:relative;
@@ -215,20 +233,18 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 .secondary_menu_button{
     position:relative;
     margin:3px;
-    //font-style:italic;
     font-weight: bold;
     border-bottom:1px solid #808080;
 }
 
-a.secondary_menu_button,
-.secondary_menu_button a{
-    text-decoration: none;
-    color: $bglighten50;
-  
-    &:hover {
-        color: black;
-    }
-}
+//a.secondary_menu_button,
+//.secondary_menu_button a{
+//    text-decoration: none;
+    //color: $bglighten50;
+//    &:hover {
+//        color: black;
+///    }
+//}
 
 .sub_menu_button a{
     color:black;
@@ -239,15 +255,15 @@ a.secondary_menu_button,
     }
 }
 
-a.secondary_menu_button.selected,
-.secondary_menu_button.selected a{
-    text-decoration: none;
-    color: #ffb770;
-
-    &:hover {
-        color: black;
-    }
-}
+//a.secondary_menu_button.selected,
+//.secondary_menu_button.selected a{
+//    text-decoration: none;
+//    color: #ffb770;
+//
+//    &:hover {
+ //       color: black;
+ //   }
+//}
 
 .sub_menu_button.selected a{
     @include sec-menu-btn(4.5em);
@@ -357,7 +373,7 @@ a.secondary_menu_button.selected,
     position:relative;
     color:white;
     //left:-1.3em;
-    opacity:0.2;
+    opacity:0.3;
     font-size:xx-large;
     font-style:italic;
     white-space: nowrap;
