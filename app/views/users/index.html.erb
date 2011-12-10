@@ -1,9 +1,9 @@
+<div id="settings_content">
 <h1>Users</h1>
 
-<%= link_to 'Back', :back, :class => "button_neutral" %>
-
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'New User', new_user_path, :class => "button_neutral" %>
 
 <%= render 'shared/search', :search_path => users_path, :object_type => 'user' %>
 
-
+<%= link_to 'Back', :back, :class => "button_neutral" %>
+</div>
