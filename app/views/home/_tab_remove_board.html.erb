@@ -1,6 +1,6 @@
 <br /><br /><br />
 <% 
-member = current_user.members.find_by_board_id(@board.id)
+member = current_user.members.find_by_board_id(@board.id) if @board
   if member
   	if member.member_type == Member::MemberType::OWNER
 %>

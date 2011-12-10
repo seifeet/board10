@@ -20,7 +20,7 @@ elsif params[:act] == 'board_search'
   end
 elsif params[:act] != 'invite' && params[:board]
   @board = Board.find_board(params[:board]) if @board.nil?
-  @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date])
+  @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]) if @board
 end
 
 if !@postings.nil? && !@postings.empty?
