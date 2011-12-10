@@ -254,6 +254,40 @@ class User < ActiveRecord::Base
     end
   end
   
+  def get_city
+    return city if city && !city.blank?
+    if schools && schools.any?
+      schools.each do |school|
+        return school.city if school.postings.any?
+      end
+    end
+    nil
+  end
+  
+  def city_postings user_city = nil
+    user_city = get_city if user_city.nil?
+    return nil if user_city.nil?
+    
+    city_schools = School.where(:city => user_city)
+    all_postings = []
+    city_schools.each do |school|
+      all_postings += get_school_postings school
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+  
+  def get_school_postings school
+    all_postings = []
+    school.boards.each do |board|
+      all_postings += board.postings.where(:visibility => 1)
+    end
+    all_postings
+  end
+  
   private
     def send_invite_internaly to_user, board
       message = Message.new

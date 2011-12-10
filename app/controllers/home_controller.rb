@@ -113,13 +113,11 @@ class HomeController < ApplicationController
       if paginate && !@postings.nil? && !@postings.empty?
         @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
       end
-      
-    elsif params[:school].nil? && params[:board].nil?
-      logger.debug "-------------------------params[:school].nil? && params[:board].nil?--------------------------------"
-      # default to postings from all user's boards:
-      # postings will be filtered according to membership of the current_user
-      @postings_title = "From all my boards:"
-      @postings = paginate_board_postings
+    
+    elsif params[:city].nil? && params[:school].nil? && params[:board].nil?
+      logger.debug "-------------------------ELSE--------------------------------"
+      # try to find posts on some level starting from city then schools then boards
+      get_posts_from_top_to_bottom
       paginate = false
     end
     
@@ -140,9 +138,13 @@ class HomeController < ApplicationController
     # Autorefresh form
     @autorefresh = Posting.new
 
+    if params[:city]
+      logger.debug "-------------------------params[:city]--------------------------------"
+      get_posts_from_top_to_bottom
+      paginate = false
     # show all postings for the school.
     # postings will be filtered according to membership of the current_user
-    if !params[:school].nil?
+    elsif !params[:school].nil?
       logger.debug "-------------------------!params[:school].nil?--------------------------------"
       @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
@@ -201,6 +203,21 @@ class HomeController < ApplicationController
 
   private
   
+  def get_posts_from_top_to_bottom
+    # get_city method first will try to get the city from user's profile.
+    # If there is none then it will take it from the first user's school.
+    @city = @user.get_city
+    if @city && !@city.blank?
+      @postings_title = "Public posts for "+@city+":"
+      @postings = paginate_user_city_postings @city
+    end
+    # if coult not find any posts for the city then get them from all the boards
+    if @postings.nil? || @postings.empty?
+      @postings_title = "From all my boards:"
+      @postings = paginate_board_postings
+    end
+  end
+  
   def set_events_and_posts events
     events.each do |posting|
       if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
@@ -216,6 +233,14 @@ class HomeController < ApplicationController
           paginate = false
         end
       end
+    end
+  end
+  
+  def paginate_user_city_postings city
+    require 'will_paginate/array'
+    all_postings = @user.city_postings city
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end
   end
   

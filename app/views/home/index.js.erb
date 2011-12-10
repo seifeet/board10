@@ -150,6 +150,15 @@
         document.title = "Edit Event";
         <% end %>
     <% end %>
+
+<% elsif !params[:city].nil? %>
+    $("#title_top_action").html("");
+    $("#title").html("<%= escape_javascript( render 'title' ) %>");
+    $("#user_boards").html("<%= escape_javascript(render 'home/user_boards' ) %>");
+    $(".home_sub_title").html("<%= escape_javascript(render 'home_sub_title' ) %>");
+    $(".sub_title_nav").html("<%= escape_javascript(render 'sub_title_nav') %>");
+    $("#user_postings").html("<%= escape_javascript(render 'shared/containers/page_container', :page_container => @postings) %>");
+    document.title = "Posts for your city";
     
 <% elsif !params[:board].nil? %>
     $("#title_top_action").html("");
