@@ -21,3 +21,13 @@
   text-decoration:none;
   color:white;
 }
+
+#schools_content{
+    position:relative;
+    width: 30%;
+    margin: 2px auto;
+    background:$bglighten50; 
+    border:3px solid $backgrnd;
+    padding:30px;
+    border-radius: 25px;  
+}

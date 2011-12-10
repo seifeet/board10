@@ -1,5 +1,9 @@
-<h1>Listing schools</h1>
+<div id="schools_content">
 
-<%= link_to 'New School', new_school_path %>
+<%= link_to 'New School', new_school_path, :class => "button_neutral float_right" %>
 
 <%= render 'shared/school_search', :search_path => schools_path %>
+
+<%= link_to 'Back', :back, :class => "button_neutral" %>
+
+</div>

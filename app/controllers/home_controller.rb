@@ -138,7 +138,7 @@ class HomeController < ApplicationController
     # Autorefresh form
     @autorefresh = Posting.new
 
-    if params[:city]
+    if params[:city] && params[:search].nil?
       logger.debug "-------------------------params[:city]--------------------------------"
       get_posts_from_top_to_bottom
       paginate = false

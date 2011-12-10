@@ -267,14 +267,13 @@ a.link_delete_button {
         color: black;
     }
 }
-
 .button_confirm{
     @include action-button($btn-confirm);
 }
 .button_reject{
   @include action-button($btn-reject);
 }
-
+.save_button,
 .button_neutral,
 .action_button a{
     @include main-button( $bgdarken10 );

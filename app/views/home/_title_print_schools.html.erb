@@ -78,7 +78,7 @@
 %>
     <div class="note">
     	When you select a school this area contains only your boards that linked to that school.<br />
-    	<%= link_to 'My boards...', home_path+'?act=boards', :class => 'tips', :title => "Open Boards Menu", :disable_with => "Loading..." %>
+    	<%= link_to "<font color=red>My boards...</font>".html_safe, home_path+'?act=boards', :class => 'tips', :title => "Open Boards Menu", :disable_with => "Loading..." %>
     </div>
 <%
     end # end of !all_boards.empty?
