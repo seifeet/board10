@@ -2,7 +2,9 @@
 
 <%= link_to 'New School', new_school_path, :class => "button_neutral float_right" %>
 
+<div id="user_postings">
 <%= render 'shared/school_search', :search_path => schools_path %>
+</div>
 
 <%= link_to 'Back', :back, :class => "button_neutral" %>
 

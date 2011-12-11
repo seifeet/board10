@@ -3,7 +3,9 @@
 
 <%= link_to 'New User', new_user_path, :class => "button_neutral" %>
 
+<div id="user_postings">
 <%= render 'shared/search', :search_path => users_path, :object_type => 'user' %>
+</div>
 
 <%= link_to 'Back', :back, :class => "button_neutral" %>
 </div>
