@@ -8,7 +8,9 @@
 <% if @user %>
 <%= render 'form' %>
 <% else  %>
+<div id="user_postings">
 <%= render 'shared/school_search', :search_path => new_user_path %>
+</div>
 <% end %>
 </div>
 
