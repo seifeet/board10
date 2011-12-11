@@ -218,6 +218,14 @@ class HomeController < ApplicationController
     end
   end
   
+  def paginate_user_city_postings city
+    require 'will_paginate/array'
+    all_postings = @user.city_postings city
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+    end
+  end
+  
   def set_events_and_posts events
     events.each do |posting|
       if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
@@ -233,14 +241,6 @@ class HomeController < ApplicationController
           paginate = false
         end
       end
-    end
-  end
-  
-  def paginate_user_city_postings city
-    require 'will_paginate/array'
-    all_postings = @user.city_postings city
-    if !all_postings.nil? && !all_postings.empty?
-      all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
     end
   end
   
