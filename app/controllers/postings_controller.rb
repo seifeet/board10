@@ -234,8 +234,8 @@ class PostingsController < ApplicationController
   end
 
   def owner_user
-    @posting = current_user.postings.find_by_id(params[:id])
-    redirect_to user_path(params[:id]) if @posting.nil?
+    @posting = current_user.postings.find_by_id(params[:id]) if current_user
+    redirect_to user_path(params[:id]) if current_user.nil? || @posting.nil?
   end
 
 end
