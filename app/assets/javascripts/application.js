@@ -11,6 +11,12 @@
 //= require_tree .
 //
 
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+  }
+});
+
 if(history && history.pushState ) {
 
     $(function() {
