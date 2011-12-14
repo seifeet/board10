@@ -11,7 +11,8 @@ class BoardsController < ApplicationController
   # GET /boards.json
   def index
     store_location # store the page location for back functionality
-    @boards = Board.search(params[:search]).paginate(:page => params[:page], :per_page => 50).order('created_at DESC')
+    page = valid_page_or_one params[:page]
+    @boards = Board.search(params[:search]).paginate(:page => page, :per_page => 50).order('created_at DESC')
     @title = 'Boards'
     respond_to do |format|
       format.html # index.html.erb
@@ -27,6 +28,7 @@ class BoardsController < ApplicationController
     @board = Board.unscoped.find(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
     
+    page = valid_page_or_one params[:page]
     paginate = true
     @user = current_user
     @level_ups = Vote.level_ups.limit(20)
@@ -67,12 +69,12 @@ class BoardsController < ApplicationController
 
       elsif params[:act] == 'messages'
         logger.debug "-----------------------params[:act] == 'messages'----------------------------------"
-        @messages = current_user.recieved.paginate(:page => params[:page], :per_page => per_page )
+        @messages = current_user.recieved.paginate(:page => page, :per_page => per_page )
         @postings_title = 'Messages'
       end
       
       if paginate && !@postings.nil? && !@postings.empty?
-        @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
+        @postings = @postings.paginate(:page => page, :per_page => per_page_search ).order('created_at DESC')
       end
     end
     
@@ -81,7 +83,7 @@ class BoardsController < ApplicationController
       @date = valid_date_or_today(params[:date])
       if !@board.nil? && params[:act] != 'invite' && params[:act] != 'edit_event'
         if params[:subact] != 'events_only'
-          @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => params[:page], :per_page => per_page ).order('created_at DESC')
+          @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => page, :per_page => per_page ).order('created_at DESC')
         end
         @events = Array.new
         if @board.postings && @board.postings.any?
@@ -238,6 +240,7 @@ class BoardsController < ApplicationController
   private
  
   def set_events_and_posts events
+    page = valid_page_or_one params[:page]
     events.each do |posting|
       if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
         @events += future_events
@@ -248,7 +251,7 @@ class BoardsController < ApplicationController
               day_events.push Posting.find(event.posting_id)
             end
           end
-          @postings = day_events.paginate(:page => params[:page], :per_page => per_page, :total_etries => day_events.size )
+          @postings = day_events.paginate(:page => page, :per_page => per_page, :total_etries => day_events.size )
           paginate = false
         end
       end

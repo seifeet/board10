@@ -1,9 +1,10 @@
-<% 
+<%
 if @postings.nil?
+   page = valid_page_or_one params[:page]
    if ( current_user.member?( @board.id ) )
-     @postings = @board.postings.paginate(:page => params[:page], :per_page => per_page )
+     @postings = @board.postings.paginate(:page => page, :per_page => per_page )
    else
-     @postings = @board.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page )
+     @postings = @board.postings.where(:visibility => 1).paginate(:page => page, :per_page => per_page )
    end 
 end
 %>

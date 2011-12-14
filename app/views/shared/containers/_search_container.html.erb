@@ -3,21 +3,22 @@
 
 <div id="<%= "#{@container_type}_container" %>">
 <% 
+page = valid_page_or_one params[:page]
 if object_type == 'user'
   if @users.nil?
-	search_results = User.search(params[:search]).paginate(:page => params[:page], :per_page => per_page)
+	search_results = User.search(params[:search]).paginate(:page => page, :per_page => per_page)
   else
 	search_results = @users
   end
 elsif object_type == 'board'
   if @boards.nil?
-	search_results = Board.search(params[:search]).paginate(:page => params[:page], :per_page => per_page)
+	search_results = Board.search(params[:search]).paginate(:page => page, :per_page => per_page)
   else
 	search_results = @boards
   end
 elsif object_type == 'school'
   if @schools.nil?
-	search_results = School.search(params[:search], params[:state], params[:city]).paginate(:page => params[:page], :per_page => per_page)
+	search_results = School.search(params[:search], params[:state], params[:city]).paginate(:page => page, :per_page => per_page)
   else
 	search_results = @schools
   end

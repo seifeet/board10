@@ -7,7 +7,8 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @users = User.paginate(:page => params[:page], :per_page => per_page).order('created_at DESC')
+    page = valid_page_or_one params[:page]
+    @users = User.paginate(:page => page, :per_page => per_page).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

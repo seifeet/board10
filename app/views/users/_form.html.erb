@@ -53,14 +53,14 @@
     <div class="flash_error"><%= check(@user, "Password") %></div>
     <% end %>
     <%= f.label :password, 'Password', :class => "nested_label" %>
-    <%= f.password_field :password, :class => "text_big" %>
+    <%= f.password_field :password, :class => "text_big", :autocomplete => :off %>
 </div>
 <div class="single_field togglelabel">
     <% if !check(@user, "Password").nil? %>
     <div class="flash_error"><%= check(@user, "Password") %></div>
     <% end %>
     <%= f.label :password_confirmation, 'Confirm Password', :class => "nested_label" %>
-    <%= f.password_field :password_confirmation, :class => "text_big" %>
+    <%= f.password_field :password_confirmation, :class => "text_big", :autocomplete => :off %>
 </div>
 <% if !@recaptcha_off %>
 <div class="single_field">

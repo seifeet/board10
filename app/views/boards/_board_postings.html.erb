@@ -1,5 +1,6 @@
 <% return nil if current_user.nil? %>
 <%
+page = valid_page_or_one params[:page]
 # This part is needed if we call a method in a controller other then HomeController
 # For example, if we add a new school to the profile we call UserSchoolsController and
 # passing hidden arguments to it. After completion the controller copy passed arguments
@@ -18,7 +19,7 @@ if @postings.nil?
 	end
 	
 	if !@postings.nil? && !@postings.empty?
-	  @postings = @postings.paginate(:page => params[:page], :per_page => per_page_search ).order('created_at DESC')
+	  @postings = @postings.paginate(:page => page, :per_page => per_page_search ).order('created_at DESC')
 	end
 end
 %>

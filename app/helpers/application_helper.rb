@@ -53,6 +53,16 @@ module ApplicationHelper
     condition ? ' selected ' : ''
   end
   
+  def valid_page_or_one number
+    return 1 unless number
+    begin
+    page = Integer(number.to_i)
+    return ( page.zero? ? 1 : page )
+    rescue ArgumentError
+      1
+    end
+  end
+  
   def valid_date_or_today date
     return Date.today unless date
     begin

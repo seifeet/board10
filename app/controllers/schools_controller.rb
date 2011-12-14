@@ -8,12 +8,13 @@ class SchoolsController < ApplicationController
   # GET /schools
   # GET /schools.json
   def index
+    @page = valid_page_or_one params[:page]
     @title = 'Schools'
     store_location # store the page location for back functionality
     if ( params[:search].nil? && params[:state].nil? && params[:city].nil? && ( !current_user.state.nil? || !current_user.city.nil? ) )
-      @schools = School.search(params[:search], current_user.state, current_user.city ).paginate(:page => params[:page], :per_page => per_page)
+      @schools = School.search(params[:search], current_user.state, current_user.city ).paginate(:page => @page, :per_page => per_page)
     else
-      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => per_page) 
+      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => @page, :per_page => per_page) 
     end
         
     respond_to do |format|
@@ -147,7 +148,7 @@ class SchoolsController < ApplicationController
               day_events.push Posting.find(event.posting_id)
             end
           end
-          @postings = day_events.paginate(:page => params[:page], :per_page => per_page, :total_etries => day_events.size )
+          @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
           paginate = false
         end
       end
@@ -158,7 +159,7 @@ class SchoolsController < ApplicationController
     require 'will_paginate/array'
     all_postings = school_postings_on_date(school, date)
     if !all_postings.nil? && !all_postings.empty?
-     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+     all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
     end
   end
   
@@ -166,7 +167,7 @@ class SchoolsController < ApplicationController
     require 'will_paginate/array'
     all_postings = school_postings school
     if !all_postings.nil? && !all_postings.empty?
-     all_postings.paginate(:page => params[:page], :per_page => per_page, :total_etries => all_postings.size )
+     all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
     end
   end
 end

@@ -10,8 +10,10 @@ class PostingsController < ApplicationController
   # GET /postings.json
   def index
     store_location
+    
+    page = valid_page_or_one params[:page]
 
-    @public_postings = Posting.where(:visibility => 1).paginate(:page => params[:page], :per_page => 100 ).order('created_at DESC')
+    @public_postings = Posting.where(:visibility => 1).paginate(:page => page, :per_page => per_page ).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,13 +30,15 @@ class PostingsController < ApplicationController
     @posting_form = Posting.new
     @posting = Posting.find_posting(params[:id])
     
+    page = valid_page_or_one params[:page]
+    
     if @posting && @posting.original_posting
       @board = Board.find_board(@posting.board_id)
       @original_post = Posting.find_posting(@posting.original_posting)
       if @board && current_user && current_user.member?( @board.id )
-        @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
+        @postings = @board.postings.where(:original_posting => @posting.original_posting).paginate(:page => page, :per_page => per_page )
       elsif @board
-        @postings = @board.postings.where(:visibility => 1, :original_posting => @posting.original_posting).paginate(:page => params[:page], :per_page => per_page )
+        @postings = @board.postings.where(:visibility => 1, :original_posting => @posting.original_posting).paginate(:page => page, :per_page => per_page )
       end
     end
 

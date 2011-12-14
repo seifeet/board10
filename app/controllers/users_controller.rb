@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 40)
+    @page = valid_page_or_one params[:page]
+    @users = User.search(params[:search]).paginate(:page => @page, :per_page => 40)
     @title = 'People'
     
     respond_to do |format|
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     store_location
-    
+    @page = valid_page_or_one params[:page]
     @level_ups = Vote.level_ups.limit(20)
 
     @user = User.find_user(params[:id])
@@ -31,10 +32,10 @@ class UsersController < ApplicationController
 
     if current_user.id == @user.id
       @postings_title = "Recent posts:"
-      @postings = @user.postings.paginate(:page => params[:page], :per_page => per_page )
+      @postings = @user.postings.paginate(:page => @page, :per_page => per_page )
     else
       @postings_title = @user.first_name + "'s public posts:"
-      @postings = @user.postings.where(:visibility => 1).paginate(:page => params[:page], :per_page => per_page )
+      @postings = @user.postings.where(:visibility => 1).paginate(:page => @page, :per_page => per_page )
     end
     
     @postings_title = "no posts" if @postings.nil? || @postings.empty?
@@ -53,6 +54,8 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
+    @page = valid_page_or_one params[:page]
+
     if params[:act] && @invite = Invitation.find_by_token_value(params[:act])
       board = Board.find_board(@invite.board_id)
       if @invite && board
@@ -79,7 +82,7 @@ class UsersController < ApplicationController
         params[:school_id] = school.id      
       end
     elsif current_user
-      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => params[:page], :per_page => per_page)
+      @schools = School.search(params[:search], params[:state], params[:city] ).paginate(:page => @page, :per_page => per_page)
     end
     
     @title = 'Sign Up'

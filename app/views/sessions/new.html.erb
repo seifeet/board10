@@ -32,7 +32,7 @@ Boardten team
   </div>
   <div class="single_field togglelabel">
     <%= f.label :password, :class => "nested_label" %>
-    <%= f.password_field :password, :class => "text_big" %>
+    <%= f.password_field :password, :class => "text_big", :autocomplete => :off %>
   </div>
   <div class="single_field white">
     <%= check_box_tag :remeber_me, 1, params[:remeber_me] %>
