@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 <% if flash.any? || !notice.nil? %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");

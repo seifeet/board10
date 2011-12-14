@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
 	<% if current_user.schools.count > max_num_schools %>
 	$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
@@ -6,9 +6,9 @@ $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>"
 	<% if current_user.schools.count <= max_num_schools+1 %>
 	$("#title_print_schools").html("<%= escape_javascript( render 'home/title_print_schools' ) %>");
 	<% end %>
-<% elsif session[:return_to] =~ /\/schools\// %>
+<% elsif stored_location_or_home =~ /\/schools\// %>
 $("#title_top_action").html("");
-<% elsif session[:return_to] =~ /\/users\// %>
+<% elsif stored_location_or_home =~ /\/users\// %>
 $("#user_title_nav").html("<%= escape_javascript(render 'users/navigation') %>");
 <% end %>
 

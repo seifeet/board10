@@ -24,7 +24,7 @@
   
     <div class="inline clickable">
         <% if element.board %>
-          <% if current_user && session[:return_to] =~ /\/home?/ %>
+          <% if current_user && stored_location_or_home =~ /\/home?/ %>
         <b><%= link_to "#{strip_and_cut(element.board.title,26)}", home_path + "?board=#{element.board_id}", :class => "tips link_to_text", :title => "Board: #{element.board.title}", :disable_with => "Loading board..." %></b>
           <% else %>
         <b><%= strip_and_cut(element.board.title,26) %></b>
@@ -37,7 +37,7 @@
     <% if element.board && !element.board.school_id.nil? %>
     <% school = School.find_school(element.board.school_id) %>
     <div class="inline clickable">
-        <% if current_user && session[:return_to] =~ /\/home?/ %>
+        <% if current_user && stored_location_or_home =~ /\/home?/ %>
         <b><%= link_to "#{strip_and_cut(school.name,26)}", home_path + "?school=#{school.id}", :class => "tips link_to_text", :title => "#{school_desc(school)}", :disable_with => "Loading school..." %></b>
         <% else %>
         <b><%= strip_and_cut(school.name,26) %></b>

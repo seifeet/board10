@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 <% if !@errors && @posting && @posting.scheduled_event_id %>
 $('.generic_container .note').remove();
 $("#user_postings").html("<%= escape_javascript(render 'shared/elements/element', :element => @posting, :read_only => true) %>");

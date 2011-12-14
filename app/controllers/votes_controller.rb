@@ -9,7 +9,7 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       if current_user.vote!(@vote)
-        format.html { redirect_to session[:return_to], notice: 'Your vote was accepted.' }
+        format.html { redirect_to stored_location_or_home, notice: 'Your vote was accepted.' }
         format.js
         format.json { render json: @vote, status: :created, location: @vote }
       #else
@@ -26,7 +26,7 @@ class VotesController < ApplicationController
     current_user.unvote!(@vote)
 
     respond_to do |format|
-      format.html { redirect_to session[:return_to], notice: 'Your vote was removed.' }
+      format.html { redirect_to stored_location_or_home, notice: 'Your vote was removed.' }
       format.js
       format.json { head :ok }
     end

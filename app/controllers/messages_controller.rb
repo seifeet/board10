@@ -104,7 +104,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
-        format.html { redirect_to session[:return_to], notice: 'Message was successfully updated.' }
+        format.html { redirect_to stored_location_or_home, notice: 'Message was successfully updated.' }
         format.js
         format.json { head :ok }
       else

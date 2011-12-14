@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 $("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
 $("#title_top_action").html("");
 $(".sub_title_nav").html("<%= escape_javascript(render 'home/sub_title_nav') %>");

@@ -163,12 +163,12 @@ class PostingsController < ApplicationController
         end
         end # for "if !params[:from_posting].nil?"
 
-        format.html { redirect_to session[:return_to], notice: '' }
+        format.html { redirect_to stored_location_or_home, notice: '' }
         format.js
         format.json { render :json => @posting, status: :created, location: @posting }
       else
         @errors = true
-        format.html { redirect_to session[:return_to], notice: ( empty_err ? 'Content is empty.' : 'Unable to save your post.' ) }
+        format.html { redirect_to stored_location_or_home, notice: ( empty_err ? 'Content is empty.' : 'Unable to save your post.' ) }
         format.js
         format.json { render json: @posting.errors, status: :unprocessable_entity }
       end
@@ -192,7 +192,7 @@ class PostingsController < ApplicationController
     end
     respond_to do |format|
       if !@errors && @posting.update_attributes(params[:posting])
-        format.html { redirect_to session[:return_to], notice: "Your #{@posting.scheduled_event_id ? 'event' : 'post'} was updated." }
+        format.html { redirect_to stored_location_or_home, notice: "Your #{@posting.scheduled_event_id ? 'event' : 'post'} was updated." }
         format.js
         format.json { head :ok }
       else

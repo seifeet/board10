@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 <% if @action == 'join' %>
 $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 <% elsif @action == 'follow' %>
@@ -10,7 +10,7 @@ $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>"
 	$("#user_boards").html("<%= escape_javascript(render 'home/user_boards', :user => current_user ) %>");
 	<% end %>
 <% end %>
-<% elsif session[:return_to] =~ /\/boards\// %>
+<% elsif stored_location_or_home =~ /\/boards\// %>
 $("#title_top_action").html("");
 <% end %>
 

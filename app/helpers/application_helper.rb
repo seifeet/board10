@@ -95,7 +95,7 @@ module ApplicationHelper
   end
   
   def back
-    redirect_to session[:return_to] 
+    redirect_to stored_location_or_home 
   end
   
   def wrap(content)
@@ -107,6 +107,10 @@ module ApplicationHelper
       regex = /.{1,#{max_width}}/
       (text.length < max_width) ? text : 
           text.scan(regex).join(zero_width_space)
+  end
+  
+  def stored_location_or_home
+    !session[:return_to].nil? ? session[:return_to] : home_path
   end
 
   def admin_user

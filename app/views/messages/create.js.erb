@@ -1,8 +1,8 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
-<% elsif session[:return_to] =~ /\/boards\// %>
+<% elsif stored_location_or_home =~ /\/boards\// %>
 $("#title_top_action").html("");
-<% elsif session[:return_to] =~ /\/schools\// %>
+<% elsif stored_location_or_home =~ /\/schools\// %>
 $("#school_boards").html("<%= escape_javascript(render 'schools/school_boards') %>");
 <% end %>
 

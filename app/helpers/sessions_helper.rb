@@ -56,7 +56,7 @@ module SessionsHelper
   end
 
   def redirect_back_or(default)
-    redirect_to(session[:return_to] || default)
+    redirect_to(stored_location_or_home || default)
     clear_return_to
   end
 
@@ -71,10 +71,10 @@ module SessionsHelper
   end
 
   def store_location
-    session[:return_to] = request.fullpath
+    stored_location_or_home = request.fullpath
   end
 
   def clear_return_to
-    session[:return_to] = nil
+    stored_location_or_home = nil
   end
 end

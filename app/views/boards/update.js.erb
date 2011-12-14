@@ -1,4 +1,4 @@
-<% if session[:return_to] =~ /\/home?/ %>
+<% if stored_location_or_home =~ /\/home?/ %>
 <% if @failures %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% else %>
@@ -8,7 +8,7 @@ $("#title").html("<%= escape_javascript( render 'home/title' ) %>");
 $(".board_title").html("<%= escape_javascript( link_to strip_and_cut(@board.title, 80), board_path(@board) ) %>");
 <% end %>
 
-<% elsif session[:return_to] =~ /\/boards\// %>
+<% elsif stored_location_or_home =~ /\/boards\// %>
 <% if @failures %>
 $(".info_note").html("<%= escape_javascript(render 'home/info') %>");
 <% else %>
