@@ -1,5 +1,11 @@
 <% if !params[:act].nil? %>
 
+    <% if params[:act] == 'calendar' %>
+	<div class="action_tab"><%= render 'boards/tab_board_post_search' %></div>
+	<% end %>
+
+    <% if @board.active? %>
+    
 	<% if params[:act] == 'write' && params[:subact] != 'cancel' %>
 	<%= render 'home/tab_write_message', :controller_path => board_path(@board) %>
 	<% elsif params[:act] == 'invite' && params[:subact] != 'cancel' %>
@@ -18,8 +24,8 @@
 	<div class="tab_join"><%= render 'boards/tab_join' %></div>
 	<% elsif params[:act] == 'follow' %>
 	<div class="tab_follow"><%= render 'boards/tab_follow' %></div>
-	<% elsif params[:act] == 'calendar' %>
-	<div class="action_tab"><%= render 'boards/tab_board_post_search' %></div>
+	<% end %>
+	
 	<% end %>
 
 <% end %>

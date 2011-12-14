@@ -9,7 +9,7 @@
 <%= link_to 'CALENDAR', board_path(@board)+'?act=calendar', :class => 'tips', :title => "Show event calendar", :disable_with => "Loading..." %>
 </div>
 
-<% if @board.access == Posting::PUBLIC || current_user.member?(@board) %>
+<% if @board.active? && (@board.access == Posting::PUBLIC || current_user.member?(@board)) %>
 <div class="second_menu_button <%= selected_if(params[:act] == 'write') %>">
 <%= link_to 'WRITE', board_path(@board)+'?act=write', :class => 'tips', :title => "Post on your board", :disable_with => "Loading..." %>
 </div>
@@ -29,7 +29,7 @@
 </div>
 <% end %>
 
-<% if current_user.owner?(@board) %>
+<% if @board.active? && current_user.owner?(@board) %>
 <div class="third_menu_button <%= selected_if(params[:act] == 'invite' || params[:act] == 'invite_by_email') %>">
 <%= link_to 'INVITE', board_path(@board)+'?act=invite', :class => 'tips', 
 :title => "Invite to your board", :disable_with => "Loading..." %>
