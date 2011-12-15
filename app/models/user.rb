@@ -324,6 +324,15 @@ class User < ActiveRecord::Base
     all_postings
   end
  
+  def get_board_events board
+    if board.postings && board.postings.any?
+    if member?(board) 
+        board.postings.scheduled_events
+      else
+        board.postings.public_posts.scheduled_events
+      end
+    end
+  end
   
   private
     def send_invite_internaly to_user, board

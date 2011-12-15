@@ -47,6 +47,10 @@ class School < ActiveRecord::Base
     State.long_name(state) + ', ' + city 
   end
   
+  def public_events
+    postings.public_posts.scheduled_events
+  end
+  
   def school_postings user, from = nil
     all_postings = []
     all_postings = get_school_postings user, from

@@ -64,7 +64,9 @@ class BoardsController < ApplicationController
         @email_results = validate_emails params[:emails]
         @email_errors = @email_results.has_value? 'x'
         if @email_results && !@email_results.empty? && !@email_errors
-          
+          if board = Board.find_board(params[:board])
+            current_user.send_invites(board, @email_results)
+          end
         end
 
       elsif params[:act] == 'messages'
@@ -85,17 +87,8 @@ class BoardsController < ApplicationController
         if params[:subact] != 'events_only'
           @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => page, :per_page => per_page ).order('created_at DESC')
         end
-        @events = Array.new
-        if @board.postings && @board.postings.any?
-          if current_user.member?(@board)
-            board_events = @board.postings.scheduled_events
-          else
-            board_events = @board.postings.public_posts.scheduled_events
-          end
-        end
-        if board_events
-          set_events_and_posts board_events
-        end
+        board_events = current_user.get_board_events @board
+        @events = set_events_and_posts board_events
       end
     end
     
@@ -238,25 +231,6 @@ class BoardsController < ApplicationController
   end
 
   private
- 
-  def set_events_and_posts events
-    page = valid_page_or_one params[:page]
-    events.each do |posting|
-      if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
-        @events += future_events
-        if params[:subact] == 'events_only' && params[:search].nil?
-          day_events = Array.new
-          for event in @events
-            if event.next_event == @date
-              day_events.push Posting.find(event.posting_id)
-            end
-          end
-          @postings = day_events.paginate(:page => page, :per_page => per_page, :total_etries => day_events.size )
-          paginate = false
-        end
-      end
-    end
-  end
   
   def delete_postings board
     board.delete_postings

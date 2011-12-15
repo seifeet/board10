@@ -38,16 +38,10 @@ class SchoolsController < ApplicationController
     
     @date = valid_date_or_today(params[:date])
     if params[:subact] != 'events_only'
-      if @school && params[:date]
-        @postings = paginate_school_postings_on_date(@school, @date)
-      elsif @school
-        @postings = paginate_school_postings @school
-      end 
+      @postings = paginate_school_postings(@school, @date)
     end
     if params[:act] == 'calendar' || params[:subact] == 'events_only'
-      @events = Array.new
-      school_events = @school.postings.public_posts.scheduled_events
-      set_events_and_posts school_events
+      @events = set_events_and_posts @school.public_events
     end
 
     # Autorefresh form
@@ -134,40 +128,5 @@ class SchoolsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  private
-  
-  def set_events_and_posts events
-    events.each do |posting|
-      if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
-        @events += future_events
-        if params[:subact] == 'events_only' && params[:search].nil?
-          day_events = Array.new
-          for event in @events
-            if event.next_event == @date
-              day_events.push Posting.find(event.posting_id)
-            end
-          end
-          @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
-          paginate = false
-        end
-      end
-    end
-  end
-  
-  def paginate_school_postings_on_date(school, date)
-    require 'will_paginate/array'
-    all_postings = school.school_postings_on_date(current_user, date)
-    if !all_postings.nil? && !all_postings.empty?
-     all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
-    end
-  end
-  
-  def paginate_school_postings school
-    require 'will_paginate/array'
-    all_postings = school.school_postings current_user
-    if !all_postings.nil? && !all_postings.empty?
-     all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
-    end
-  end
+
 end
