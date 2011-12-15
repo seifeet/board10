@@ -129,6 +129,19 @@ class Board < ActiveRecord::Base
     false
   end
   
+  def get_month_events_for_date(user, date)
+    board_events = user.get_board_events self
+    events_arr = Array.new
+    return events_arr unless board_events
+    
+    board_events.each do |posting|
+      if future_events = posting.get_future_events_for_month(date.beginning_of_month)
+        events_arr += future_events
+      end
+    end
+    events_arr
+  end
+  
   ACTIVE = 'Active'
   INACTIVE = 'Inactive'
   PRIVATE = 'Private'

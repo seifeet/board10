@@ -153,18 +153,24 @@ class HomeController < ApplicationController
         @postings = paginate_school_postings(@school, @date)
       end
       if params[:subact] == 'calendar' || params[:subact] == 'events_only'
-        @events = set_events_and_posts @school.public_events
+        @events = @school.get_month_events_for_date(current_user, @date)
+        if params[:subact] == 'events_only' && params[:search].nil?
+          day_events = posts_with_events_for_date(@events, @date)
+          @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
+        end
       end
     elsif !params[:board].nil?
       logger.debug "------------------------!params[:board].nil?---------------------------------"
       @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
       if !@board.nil? && params[:act] != 'invite' && params[:act] != 'edit_event'
+        @events = @board.get_month_events_for_date(current_user, @date)
         if params[:subact] != 'events_only'
           @postings = Posting.search_board_postings(current_user, @board, params[:search], params[:date]).paginate(:page => @page, :per_page => per_page ).order('created_at DESC')
+        elsif params[:subact] == 'events_only' && params[:search].nil? && @events
+          day_events = posts_with_events_for_date(@events, @date)
+          @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
         end
-        board_events = current_user.get_board_events @board
-        @events = set_events_and_posts board_events
       end
     end
     

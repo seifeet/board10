@@ -7,25 +7,14 @@ module PostingsHelper
     'Private post or event will be visible only for members of the board'
   end
   
-  def set_events_and_posts events
-    events_arr = Array.new
-    return events_arr unless events
-    events.each do |posting|
-      if future_events = posting.get_future_events_for_month(@date.beginning_of_month)
-        events_arr += future_events
-        if params[:subact] == 'events_only' && params[:search].nil?
-          day_events = Array.new
-          for event in events_arr
-            if event.next_event == @date
-              day_events.push Posting.find(event.posting_id)
-            end
-          end
-          @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
-          paginate = false
-        end
+  def posts_with_events_for_date events_arr, date
+    day_events = Array.new
+    for event in events_arr
+      if event.next_event == date
+        day_events.push Posting.find(event.posting_id)
       end
     end
-    events_arr
+    day_events
   end
   
   def paginate_school_postings school, date = nil

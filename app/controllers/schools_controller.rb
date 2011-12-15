@@ -41,7 +41,11 @@ class SchoolsController < ApplicationController
       @postings = paginate_school_postings(@school, @date)
     end
     if params[:act] == 'calendar' || params[:subact] == 'events_only'
-      @events = set_events_and_posts @school.public_events
+      @events = @school.get_month_events_for_date(current_user, @date)
+      if params[:subact] == 'events_only' && params[:search].nil?
+        day_events = posts_with_events_for_date(@events, @date)
+        @postings = day_events.paginate(:page => @page, :per_page => per_page, :total_etries => day_events.size )
+      end
     end
 
     # Autorefresh form

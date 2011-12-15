@@ -103,4 +103,18 @@ class School < ActiveRecord::Base
     all_postings
   end
   
+  def get_month_events_for_date(user, date)
+    # user has not been used, but it is planned to use it
+    school_events = public_events
+    events_arr = Array.new
+    return events_arr unless school_events
+    
+    school_events.each do |posting|
+      if future_events = posting.get_future_events_for_month(date.beginning_of_month)
+        events_arr += future_events
+      end
+    end
+    events_arr
+  end
+  
 end
