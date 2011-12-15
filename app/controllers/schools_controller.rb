@@ -157,7 +157,7 @@ class SchoolsController < ApplicationController
   
   def paginate_school_postings_on_date(school, date)
     require 'will_paginate/array'
-    all_postings = school_postings_on_date(school, date)
+    all_postings = school.school_postings_on_date(current_user, date)
     if !all_postings.nil? && !all_postings.empty?
      all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
     end
@@ -165,7 +165,7 @@ class SchoolsController < ApplicationController
   
   def paginate_school_postings school
     require 'will_paginate/array'
-    all_postings = school_postings school
+    all_postings = school.school_postings current_user
     if !all_postings.nil? && !all_postings.empty?
      all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
     end

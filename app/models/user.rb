@@ -288,6 +288,43 @@ class User < ActiveRecord::Base
     all_postings
   end
   
+  def schools_postings from = nil
+    all_postings = []
+    schools.each do |school|
+      all_postings += school.get_school_postings self, from
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+  
+  def board_postings from = nil
+    all_postings = []
+    boards.each do |board|
+      if member?(board)
+        if from.nil?
+        all_postings += board.postings # board.all_member_comments(current_user.id)
+        else
+        all_postings += board.postings.where('id > ?', from)
+        end
+      else # current_user is not a member
+        if from.nil?
+        all_postings += board.postings.where(:visibility => 1)
+        else
+        all_postings += board.postings.where('visibility = 1 and id > ?', from)
+        end
+      end
+    end
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    #all_postings.uniq!
+    all_postings
+  end
+ 
+  
   private
     def send_invite_internaly to_user, board
       message = Message.new

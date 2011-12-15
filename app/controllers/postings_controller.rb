@@ -149,9 +149,9 @@ class PostingsController < ApplicationController
             @postings = board.postings.where('visibility = 1 and id > ?', @from_posting)
             end
           elsif school
-          @postings = school_postings school, @from_posting
+          @postings = school.school_postings current_user, @from_posting
           elsif params[:boards] == 'boards'
-          @postings = board_postings @from_posting
+          @postings = current_user.board_postings @from_posting
           end
         end
 
@@ -230,7 +230,6 @@ class PostingsController < ApplicationController
       flash.now[:error] = errors.html_safe
       return false
     else
-      logger.debug "posting.scheduled_event.start_date-----------------------#{posting.scheduled_event.start_date}------------------------------------"
       posting.scheduled_event.next_event = 
         posting.scheduled_event.get_first_event_date(posting.scheduled_event.start_date)
       return (posting.scheduled_event.next_event ? true : false)

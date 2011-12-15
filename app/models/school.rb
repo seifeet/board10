@@ -47,4 +47,56 @@ class School < ActiveRecord::Base
     State.long_name(state) + ', ' + city 
   end
   
+  def school_postings user, from = nil
+    all_postings = []
+    all_postings = get_school_postings user, from
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    #all_postings.uniq!
+    all_postings
+  end
+  
+  def get_school_postings user, from = nil
+    all_postings = []
+    boards.each do |board|
+      if user.member?(board)
+        if from.nil?
+        all_postings += board.postings
+        else
+        all_postings += board.postings.where('id > ?', from)
+        end
+      else # current_user is not a member
+        if from.nil?
+        all_postings += board.postings.where(:visibility => 1)
+        else
+        all_postings += board.postings.where('visibility = 1 and id > ?', from)
+        end
+      end
+    end
+    all_postings
+  end
+  
+  def school_postings_on_date user, date
+    all_postings = []
+    all_postings = get_school_postings_on_date user, date
+    if !all_postings.nil? && !all_postings.empty?
+      all_postings.sort_by!{|posting|[posting.id]}.reverse!
+    end
+    all_postings.uniq!
+    all_postings
+  end
+
+  def get_school_postings_on_date user, date
+    all_postings = []
+    boards.each do |board|
+      if user.member?(board)
+        all_postings += board.postings.where('created_at <= ?', date.end_of_day)
+      else # current_user is not a member
+        all_postings += board.postings.where('visibility = 1 and created_at <= ?', date.end_of_day)
+      end
+    end
+    all_postings
+  end
+  
 end
