@@ -23,14 +23,14 @@ module ApplicationHelper
     10
   end
   
-  def help_note msg
-    ("<span class='help_note tips' title='" + msg + "'>note</span>").html_safe
-  end
-      
   def max_num_schools
     10
   end
   
+  def help_note msg
+    ("<span class='help_note tips' title='" + msg + "'>note</span>").html_safe
+  end
+
   def school_desc school
     (escape_javascript(school.name) + '<br />' + escape_javascript(school.location)).html_safe if school
   end
