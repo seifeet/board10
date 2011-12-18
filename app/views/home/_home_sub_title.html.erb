@@ -1,27 +1,4 @@
-<% if !params[:act].nil? && params[:act] == 'messages' %>
-Messages
-<% elsif !@board.nil? || ( !params[:board].nil? && @board = Board.find_board(params[:board]) ) %>
-<div class="board_title float_left">
-<%= link_to strip_and_cut(@board.title, 80), board_path(@board) %>
-</div>
-<div class="autorefresh_link float_right refreshable">
-<%= render 'home/autorefresh_link', :element => @board %>
-</div>
-<% elsif !@school.nil? %>
-<div class="float_left">
-<%= link_to strip_and_cut(@school.title, 80), school_path(@school) %>
-</div>
-<div class="autorefresh_link float_right refreshable">
-<%= render 'home/autorefresh_link', :element => @school %>
-</div>
-
-<% else %>
-<div class="float_left clickable">
-<%= @postings_title %>
-</div>
-<% if params[:board] || params[:school] || params[:act] == 'boards' || params[:act] == 'schools' %>
-<div class="autorefresh_link float_right refreshable">
-<%= render 'home/autorefresh_link', :element => nil %>
-</div>
-<% end %>
-<% end %>
+<%= render 'home/home_sub_title_impl', :board => @board, :school => @school,
+    :other_title => @postings_title,
+    # elements for autorefresh
+    :form_obj => @autorefresh, :from => @from_posting, :results => @postings %>

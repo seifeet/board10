@@ -1,27 +1,28 @@
-<% 
+<%
+  return 'Missing object (:form_obj) for Refresh form' unless form_obj
   # element is nil if all postings from the board were requested
   # or if element is school with all its postings
   if element.nil? || element.class_type == 'school'
-      if @postings.nil? || @postings.empty?
+    if results.nil? || results.empty?
       last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-      @from_posting = last_post[0].maxid
-    else !@postings.nil?
-      @from_posting = @postings.first.id
+      from = last_post[0].maxid
+    else !results.nil?
+      from = results.first.id
     end
   elsif element.class_type == 'board'
     if element.active?
       if element.postings.nil? || element.postings.empty?
         last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-        @from_posting = last_post[0].maxid
+        from = last_post[0].maxid
       else !element.postings.nil?
-        @from_posting = element.postings.first.id
+        from = element.postings.first.id
       end
     end
   end
 %>
-<% if @from_posting %>
-    <%= form_for @autorefresh, :remote => true do |f| %>
-    <%= hidden_field_tag 'auto_posting', @from_posting %>
+<% if from %>
+    <%= form_for form_obj, :remote => true do |f| %>
+    <%= hidden_field_tag 'auto_posting', from %>
     <% if element.nil? %>
         <%= hidden_field_tag 'boards', 'boards' %>
     <% elsif element.class_type == 'board' %>
