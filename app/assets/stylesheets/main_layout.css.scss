@@ -13,9 +13,7 @@ body{
     /* filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#336633', endColorstr='#709423', GradientType=1); */
 }
 #logo{
-    //@include bkground-image(#336633);
-    background:#f9b36b;
-    //height:2em;
+    @include bkground-image(#336633);
     float:left;   
     width: 100%;
     color:white;
@@ -27,28 +25,23 @@ body{
 }
 #wide_line{
     float: left;   
-    width: 100%;
+    width: 100%;    
     height: 3em; // controls height where context starts
     @include bkground-image(#336633);
 }
 #wider_line{
     float:left;
-    width:93%;
-    height:43em;
-    border-left:4em solid #f9b36b;
-    border-right:4em solid #f9b36b;
-    border-bottom:4em solid #f9b36b;
+    width:100%;
+    height: 19.5em;
     /* MS */
     zoom:1;
     @include main-shadow;
-    //@include bkground-image(#336633, #336633);
-    background:#4c8a41;
+    @include bkground-image(#336633, #336633);
 }
 #user_title_nav{ // right side navigation with schools, boards etc.
     float:right;
     padding: 0 10px 25px 25px;
     background:#336633;
-    border-right:3.1em solid #f9b36b;
     background-color: transparent;
 }
 #content

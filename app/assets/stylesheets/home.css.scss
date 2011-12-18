@@ -67,7 +67,7 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 #whatsNew{
     margin-top:-1.1em;
     margin-bottom:2em;
-    background-color: #4c8a41; //$backgrnd;
+    background-color: $backgrnd;
     padding: 0.5em;
     height:18.2em;
     overflow:hidden;
@@ -117,8 +117,7 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
   text-align:left;
   font-weight: bold;
   font-size: $btn-font-size;
-  color:white; //$bgdarken40;
-  font-family:Franklin Gothic Book;
+  color:$bgdarken40;
 }
 .home_sub_title a {
   margin: auto;
@@ -126,8 +125,7 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
   overflow:visible;
   cursor: pointer;
   font-size: $btn-font-size;
-  color:white; //$bgdarken40;
-  font-family:Franklin Gothic Book;
+  color:$bgdarken40;
   
   &:hover {
     color: $bgdarken20;
@@ -173,12 +171,9 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 #boards_area,
 #schools_area{ // area to display list of schools
     position:absolute;
-    font-family:Franklin Gothic Book;
-    font-size:large;
     margin: 0;
     padding: 0;
     width: 200px;
-    border:3px white solid;
     & .selected a{
       color: #ffb770;
     }
@@ -238,7 +233,7 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
 .secondary_menu_button{
     position:relative;
     margin:3px;
-    //font-weight: bold;
+    font-weight: bold;
     border-bottom:1px solid #808080;
 }
 
