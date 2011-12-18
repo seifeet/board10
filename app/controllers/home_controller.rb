@@ -174,12 +174,7 @@ class HomeController < ApplicationController
       end
     end
     
-    if @postings.nil? || @postings.empty?
-      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-      @from_posting = last_post[0].maxid
-    else
-      @from_posting = @postings.first.id
-    end
+    @from_posting = Posting.get_last_or_max_id @postings
     
     # logger.debug "\n\n After postings \n\n\n"
     @title = @user.full_name

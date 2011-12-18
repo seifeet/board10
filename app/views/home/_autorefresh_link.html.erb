@@ -2,22 +2,11 @@
   return 'Missing object (:form_obj) for Refresh form' unless form_obj
   # element is nil if all postings from the board were requested
   # or if element is school with all its postings
+  
   if element.nil? || element.class_type == 'school'
-    if results.nil? || results.empty?
-      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-      from = last_post[0].maxid
-    else !results.nil?
-      from = results.first.id
-    end
-  elsif element.class_type == 'board'
-    if element.active?
-      if element.postings.nil? || element.postings.empty?
-        last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
-        from = last_post[0].maxid
-      else !element.postings.nil?
-        from = element.postings.first.id
-      end
-    end
+    from = Posting.get_last_or_max_id results
+  elsif element.class_type == 'board' && element.active?
+    from = Posting.get_last_or_max_id element.postings
   end
 %>
 <% if from %>

@@ -35,6 +35,20 @@ class Posting < ActiveRecord::Base
   end
   # **************** end of abstract methods ****************
   
+  def self.get_max_id
+    last_post = find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+    last_post[0].maxid
+  end
+  
+  def self.get_last_or_max_id postings
+    if postings.nil? || postings.empty?
+      get_max_id
+    else
+      # considering default scope the first id will be the latest
+      postings.first.id
+    end
+  end
+  
   def self.find_posting posting_id
     self.find(posting_id)
     rescue ActiveRecord::RecordNotFound
