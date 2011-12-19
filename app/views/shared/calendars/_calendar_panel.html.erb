@@ -1,0 +1,49 @@
+<div class="clearfix">
+<% 
+if element.class_type == 'posting'
+  given_date = element.scheduled_event.start_date if given_date.nil?
+  cal_elements = element.get_future_events_for_month(given_date) if cal_elements.nil?
+  board = element.board
+elsif element.class_type == 'board'
+  board = element
+end 
+%>
+
+<div class="close_button clearfix clickable">
+<% if board %>
+<%= link_to "Close", controller_path+"?board=#{board.id}&act=cancel", :class => 'tips', :title => "Close Calendar", :disable_with => "Close" %>
+<% else %>
+<%= link_to "Close", controller_path+"?school=#{@school.id}&act=cancel", :class => 'tips', :title => "Close Calendar", :disable_with => "Close" %>
+<% end %>
+</div>
+
+<% if element.class_type == 'school' %>
+School Calendar <%= 'with Public Events' if cal_elements.any? %> 
+<% else %>
+Board Calendar
+<% if controller_path == home_path %>
+<%= render 'home/calendar_btns' %>
+<% else %>
+<%= render 'boards/calendar_btns' %>
+<% end %>
+<% end %>
+
+<div class="calendar_sub_title">
+  <% if element.class_type == 'posting' %>
+  <div class="heading"><%= given_date.strftime("%B %Y") %></div>
+  <% else %>
+  <div class="heading clickable">
+  	<%= render 'shared/calendars/nav_year', :controller_path => controller_path,
+  	        :given_date => given_date, :element => ( board ? board : element ) %>
+  </div>
+  <div class="heading clickable">
+  	<%= render 'shared/calendars/nav_month', :controller_path => controller_path,
+  	        :given_date => given_date, :element => ( board ? board : element ) %>
+  </div>
+  <% end %>
+</div>
+<div id="calendar">
+<%= render 'shared/calendars/calendar', :controller_path => controller_path,
+           :cal_elements => cal_elements, :given_date => given_date, :element => ( board ? board : element ) %>
+</div>
+</div>

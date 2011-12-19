@@ -154,7 +154,7 @@ class ScheduledEvent < ActiveRecord::Base
     curr_event = start if curr_event.nil?
     while current_month == curr_event.month do
       tmp_date = get_next_event_date(curr_event)
-      if tmp_date && tmp_date != curr_event
+      if tmp_date && tmp_date != curr_event && tmp_date <= end_date
         events.push clone_scheduled_event(tmp_date)
         curr_event = tmp_date
       else

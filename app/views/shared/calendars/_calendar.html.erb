@@ -1,0 +1,35 @@
+<div id="calendar">
+<%= calendar_for cal_elements, :year => given_date.year, :month => given_date.month do |calendar| %>
+  <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
+  <% calendar.day(:day_method => :next_event) do |date, events| %>
+    <% if date == Date.today %>
+    <div class="cal_today_link clickable">
+    <% elsif date == given_date %>
+    <div class="cal_curr_link clickable">
+    <% else %>
+    <div class="cal_link clickable">
+    <% end %>
+    <% if date.future? %>
+    <%= date.day %>
+    <% elsif element.class_type == 'board' %>
+    <%= link_to date.day, controller_path+"?board=#{element.id}&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
+    <% else %>
+    <%= link_to date.day, controller_path+"?school=#{element.id}&subact=calendar&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
+    <% end %>
+    <% if events.any? && given_date.month == date.month %>
+    <% if date == given_date && params[:subact] == "events_only" %>
+    <div class="curr_event_count clickable">
+    <% else %>
+    <div class="event_count clickable">
+    <% end %>
+    <% if element.class_type == 'board' %>
+    <%= link_to "x"+events.count.to_s, controller_path+"?board=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
+    <% else %>
+    <%= link_to "x"+events.count.to_s, controller_path+"?school=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
+    <% end %>
+    </div>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>
+</div>

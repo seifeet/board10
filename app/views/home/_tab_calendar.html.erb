@@ -1,93 +1,12 @@
-<% return nil unless @board || @posting || @school  %>
-<div class="clearfix">
-<% @date = @posting.scheduled_event.start_date unless @date %>
-<% @events = @posting.get_future_events_for_month(@date) if @posting && @events.nil? %>
-<% if @board || @posting %>
-<% board_id = (@board && @board.id ? @board.id : @posting.board_id) %>
-<% end %>
+<%
+if @board
+  element = @board
+elsif @school
+  element = @school
+else
+  element = @posting
+end
+%>
 
-<% if @posting || @school %>
-<div class="close_button clearfix clickable">
-<% if board_id %>
-<%= link_to "Close", home_path+"?board=#{board_id}&act=cancel", :class => 'tips', :title => "Close Calendar", :disable_with => "Close" %>
-<% else %>
-<%= link_to "Close", home_path+"?school=#{@school.id}&act=cancel", :class => 'tips', :title => "Close Calendar", :disable_with => "Close" %>
-<% end %>
-</div>
-<% end %>
-
-<% if @school %>
-School Calendar <%= 'with Public Events' if @events.any? %> 
-<% else %>
-Board Calendar
-<%= render 'home/calendar_btns' %>
-<% end %>
-
-<div class="calendar_sub_title">
-  <% if @posting %>
-  <div class="heading"><%= @date.strftime("%B %Y") %></div>
-  <% else %>
-  <div class="heading clickable">
-  <% if board_id %>
-  <%= link_to "<", {:board => board_id, :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>
-  <% else %>
-  <%= link_to "<", {:school => @school.id, :subact => "calendar", :date => ((@date - 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous year", :disable_with => "<" %>
-  <% end %>
-  <%= @date.strftime("%Y") %>
-  <% if board_id %>
-  <%= link_to ">", {:board => board_id, :date => ((@date + 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Next year", :disable_with => ">" %>
-  <% else %>
-  <%= link_to ">", {:school => @school.id, :subact => "calendar", :date => ((@date + 1.year).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Next year", :disable_with => ">" %>
-  <% end %>
-  </div>
-  <div class="heading clickable">
-  <% if board_id %>
-  <%= link_to "<", {:board => board_id, :date => ((@date - 1.month).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous month", :disable_with => "<" %>
-  <% else %>
-  <%= link_to "<", {:school => @school.id, :subact => "calendar", :date => ((@date - 1.month).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Previous month", :disable_with => "<" %>
-  <% end %>
-  <%= @date.strftime("%B") %>
-  <% if board_id %>
-  <%= link_to ">", {:board => board_id, :date => ((@date + 1.month).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Next month", :disable_with => ">" %>
-  <% else %>
-  <%= link_to ">", {:school => @school.id, :subact => "calendar", :date => ((@date + 1.month).end_of_month).strftime("%Y-%m-%d")}, :class => 'tips', :title => "Next month", :disable_with => ">" %>
-  <% end %>
-  </div>
-  <% end %>
-</div>
-<div id="calendar">
-<%= calendar_for @events, :year => @date.year, :month => @date.month do |calendar| %>
-  <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
-  <% calendar.day(:day_method => :next_event) do |date, events| %>
-    <% if date == Date.today %>
-    <div class="cal_today_link clickable">
-    <% elsif date == @date %>
-    <div class="cal_curr_link clickable">
-    <% else %>
-    <div class="cal_link clickable">
-    <% end %>
-    <% if date.future? %>
-    <%= date.day %>
-    <% elsif board_id %>
-    <%= link_to date.day, {:board => board_id, :date => (date).strftime("%Y-%m-%d")}, :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
-    <% else %>
-    <%= link_to date.day, {:school => @school.id, :subact => "calendar", :date => (date).strftime("%Y-%m-%d")}, :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
-    <% end %>
-    <% if events.any? && @date.month == date.month %>
-    <% if date == @date && params[:subact] == "events_only" %>
-    <div class="curr_event_count clickable">
-    <% else %>
-    <div class="event_count clickable">
-    <% end %>
-    <% if board_id %>
-    <%= link_to "x"+events.count.to_s, {:board => board_id, :date => (date).strftime("%Y-%m-%d"), :subact => "events_only"}, :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
-    <% else %>
-    <%= link_to "x"+events.count.to_s, {:school => @school.id, :date => (date).strftime("%Y-%m-%d"), :subact => "events_only"}, :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
-    <% end %>
-    </div>
-    <% end %>
-    </div>
-  <% end %>
-<% end %>
-</div>
-</div>
+<%= render 'shared/calendars/calendar_panel', :controller_path => home_path,
+            :element => element, :given_date => @date, :cal_elements => @events %>

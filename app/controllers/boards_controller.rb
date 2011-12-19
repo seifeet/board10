@@ -27,6 +27,7 @@ class BoardsController < ApplicationController
     store_location # store the page location for back functionality
     @board = Board.unscoped.find(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
+    require 'will_paginate/array'
     
     page = valid_page_or_one params[:page]
     paginate = true

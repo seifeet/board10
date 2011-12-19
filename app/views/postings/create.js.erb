@@ -10,8 +10,10 @@ $('#auto_posting').val("<%= escape_javascript( @from_posting.to_s ) %>");
 <% if @posting && @posting.scheduled_event_id %>
 
 <% if stored_location_or_home =~ /\/home?/ %>
+alert('in home');
 $('#title_top_action').html("<%= escape_javascript(render 'home/tab_calendar', :posting => @posting)%>");
 <% elsif stored_location_or_home =~ /\/boards\// %>
+alert('in boards');
 $('#title_top_action').html("<%= escape_javascript(render 'boards/tab_calendar', :posting => @posting)%>");
 <% end %>
 

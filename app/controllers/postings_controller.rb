@@ -74,6 +74,7 @@ class PostingsController < ApplicationController
   # POST /postings
   # POST /postings.json
   def create
+    logger.debug "------------#{request.fullpath} ---- #{session[:return_to]}--------------------------------"
     board = Board.find_board(params[:board_id]) unless params[:board_id].nil?
     school = School.find_school(params[:school_id]) unless params[:school_id].nil?
 
@@ -122,7 +123,7 @@ class PostingsController < ApplicationController
     else # no saving for autorefresh
       no_save = true
       # remeber the latest current posting in case we will not find any new posts
-      last_post = Posting.find_by_sql("SELECT MAX(id) AS maxid FROM postings")
+      last_post = Posting.get_max_id
     end
     
     #params[:content] = params[:posting][:content] if params[:posting][:content]
@@ -159,7 +160,7 @@ class PostingsController < ApplicationController
         if !@postings.nil? && !@postings.empty?
         @from_posting = @postings.first.id
         else
-        @from_posting = last_post[0].maxid
+        @from_posting = last_post
         end
         end # for "if !params[:from_posting].nil?"
 
@@ -180,6 +181,7 @@ class PostingsController < ApplicationController
   # PUT /postings/1
   # PUT /postings/1.json
   def update
+    logger.debug "------------#{request.fullpath} ---- #{session[:return_to]}--------------------------------"
     @posting = Posting.find(params[:id])
     if !params[:posting][:scheduled_event_attributes].nil?
       event = ScheduledEvent.new(params[:posting][:scheduled_event_attributes])

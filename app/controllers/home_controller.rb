@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   
   def index
     return nil if current_user.nil?
+    require 'will_paginate/array'
     
     store_location
     
@@ -206,7 +207,6 @@ class HomeController < ApplicationController
   end
   
   def paginate_user_city_postings city
-    require 'will_paginate/array'
     all_postings = @user.city_postings city
     if !all_postings.nil? && !all_postings.empty?
       all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
@@ -214,7 +214,6 @@ class HomeController < ApplicationController
   end
   
   def paginate_board_postings
-    require 'will_paginate/array'
     all_postings = current_user.board_postings
     if !all_postings.nil? && !all_postings.empty?
       all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )
@@ -222,7 +221,6 @@ class HomeController < ApplicationController
   end
   
   def paginate_schools_postings
-    require 'will_paginate/array'
     all_postings = current_user.schools_postings
     if !all_postings.nil? && !all_postings.empty?
      all_postings.paginate(:page => @page, :per_page => per_page, :total_etries => all_postings.size )

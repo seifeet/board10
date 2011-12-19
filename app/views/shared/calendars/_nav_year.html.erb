@@ -1,0 +1,16 @@
+<% return 'Object for year not defined.' unless element %>
+<% if element.class_type == 'board' %>
+<%= link_to "<", controller_path+"?board=#{element.id}&date="+((given_date - 1.year).end_of_month).strftime("%Y-%m-%d"),
+    :class => 'tips', :title => "Previous year", :disable_with => "<" %>
+<% else %>
+<%= link_to "<", controller_path+"?school=#{element.id}&subact=calendar&date="+((given_date - 1.year).end_of_month).strftime("%Y-%m-%d"),
+	:class => 'tips', :title => "Previous year", :disable_with => "<" %>
+<% end %>
+<%= given_date.strftime("%Y") %>
+<% if element.class_type == 'board' %>
+<%= link_to ">", controller_path+"?board=#{element.id}&date="+((given_date + 1.year).end_of_month).strftime("%Y-%m-%d"),
+    :class => 'tips', :title => "Next year", :disable_with => ">" %>
+<% else %>
+<%= link_to ">", controller_path+"?school=#{element.id}&subact=calendar&date="+((given_date + 1.year).end_of_month).strftime("%Y-%m-%d"),
+	:class => 'tips', :title => "Next year", :disable_with => ">" %>
+<% end %>

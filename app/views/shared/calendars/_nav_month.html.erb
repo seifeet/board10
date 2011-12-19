@@ -1,0 +1,16 @@
+<% return 'Object for month not defined.' unless element %>
+<% if element.class_type == 'board' %>
+<%= link_to "<", controller_path+"?board=#{element.id}&date="+((given_date - 1.month).end_of_month).strftime("%Y-%m-%d"),
+    :class => 'tips', :title => "Previous month", :disable_with => "<" %>
+<% else %>
+<%= link_to "<", controller_path+"?school=#{element.id}&subact=calendar&date="+((given_date - 1.month).end_of_month).strftime("%Y-%m-%d"),
+	:class => 'tips', :title => "Previous month", :disable_with => "<" %>
+<% end %>
+<%= given_date.strftime("%B") %>
+<% if element.class_type == 'board' %>
+<%= link_to ">", controller_path+"?board=#{element.id}&date="+((given_date + 1.month).end_of_month).strftime("%Y-%m-%d"),
+	:class => 'tips', :title => "Next month", :disable_with => ">" %>
+<% else %>
+<%= link_to ">", controller_path+"?school=#{element.id}&subact=calendar&date="+((given_date + 1.month).end_of_month).strftime("%Y-%m-%d"),
+	:class => 'tips', :title => "Next month", :disable_with => ">" %>
+<% end %>
