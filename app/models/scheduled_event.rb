@@ -92,11 +92,14 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def get_first_event_date start
-    return nil if start.nil? || start > end_date 
+    return nil if start.nil? || start > end_date
     if ( repeat == ScheduledEvent::Repeat::MONTHLY ||
-       repeat == ScheduledEvent::Repeat::YEARLY ) &&
-       start.beginning_of_month < start_date.beginning_of_month
-      return nil
+       repeat == ScheduledEvent::Repeat::YEARLY )
+      if start >= start_date && start.beginning_of_month == start_date.beginning_of_month
+        return Date.new(start.year, start.month, month_day)
+      elsif start.beginning_of_month < start_date.beginning_of_month
+        return nil
+      end
     elsif start < start_date
       return nil
     end
