@@ -44,6 +44,7 @@ Board Calendar
 </div>
 <div id="calendar">
 <%= render 'shared/calendars/calendar', :controller_path => controller_path,
-           :cal_elements => cal_elements, :given_date => given_date, :element => ( board ? board : element ) %>
+           :cal_elements => cal_elements, :given_date => given_date, :element => ( board ? board : element ),
+           :read_only => (element.class_type == 'posting') %>
 </div>
 </div>

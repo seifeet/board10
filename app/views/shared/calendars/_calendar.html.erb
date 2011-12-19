@@ -22,7 +22,9 @@
     <% else %>
     <div class="event_count clickable">
     <% end %>
-    <% if element.class_type == 'board' %>
+    <% if read_only %>
+    <div class='tips' title="Your new event schedule for this month. You can edit your event through <b>EDIT EVENT</b> button."><font color="red">x1</font></div>
+    <% elsif element.class_type == 'board' %>
     <%= link_to "x"+events.count.to_s, controller_path+"?board=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
     <% else %>
     <%= link_to "x"+events.count.to_s, controller_path+"?school=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
