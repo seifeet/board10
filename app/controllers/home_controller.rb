@@ -25,7 +25,7 @@ class HomeController < ApplicationController
     @level_ups = Vote.level_ups.limit(10)
     
     # ACTIONS
-    if !params[:act].nil? && params[:act] != 'cancel' 
+    if !params[:act].nil? && params[:act] != 'cancel' && params[:page].nil?
       if params[:act] == 'boards'
         logger.debug "-----------------params[:act] == 'boards'----------------------------------------"
         # show all postings for all user's boards.
@@ -150,7 +150,7 @@ class HomeController < ApplicationController
       logger.debug "-------------------------!params[:school].nil?--------------------------------"
       @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
-      if params[:act] != 'cancel'
+      if params[:act] != 'cancel' && params[:page].nil?
       if params[:subact] != 'events_only'
         @postings = paginate_school_postings(@school, @date)
       end
@@ -166,7 +166,7 @@ class HomeController < ApplicationController
       logger.debug "------------------------!params[:board].nil?---------------------------------"
       @date = valid_date_or_today(params[:date])
       @board = Board.find_board(params[:board])
-      if params[:act] != 'cancel'
+      if params[:act] != 'cancel' && params[:page].nil?
       if !@board.nil? && params[:act] != 'invite' && params[:act] != 'edit_event'
         @events = @board.get_month_events_for_date(current_user, @date)
         if params[:subact] != 'events_only'

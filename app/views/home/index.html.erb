@@ -1,9 +1,9 @@
 <div id="navigation">
-<%= render 'navigation' %>
+<%= render 'navigation' if params[:page].nil? %>
 </div>
 
 <div id="title">
-<%= render 'title' %>
+<%= render 'title' if params[:page].nil? %>
 </div>
 
 <div id="right_side_and_main">
@@ -11,11 +11,11 @@
 <div id='main_part'>
 
 <div class="home_sub_title clearfix">
-<%= render 'home/home_sub_title' %>
+<%= render 'home/home_sub_title' if params[:page].nil? %>
 </div>
 
 <div class="sub_title_nav clearfix">
-<%= render 'home/sub_title_nav' %>
+<%= render 'home/sub_title_nav' if params[:page].nil? %>
 </div>
 
 <div id="user_postings" class="clearfix">
@@ -27,10 +27,10 @@
 <div id="right_side_act">
 
 <div class="info_note">
-<%= render "info" %>
+<%= render "info" if params[:page].nil? %>
 </div>
 <div id="title_top_action" >
-<%= render 'title_top_action' %>
+<%= render 'title_top_action' if params[:page].nil? %>
 </div>
 
 </div><!-- end of right_side_act -->
