@@ -215,7 +215,7 @@ class BoardsController < ApplicationController
   # DELETE /boards/1
   # DELETE /boards/1.json
   def destroy
-    @board = Board.find(params[:id])
+    @board = current_user.boards.find(params[:id])
     
     if @board.postings.any?
       @board.toggle!(:active)

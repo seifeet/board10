@@ -1,4 +1,3 @@
-<div id="calendar">
 <%= calendar_for cal_elements, :year => given_date.year, :month => given_date.month do |calendar| %>
   <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
   <% calendar.day(:day_method => :next_event) do |date, events| %>
@@ -34,4 +33,3 @@
     </div>
   <% end %>
 <% end %>
-</div>

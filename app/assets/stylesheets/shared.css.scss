@@ -513,7 +513,8 @@ a.link_to_text{
 /******************** calendar ******************************************/
 #calendar table {
   border-collapse: collapse;
-  width: 100%;
+  width: 29.4em;
+  border: 3px solid $backgrnd;
 }
 
 #calendar td,
@@ -523,20 +524,24 @@ a.link_to_text{
   padding: 4px;
   border: 1px solid $backgrnd;
 }
+#calendar tr {
+  height:3em;
+}
 
 #calendar th {
-  background: #DDD;
-  color: #666;
+  background: $backgrnd;
+  color: white;
   text-align: center;
-  width: 14.2857142857143%;
+  width:3em;
+  border: 3px solid $backgrnd;
 }
 
 #calendar td {
   background: #FFF;
   color: #777;
-  height: 20px;
+  height:2.5em;
   vertical-align: top;
-  font-size: 16px;
+  font-size:small;
 }
 
 #calendar .notmonth a{
@@ -546,20 +551,28 @@ a.link_to_text{
 
 #calendar .heading {
   margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  width: 29.4em;
+  padding-top:6px;
+  padding-bottom:6px;
+  background: $backgrnd;
+  color:white;
+  font-weight: bold;
   text-align: center;
+  border-bottom:1px solid #808080;
 }
 
 .heading a,
 .heading a:hover {
   text-decoration: none;
   padding: 0 10px;
-  color: #999;
+  color: white;
 }
 
 #calendar .today {
-  background-color: #D7F2FF;
+  background-color: #b9d7de;
+}
+#calendar .weekend {
+  background-color: #eee88b; //#dbbeb2;
 }
 
 #calendar ul {
@@ -589,7 +602,6 @@ a.link_to_text{
 }
 .cal_today_link a{
   text-decoration:none;
-  font-size:small;
   font-weight:bold;
   color:blue;
 }

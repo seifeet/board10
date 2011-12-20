@@ -27,22 +27,21 @@ Board Calendar
 <%= render 'boards/calendar_btns' %>
 <% end %>
 <% end %>
-
+<br class="clearBoth" />
+<div id="calendar">
 <div class="calendar_sub_title">
   <% if element.class_type == 'posting' %>
   <div class="heading"><%= given_date.strftime("%B %Y") %></div>
   <% else %>
   <div class="heading clickable">
-  	<%= render 'shared/calendars/nav_year', :controller_path => controller_path,
-  	        :given_date => given_date, :element => ( board ? board : element ) %>
-  </div>
-  <div class="heading clickable">
   	<%= render 'shared/calendars/nav_month', :controller_path => controller_path,
+  	        :given_date => given_date, :element => ( board ? board : element ) %>
+  	<%= render 'shared/calendars/nav_year', :controller_path => controller_path,
   	        :given_date => given_date, :element => ( board ? board : element ) %>
   </div>
   <% end %>
 </div>
-<div id="calendar">
+
 <%= render 'shared/calendars/calendar', :controller_path => controller_path,
            :cal_elements => cal_elements, :given_date => given_date, :element => ( board ? board : element ),
            :read_only => (element.class_type == 'posting') %>

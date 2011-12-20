@@ -132,19 +132,6 @@ $title-bar: 78%; //sum of $left-side + $right-side - 1%
     font-weight: bold;
   }
 }
-.calendar_sub_title{
-  margin: auto;
-  padding: 5px 5px 5px 5px;
-  text-align:center;
-  font-weight: bold;
-  font-size: $btn-font-size;
-  color:$bgdarken40;
-}
-.calendar_sub_title a{
-  text-decoration:none;
-  font-size: $btn-font-size;
-  color:$bgdarken20;
-}
 #title_top_action{
     height: 30em;
     width: 30em;
