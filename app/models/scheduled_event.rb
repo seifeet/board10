@@ -86,7 +86,11 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   def self.find_event event_id
-    self.find(event_id)
+    event = @cache[event_id]
+    return event if event
+    event = self.find(event_id)
+    @cache[event_id] = event
+    event
     rescue ActiveRecord::RecordNotFound
      nil
   end
@@ -243,6 +247,6 @@ class ScheduledEvent < ActiveRecord::Base
   end
   
   private
-  
+  @cache = Hash.new
   REPEAT_TYPE = { 0 => "Daily", 1 => "Weekly", 2 => "Biweekly", 3 => "Monthly", 4 => "Yearly" }
 end

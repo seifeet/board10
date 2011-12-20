@@ -71,13 +71,17 @@ class Board < ActiveRecord::Base
   end
   
   def self.find_board board_id
-    self.find(board_id)
+    board = @cache[board_id]
+    return board if board
+    board = self.find(board_id)
+    @cache[board_id] = board
+    board
     rescue ActiveRecord::RecordNotFound
      nil
   end
   
   def follower?(user_id)
-    members.find_by_user_id(user_id)
+    members.find_user(user_id)
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -89,7 +93,7 @@ class Board < ActiveRecord::Base
   end
   
   def member?(user_id)
-    member = members.find_by_user_id(user_id)
+    member = members.find_user(user_id)
     return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::MemberType::OWNER)
     false
     rescue ActiveRecord::RecordNotFound
@@ -108,7 +112,8 @@ class Board < ActiveRecord::Base
   end
   
   def owner?(user_id)
-    members.find_by_user_id_and_member_type(user_id,Member::MemberType::OWNER)
+    member = members.find_user(user_id)
+    member.member_type == Member::MemberType::OWNER
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -118,13 +123,13 @@ class Board < ActiveRecord::Base
   end
   
   def unmember!(user_id)
-    members.find_by_user_id(user_id).destroy
+    members.find_user(user_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
   end
   
   def unfollow!(user_id)
-    members.find_by_user_id(user_id).destroy
+    members.find_user(user_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -148,6 +153,9 @@ class Board < ActiveRecord::Base
   PUBLIC = 'Public'
   
   private
+    
+    @cache = Hash.new
+      
     STATUS = { true => "Active", false => "Inactive" }
     ACCESS = { 0 => "Private", 1 => "Public" }
 end

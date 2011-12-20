@@ -11,7 +11,7 @@ module PostingsHelper
     day_events = Array.new
     for event in events_arr
       if event.next_event == date
-        day_events.push Posting.find(event.posting_id)
+        day_events.push Posting.find_posting(event.posting_id)
       end
     end
     day_events

@@ -50,7 +50,11 @@ class Posting < ActiveRecord::Base
   end
   
   def self.find_posting posting_id
-    self.find(posting_id)
+    posting = @cache[posting_id]
+    return posting if posting
+    posting = self.find(posting_id)
+    @cache[posting_id] = posting
+    posting
     rescue ActiveRecord::RecordNotFound
      nil
   end
@@ -122,6 +126,8 @@ class Posting < ActiveRecord::Base
   PUBLIC = 'Public'
 
   private
+    @cache = Hash.new
+    
     GROUP_STATUS = { true => "Active", false => "Inactive" }
     USER_STATUS = { true => "Active", false => "Inactive" }
     VISIBILITY = { 0 => "Private", 1 => "Public" }

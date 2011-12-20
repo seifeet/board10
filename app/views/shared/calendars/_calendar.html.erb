@@ -11,9 +11,9 @@
     <% if date.future? %>
     <%= date.day %>
     <% elsif element.class_type == 'board' %>
-    <%= link_to date.day, controller_path+"?board=#{element.id}&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
+    <%= link_to date.day, controller_path+"?board=#{element.id}&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "Posts as of #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
     <% else %>
-    <%= link_to date.day, controller_path+"?school=#{element.id}&subact=calendar&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View posts for #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
+    <%= link_to date.day, controller_path+"?school=#{element.id}&subact=calendar&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "Posts as of #{(date).strftime('%Y-%m-%d')}", :disable_with => "#{date.day}..." %>
     <% end %>
     <% if events.any? && given_date.month == date.month %>
     <% if date == given_date && params[:subact] == "events_only" %>

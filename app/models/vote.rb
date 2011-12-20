@@ -41,13 +41,13 @@ class Vote < ActiveRecord::Base
   
   def self.object_by_vote vote
     if vote.obj_type == Vote::ObjectType::POSTING
-      obj = Posting.find(vote.obj_id)
+      obj = Posting.find_posting(vote.obj_id)
     elsif vote.obj_type == Vote::ObjectType::BOARD
-      obj = Board.find(vote.obj_id)
+      obj = Board.find_board(vote.obj_id)
     elsif vote.obj_type == Vote::ObjectType::USER
-      obj = User.find(vote.obj_id)
+      obj = User.find_user(vote.obj_id)
     elsif vote.obj_type == Vote::ObjectType::SCHOOL
-      obj = School.find(vote.obj_id)
+      obj = School.find_school(vote.obj_id)
     end
     rescue ActiveRecord::RecordNotFound
     nil

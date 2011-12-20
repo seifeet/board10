@@ -25,7 +25,7 @@ class BoardsController < ApplicationController
   # GET /boards/1.json
   def show
     store_location # store the page location for back functionality
-    @board = Board.unscoped.find(params[:id])
+    @board = Board.unscoped.find_board(params[:id])
     raise ActiveRecord::RecordNotFound if @board.nil?
     require 'will_paginate/array'
     
@@ -149,7 +149,7 @@ class BoardsController < ApplicationController
 
   # GET /boards/1/edit
   def edit
-    @board = Board.find(params[:id])
+    @board = Board.find_board(params[:id])
   end
 
   # POST /boards
@@ -187,7 +187,7 @@ class BoardsController < ApplicationController
   # PUT /boards/1
   # PUT /boards/1.json
   def update
-    @board = Board.find(params[:id])
+    @board = Board.find_board(params[:id])
     @failures = false
     
     if params[:board][:title] && params[:board][:description] && (params[:board][:title].blank? || params[:board][:description].blank?)
@@ -215,7 +215,7 @@ class BoardsController < ApplicationController
   # DELETE /boards/1
   # DELETE /boards/1.json
   def destroy
-    @board = current_user.boards.find(params[:id])
+    @board = current_user.boards.find_board(params[:id])
     
     if @board.postings.any?
       @board.toggle!(:active)

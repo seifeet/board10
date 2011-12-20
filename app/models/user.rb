@@ -62,7 +62,11 @@ class User < ActiveRecord::Base
   # **************** end of abstract methods ****************
   
   def self.find_user user_id
-    self.find(user_id)
+    user = @cache[user_id]
+    return user if user
+    user = self.find(user_id)
+    @cache[user_id] = user
+    user
     rescue ActiveRecord::RecordNotFound
      nil
   end
@@ -92,7 +96,7 @@ class User < ActiveRecord::Base
   end
   
   def follower?(board_id)
-    members.find_by_board_id(board_id)
+    members.find_board(board_id)
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -104,7 +108,7 @@ class User < ActiveRecord::Base
   end
   
   def member?(board_id)
-    member = members.find_by_board_id(board_id)
+    member = members.find_board(board_id)
     return member if !member.nil? && (member.member_type == Member::MemberType::MEMBER || member.member_type == Member::MemberType::OWNER)
     false
     rescue ActiveRecord::RecordNotFound
@@ -116,7 +120,8 @@ class User < ActiveRecord::Base
   end
   
   def owner?(board_id)
-    members.find_by_board_id_and_member_type(board_id,Member::MemberType::OWNER)
+    member = members.find_board(board_id)
+    member.member_type == Member::MemberType::OWNER
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -126,13 +131,13 @@ class User < ActiveRecord::Base
   end
    
   def unmember!(board_id)
-    members.find_by_board_id(board_id).destroy
+    members.find_board(board_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
   end
   
   def unfollow!(board_id)
-    members.find_by_board_id(board_id).destroy
+    members.find_board(board_id).destroy
     rescue ActiveRecord::RecordNotFound
     false
   end
@@ -335,6 +340,8 @@ class User < ActiveRecord::Base
   end
   
   private
+    @cache = Hash.new
+    
     def send_invite_internaly to_user, board
       message = Message.new
       message.to_user = to_user.id

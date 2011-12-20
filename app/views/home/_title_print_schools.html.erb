@@ -57,7 +57,7 @@
         boards = ( all_boards.count > max_num_boards ? 
                     all_boards[0..max_num_boards - 1] : all_boards )
         boards.each do |board|
-          member = current_user.members.find_by_board_id(board.id)
+          member = current_user.members.find_board(board.id)
           if member
 %>
     <div class="secondary_menu_button clearfix" >

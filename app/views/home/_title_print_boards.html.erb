@@ -27,7 +27,7 @@
       @current_board = board if board.id.to_s == params[:board]
 %>
     <div class="secondary_menu_button <%= selected_if(board.id.to_s == params[:board]) %>">
-    <% member = current_user.members.find_by_board_id(board.id) %>
+    <% member = current_user.members.find_board(board.id) %>
     <%= link_to "#{strip_and_cut(board.title, 30)}", home_path+"?board=#{board.id}", :class => 'tips', :title => "#{board_desc(board, member)}", :disable_with => "Loading..." %>
     </div>
 <%

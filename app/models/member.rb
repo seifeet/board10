@@ -13,6 +13,26 @@ class Member < ActiveRecord::Base
     'member'
   end
   
+  def self.find_board board_id
+    member = @cache_boards[board_id]
+    return member if member
+    member = self.find_by_board_id(board_id)
+    @cache_boards[board_id] = member
+    member
+    rescue ActiveRecord::RecordNotFound
+     nil
+  end
+  
+  def self.find_user user_id
+    member = @cache_users[user_id]
+    return member if member
+    member = self.find_by_user_id(user_id)
+    @cache_users[user_id] = member
+    member
+    rescue ActiveRecord::RecordNotFound
+     nil
+  end
+  
   class MemberType
     MEMBER = 0
     OWNER = 1
@@ -25,5 +45,7 @@ class Member < ActiveRecord::Base
   end
   
   private
+    @cache_boards = Hash.new
+    @cache_users = Hash.new
     MEMBER_TYPE = { 0 => "member", 1 => "owner", 2 => "follower" }
 end

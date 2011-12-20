@@ -11,7 +11,11 @@ class School < ActiveRecord::Base
   #default_scope :order => 'name ASC'
   
   def self.find_school school_id
-    self.find(school_id)
+    school = @cache[school_id]
+    return school if school
+    school = self.find(school_id)
+    @cache[school_id] = school
+    school
     rescue ActiveRecord::RecordNotFound
      nil
   end
@@ -116,5 +120,8 @@ class School < ActiveRecord::Base
     end
     events_arr
   end
-  
+
+  private
+    
+    @cache = Hash.new
 end

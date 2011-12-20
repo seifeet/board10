@@ -6,7 +6,7 @@
         <% if element.active_user %>
             <% if current_user && current_user.id == element.user_id %>
             posted by me
-            <% elsif user = element.user %>
+            <% elsif user = User.find_user(element.user_id) %>
                 <% if current_user %>
                 <b><%= link_to "#{user.full_name}", user_path(element.user_id), :class => "link_to_text" %></b>
                 <% else %>
@@ -23,19 +23,20 @@
     <% end %>
   
     <div class="inline clickable">
-        <% if element.board %>
+    	<% board = Board.find_board(element.board_id) %>
+        <% if board %>
           <% if current_user && stored_location_or_home =~ /\/home?/ %>
-        <b><%= link_to "#{strip_and_cut(element.board.title,26)}", home_path + "?board=#{element.board_id}", :class => "tips link_to_text", :title => "Board: #{element.board.title}", :disable_with => "Loading board..." %></b>
+        <b><%= link_to "#{strip_and_cut(board.title,26)}", home_path + "?board=#{element.board_id}", :class => "tips link_to_text", :title => "Board: #{board.title}", :disable_with => "Loading board..." %></b>
           <% else %>
-        <b><%= strip_and_cut(element.board.title,26) %></b>
+        <b><%= strip_and_cut(board.title,26) %></b>
           <% end %>
         <% else %>
         <i>(Board was deactivated)</i>
         <% end %>
     </div>
 
-    <% if element.board && !element.board.school_id.nil? %>
-    <% school = School.find_school(element.board.school_id) %>
+    <% if board && !board.school_id.nil? %>
+    <% school = School.find_school(board.school_id) %>
     <div class="inline clickable">
         <% if current_user && stored_location_or_home =~ /\/home?/ %>
         <b><%= link_to "#{strip_and_cut(school.name,26)}", home_path + "?school=#{school.id}", :class => "tips link_to_text", :title => "#{school_desc(school)}", :disable_with => "Loading school..." %></b>
