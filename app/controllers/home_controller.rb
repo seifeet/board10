@@ -116,7 +116,7 @@ class HomeController < ApplicationController
         @postings = @postings.paginate(:page => @page, :per_page => per_page_search ).order('created_at DESC')
       end
     
-    elsif params[:city].nil? && params[:school].nil? && params[:board].nil?
+    elsif params[:city].nil? && params[:school].nil? && params[:board].nil? && params[:page].nil?
       logger.debug "-------------------------ELSE--------------------------------"
       # try to find posts on some level starting from city then schools then boards
       get_posts_from_top_to_bottom
