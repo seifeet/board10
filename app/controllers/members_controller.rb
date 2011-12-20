@@ -133,8 +133,19 @@ class MembersController < ApplicationController
   # DELETE /members/1.json
   def destroy
     @member = Member.find(params[:id])
-    params[:board_id] = @member.board if @member
-    @member.destroy
+    if @member
+      params[:board_id] = @member.board
+      # we can't destroy the member right away because it opens security hole,
+      # so let's get the board first
+      board = @member.board
+      # if the current_user is the owner of the board let's ban the member
+      if current_user.owner?(board)
+        @member.destroy
+      else # otherwise let the user destroy only it's own membership
+        @member = current_user.members.find(params[:id])
+        @member.destroy
+      end
+    end
 
     respond_to do |format|
       format.html { redirect_back_or user_path(params[:id]) }
