@@ -1,6 +1,7 @@
 <%= calendar_for cal_elements, :year => given_date.year, :month => given_date.month, :first_day_of_week => 1 do |calendar| %>
   <%= calendar.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
   <% calendar.day(:day_method => :next_event) do |date, events| %>
+    <% events.sort_by!{|event|[event.start_time]} %>
     <% if date == Date.today %>
     <div class="cal_today_link clickable">
     <% elsif date == given_date %>
@@ -24,9 +25,9 @@
     <% if read_only %>
     <div class='tips' title="Your new event schedule for this month. You can edit your event through <b>EDIT EVENT</b> button."><font color="red">x1</font></div>
     <% elsif element.class_type == 'board' %>
-    <%= link_to "x"+events.count.to_s, controller_path+"?board=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
+    <%= link_to "x"+events.count.to_s, controller_path+"?board=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}#{daily_events(events)}", :disable_with => "...x#{events.count.to_s}" %>
     <% else %>
-    <%= link_to "x"+events.count.to_s, controller_path+"?school=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}", :disable_with => "...x#{events.count.to_s}" %>
+    <%= link_to "x"+events.count.to_s, controller_path+"?school=#{element.id}&subact=events_only&date="+(date).strftime("%Y-%m-%d"), :class => 'tips', :title => "View events for #{(date).strftime('%Y-%m-%d')}#{daily_events(events)}", :disable_with => "...x#{events.count.to_s}" %>
     <% end %>
     </div>
     <% end %>
