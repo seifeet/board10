@@ -62,7 +62,7 @@
             curr_page = getPageNumber(settings.href);
             $(data).find(settings.element).each(function(index) {
                 $(settings.results).append($(this));
-                $.toggleContextMenu($(this));
+                //$.toggleContextMenu($(this));
             }); 
 
             // Replace live pagination if there are no more results, else update the href for the next page

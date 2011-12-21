@@ -1,5 +1,5 @@
-<%= calendar_for cal_elements, :year => given_date.year, :month => given_date.month do |calendar| %>
-  <%= calendar.head('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') %>
+<%= calendar_for cal_elements, :year => given_date.year, :month => given_date.month, :first_day_of_week => 1 do |calendar| %>
+  <%= calendar.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
   <% calendar.day(:day_method => :next_event) do |date, events| %>
     <% if date == Date.today %>
     <div class="cal_today_link clickable">
