@@ -25,7 +25,7 @@ class HomeController < ApplicationController
     @level_ups = Vote.level_ups.limit(10)
     
     # ACTIONS
-    if !params[:act].nil? && params[:act] != 'cancel' && params[:page].nil?
+    if !params[:act].nil? && params[:act] != 'cancel'
       if params[:act] == 'boards'
         logger.debug "-----------------params[:act] == 'boards'----------------------------------------"
         # show all postings for all user's boards.
@@ -116,7 +116,7 @@ class HomeController < ApplicationController
         @postings = @postings.paginate(:page => @page, :per_page => per_page_search ).order('created_at DESC')
       end
     
-    elsif params[:city].nil? && params[:school].nil? && params[:board].nil? && params[:page].nil?
+    elsif params[:city].nil? && params[:school].nil? && params[:board].nil?
       logger.debug "-------------------------ELSE--------------------------------"
       # try to find posts on some level starting from city then schools then boards
       get_posts_from_top_to_bottom
