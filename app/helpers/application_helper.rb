@@ -41,7 +41,7 @@ module ApplicationHelper
     events.each do |event|
       #posting = event.posting
       posting = Posting.find_posting(event.posting_id)
-      events_str += "<br /><b>" + event.start_time.strftime('%I-%M%p') + " - " + event.end_time.strftime('%I-%M%p') + '</b> ' + strip_and_cut(posting.subject,20) + "<br />" + strip_and_cut(posting.content,40)
+      events_str += "<br /><b>" + event.start_time.strftime('%I-%M%p') + " - " + event.end_time.strftime('%I-%M%p') + '</b> ' + strip_and_cut(posting.subject,15) + "<br />" + strip_and_cut(posting.content,50)
     end
     events_str
   end
