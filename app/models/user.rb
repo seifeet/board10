@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
   
   def owner?(board_id)
     member = members.find_board(board_id)
-    member.member_type == Member::MemberType::OWNER if member
+    return member.member_type == Member::MemberType::OWNER if member
     false
     rescue ActiveRecord::RecordNotFound
     false

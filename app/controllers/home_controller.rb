@@ -75,7 +75,7 @@ class HomeController < ApplicationController
       elsif params[:act] == 'edit_board'
         logger.debug "---------------------params[:act] == 'edit_board'------------------------------------"
         @new_board = Board.find_board(params[:board])
-        @new_board = nil unless current_user.owner?( @new_board )
+        @new_board = nil unless current_user.owner?( @new_board.id )
         @postings_title = "Edit Board:"
         #@postings = paginate_board_postings
         #paginate = false
