@@ -33,6 +33,8 @@
 	<div class="action_tab"><%= render 'home/tab_remove_board' %></div>
 	<% elsif params[:act] == 'remove_school' %>
 	<div class="action_tab"><%= render 'home/tab_remove_school' %></div>
+	<% elsif params[:act] == 'add_school' %>
+	<div class="action_tab"><%= render 'home/tab_add_school', :element => @school %></div>
 	<% elsif params[:act] == 'add_event' || params[:act] == 'edit_event' %>
 	<div id="tab_new_event"><%= render 'home/tab_new_event' %></div>
 	<% elsif params[:act] == 'messages' %>

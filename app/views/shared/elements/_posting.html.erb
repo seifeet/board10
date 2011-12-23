@@ -55,10 +55,10 @@
     <% end %>
     
     <% if !element.subject.nil? && !element.subject.empty? %>
-    <%= link_to strip_and_cut(element.subject,150), posting_path(element), :class => "inline subject" %>
+    <%= link_to strip_and_cut(element.subject,50), posting_path(element), :class => "inline subject" %>
     <% end %>
     <div class="inline">
-    <%= link_to strip_and_cut(element.content, 250), posting_path(element), :class => "link_to_text" %>
+    <%= link_to strip_and_cut(element.content, 150), posting_path(element), :class => "link_to_text" %>
     </div>
     <% unless element.view_count == 0 %>
     <div class="inline">(<%= pluralize( element.view_count, 'UP')  %>)</div>

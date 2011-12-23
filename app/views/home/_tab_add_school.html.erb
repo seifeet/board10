@@ -1,0 +1,14 @@
+<% return nil unless element %>
+<br /><br /><br />
+<% if current_user.has_school?(element) %>
+<%= element.name %> is already linked to your profile.
+<% else %>
+After adding a school to your profile you will be able to read public posts from that school.
+Please click on <b>Add</b> in order to link <%= element.name %> to your profile.
+<br /><br />
+<%= form_for current_user.user_schools.build(:school_id => element.id), :class => "submitable", :remote => true do |f| %>
+  <%= f.hidden_field :school_id, :value => element.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.submit "Add", :class => "button_confirm", :disable_with => "Add" %>
+<% end %>
+<% end %>

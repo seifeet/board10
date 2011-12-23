@@ -51,15 +51,16 @@ class UserSchoolsController < ApplicationController
     if ( !user.nil? && !school.nil? && !user.has_school?(school))
       @user_school = UserSchool.new(params[:user_school])
       current_user.has_school!(@user_school.school_id)
+      flash.now[:success] = "School #{school.name} was linked to your profile."
     else
       valid = false
       flash.now[:error] = "Unable to link this school to your profile."
     end
     
-    params[:act] = 'school_search'
     params[:search] = params[:user_school][:search] if !params[:user_school][:search].nil?
     params[:state] = params[:user_school][:state] if !params[:user_school][:state].nil?
     params[:city] = params[:user_school][:city] if !params[:user_school][:city].nil?
+    params[:act] = 'school_search' if params[:search]
 
     respond_to do |format|
       if valid # && @user_school.save

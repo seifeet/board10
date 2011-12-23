@@ -1,5 +1,9 @@
 <% if stored_location_or_home =~ /\/home?/ %>
+<% if params[:act] == 'school_search' %>
 $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
+<% else %>
+$("#title_top_action").html("");
+<% end %>
 	<% if current_user.schools.count > max_num_schools %>
 	$("#user_schools").html("<%= escape_javascript(render 'home/user_schools', :user => current_user ) %>");
 	<% end %>
