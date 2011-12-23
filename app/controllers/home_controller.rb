@@ -150,7 +150,7 @@ class HomeController < ApplicationController
       logger.debug "-------------------------!params[:school].nil?--------------------------------"
       @date = valid_date_or_today(params[:date])
       @school = School.find_school(params[:school])
-      if params[:act] != 'cancel' && params[:page].nil?
+      if params[:act] != 'cancel'
       if params[:subact] != 'events_only'
         @postings = paginate_school_postings(@school, @date)
       end

@@ -68,19 +68,24 @@ class School < ActiveRecord::Base
   def get_school_postings user, from = nil
     all_postings = []
     boards.each do |board|
-      if user.member?(board)
-        if from.nil?
-        all_postings += board.postings
-        else
-        all_postings += board.postings.where('id > ?', from)
-        end
-      else # current_user is not a member
-        if from.nil?
-        all_postings += board.postings.where(:visibility => 1)
-        else
+      if from
         all_postings += board.postings.where('visibility = 1 and id > ?', from)
-        end
+      else
+        all_postings += board.postings.public_posts
       end
+      #if user.member?(board)
+      #  if from.nil?
+      #  all_postings += board.postings
+      #  else
+      #  all_postings += board.postings.where('id > ?', from)
+      #  end
+      #else # current_user is not a member
+      #  if from.nil?
+      #  all_postings += board.postings.where(:visibility => 1)
+      #  else
+      #  all_postings += board.postings.where('visibility = 1 and id > ?', from)
+      #  end
+      #end
     end
     all_postings
   end
@@ -98,11 +103,12 @@ class School < ActiveRecord::Base
   def get_school_postings_on_date user, date
     all_postings = []
     boards.each do |board|
-      if user.member?(board)
-        all_postings += board.postings.where('created_at <= ?', date.end_of_day)
-      else # current_user is not a member
-        all_postings += board.postings.where('visibility = 1 and created_at <= ?', date.end_of_day)
-      end
+      all_postings += board.postings.where('visibility = 1 and created_at <= ?', date.end_of_day)
+      #if user.member?(board)
+      #  all_postings += board.postings.where('created_at <= ?', date.end_of_day)
+      #else # current_user is not a member
+      #  all_postings += board.postings.where('visibility = 1 and created_at <= ?', date.end_of_day)
+      #end
     end
     all_postings
   end
