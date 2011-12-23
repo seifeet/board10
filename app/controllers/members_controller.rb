@@ -47,9 +47,9 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     user = User.find_user(params[:member][:user_id])
-    board = Board.find_board(params[:member][:board_id])
+    @board = Board.find_board(params[:member][:board_id])
     @action = 'join'
-    if ( !user.nil? && !board.nil? )
+    if ( !user.nil? && !@board.nil? )
       logger.debug "----------------Member.new-------------------------------------"
       @member = Member.new(params[:member])
       @member.user_id = user.id
@@ -58,19 +58,19 @@ class MembersController < ApplicationController
         @member.user_id = current_user.id # follower could be only the current user
         @member.member_type = Member::MemberType::FOLLOWER
         # follower? is true if a user is a follower, member or owner
-        if !current_user.follower?(board)
+        if !current_user.follower?(@board)
         logger.debug "----------------Saving follower #{user.full_name}-------------------------------------"
         @action = 'follow'
         @member.save
-        flash.now[:success] = "Board \"#{board.title}\" was linked to your profile."
+        flash.now[:success] = "Board \"#{@board.title}\" was linked to your profile."
         else
-        flash.now[:warning] = "Your profile already linked to \"#{board.title}\"."
+        flash.now[:warning] = "Your profile already linked to \"#{@board.title}\"."
         end
       else
         logger.debug "----------------Adding a member #{user.full_name}-------------------------------------"
-        if !user.member?(board)
+        if !user.member?(@board)
           logger.debug "----------------User #{user.full_name} is not a member-------------------------------------"
-          follower = user.follower?(board)
+          follower = user.follower?(@board)
           if follower
           logger.debug "----------------Updating follower #{user.full_name} to become a member-------------------------------------"
           follower.update_attribute(:member_type, Member::MemberType::MEMBER)
@@ -84,7 +84,7 @@ class MembersController < ApplicationController
           @member.member_type = Member::MemberType::MEMBER
           @member.save
         end
-        flash.now[:success] = "#{user.full_name} was added to your Board \"#{board.title}\"."
+        flash.now[:success] = "#{user.full_name} was added to your Board \"#{@board.title}\"."
       end
     end
 

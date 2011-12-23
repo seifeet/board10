@@ -1,5 +1,6 @@
 <% if stored_location_or_home =~ /\/home?/ %>
 $("#user_postings").html("<%= escape_javascript(render 'home/user_postings') %>");
+$("#title_top_action").html("<%= escape_javascript(render 'home/tab_join_board', :element => @board) %>");
 <% elsif stored_location_or_home =~ /\/boards\// %>
 $("#title_top_action").html("");
 <% elsif stored_location_or_home =~ /\/schools\// %>

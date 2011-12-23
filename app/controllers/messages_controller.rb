@@ -57,15 +57,15 @@ class MessagesController < ApplicationController
     valid = false
     
     if commit == Message::Commit::JOIN || commit == Message::Commit::INVITE
-      board = Board.find_board(params[:message][:board_id])
+      @board = Board.find_board(params[:message][:board_id])
       user = User.find_user(params[:message][:to_user])
-      if ( !board.nil? && !user.nil? )
+      if ( !@board.nil? && !user.nil? )
         content = params[:message][:content]
   
         @message.to_user = user.id
-        @message.board_id = board.id
+        @message.board_id = @board.id
         @message.from_user = current_user.id
-        @message.subject = commit + " request for board \"#{board.title}\""
+        @message.subject = commit + " request for board \"#{@board.title}\""
         @message.content = content
         @message.msg_type = Message::Type::JOIN if ( commit == Message::Commit::JOIN )
         @message.msg_type = Message::Type::INVITE if ( commit == Message::Commit::INVITE )

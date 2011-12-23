@@ -43,6 +43,11 @@
     <%= link_to 'REMOVE', home_path+"?board=#{params[:board]}&act=remove_board", :class => 'tips', :title => "Remove this board", :disable_with => "Loading..." %>
     </div>
     <% end %>
+    <% if member.nil? || member.member_type == Member::MemberType::FOLLOWER %>
+    <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'join_board') %>">
+    <%= link_to 'JOIN', home_path+"?board=#{params[:board]}&act=join_board", :class => 'tips', :title => "Remove this board", :disable_with => "Loading..." %>
+    </div>
+    <% end %>
     
     <% if board.access == Posting::PUBLIC || current_user.member?(board) %>
     <div class="sub_menu_button clickable <%= selected_if(params[:act] == 'write') %>">

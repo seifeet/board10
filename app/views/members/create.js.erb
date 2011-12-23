@@ -1,4 +1,5 @@
 <% if stored_location_or_home =~ /\/home?/ %>
+$("#title_top_action").html("<%= escape_javascript(render 'home/tab_join_board', :element => @board) %>");
 <% if @action == 'join' %>
 $("#user_postings").html("<%= escape_javascript(render 'home/messages') %>");
 <% elsif @action == 'follow' %>

@@ -1,0 +1,39 @@
+<% owner = element.members.find_by_member_type(Member::MemberType::OWNER) %>
+<% if owner %>
+<% user = User.find_user(owner.user_id) %>
+<% end %>
+<% if user %>
+    <% if element.active? && !current_user.follower?(element) %>
+    <b>Follow</b> will allow you to recieve only public posts from this board. 
+    You do not need owner's permission to follow a board, 
+    but you will not be able to post on private boards.<br /><br />
+	<%= form_for current_user.members.build(:board_id => element.id), :class => "submitable", :remote => true do |f| %>
+	<%= f.hidden_field :board_id %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	<%= f.submit "#{Member::Commit::FOLLOW}", :class => "button_neutral", :disable_with => "Processing..." %>
+	<% end %><br />
+	<% end %>
+	<% # not a good thing, but I have to do that for the sake of simplicity
+	message_subj = "Join request for board \"#{element.title}\"" 
+	%>
+	<% if element.active? && !current_user.member?(element) && !user.recieved.join_requests.unread.where("from_user = ? and subject = ?", current_user.id, message_subj).any? %>
+		<b>Join</b> is a request to become a member of the board. 
+		After owner's confirmation your profile will be linked to the board. 
+		You will be able to see private posts and write on this board.
+		Please fill out your request bellow and click on <b>Join</b>.
+		<br class="clearBoth"/><br />
+		<div class="action_btn inline">
+	    Your Request:
+		<%= form_for current_user.sent.build(:from_user => current_user.id), :class => "submitable", :remote => true do |f| %>
+		  <%= f.hidden_field :to_user, :value => owner.user_id %>
+		  <%= f.hidden_field :board_id, :value => element.id %>
+		  <div class="field">
+		  <%= f.text_area :content, :rows => 7, :cols => 33, :value => "Hi!\n\nI would like to join your board \"#{element.title}\".\n\nThank you!" %>
+		  </div>
+		  <%= f.submit "#{Message::Commit::JOIN}", :class => "button_neutral", :disable_with => "Sending..." %>
+		<% end %>
+		</div>
+	<% else %>
+	You have sent a request to join this board.
+	<% end %>
+<% end %>
