@@ -26,12 +26,12 @@ class School < ActiveRecord::Base
       tmp = nil
       tmp = search.sub(' ', '%') unless search.nil?
       if state && !state.blank?
-        where('state = ? and city like ? and CONCAT( name, \' \', name ) LIKE ?', "#{state}", "%#{city}%", "%#{tmp}%")
+        where('state = ? and city like ? and CONCAT( name, \' \', name ) LIKE ?', "#{state}", "%#{city}%", "%#{tmp}%").order(:name)
       else
-        where('city like ? and CONCAT( name, \' \', name ) LIKE ?', "%#{city}%", "%#{tmp}%")
+        where('city like ? and CONCAT( name, \' \', name ) LIKE ?', "%#{city}%", "%#{tmp}%").order(:name)
       end
     else
-      scoped # the same as all, but does not perform the actual query
+      scoped.order(:name) # the same as all, but does not perform the actual query
     end
   end
   
